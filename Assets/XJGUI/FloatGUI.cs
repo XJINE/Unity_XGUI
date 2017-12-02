@@ -2,30 +2,16 @@
 
 namespace XJGUI
 {
-    public class FloatGUI : AbstractGUI<float>
+    public class FloatGUI : FloatingValueGUI<float>
     {
-        #region Field
-
-        public float minValue = float.MinValue;
-        public float maxValue = float.MaxValue;
-        public float decimalPlace = 2;
-
-        public float textFieldWidth = -1;
-        public bool withSlider = true;
-
-        private string text = null;
-        private bool textIsValid = true;
-
-        #endregion Field
-
         #region Property
 
         public override float Value
         {
             set
             {
-                base.value = value;
-                this.text = value.ToString();
+                base.value = (float)System.Math.Round(value, base.decimalPlaces);
+                base.text = value.ToString();
             }
             get
             {
@@ -36,6 +22,16 @@ namespace XJGUI
         #endregion Property
 
         #region Method
+
+        protected override void InitializeMinMaxValue()
+        {
+            base.minValue = float.MinValue;
+            base.maxValue = float.MaxValue;
+        }
+
+        // NOTE:
+        // float.TryParse("0.") return true.
+        // But need to keep user input check, because the user may input "0.x~".
 
         public override float Show()
         {
@@ -49,21 +45,22 @@ namespace XJGUI
                 {
                     base.ShowTitle();
 
-                    this.text = this.text == null ? base.value.ToString() : this.text;
-                    this.text = GUILayout.TextField(this.text, this.textFieldWidth <= 0 ?
-                                GUILayout.ExpandWidth(true) : GUILayout.Width(this.textFieldWidth));
+                    base.text = base.text == null ? base.value.ToString() : base.text;
+                    base.text = GUILayout.TextField(base.text, base.textFieldWidth <= 0 ?
+                                GUILayout.ExpandWidth(true) : GUILayout.Width(base.textFieldWidth));
 
-                    this.textIsValid = float.TryParse(this.text, out newValue);
+                    base.textIsValid = float.TryParse(base.text, out newValue);
 
-                    if (this.textIsValid)
+                    if (base.textIsValid)
                     {
-                        this.Value = newValue;
+                        newValue = (float)System.Math.Round(newValue, base.decimalPlaces);
+                        base.value = newValue;
                     }
                 });
 
                 // Slider
 
-                if (!this.withSlider)
+                if (!base.withSlider)
                 {
                     return;
                 }
@@ -72,22 +69,23 @@ namespace XJGUI
                 // If invalid value set in TextField,
                 // change value only when slider value is changed.
 
-                newValue = (float)GUILayout.HorizontalSlider(this.Value, this.minValue, this.maxValue);
+                newValue = GUILayout.HorizontalSlider(this.Value, base.minValue, base.maxValue);
 
-                if (this.textIsValid)
+                if (base.textIsValid)
                 {
-                    this.Value = newValue;
+                    base.value = newValue;
+                    //this.Value = newValue;
                 }
                 else
                 {
-                    if (base.value != newValue)
+                    if (this.Value != newValue)
                     {
                         this.Value = newValue;
                     }
                 }
             });
 
-            return this.Value;
+            return base.Value;
         }
 
         #endregion Method

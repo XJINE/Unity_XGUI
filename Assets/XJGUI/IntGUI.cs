@@ -2,21 +2,8 @@
 
 namespace XJGUI
 {
-    public class IntGUI : AbstractGUI <int>
+    public class IntGUI : ValueGUI <int>
     {
-        #region Field
-
-        public int minValue = int.MinValue;
-        public int maxValue = int.MaxValue;
-
-        public int textFieldWidth = -1;
-        public bool withSlider = true;
-
-        private string text = null;
-        private bool textIsValid = true;
-
-        #endregion Field
-
         #region Property
 
         public override int Value
@@ -24,7 +11,7 @@ namespace XJGUI
             set
             {
                 base.value = value;
-                this.text  = value.ToString();
+                base.text  = value.ToString();
             }
             get
             {
@@ -36,10 +23,19 @@ namespace XJGUI
 
         #region Method
 
+        protected override void InitializeMinMaxValue()
+        {
+            base.minValue = int.MinValue;
+            base.maxValue = int.MaxValue;
+        }
+
         public override int Show()
         {
             XJGUILayout.VerticalLayout(()=>
             {
+                // NOTE:
+                // To Update text, need to use not base.value but this.Value.
+
                 // TextField
 
                 int newValue = 0;
@@ -48,13 +44,12 @@ namespace XJGUI
                 {
                     base.ShowTitle();
 
-                    this.text = this.text == null ? base.value.ToString() : this.text;
-                    this.text = GUILayout.TextField(this.text, this.textFieldWidth <= 0 ?
-                                GUILayout.ExpandWidth(true) : GUILayout.Width(this.textFieldWidth));
+                    base.text = GUILayout.TextField(base.text, base.textFieldWidth <= 0 ?
+                                GUILayout.ExpandWidth(true) : GUILayout.Width(base.textFieldWidth));
 
-                    this.textIsValid = int.TryParse(this.text, out newValue);
+                    base.textIsValid = int.TryParse(base.text, out newValue);
 
-                    if (this.textIsValid)
+                    if (base.textIsValid)
                     {
                         this.Value = newValue;
                     }
@@ -62,7 +57,7 @@ namespace XJGUI
 
                 // Slider
 
-                if (!this.withSlider)
+                if (!base.withSlider)
                 {
                     return;
                 }
@@ -71,22 +66,22 @@ namespace XJGUI
                 // If invalid value set in TextField,
                 // change value only when slider value is changed.
 
-                newValue = (int)GUILayout.HorizontalSlider(this.Value, this.minValue, this.maxValue);
+                newValue = (int)GUILayout.HorizontalSlider(this.Value, base.minValue, base.maxValue);
 
-                if (this.textIsValid)
+                if (base.textIsValid)
                 {
                     this.Value = newValue;
                 }
                 else
                 {
-                    if (base.value != newValue)
+                    if (this.Value != newValue)
                     {
                         this.Value = newValue;
                     }
                 }
             });
 
-            return this.Value;
+            return base.Value;
         }
 
         #endregion Method

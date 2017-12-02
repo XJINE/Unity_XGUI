@@ -9,13 +9,13 @@ namespace XJGUI
 
         public string title;
 
-        public float minWidth;
-        public float minHeight;
-        public float maxWidth;
-        public float maxHeight;
+        public float minWidth  = 0;
+        public float minHeight = 0;
+        public float maxWidth  = 3000;
+        public float maxHeight = 3000;
 
-        public bool isDraggable;
-        public bool isVisible;
+        public bool isDraggable = true;
+        public bool isVisible = true;
 
         private float previousShowTime;
 
