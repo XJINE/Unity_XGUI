@@ -11,7 +11,7 @@ namespace XJGUI
             set
             {
                 base.value = (float)System.Math.Round(value, base.decimalPlaces);
-                base.text = value.ToString();
+                base.text = base.value.ToString();
             }
             get
             {
@@ -29,32 +29,28 @@ namespace XJGUI
             base.maxValue = float.MaxValue;
         }
 
-        // NOTE:
-        // float.TryParse("0.") return true.
-        // But need to keep user input check, because the user may input "0.x~".
-
         public override float Show()
         {
             XJGUILayout.VerticalLayout(() =>
             {
                 // TextField
 
-                float newValue = 0;
-
                 XJGUILayout.HorizontalLayout(() =>
                 {
                     base.ShowTitle();
 
-                    base.text = base.text == null ? base.value.ToString() : base.text;
                     base.text = GUILayout.TextField(base.text, base.textFieldWidth <= 0 ?
                                 GUILayout.ExpandWidth(true) : GUILayout.Width(base.textFieldWidth));
 
-                    base.textIsValid = float.TryParse(base.text, out newValue);
+                    // NOTE:
+                    // float.TryParse("0.") return true.
+                    // But need to keep user input text, because the user may input "0.x~".
 
-                    if (base.textIsValid)
+                    float textFieldValue;
+
+                    if (float.TryParse(base.text, out textFieldValue))
                     {
-                        newValue = (float)System.Math.Round(newValue, base.decimalPlaces);
-                        base.value = newValue;
+                        base.value = (float)System.Math.Round(textFieldValue, base.decimalPlaces);
                     }
                 });
 
@@ -66,22 +62,13 @@ namespace XJGUI
                 }
 
                 // NOTE:
-                // If invalid value set in TextField,
-                // change value only when slider value is changed.
+                // Need to update text when the value is updated with Slider.
 
-                newValue = GUILayout.HorizontalSlider(this.Value, base.minValue, base.maxValue);
+                float sliderValue = GUILayout.HorizontalSlider(base.value, base.minValue, base.maxValue);
 
-                if (base.textIsValid)
+                if (sliderValue != base.value)
                 {
-                    base.value = newValue;
-                    //this.Value = newValue;
-                }
-                else
-                {
-                    if (this.Value != newValue)
-                    {
-                        this.Value = newValue;
-                    }
+                    this.Value = sliderValue;
                 }
             });
 

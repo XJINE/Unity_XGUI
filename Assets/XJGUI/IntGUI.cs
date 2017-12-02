@@ -63,21 +63,13 @@ namespace XJGUI
                 }
 
                 // NOTE:
-                // If invalid value set in TextField,
-                // change value only when slider value is changed.
+                // Need to update text when the value is updated with Slider.
 
-                newValue = (int)GUILayout.HorizontalSlider(this.Value, base.minValue, base.maxValue);
+                int sliderValue = (int)GUILayout.HorizontalSlider(base.value, base.minValue, base.maxValue);
 
-                if (base.textIsValid)
+                if (sliderValue != base.value)
                 {
-                    this.Value = newValue;
-                }
-                else
-                {
-                    if (this.Value != newValue)
-                    {
-                        this.Value = newValue;
-                    }
+                    this.Value = sliderValue;
                 }
             });
 
