@@ -1,85 +1,98 @@
-﻿//using UnityEngine;
+﻿using UnityEngine;
 
-//namespace XJGUI
-//{
-//    public class Vector2GUI : ArrayControllableGUI <Vector2>
-//    {
-//        #region Field
+namespace XJGUI
+{
+    public class Vector2GUI : ValueGUI<Vector2>
+    {
+        #region Field
 
-//        private FloatGUI floatGUIX;
-//        private FloatGUI floatGUIY;
+        public int decimals = 2;
+        public bool horizontal = true;
 
-//        #endregion Field
+        private FloatGUI floatGUIX;
+        private FloatGUI floatGUIY;
 
-//        public Vector2 minValue = new Vector2(float.MinValue, float.MinValue);
-//        public Vector2 maxValue = new Vector2(float.MaxValue, float.MaxValue);
+        #endregion Field
 
-//        public float textFieldWidth = -1;
-//        public bool withSlider = true;
-//        public int decimalPlaces = 2;
+        #region Property
 
-//        public override Vector2 Value
-//        {
-//            get
-//            {
-//                return base.value;
-//            }
-//            set
-//            {
-//                base.value = value;
-//                this.floatGUIX.Value = value.x;
-//                this.floatGUIY.Value = value.y;
-//            }
-//        }
+        public override Vector2 Value
+        {
+            get
+            {
+                return base.value;
+            }
+            set
+            {
+                this.floatGUIX.Value = value.x;
+                this.floatGUIY.Value = value.y;
+                base.value = new Vector2(this.floatGUIX.Value, this.floatGUIY.Value);
+            }
+        }
 
-//        #region Constructor
+        #endregion Property
 
-//        public Vector2GUI()
-//        {
-//            this.floatGUIX = new FloatGUI();
-//            this.floatGUIY = new FloatGUI();
-//        }
+        #region Constructor
 
-//        #endregion Constructor
+        public Vector2GUI() : base()
+        {
+            this.floatGUIX = new FloatGUI() { title = "X" };
+            this.floatGUIY = new FloatGUI() { title = "Y" };
 
-//        #region Method
+            UpdateVector2GUI();
+        }
 
-//        public override Vector2 Show()
-//        {
-//            XJGUILayout.VerticalLayout(() => 
-//            {
-//                base.ShowTitle();
+        #endregion Constructor
 
-//                if (base.horizontalArray)
-//                {
-//                    XJGUILayout.HorizontalLayout(() => 
-//                    {
-//                        this.floatGUIX.Show();
-//                        this.floatGUIY.Show();
-//                    });
-//                }
-//                else
-//                {
-//                    this.floatGUIX.Show();
-//                    this.floatGUIY.Show();
-//                }
-//            });
+        #region Method
 
-//            return base.Value;
-//        }
+        protected override void InitializeMinMaxValue()
+        {
+            this.minValue = new Vector2(float.MinValue, float.MinValue);
+            this.maxValue = new Vector2(float.MaxValue, float.MaxValue);
+        }
 
-//        public void UpdateVector2GUI()
-//        {
-//            this.floatGUIX.maxValue  = this.maxValue.x;
-//            this.floatGUIX.minValue  = this.minValue.y;
-//            this.floatGUIX.decimalPlace = this.decimalPlaces;
-//            this.floatGUIX.textFieldWidth = this.textFieldWidth;
-//            this.floatGUIX.withSlider = this.withSlider;
+        public override Vector2 Show()
+        {
+            //UpdateVector2GUI();
 
+            XJGUILayout.VerticalLayout(() =>
+            {
+                base.ShowTitle();
 
-//            this.floatGUIY.boldTitle = base.boldTitle;
-//        }
+                if (this.horizontal)
+                {
+                    XJGUILayout.HorizontalLayout(() =>
+                    {
+                        this.floatGUIX.Show();
+                        this.floatGUIY.Show();
+                    });
+                }
+                else
+                {
+                    this.floatGUIX.Show();
+                    this.floatGUIY.Show();
+                }
+            });
 
-//        #endregion Method
-//    }
-//}
+            return base.Value;
+        }
+
+        public void UpdateVector2GUI()
+        {
+            this.floatGUIX.minValue = this.minValue.x;
+            this.floatGUIX.maxValue = this.maxValue.x;
+            this.floatGUIX.textFieldWidth = this.textFieldWidth;
+            this.floatGUIX.withSlider = this.withSlider;
+            this.floatGUIX.decimals   = this.decimals;
+
+            this.floatGUIY.minValue = this.minValue.y;
+            this.floatGUIY.maxValue = this.maxValue.y;
+            this.floatGUIY.textFieldWidth = this.textFieldWidth;
+            this.floatGUIY.withSlider = this.withSlider;
+            this.floatGUIY.decimals = this.decimals;
+        }
+
+        #endregion Method
+    }
+}
