@@ -2,18 +2,19 @@
 
 namespace XJGUI
 {
-    public class Vector2GUI : VectorGUI<Vector2>
+    public class Vector3GUI : VectorGUI<Vector3>
     {
         #region Field
 
         private FloatGUI floatGUIX;
         private FloatGUI floatGUIY;
+        private FloatGUI floatGUIZ;
 
         #endregion Field
 
         #region Property
 
-        public override Vector2 Value
+        public override Vector3 Value
         {
             get
             {
@@ -23,37 +24,43 @@ namespace XJGUI
             {
                 this.floatGUIX.Value = value.x;
                 this.floatGUIY.Value = value.y;
+                this.floatGUIZ.Value = value.y;
 
-                base.value = new Vector2(this.floatGUIX.Value,
-                                         this.floatGUIY.Value);
+                base.value = new Vector3(this.floatGUIX.Value,
+                                         this.floatGUIY.Value,
+                                         this.floatGUIZ.Value);
             }
         }
 
-        public override Vector2 MinValue
+        public override Vector3 MinValue
         {
             get
             {
-                return new Vector2(this.floatGUIX.MinValue,
-                                   this.floatGUIY.MinValue);
+                return new Vector3(this.floatGUIX.MinValue,
+                                   this.floatGUIY.MinValue,
+                                   this.floatGUIZ.MinValue);
             }
             set
             {
                 this.floatGUIX.MinValue = value.x;
                 this.floatGUIY.MinValue = value.y;
+                this.floatGUIZ.MinValue = value.z;
             }
         }
 
-        public override Vector2 MaxValue
+        public override Vector3 MaxValue
         {
             get
             {
-                return new Vector2(this.floatGUIX.MaxValue,
-                                   this.floatGUIY.MaxValue);
+                return new Vector3(this.floatGUIX.MaxValue,
+                                   this.floatGUIY.MaxValue,
+                                   this.floatGUIZ.MaxValue);
             }
             set
             {
                 this.floatGUIX.MaxValue = value.x;
                 this.floatGUIY.MaxValue = value.y;
+                this.floatGUIZ.MaxValue = value.z;
             }
         }
 
@@ -67,6 +74,7 @@ namespace XJGUI
             {
                 this.floatGUIX.TextFieldWidth = value;
                 this.floatGUIY.TextFieldWidth = value;
+                this.floatGUIZ.TextFieldWidth = value;
             }
         }
 
@@ -81,6 +89,7 @@ namespace XJGUI
             {
                 this.floatGUIX.WithSlider = value;
                 this.floatGUIY.WithSlider = value;
+                this.floatGUIZ.WithSlider = value;
             }
         }
 
@@ -94,6 +103,7 @@ namespace XJGUI
             {
                 this.floatGUIX.Decimals = value;
                 this.floatGUIY.Decimals = value;
+                this.floatGUIZ.Decimals = value;
             }
         }
 
@@ -101,13 +111,14 @@ namespace XJGUI
 
         #region Constructor
 
-        public Vector2GUI() : base()
+        public Vector3GUI() : base()
         {
             this.floatGUIX = new FloatGUI() { Title = "X" };
             this.floatGUIY = new FloatGUI() { Title = "Y" };
+            this.floatGUIZ = new FloatGUI() { Title = "Z" };
 
-            this.MinValue = new Vector2(float.MinValue, float.MinValue);
-            this.MaxValue = new Vector2(float.MaxValue, float.MaxValue);
+            this.MinValue = new Vector3(float.MinValue, float.MinValue, float.MinValue);
+            this.MaxValue = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
             this.TextFieldWidth = -1;
             this.WithSlider = true;
             this.Decimals = 2;
@@ -122,6 +133,7 @@ namespace XJGUI
         {
             this.floatGUIX.Show();
             this.floatGUIY.Show();
+            this.floatGUIZ.Show();
         }
 
         #endregion Method
