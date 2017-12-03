@@ -44,7 +44,7 @@ public class Sample : MonoBehaviour
 
         this.enumGUI = new EnumGUI<SampleEnum>() { Value = SampleEnum.value2, Title = "Sample Enum Value", ButtonWidth = 100 };
 
-        this.vector2GUI = new Vector2GUI() { Value = new Vector2(0.5f, 0.5f), Title = "Vector2 Value", Decimals = 1, MinValue = new Vector2(-1, -1), MaxValue = new Vector2(1, 1), Horizontal = false };
+        this.vector2GUI = new Vector2GUI() { Value = new Vector2(0.5f, 0.5f), Title = "Vector2 Value", Decimals = 1, MinValue = new Vector2(-1, -1), MaxValue = new Vector2(1, 1) };
 
         this.toolBar = new Toolbar() { Title = "Toolbar", Labels = new string[] { "A", "B", "C" } };
 
