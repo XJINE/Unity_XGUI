@@ -33,8 +33,7 @@ namespace XJGUI
 
         #region Constructor
 
-        public NumericGUI()
-            :base()
+        public NumericGUI() : base()
         {
             this.Value = (T)Convert.ChangeType(0, typeof(T));
         }

@@ -23,12 +23,14 @@ namespace XJGUI
             }
             set
             {
-                int[] values = ParseIPAddressText(value);
+                int[] values = ParseIPv4Text(value);
+
                 this.x.Value = values[0];
                 this.y.Value = values[1];
                 this.z.Value = values[2];
                 this.w.Value = values[3];
-                base.value   = values[0] + "." + values[1] + "." + values[2] + "." + values[3];
+
+                base.value = this.x.Value + "." + this.y.Value + "." + this.z.Value + "." + this.w.Value;
             }
         }
 
@@ -41,50 +43,21 @@ namespace XJGUI
             const int IPV4_VALUE_MIN = 0;
             const int IPV4_VALUE_MAX = 255;
 
-            int[] values = ParseIPAddressText(base.value);
+            this.x = new IntGUI() { minValue = IPV4_VALUE_MIN, maxValue = IPV4_VALUE_MAX, withSlider = false };
+            this.y = new IntGUI() { minValue = IPV4_VALUE_MIN, maxValue = IPV4_VALUE_MAX, withSlider = false };
+            this.z = new IntGUI() { minValue = IPV4_VALUE_MIN, maxValue = IPV4_VALUE_MAX, withSlider = false };
+            this.w = new IntGUI() { minValue = IPV4_VALUE_MIN, maxValue = IPV4_VALUE_MAX, withSlider = false };
 
-            this.x = new IntGUI()
-            {
-                Value = values[0],
-                minValue = IPV4_VALUE_MIN,
-                maxValue = IPV4_VALUE_MAX,
-                withSlider = false
-            };
-
-            this.y = new IntGUI()
-            {
-                Value = values[1],
-                minValue = IPV4_VALUE_MIN,
-                maxValue = IPV4_VALUE_MAX,
-                withSlider = false
-            };
-
-            this.z = new IntGUI()
-            {
-                Value = values[2],
-                minValue = IPV4_VALUE_MIN,
-                maxValue = IPV4_VALUE_MAX,
-                withSlider = false
-            };
-
-            this.w = new IntGUI()
-            {
-                Value = values[3],
-                minValue = IPV4_VALUE_MIN,
-                maxValue = IPV4_VALUE_MAX,
-                withSlider = false
-            };
-
-            base.value = x.Value + "." + y.Value + "." + z.Value + "." + w.Value;
+            this.Value = "0.0.0.0";
         }
 
         #endregion Constructor
 
         #region Method
 
-        protected virtual int[] ParseIPAddressText(string ipAddressText)
+        protected virtual int[] ParseIPv4Text(string ipv4Text)
         {
-            string[] values = ipAddressText.Split('.');
+            string[] values = ipv4Text.Split('.');
 
             int[] intValues = new int[4];
 
@@ -112,17 +85,20 @@ namespace XJGUI
                 XJGUILayout.HorizontalLayout(() => 
                 {
                     int x = this.x.Show();
+
                     GUILayout.Label(".");
 
                     int y = this.y.Show();
+
                     GUILayout.Label(".");
 
                     int z = this.z.Show();
+
                     GUILayout.Label(".");
 
                     int w = this.w.Show();
 
-                    this.value = x + "." + y + "." + z + "." + w;
+                    base.value = x + "." + y + "." + z + "." + w;
                 });
             });
 
