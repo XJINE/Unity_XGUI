@@ -5,11 +5,11 @@ namespace XJGUI
 {
     public class TabPanel : PanelBaseGUI<int>
     {
-        #region Field
+        #region Property
 
-        public string[] labels;
+        public string[] Labels { get; set; }
 
-        #endregion Field
+        #endregion Property
 
         #region Method
 
@@ -20,14 +20,14 @@ namespace XJGUI
             //    throw new Exception(string.Format(ErrorMessage.DifferentDataLengthError, functions, this.labels));
             //}
 
-            XJGUILayout.VerticalLayout(()=> 
+            XJGUILayout.VerticalLayout((Action)(()=> 
             {
                 base.ShowTitle();
 
-                base.value = GUILayout.Toolbar(base.value, this.labels);
+                base.value = GUILayout.Toolbar(base.value, (string[])this.Labels);
 
                 guiAction[base.value]();
-            });
+            }));
 
             return base.value;
         }

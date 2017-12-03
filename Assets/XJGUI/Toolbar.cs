@@ -4,11 +4,11 @@ namespace XJGUI
 {
     public class Toolbar : AbstractGUI<int>
     {
-        #region Field
+        #region Property
 
-        public string[] labels;
+        public string[] Labels { get; set; }
 
-        #endregion Field
+        #endregion Property
 
         #region Method
 
@@ -23,7 +23,7 @@ namespace XJGUI
             {
                 base.ShowTitle();
 
-                base.value = GUILayout.Toolbar(base.value, this.labels);
+                base.value = GUILayout.Toolbar(base.value, this.Labels);
             });
 
             return base.value;

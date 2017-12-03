@@ -44,8 +44,8 @@ namespace XJGUI
 
         protected override void InitializeMinMaxValue()
         {
-            base.minValue = (T)(typeof(T).GetField("MinValue").GetValue(null));
-            base.maxValue = (T)(typeof(T).GetField("MaxValue").GetValue(null));
+            base.MinValue = (T)(typeof(T).GetField("MinValue").GetValue(null));
+            base.MaxValue = (T)(typeof(T).GetField("MaxValue").GetValue(null));
         }
 
         public override T Show()
@@ -58,8 +58,8 @@ namespace XJGUI
                 {
                     base.ShowTitle();
 
-                    this.text = GUILayout.TextField(this.text, base.textFieldWidth <= 0 ?
-                                GUILayout.ExpandWidth(true) : GUILayout.Width(base.textFieldWidth));
+                    this.text = GUILayout.TextField(this.text, base.TextFieldWidth <= 0 ?
+                                GUILayout.ExpandWidth(true) : GUILayout.Width(base.TextFieldWidth));
 
                     // NOTE:
                     // float.TryParse("0.") return true.
@@ -75,7 +75,7 @@ namespace XJGUI
 
                 // Slider
 
-                if (!base.withSlider)
+                if (!base.WithSlider)
                 {
                     return;
                 }
@@ -84,8 +84,8 @@ namespace XJGUI
                 // Need to update text when the value is updated with Slider.
 
                 float floatValue = Convert.ToSingle(base.value);
-                float floatMinValue = Convert.ToSingle(base.minValue);
-                float floatMaxValue = Convert.ToSingle(base.maxValue);
+                float floatMinValue = Convert.ToSingle(base.MinValue);
+                float floatMaxValue = Convert.ToSingle(base.MaxValue);
 
                 float sliderValue = GUILayout.HorizontalSlider(floatValue, floatMinValue, floatMaxValue);
 
@@ -100,14 +100,14 @@ namespace XJGUI
 
         protected virtual T CorrectValue(T value)
         {
-            if (0 < value.CompareTo(base.maxValue))
+            if (0 < value.CompareTo(base.MaxValue))
             {
-                value = base.maxValue;
+                value = base.MaxValue;
             }
 
-            if (value.CompareTo(base.minValue) < 0)
+            if (value.CompareTo(base.MinValue) < 0)
             {
-                value = base.minValue;
+                value = base.MinValue;
             }
 
             return value;

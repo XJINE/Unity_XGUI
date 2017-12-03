@@ -6,9 +6,6 @@ namespace XJGUI
     {
         #region Field
 
-        public int decimals = 2;
-        public bool horizontal = true;
-
         private FloatGUI floatGUIX;
         private FloatGUI floatGUIY;
 
@@ -30,16 +27,94 @@ namespace XJGUI
             }
         }
 
+        public override Vector2 MinValue
+        {
+            get
+            {
+                return new Vector2(this.floatGUIX.MinValue, this.floatGUIY.MinValue);
+            }
+            set
+            {
+                this.floatGUIX.MinValue = value.x;
+                this.floatGUIY.MinValue = value.y;
+            }
+        }
+
+        public override Vector2 MaxValue
+        {
+            get
+            {
+                return new Vector2(this.floatGUIX.MaxValue, this.floatGUIY.MaxValue);
+            }
+            set
+            {
+                this.floatGUIX.MaxValue = value.x;
+                this.floatGUIY.MaxValue = value.y;
+            }
+        }
+
+        public override float TextFieldWidth
+        {
+            get
+            {
+                return this.floatGUIX.TextFieldWidth;
+            }
+            set
+            {
+                this.floatGUIX.TextFieldWidth = value;
+                this.floatGUIY.TextFieldWidth = value;
+            }
+        }
+
+        public override bool WithSlider
+        {
+            get
+            {
+                return this.floatGUIX.WithSlider;
+            }
+
+            set
+            {
+                this.floatGUIX.WithSlider = value;
+                this.floatGUIY.WithSlider = value;
+            }
+        }
+
+        public int Decimals
+        {
+            get
+            {
+                return this.floatGUIX.Decimals;
+            }
+            set
+            {
+                this.floatGUIX.Decimals = value;
+                this.floatGUIY.Decimals = value;
+            }
+        }
+
+        public bool Horizontal
+        {
+            get; set;
+        }
+
         #endregion Property
 
         #region Constructor
 
-        public Vector2GUI() : base()
+        public Vector2GUI() : base(true)
         {
-            this.floatGUIX = new FloatGUI() { title = "X" };
-            this.floatGUIY = new FloatGUI() { title = "Y" };
+            this.floatGUIX = new FloatGUI() { Title = "X" };
+            this.floatGUIY = new FloatGUI() { Title = "Y" };
 
-            UpdateVector2GUI();
+            base.MinValue = new Vector2(float.MinValue, float.MinValue);
+            base.MaxValue = new Vector2(float.MaxValue, float.MaxValue);
+
+            base.TextFieldWidth = -1;
+            base.WithSlider = false;
+
+            this.Decimals = 2;
+            this.Horizontal = true;
         }
 
         #endregion Constructor
@@ -48,19 +123,17 @@ namespace XJGUI
 
         protected override void InitializeMinMaxValue()
         {
-            this.minValue = new Vector2(float.MinValue, float.MinValue);
-            this.maxValue = new Vector2(float.MaxValue, float.MaxValue);
+            this.MinValue = new Vector2(float.MinValue, float.MinValue);
+            this.MaxValue = new Vector2(float.MaxValue, float.MaxValue);
         }
 
         public override Vector2 Show()
         {
-            //UpdateVector2GUI();
-
-            XJGUILayout.VerticalLayout(() =>
+            XJGUILayout.VerticalLayout((System.Action)(() =>
             {
                 base.ShowTitle();
 
-                if (this.horizontal)
+                if (this.Horizontal)
                 {
                     XJGUILayout.HorizontalLayout(() =>
                     {
@@ -73,24 +146,9 @@ namespace XJGUI
                     this.floatGUIX.Show();
                     this.floatGUIY.Show();
                 }
-            });
+            }));
 
             return base.Value;
-        }
-
-        public void UpdateVector2GUI()
-        {
-            this.floatGUIX.minValue = this.minValue.x;
-            this.floatGUIX.maxValue = this.maxValue.x;
-            this.floatGUIX.textFieldWidth = this.textFieldWidth;
-            this.floatGUIX.withSlider = this.withSlider;
-            this.floatGUIX.decimals   = this.decimals;
-
-            this.floatGUIY.minValue = this.minValue.y;
-            this.floatGUIY.maxValue = this.maxValue.y;
-            this.floatGUIY.textFieldWidth = this.textFieldWidth;
-            this.floatGUIY.withSlider = this.withSlider;
-            this.floatGUIY.decimals = this.decimals;
         }
 
         #endregion Method

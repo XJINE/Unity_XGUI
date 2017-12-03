@@ -2,17 +2,26 @@
 {
     public class FloatGUI : NumericGUI<float>
     {
-        #region Field
+        #region Property
 
-        public int decimals = 2;
+        public int Decimals { get; set; }
 
-        #endregion Field
+        #endregion Property
+
+        #region Constructor
+
+        public FloatGUI() : base()
+        {
+            this.Decimals = 2;
+        }
+
+        #endregion Constructor
 
         #region Method
 
         protected override float CorrectValue(float value)
         {
-            return (float)System.Math.Round(base.CorrectValue(value), decimals);
+            return (float)System.Math.Round(base.CorrectValue(value), this.Decimals);
         }
 
         #endregion Method

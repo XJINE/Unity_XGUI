@@ -1,23 +1,26 @@
-﻿using System;
-
-namespace XJGUI
+﻿namespace XJGUI
 {
     public abstract class ValueGUI<T> : AbstractGUI<T> where T : struct
     {
-        #region Field
+        #region Property
 
-        public T minValue;
-        public T maxValue;
+        public virtual T MinValue { get; set; }
 
-        public float textFieldWidth = -1;
-        public bool withSlider = true;
+        public virtual T MaxValue { get; set; }
 
-        #endregion Field
+        public virtual float TextFieldWidth { get; set; }
+
+        public virtual bool WithSlider { get; set; }
+
+        #endregion Property
 
         #region Constructor
 
-        public ValueGUI()
+        public ValueGUI() : base()
         {
+            this.TextFieldWidth = -1;
+            this.WithSlider = true;
+
             // NOTE:
             // It seems good, but have a problem.
             // Vector2 or Vector3 and any other Unity "value" has no "MinValue" or "MaxValue".
@@ -26,6 +29,11 @@ namespace XJGUI
             // this.maxValue = (T)(typeof(T).GetField("MinValue").GetValue(null));
 
             InitializeMinMaxValue();
+        }
+
+        protected ValueGUI(bool fromInheritance) : base()
+        {
+            //InitializeMinMaxValue();
         }
 
         #endregion Constructor

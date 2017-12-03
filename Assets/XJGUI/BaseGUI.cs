@@ -8,13 +8,13 @@ namespace XJGUI
 
         protected T value;
 
-        public string title;
-
-        public bool boldTitle;
-
         #endregion Field
 
         #region Property
+
+        public string Title { get; set; }
+
+        public bool BoldTitle { get; set; }
 
         public virtual T Value
         {
@@ -24,22 +24,32 @@ namespace XJGUI
 
         #endregion Property
 
+        #region Constructor
+
+        public BaseGUI()
+        {
+            this.Title = null;
+            this.BoldTitle = false;
+        }
+
+        #endregion Constructor
+
         #region Method
 
         protected virtual void ShowTitle()
         {
-            if (this.title == null)
+            if (this.Title == null)
             {
                 return;
             }
 
-            if (this.boldTitle)
+            if (this.BoldTitle)
             {
-                XJGUILayout.BoldLabel(this.title);
+                XJGUILayout.BoldLabel(this.Title);
             }
             else
             {
-                GUILayout.Label(this.title);
+                GUILayout.Label(this.Title);
             }
         }
 
