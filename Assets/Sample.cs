@@ -21,8 +21,8 @@ public class Sample : MonoBehaviour
     {
         this.flexibleWindow = new FlexibleWindow()
         {
-            minWidth  = 300,
-            minHeight = 300,
+            MinWidth  = 300,
+            MinHeight = 300,
         };
 
         this.tabPanel = new TabPanel() { Labels = new string[] { "Value", "Else" } };

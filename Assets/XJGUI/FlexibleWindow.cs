@@ -7,33 +7,22 @@ namespace XJGUI
     {
         #region Field
 
-        public string title;
-
-        public float minWidth  = 0;
-        public float minHeight = 0;
-        public float maxWidth  = 3000;
-        public float maxHeight = 3000;
-
-        public bool isDraggable = true;
-        public bool isVisible = true;
-
         private float previousShowTime;
 
         #endregion Field
 
         #region Property
 
-        public Rect Value
-        {
-            get;
-            set;
-        }
+        public int ID { get; private set; }
 
-        public int ID
-        {
-            get;
-            private set;
-        }
+        public Rect Value { get; set; }
+        public string Title { get; set; }
+        public float MinWidth { get; set; }
+        public float MinHeight { get; set; }
+        public float MaxWidth { get; set; }
+        public float MaxHeight { get; set; }
+        public bool IsDraggable { get; set; }
+        public bool IsVisible { get; set; }
 
         #endregion Property
 
@@ -47,26 +36,38 @@ namespace XJGUI
             // https://blogs.msdn.microsoft.com/ericlippert/2010/03/22/socks-birthdays-and-hash-collisions/
 
             this.ID = Guid.NewGuid().GetHashCode();
+
+            this.Title = null;
+            this.MinWidth = 100;
+            this.MinHeight = 100;
+            this.MaxWidth = 2000;
+            this.MaxHeight = 2000;
+            this.IsDraggable = true;
+            this.IsVisible = true;
         }
 
         #endregion Constructor
 
         #region Method
 
-        public Rect Show(Action guiAction)
+        public Rect Show(params Action[] guiAction)
         {
-            if (!this.isVisible)
+            if (!this.IsVisible)
             {
                 return new Rect(this.Value.position.x, this.Value.position.y, 0, 0);
             }
 
             GUI.WindowFunction windowFunction;
 
-            if (this.isDraggable)
+            if (this.IsDraggable)
             {
                 windowFunction = (int windowID) =>
                 {
-                    guiAction();
+                    for (int i = 0; i < guiAction.Length; i++)
+                    {
+                        guiAction[i]();
+                    }
+
                     GUI.DragWindow();
                 };
             }
@@ -74,7 +75,10 @@ namespace XJGUI
             {
                 windowFunction = (int windowID) =>
                 {
-                    guiAction();
+                    for (int i = 0; i < guiAction.Length; i++)
+                    {
+                        guiAction[i]();
+                    }
                 };
             }
 
@@ -94,11 +98,11 @@ namespace XJGUI
                 this.previousShowTime = Time.timeSinceLevelLoad;
             }
 
-            this.Value = GUILayout.Window(this.ID, this.Value, windowFunction, this.title,
-                                         GUILayout.MinWidth(this.minWidth),
-                                         GUILayout.MinHeight(this.minHeight),
-                                         GUILayout.MaxWidth(this.maxWidth),
-                                         GUILayout.MaxHeight(this.maxHeight));
+            this.Value = GUILayout.Window(this.ID, this.Value, windowFunction, this.Title,
+                                         GUILayout.MinWidth(this.MinWidth),
+                                         GUILayout.MinHeight(this.MinHeight),
+                                         GUILayout.MaxWidth(this.MaxWidth),
+                                         GUILayout.MaxHeight(this.MaxHeight));
 
             return this.Value;
         }
