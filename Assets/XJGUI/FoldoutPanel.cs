@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace XJGUI
 {
-    public class FoldoutPanel : PanelBaseGUI <bool>
+    public class FoldoutPanel : PanelBaseGUI<bool>
     {
         #region Method
 
@@ -15,9 +15,9 @@ namespace XJGUI
             // (value = false && button = true)  => true
             // (value = false && button = false) => false
 
-            string tempTitle = (base.value ? "\u25BC " : "\u25BA ") + base.title;
+            string buttonContent = (base.value ? "\u25BC " : "\u25BA ") + base.title;
 
-            base.value = !(base.value == GUILayout.Button(tempTitle));
+            base.value = !(base.value == GUILayout.Button(buttonContent));
 
             if (base.value)
             {

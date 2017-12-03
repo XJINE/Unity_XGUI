@@ -1,6 +1,9 @@
 ﻿using System;
 
-public abstract class PanelBaseGUI <T> : BaseGUI <T>
+namespace XJGUI
 {
-    public abstract T Show(params Action[] guiActions);
+    public abstract class PanelBaseGUI<T> : BaseGUI<T>
+    {
+        public abstract T Show(params Action[] guiActions);
+    }
 }

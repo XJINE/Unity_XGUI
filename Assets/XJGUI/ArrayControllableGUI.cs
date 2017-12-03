@@ -1,6 +1,6 @@
 ﻿namespace XJGUI
 {
-    public abstract class ArrayControllableGUI <T> : AbstractGUI <T>
+    public abstract class ArrayControllableGUI<T> : AbstractGUI<T>
     {
         #region Field
 

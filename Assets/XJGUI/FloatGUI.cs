@@ -1,78 +1,18 @@
-﻿using UnityEngine;
-
-namespace XJGUI
+﻿namespace XJGUI
 {
-    public class FloatGUI : FloatingValueGUI<float>
+    public class FloatGUI : NumericGUI<float>
     {
-        #region Property
+        #region Field
 
-        public override float Value
-        {
-            set
-            {
-                base.value = (float)System.Math.Round(value, base.decimalPlaces);
-                base.text = base.value.ToString();
-            }
-            get
-            {
-                return base.value;
-            }
-        }
+        public int decimals = 2;
 
-        #endregion Property
+        #endregion Field
 
         #region Method
 
-        protected override void InitializeMinMaxValue()
+        protected override float CorrectValue(float value)
         {
-            base.minValue = float.MinValue;
-            base.maxValue = float.MaxValue;
-        }
-
-        public override float Show()
-        {
-            XJGUILayout.VerticalLayout(() =>
-            {
-                // TextField
-
-                XJGUILayout.HorizontalLayout(() =>
-                {
-                    base.ShowTitle();
-
-                    base.text = GUILayout.TextField(base.text, base.textFieldWidth <= 0 ?
-                                GUILayout.ExpandWidth(true) : GUILayout.Width(base.textFieldWidth));
-
-                    // NOTE:
-                    // float.TryParse("0.") return true.
-                    // But need to keep user input text, because the user may input "0.x~".
-
-                    float textFieldValue;
-
-                    if (float.TryParse(base.text, out textFieldValue))
-                    {
-                        base.value = (float)System.Math.Round(textFieldValue, base.decimalPlaces);
-                    }
-                });
-
-                // Slider
-
-                if (!base.withSlider)
-                {
-                    return;
-                }
-
-                // NOTE:
-                // Need to update text when the value is updated with Slider.
-
-                float sliderValue = GUILayout.HorizontalSlider(base.value, base.minValue, base.maxValue);
-
-                if (sliderValue != base.value)
-                {
-                    this.Value = sliderValue;
-                }
-            });
-
-            return base.Value;
+            return (float)System.Math.Round(base.CorrectValue(value), decimals);
         }
 
         #endregion Method

@@ -8,7 +8,7 @@ public class Sample : MonoBehaviour
     TabPanel tabPanel;
 
     IntGUI intGUI;
-    FloatGUI floatGUI;
+    //FloatGUI floatGUI;
 
     void Start()
     {
@@ -19,8 +19,8 @@ public class Sample : MonoBehaviour
         };
 
         this.tabPanel = new TabPanel() { labels = new string[] { "Value", "Else" } };
-        this.intGUI = new IntGUI() { title = "int Value", Value = 50, minValue = 0, maxValue = 100, };
-        this.floatGUI = new FloatGUI() { title = "float Value", Value = 50, minValue = 0, maxValue = 100, decimalPlaces = 3, };
+        this.intGUI = new IntGUI() { title = "int Value", minValue = 0, maxValue = 100, };
+        //this.floatGUI = new FloatGUI() { title = "float Value", Value = 50, minValue = 0, maxValue = 100, decimals = 3, };
     }
 
     void OnGUI()
@@ -29,8 +29,8 @@ public class Sample : MonoBehaviour
         {
             this.tabPanel.Show(() => 
             {
-                //Debug.Log(this.intGUI.Show());
-                Debug.Log(this.floatGUI.Show());
+                Debug.Log(this.intGUI.Show());
+                //Debug.Log(this.floatGUI.Show());
             });
         });
     }
