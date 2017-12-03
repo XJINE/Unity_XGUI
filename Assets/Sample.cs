@@ -3,6 +3,12 @@ using XJGUI;
 
 public class Sample : MonoBehaviour
 {
+    public enum SampleEnum
+    {
+        value1,
+        value2,
+    }
+
     FlexibleWindow flexibleWindow;
 
     TabPanel tabPanel;
@@ -11,6 +17,7 @@ public class Sample : MonoBehaviour
     BoolGUI boolGUI;
     IntGUI intGUI;
     FloatGUI floatGUI;
+    EnumGUI<SampleEnum> enumGUI;
 
     Vector2GUI vector2GUI;
 
@@ -35,6 +42,8 @@ public class Sample : MonoBehaviour
 
         this.floatGUI = new FloatGUI() { Title = "float Value", Value = 50, MinValue = 0, MaxValue = 100, Decimals = 3, };
 
+        this.enumGUI = new EnumGUI<SampleEnum>() { Value = SampleEnum.value2, Title = "Sample Enum Value", ButtonWidth = 100 };
+
         this.vector2GUI = new Vector2GUI() { Value = new Vector2(0.5f, 0.5f), Title = "Vector2 Value", Decimals = 1, MinValue = new Vector2(-1, -1), MaxValue = new Vector2(1, 1), Horizontal = false };
 
         this.toolBar = new Toolbar() { Title = "Toolbar", Labels = new string[] { "A", "B", "C" } };
@@ -51,6 +60,7 @@ public class Sample : MonoBehaviour
                 this.boolGUI.Show();
                 this.intGUI.Show();
                 this.floatGUI.Show();
+                this.enumGUI.Show();
 
                 this.foldOutPanel.Show(() =>
                 {
