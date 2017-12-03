@@ -1,6 +1,6 @@
 ﻿namespace XJGUI
 {
-    public abstract class ValueGUI<T> : AbstractGUI<T> where T : struct
+    public abstract class ValueGUI<T> : ComponentBaseGUI<T> where T : struct
     {
         #region Property
 
