@@ -2,7 +2,7 @@
 
 namespace XJGUI
 {
-    public class Vector2GUI : ValueGUI<Vector2>
+    public class Vector2GUI : VectorGUI<Vector2>
     {
         #region Field
 
@@ -80,7 +80,7 @@ namespace XJGUI
             }
         }
 
-        public int Decimals
+        public override int Decimals
         {
             get
             {
@@ -93,39 +93,26 @@ namespace XJGUI
             }
         }
 
-        public bool Horizontal
-        {
-            get; set;
-        }
-
         #endregion Property
 
         #region Constructor
 
-        public Vector2GUI() : base(true)
+        public Vector2GUI() : base()
         {
             this.floatGUIX = new FloatGUI() { Title = "X" };
             this.floatGUIY = new FloatGUI() { Title = "Y" };
 
-            base.MinValue = new Vector2(float.MinValue, float.MinValue);
-            base.MaxValue = new Vector2(float.MaxValue, float.MaxValue);
-
-            base.TextFieldWidth = -1;
-            base.WithSlider = false;
-
+            this.MinValue = new Vector2(float.MinValue, float.MinValue);
+            this.MaxValue = new Vector2(float.MaxValue, float.MaxValue);
+            this.TextFieldWidth = -1;
+            this.WithSlider = true;
             this.Decimals = 2;
-            this.Horizontal = true;
+            base.Horizontal = true;
         }
 
         #endregion Constructor
 
         #region Method
-
-        protected override void InitializeMinMaxValue()
-        {
-            this.MinValue = new Vector2(float.MinValue, float.MinValue);
-            this.MaxValue = new Vector2(float.MaxValue, float.MaxValue);
-        }
 
         public override Vector2 Show()
         {
@@ -148,7 +135,7 @@ namespace XJGUI
                 }
             }));
 
-            return base.Value;
+            return this.Value;
         }
 
         #endregion Method

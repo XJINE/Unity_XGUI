@@ -36,17 +36,16 @@ namespace XJGUI
         public NumericGUI() : base()
         {
             this.Value = (T)Convert.ChangeType(0, typeof(T));
+
+            base.MinValue = (T)(typeof(T).GetField("MinValue").GetValue(null));
+            base.MaxValue = (T)(typeof(T).GetField("MaxValue").GetValue(null));
+            base.TextFieldWidth = -1;
+            base.WithSlider = true;
         }
 
         #endregion Constructor
 
         #region Method
-
-        protected override void InitializeMinMaxValue()
-        {
-            base.MinValue = (T)(typeof(T).GetField("MinValue").GetValue(null));
-            base.MaxValue = (T)(typeof(T).GetField("MaxValue").GetValue(null));
-        }
 
         public override T Show()
         {
