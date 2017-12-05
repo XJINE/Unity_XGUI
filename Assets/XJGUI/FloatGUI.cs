@@ -31,9 +31,9 @@ namespace XJGUI
 
         public FloatGUI() : base()
         {
-            this.Value = 0;
-            base.MinValue = float.MinValue;
-            base.MaxValue = float.MaxValue;
+            this.value = 0;
+            base.minValue = float.MinValue;
+            base.maxValue = float.MaxValue;
         }
 
         #endregion Constructor

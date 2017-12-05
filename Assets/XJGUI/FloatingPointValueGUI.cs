@@ -22,7 +22,7 @@
 
         public FloatingPointValueGUI() : base()
         {
-            this.Decimals = 2;
+            this.decimals = 2;
         }
 
         #endregion Constructor

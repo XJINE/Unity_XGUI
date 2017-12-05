@@ -126,8 +126,8 @@ namespace XJGUI
             this.floatGUIY = new FloatGUI() { Title = "Y" };
             this.floatGUIZ = new FloatGUI() { Title = "Z" };
 
-            this.MinValue = new Vector3(float.MinValue, float.MinValue, float.MinValue);
-            this.MaxValue = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
+            this.minValue = new Vector3(float.MinValue, float.MinValue, float.MinValue);
+            this.maxValue = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
         }
 
         #endregion Constructor

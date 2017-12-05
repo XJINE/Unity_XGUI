@@ -31,9 +31,9 @@ namespace XJGUI
 
         public IntGUI() : base()
         {
-            this.Value = 0;
-            base.MinValue = int.MinValue;
-            base.MaxValue = int.MaxValue;
+            this.value = 0;
+            base.minValue = int.MinValue;
+            base.maxValue = int.MaxValue;
         }
 
         #endregion Constructor

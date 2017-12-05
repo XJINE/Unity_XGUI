@@ -170,13 +170,13 @@ namespace XJGUI
         {
             this.foldOutPanel = new FoldoutPanel()
             {
-                Title     = base.Title,
-                BoldTitle = base.BoldTitle,
+                Title     = base.title,
+                BoldTitle = base.boldTitle,
                 Value     = false
             };
 
-            this.TextFieldWidth = 0;
-            this.WithSlider = true;
+            this.textFieldWidth = 0;
+            this.withSlider = true;
         }
 
         #endregion Constructor

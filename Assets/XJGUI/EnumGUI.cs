@@ -18,6 +18,8 @@ namespace XJGUI
 
         protected bool isEditing;
 
+        protected float buttonWidth;
+
         #endregion Field
 
         #region Property
@@ -36,7 +38,11 @@ namespace XJGUI
             }
         }
 
-        public float ButtonWidth { get; set; }
+        public float ButtonWidth
+        {
+            get { return this.buttonWidth; }
+            set { this.buttonWidth = value; }
+        }
 
         #endregion Property
 

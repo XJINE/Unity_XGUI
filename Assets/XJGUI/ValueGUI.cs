@@ -46,8 +46,8 @@
             // NOTE:
             // MinValue & MaxValue must be initialized in inheritance class.
 
-            this.TextFieldWidth = -1;
-            this.WithSlider = true;
+            this.textFieldWidth = -1;
+            this.withSlider = true;
         }
 
         #endregion Constructor

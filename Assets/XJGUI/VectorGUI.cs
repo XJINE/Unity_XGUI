@@ -22,7 +22,7 @@
 
         public VectorGUI()
         {
-            this.Horizontal = true;
+            this.horizontal = true;
         }
 
         #endregion Constructor

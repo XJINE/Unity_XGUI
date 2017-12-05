@@ -10,10 +10,10 @@ namespace XJGUI
         {
             return new Vector3GUI()
             {
-                MinValue = base.MinValue,
-                MaxValue = base.MaxValue,
-                TextFieldWidth = base.TextFieldWidth,
-                WithSlider = base.WithSlider
+                MinValue = base.minValue,
+                MaxValue = base.maxValue,
+                TextFieldWidth = base.textFieldWidth,
+                WithSlider = base.withSlider
             };
         }
 

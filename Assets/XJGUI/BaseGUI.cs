@@ -38,8 +38,8 @@ namespace XJGUI
 
         public BaseGUI()
         {
-            this.Title = null;
-            this.BoldTitle = false;
+            this.title = null;
+            this.boldTitle = false;
         }
 
         #endregion Constructor

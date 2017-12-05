@@ -43,12 +43,12 @@ namespace XJGUI
             const int IPV4_VALUE_MIN = 0;
             const int IPV4_VALUE_MAX = 255;
 
-            this.x = new IntGUI() { MinValue = IPV4_VALUE_MIN, MaxValue = IPV4_VALUE_MAX, WithSlider = false };
-            this.y = new IntGUI() { MinValue = IPV4_VALUE_MIN, MaxValue = IPV4_VALUE_MAX, WithSlider = false };
-            this.z = new IntGUI() { MinValue = IPV4_VALUE_MIN, MaxValue = IPV4_VALUE_MAX, WithSlider = false };
-            this.w = new IntGUI() { MinValue = IPV4_VALUE_MIN, MaxValue = IPV4_VALUE_MAX, WithSlider = false };
+            this.x = new IntGUI() { Value = 0, MinValue = IPV4_VALUE_MIN, MaxValue = IPV4_VALUE_MAX, WithSlider = false };
+            this.y = new IntGUI() { Value = 0, MinValue = IPV4_VALUE_MIN, MaxValue = IPV4_VALUE_MAX, WithSlider = false };
+            this.z = new IntGUI() { Value = 0, MinValue = IPV4_VALUE_MIN, MaxValue = IPV4_VALUE_MAX, WithSlider = false };
+            this.w = new IntGUI() { Value = 0, MinValue = IPV4_VALUE_MIN, MaxValue = IPV4_VALUE_MAX, WithSlider = false };
 
-            this.Value = "0.0.0.0";
+            this.value = "0.0.0.0";
         }
 
         #endregion Constructor
