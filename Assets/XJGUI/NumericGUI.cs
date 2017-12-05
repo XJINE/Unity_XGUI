@@ -18,14 +18,14 @@ namespace XJGUI
 
         public override T Value
         {
+            get
+            {
+                return base.value;
+            }
             set
             {
                 base.value = CorrectValue(value);
                 this.text = base.value.ToString();
-            }
-            get
-            {
-                return base.value;
             }
         }
 
