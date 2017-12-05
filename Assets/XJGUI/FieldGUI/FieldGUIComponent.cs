@@ -12,7 +12,7 @@ namespace XJGUI
 
         #region Constructor
 
-        public FieldGUIComponent(System.Object data, FieldInfo info, FieldGUIAttribute attribute)
+        public FieldGUIComponent(System.Object data, FieldInfo info, FieldGUIInfo attribute)
             :base(data, info, attribute)
         {
         }

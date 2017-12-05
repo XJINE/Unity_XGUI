@@ -8,13 +8,13 @@ namespace XJGUI
 
         protected System.Object data;
         protected FieldInfo info;
-        protected FieldGUIAttribute attribute;
+        protected FieldGUIInfo attribute;
 
         #endregion Property
 
         #region Constructor
 
-        public FieldGUIBase(System.Object data, FieldInfo info, FieldGUIAttribute attribute)
+        public FieldGUIBase(System.Object data, FieldInfo info, FieldGUIInfo attribute)
         {
             this.data = data;
             this.info = info;

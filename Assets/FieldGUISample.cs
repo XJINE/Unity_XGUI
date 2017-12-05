@@ -12,11 +12,20 @@ public class FieldGUISample : MonoBehaviour
     public class SampleClass
     {
         public SampleEnum sampleEnum;
+
+        [FieldGUIInfo(MinValue = 0, MaxValue =10)]
+        public float sampleFloat;
     }
+
+    #region Field
 
     public SampleClass sampleClass;
 
     public FieldGUI fieldGUI;
+
+    #endregion Field
+
+    #region Method
 
     void Start ()
     {
@@ -28,4 +37,6 @@ public class FieldGUISample : MonoBehaviour
     {
         this.fieldGUI.Show();
     }
+
+    #endregion Method
 }

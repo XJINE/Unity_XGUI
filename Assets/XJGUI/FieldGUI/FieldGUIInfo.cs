@@ -2,7 +2,7 @@
 
 namespace XJGUI
 {
-    public class FieldGUIAttribute : Attribute
+    public class FieldGUIInfo : Attribute
     {
         #region Property
 

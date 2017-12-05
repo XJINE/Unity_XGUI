@@ -1,33 +1,33 @@
-﻿using System.Reflection;
-using UnityEngine;
+﻿//using System.Reflection;
+//using UnityEngine;
 
-namespace XJGUI.FieldGUIComponents
-{
-    public class Vector2GUI : FieldGUIComponent<Vector2>
-    {
-        #region Constructor
+//namespace XJGUI.FieldGUIComponents
+//{
+//    public class Vector2GUI : FieldGUIComponent<Vector2>
+//    {
+//        #region Constructor
 
-        public Vector2GUI(System.Object data, FieldInfo info, FieldGUIAttribute attribute)
-            : base(data, info, attribute)
-        {
-        }
+//        public Vector2GUI(System.Object data, FieldInfo info, FieldGUIInfo attribute)
+//            : base(data, info, attribute)
+//        {
+//        }
 
-        #endregion Constructor
+//        #endregion Constructor
 
-        #region Method
+//        #region Method
 
-        protected override void InitializeGUI()
-        {
-            base.gui = new global::XJGUI.Vector2GUI()
-            {
-                Value = (Vector2)base.info.GetValue(base.data),
-                Title = base.attribute.Title,
-                BoldTitle = base.attribute.BoldTitle,
-                MinValue = (Vector2)base.attribute.MinValue,
-                MaxValue = (Vector2)base.attribute.MaxValue,
-            };
-        }
+//        protected override void InitializeGUI()
+//        {
+//            base.gui = new global::XJGUI.Vector2GUI()
+//            {
+//                Value = (Vector2)base.info.GetValue(base.data),
+//                Title = base.attribute.Title,
+//                BoldTitle = base.attribute.BoldTitle,
+//                MinValue = (Vector2)base.attribute.MinValue,
+//                MaxValue = (Vector2)base.attribute.MaxValue,
+//            };
+//        }
 
-        #endregion Method
-    }
-}
+//        #endregion Method
+//    }
+//}

@@ -55,17 +55,16 @@ namespace XJGUI
             }
 
             FieldInfo fieldInfo;
-            FieldGUIAttribute guiAttribute;
+            FieldGUIInfo guiAttribute;
 
             for (var i = 0; i < fieldInfos.Length; i++)
             {
                 fieldInfo = fieldInfos[i];
-                guiAttribute = Attribute.GetCustomAttribute
-                    (fieldInfo, typeof(FieldGUIAttribute)) as FieldGUIAttribute;
+                guiAttribute = Attribute.GetCustomAttribute(fieldInfo, typeof(FieldGUIInfo)) as FieldGUIInfo;
 
                 if (guiAttribute == null)
                 {
-                    guiAttribute = new FieldGUIAttribute();
+                    guiAttribute = new FieldGUIInfo();
                     guiAttribute.Title = ToTitleCase(fieldInfo.Name);
                 }
 
@@ -80,7 +79,27 @@ namespace XJGUI
             }
         }
 
-        private FieldGUIBase GenerateGUI(System.Object data, FieldInfo info, FieldGUIAttribute attribute)
+        private FieldGUIInfo GenerateAttribute(FieldInfo info)
+        {
+            FieldGUIInfo attribute = Attribute.GetCustomAttribute(info, typeof(FieldGUIInfo)) as FieldGUIInfo;
+
+            if (attribute == null)
+            {
+                attribute = new FieldGUIInfo();
+                attribute.Title = FieldGUI.ToTitleCase(info.Name);
+
+                return attribute;
+            }
+
+            if (attribute.Title == null)
+            {
+                attribute.Title = FieldGUI.ToTitleCase(info.Name);
+            }
+
+            return null;
+        }
+
+        private FieldGUIBase GenerateGUI(System.Object data, FieldInfo info, FieldGUIInfo attribute)
         {
             FieldType fieldType = GetFieldType(info);
 
@@ -144,9 +163,9 @@ namespace XJGUI
             }
         }
 
-        protected static FieldType GetFieldType(FieldInfo fieldInfo)
+        protected static FieldType GetFieldType(FieldInfo info)
         {
-            Type type = fieldInfo.FieldType;
+            Type type = info.FieldType;
 
             if (type.IsPrimitive)
             {
