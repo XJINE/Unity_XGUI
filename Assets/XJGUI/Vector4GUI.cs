@@ -28,10 +28,13 @@ namespace XJGUI
                 this.floatGUIZ.Value = value.z;
                 this.floatGUIW.Value = value.w;
 
-                base.value = new Vector4(this.floatGUIX.Value,
-                                         this.floatGUIY.Value,
-                                         this.floatGUIZ.Value,
-                                         this.floatGUIW.Value);
+                base.value = new Vector4()
+                {
+                    x = this.floatGUIX.Value,
+                    y = this.floatGUIY.Value,
+                    z = this.floatGUIZ.Value,
+                    w = this.floatGUIW.Value
+                };
             }
         }
 
@@ -39,10 +42,13 @@ namespace XJGUI
         {
             get
             {
-                return new Vector4(this.floatGUIX.MinValue,
-                                   this.floatGUIY.MinValue,
-                                   this.floatGUIZ.MinValue,
-                                   this.floatGUIW.MinValue);
+                return new Vector4()
+                {
+                    x = this.floatGUIX.MinValue,
+                    y = this.floatGUIY.MinValue,
+                    z = this.floatGUIZ.MinValue,
+                    w = this.floatGUIW.MinValue
+                };
             }
             set
             {
@@ -57,10 +63,13 @@ namespace XJGUI
         {
             get
             {
-                return new Vector4(this.floatGUIX.MaxValue,
-                                   this.floatGUIY.MaxValue,
-                                   this.floatGUIZ.MaxValue,
-                                   this.floatGUIW.MaxValue);
+                return new Vector4()
+                {
+                    x = this.floatGUIX.MaxValue,
+                    y = this.floatGUIY.MaxValue,
+                    z = this.floatGUIZ.MaxValue,
+                    w = this.floatGUIW.MaxValue
+                };
             }
             set
             {

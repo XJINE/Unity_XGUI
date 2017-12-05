@@ -23,10 +23,10 @@ namespace XJGUI
             {
                 base.ShowTitle();
 
-                base.value = GUILayout.Toolbar(base.value, this.Labels);
+                base.Value = GUILayout.Toolbar(base.Value, this.Labels);
             });
 
-            return base.value;
+            return base.Value;
         }
 
         #endregion Method

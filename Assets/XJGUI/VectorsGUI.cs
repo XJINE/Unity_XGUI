@@ -1,12 +1,20 @@
 ﻿namespace XJGUI
 {
-    public abstract class VectorsGUI<T> : ValuesGUI<T> where T : struct
+    public abstract class VectorsGUI<T> : FloatingPointValueGUI<T> where T : struct
     {
+        #region Field
+
+        public bool horizontal;
+
+        #endregion Field
+
         #region Property
 
-        public int DecimalPlaces { get; set; }
-
-        public virtual bool Horizontal { get; set; }
+        public virtual bool Horizontal
+        {
+            get { return this.horizontal; }
+            set { this.horizontal = true; }
+        }
 
         #endregion Property
     }

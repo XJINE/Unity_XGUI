@@ -15,13 +15,13 @@ namespace XJGUI
             // (value = false && button = true)  => true
             // (value = false && button = false) => false
 
-            string buttonContent = (base.value ? "\u25BC " : "\u25BA ") + base.Title;
+            string buttonContent = (base.Value ? "\u25BC " : "\u25BA ") + base.Title;
 
             GUIStyle guiStyle = base.BoldTitle ? XJGUILayout.BoldLabelStyle : GUIStyle.none;
 
-            base.value = !(base.value == GUILayout.Button(buttonContent, guiStyle));
+            base.Value = !(base.Value == GUILayout.Button(buttonContent, guiStyle));
 
-            if (base.value)
+            if (base.Value)
             {
                 XJGUILayout.VerticalLayout(()=>
                 {
@@ -33,7 +33,7 @@ namespace XJGUI
                 });
             }
 
-            return base.value;
+            return base.Value;
         }
 
         #endregion Method

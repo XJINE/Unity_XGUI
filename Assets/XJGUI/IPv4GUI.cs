@@ -102,7 +102,7 @@ namespace XJGUI
                 });
             });
 
-            return base.value;
+            return this.Value;
         }
     }
         #endregion Method

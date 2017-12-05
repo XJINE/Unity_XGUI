@@ -81,7 +81,7 @@ namespace XJGUI
 
             if (!this.isEditing)
             {
-                return base.value;
+                return base.Value;
             }
 
             for (int i = 0; i < this.enumValues.Length; i++)
@@ -111,11 +111,11 @@ namespace XJGUI
                 {
                     this.selectedIndex = i;
                     this.isEditing = false;
-                    base.value = this.enumValues[i];
+                    base.Value = this.enumValues[i];
                 }
             }
 
-            return base.value;
+            return base.Value;
         }
 
         protected int GetSelectedEnumIndex(T value)

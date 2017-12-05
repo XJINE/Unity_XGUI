@@ -8,10 +8,10 @@
         {
             return new FloatGUI()
             {
-                MinValue = base.minValue,
-                MaxValue = base.maxValue,
-                TextFieldWidth = base.textFieldWidth,
-                WithSlider = base.withSlider
+                MinValue = base.MinValue,
+                MaxValue = base.MaxValue,
+                TextFieldWidth = base.TextFieldWidth,
+                WithSlider = base.WithSlider
             };
         }
 

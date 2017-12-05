@@ -170,13 +170,13 @@ namespace XJGUI
         {
             this.foldOutPanel = new FoldoutPanel()
             {
-                Title     = base.title,
-                BoldTitle = base.boldTitle,
+                Title     = base.Title,
+                BoldTitle = base.BoldTitle,
                 Value     = false
             };
 
-            this.textFieldWidth = 0;
-            this.withSlider = true;
+            this.TextFieldWidth = 0;
+            this.WithSlider = true;
         }
 
         #endregion Constructor
@@ -185,14 +185,14 @@ namespace XJGUI
 
         public override IList<T> Show()
         {
-            if (base.value != null)
+            if (this.Value != null)
             {
                 CheckValueGUIsUpdate();
             }
 
             XJGUILayout.VerticalLayout(() =>
             {
-                if (base.title != null)
+                if (this.Title != null)
                 {
                     this.foldOutPanel.Show(delegate ()
                     {
@@ -205,18 +205,18 @@ namespace XJGUI
                 }
             });
 
-            return base.value;
+            return this.Value;
         }
 
         protected void ShowComponentGUI()
         {
-            if (base.value == null)
+            if (this.Value == null)
             {
                 GUILayout.Label("NULL");
                 return;
             }
 
-            int valueCount = base.value.Count;
+            int valueCount = this.Value.Count;
 
             if (valueCount == 0)
             {
@@ -226,15 +226,15 @@ namespace XJGUI
 
             for (int i = 0; i < valueCount; i++)
             {
-                base.value[i] = valueGUIs[i].Show();
+                this.Value[i] = this.valueGUIs[i].Show();
             }
         }
 
         protected bool CheckValueGUIsUpdate()
         {
-            int valueCount = base.value.Count;
+            int valueCount = this.Value.Count;
 
-            if (this.valueGUIs != null && base.value.Count == this.valueGUIs.Length)
+            if (this.valueGUIs != null && this.valueGUIs.Length == this.Value.Count)
             {
                 return false;
             }
@@ -244,7 +244,7 @@ namespace XJGUI
             for (int i = 0; i < valueCount; i++)
             {
                 this.valueGUIs[i] = GenerateValueGUI();
-                this.valueGUIs[i].Value = base.value[i];
+                this.valueGUIs[i].Value = this.Value[i];
             }
 
             return true;

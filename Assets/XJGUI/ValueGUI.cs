@@ -44,10 +44,10 @@
         public ValueGUI() : base()
         {
             // NOTE:
-            // minValue & maxValue must be initialize in inheritance class.
+            // MinValue & MaxValue must be initialized in inheritance class.
 
-            this.textFieldWidth = -1;
-            this.withSlider = true;
+            this.TextFieldWidth = -1;
+            this.WithSlider = true;
         }
 
         #endregion Constructor

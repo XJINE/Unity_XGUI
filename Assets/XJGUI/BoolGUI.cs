@@ -14,10 +14,10 @@ namespace XJGUI
 
                 GUILayout.FlexibleSpace();
 
-                base.value = GUILayout.Toggle(base.value, "");
+                base.Value = GUILayout.Toggle(base.Value, "");
             });
 
-            return base.value;
+            return base.Value;
         }
 
         #endregion Method

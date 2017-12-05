@@ -24,12 +24,12 @@ namespace XJGUI
             {
                 base.ShowTitle();
 
-                base.value = GUILayout.Toolbar(base.value, (string[])this.Labels);
+                base.Value = GUILayout.Toolbar(base.Value, this.Labels);
 
-                guiAction[base.value]();
+                guiAction[base.Value]();
             }));
 
-            return base.value;
+            return base.Value;
         }
 
         #endregion Method
