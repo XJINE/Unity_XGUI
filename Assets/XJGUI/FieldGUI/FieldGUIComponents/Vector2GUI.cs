@@ -20,12 +20,12 @@ namespace XJGUI.FieldGUIComponents
         {
             base.gui = new XJGUI.Vector2GUI()
             {
-                Value = (Vector2)base.info.GetValue(base.data),
-                Title = base.attribute.Title,
-                BoldTitle = base.attribute.BoldTitle,
-                MinValue = new Vector2(base.attribute.MinValue, base.attribute.MinValue),
-                MaxValue = new Vector2(base.attribute.MaxValue, base.attribute.MaxValue),
-                Decimals = base.attribute.Decimals,
+                Value = (Vector2)base.fieldInfo.GetValue(base.data),
+                Title = base.guiInfo.Title,
+                BoldTitle = base.guiInfo.BoldTitle,
+                MinValue = new Vector2(base.guiInfo.MinValue, base.guiInfo.MinValue),
+                MaxValue = new Vector2(base.guiInfo.MaxValue, base.guiInfo.MaxValue),
+                Decimals = base.guiInfo.Decimals,
             };
         }
 

@@ -17,11 +17,11 @@ namespace XJGUI.FieldGUIComponents
 
         protected override void InitializeGUI()
         {
-            base.gui = new global::XJGUI.IPv4GUI()
+            base.gui = new XJGUI.IPv4GUI()
             {
-                Value = base.info.GetValue(base.data).ToString(),
-                Title = base.attribute.Title,
-                BoldTitle = base.attribute.BoldTitle,
+                Value = base.fieldInfo.GetValue(base.data).ToString(),
+                Title = base.guiInfo.Title,
+                BoldTitle = base.guiInfo.BoldTitle,
             };
         }
 

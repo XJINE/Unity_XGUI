@@ -23,12 +23,12 @@ namespace XJGUI
 
         protected override void Save()
         {
-            base.info.SetValue(base.data, this.gui.Value);
+            base.fieldInfo.SetValue(base.data, this.gui.Value);
         }
 
         protected override void Load()
         {
-            this.gui.Value = (T)base.info.GetValue(base.data);
+            this.gui.Value = (T)base.fieldInfo.GetValue(base.data);
         }
 
         protected override void ShowGUI()

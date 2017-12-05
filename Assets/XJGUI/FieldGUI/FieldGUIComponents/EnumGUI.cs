@@ -18,11 +18,11 @@ namespace XJGUI.FieldGUIComponents
 
         protected override void InitializeGUI()
         {
-            base.gui = new global::XJGUI.EnumGUI<T>()
+            base.gui = new XJGUI.EnumGUI<T>()
             {
-                Value = (T)base.info.GetValue(base.data),
-                Title = base.attribute.Title,
-                BoldTitle = base.attribute.BoldTitle,
+                Value = (T)base.fieldInfo.GetValue(base.data),
+                Title = base.guiInfo.Title,
+                BoldTitle = base.guiInfo.BoldTitle,
             };
         }
 

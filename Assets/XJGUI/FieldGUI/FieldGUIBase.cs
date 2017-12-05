@@ -7,18 +7,18 @@ namespace XJGUI
         #region Property
 
         protected System.Object data;
-        protected FieldInfo info;
-        protected FieldGUIInfo attribute;
+        protected FieldInfo fieldInfo;
+        protected FieldGUIInfo guiInfo;
 
         #endregion Property
 
         #region Constructor
 
-        public FieldGUIBase(System.Object data, FieldInfo info, FieldGUIInfo attribute)
+        public FieldGUIBase(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
         {
             this.data = data;
-            this.info = info;
-            this.attribute = attribute;
+            this.fieldInfo = fieldInfo;
+            this.guiInfo = guiInfo;
 
             InitializeGUI();
             Load();
