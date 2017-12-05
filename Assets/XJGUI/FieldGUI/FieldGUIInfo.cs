@@ -18,6 +18,8 @@ namespace XJGUI
 
         public float MaxValue { get; set; }
 
+        public int Decimals { get; set; }
+
         public bool IPv4 { get; set; }
 
         public string FoldoutTitle { get; set; }

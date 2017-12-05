@@ -55,25 +55,19 @@ namespace XJGUI
             }
 
             FieldInfo fieldInfo;
-            FieldGUIInfo guiAttribute;
+            FieldGUIInfo fieldAttribute;
 
             for (var i = 0; i < fieldInfos.Length; i++)
             {
                 fieldInfo = fieldInfos[i];
-                guiAttribute = Attribute.GetCustomAttribute(fieldInfo, typeof(FieldGUIInfo)) as FieldGUIInfo;
+                fieldAttribute = GenerateAttribute(fieldInfo);
 
-                if (guiAttribute == null)
-                {
-                    guiAttribute = new FieldGUIInfo();
-                    guiAttribute.Title = ToTitleCase(fieldInfo.Name);
-                }
-
-                if (guiAttribute.HideInGUI)
+                if (fieldAttribute.HideInGUI)
                 {
                     continue;
                 }
 
-                FieldGUIBase gui = GenerateGUI(data, fieldInfo, guiAttribute);
+                FieldGUIBase gui = GenerateGUI(data, fieldInfo, fieldAttribute);
 
                 this.fieldGUIs.Add(gui);
             }
@@ -96,7 +90,7 @@ namespace XJGUI
                 attribute.Title = FieldGUI.ToTitleCase(info.Name);
             }
 
-            return null;
+            return attribute;
         }
 
         private FieldGUIBase GenerateGUI(System.Object data, FieldInfo info, FieldGUIInfo attribute)

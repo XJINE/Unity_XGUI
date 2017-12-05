@@ -7,8 +7,8 @@ namespace XJGUI.FieldGUIComponents
     {
         #region Constructor
 
-        public IntsGUI(System.Object data, FieldInfo info, FieldGUIInfo attribute)
-            : base(data, info, attribute)
+        public IntsGUI(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
+            : base(data, fieldInfo, guiInfo)
         {
         }
 
