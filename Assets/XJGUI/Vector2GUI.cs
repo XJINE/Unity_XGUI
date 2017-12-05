@@ -120,8 +120,8 @@ namespace XJGUI
 
         protected override void ShowComponentGUI()
         {
-            this.floatGUIX.Show();
-            this.floatGUIY.Show();
+            this.value.x = this.floatGUIX.Show();
+            this.value.y = this.floatGUIY.Show();
         }
 
         #endregion Method

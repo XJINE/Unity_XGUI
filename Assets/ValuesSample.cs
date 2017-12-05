@@ -11,6 +11,7 @@ public class ValuesSample : MonoBehaviour
     IntsGUI intsGUI;
     FloatsGUI floatsGUI;
     Vector2sGUI vector2sGUI;
+    Vector2GUI vector2GUI;
 
     public List<int> intList;
     public float[] floatArray;
@@ -36,6 +37,8 @@ public class ValuesSample : MonoBehaviour
 
         this.vector2sGUI = new Vector2sGUI() { Title = "Vector2 Array", MaxValue = new Vector2(10, 10) };
         this.vector2sGUI.Value = this.vector2Array;
+
+        this.vector2GUI = new Vector2GUI() { Title = "Vector2", MinValue = new Vector2(10, 10), MaxValue = new Vector2(30, 30) };
     }
 
     void Update()
@@ -50,10 +53,11 @@ public class ValuesSample : MonoBehaviour
     {
         this.flexibleWindow.Show(() =>
         {
-            this.intsGUI.Show();
-            this.floatsGUI.Show();
+            //this.intsGUI.Show();
+            //this.floatsGUI.Show();
             //this.vector2Array = (Vector2[])this.vector2sGUI.Show();
-            this.vector2sGUI.Show();
+            //this.vector2sGUI.Show();
+            Debug.Log(this.vector2GUI.Show());
         });
     }
 
