@@ -24,8 +24,11 @@ namespace XJGUI
                 this.floatGUIX.Value = value.x;
                 this.floatGUIY.Value = value.y;
 
-                base.value = new Vector2(this.floatGUIX.Value,
-                                         this.floatGUIY.Value);
+                base.value = new Vector2()
+                {
+                    x = this.floatGUIX.Value,
+                    y = this.floatGUIY.Value
+                };
             }
         }
 
@@ -33,8 +36,11 @@ namespace XJGUI
         {
             get
             {
-                return new Vector2(this.floatGUIX.MinValue,
-                                   this.floatGUIY.MinValue);
+                return new Vector2()
+                {
+                    x = this.floatGUIX.MinValue,
+                    y = this.floatGUIY.MinValue
+                };
             }
             set
             {
@@ -47,8 +53,11 @@ namespace XJGUI
         {
             get
             {
-                return new Vector2(this.floatGUIX.MaxValue,
-                                   this.floatGUIY.MaxValue);
+                return new Vector2()
+                {
+                    x = this.floatGUIX.MaxValue,
+                    y = this.floatGUIY.MaxValue
+                };
             }
             set
             {
@@ -108,10 +117,6 @@ namespace XJGUI
 
             this.MinValue = new Vector2(float.MinValue, float.MinValue);
             this.MaxValue = new Vector2(float.MaxValue, float.MaxValue);
-            this.TextFieldWidth = -1;
-            this.WithSlider = true;
-            this.Decimals = 2;
-            base.Horizontal = true;
         }
 
         #endregion Constructor

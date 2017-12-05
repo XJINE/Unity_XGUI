@@ -119,10 +119,6 @@ namespace XJGUI
 
             this.MinValue = new Vector3(float.MinValue, float.MinValue, float.MinValue);
             this.MaxValue = new Vector3(float.MaxValue, float.MaxValue, float.MaxValue);
-            this.TextFieldWidth = -1;
-            this.WithSlider = true;
-            this.Decimals = 2;
-            base.Horizontal = true;
         }
 
         #endregion Constructor

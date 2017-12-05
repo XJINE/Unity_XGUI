@@ -126,14 +126,10 @@ namespace XJGUI
             this.floatGUIX = new FloatGUI() { Title = "X" };
             this.floatGUIY = new FloatGUI() { Title = "Y" };
             this.floatGUIZ = new FloatGUI() { Title = "Z" };
-            this.floatGUIW = new FloatGUI() { Title = "Z" };
+            this.floatGUIW = new FloatGUI() { Title = "W" };
 
             this.MinValue = new Vector4(float.MinValue, float.MinValue, float.MinValue, float.MinValue);
             this.MaxValue = new Vector4(float.MaxValue, float.MaxValue, float.MaxValue, float.MaxValue);
-            this.TextFieldWidth = -1;
-            this.WithSlider = true;
-            this.Decimals = 2;
-            base.Horizontal = true;
         }
 
         #endregion Constructor

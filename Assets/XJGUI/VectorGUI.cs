@@ -1,14 +1,33 @@
 ﻿namespace XJGUI
 {
-    public abstract class VectorGUI<T> : ValueGUI<T> where T : struct
+    public abstract class VectorGUI<T> : FloatingPointValueGUI<T> where T : struct
     {
+        #region Field
+
+        protected bool horizontal;
+
+        #endregion Field
+
         #region Property
 
-        public virtual int Decimals { get; set; }
-
-        public virtual bool Horizontal { get; set; }
+        public virtual bool Horizontal
+        {
+            get { return this.horizontal; }
+            set { this.horizontal = value; }
+        }
 
         #endregion Property
+
+        #region Constructor
+
+        public VectorGUI()
+        {
+            this.horizontal = true;
+        }
+
+        #endregion Constructor
+
+        #region Method
 
         public override T Show()
         {
@@ -33,5 +52,7 @@
         }
 
         protected abstract void ShowComponentGUI();
+
+        #endregion Method
     }
 }
