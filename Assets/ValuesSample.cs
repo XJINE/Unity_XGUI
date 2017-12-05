@@ -14,6 +14,8 @@ public class ValuesSample : MonoBehaviour
 
     #endregion Field
 
+    #region Method
+
     void Start ()
     {
         this.flexibleWindow = new FlexibleWindow()
@@ -22,11 +24,16 @@ public class ValuesSample : MonoBehaviour
             MinHeight = 300,
         };
 
-        this.intsGUI = new IntsGUI() { Title = "IntsGUI" };
-
-        //this.intList = new List<int>();
-
+        this.intsGUI = new IntsGUI() { Title = "Int List", MaxValue = 100, TextFieldWidth = 50 };
         this.intsGUI.Value = this.intList;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            this.intList.Add(0);
+        }
     }
 
     void OnGUI()
@@ -36,4 +43,6 @@ public class ValuesSample : MonoBehaviour
             this.intsGUI.Show();
         });
     }
+
+    #endregion Method
 }

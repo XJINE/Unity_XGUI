@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace XJGUI
 {
@@ -18,6 +19,61 @@ namespace XJGUI
 
         #region Property
 
+        // NOTE:
+        // Some properties initialized by base() constructor.
+
+        public override string Title
+        {
+            get
+            {
+                return base.title;
+            }
+            set
+            {
+                base.title = value;
+
+                if (this.foldOutPanel != null)
+                {
+                    this.foldOutPanel.Title = value;
+                }
+            }
+        }
+
+        public override bool BoldTitle
+        {
+            get
+            {
+                return base.boldTitle;
+            }
+            set
+            {
+                base.boldTitle = value;
+
+                if (this.foldOutPanel != null)
+                {
+                    this.foldOutPanel.BoldTitle = value;
+                }
+            }
+        }
+
+        public override IList<T> Value
+        {
+            get
+            {
+                return base.value;
+            }
+
+            set
+            {
+                base.value = value;
+
+                if (base.value != null)
+                {
+                    CheckValueGUIsUpdate();
+                }
+            }
+        }
+
         public virtual T MinValue
         {
             get
@@ -28,7 +84,7 @@ namespace XJGUI
             {
                 this.minValue = value;
 
-                if (CheckValueGUIsUpdate())
+                if (base.value == null || CheckValueGUIsUpdate())
                 {
                     return;
                 }
@@ -50,7 +106,7 @@ namespace XJGUI
             {
                 this.maxValue = value;
 
-                if (CheckValueGUIsUpdate())
+                if (base.value == null || CheckValueGUIsUpdate())
                 {
                     return;
                 }
@@ -62,7 +118,7 @@ namespace XJGUI
             }
         }
 
-        public float TextFieldWidth
+        public virtual float TextFieldWidth
         {
             get
             {
@@ -72,7 +128,7 @@ namespace XJGUI
             {
                 this.textFieldWidth = value;
 
-                if (CheckValueGUIsUpdate())
+                if (base.value == null || CheckValueGUIsUpdate())
                 {
                     return;
                 }
@@ -84,7 +140,7 @@ namespace XJGUI
             }
         }
 
-        public bool WithSlider
+        public virtual bool WithSlider
         {
             get
             {
@@ -94,7 +150,7 @@ namespace XJGUI
             {
                 this.withSlider = value;
 
-                if (CheckValueGUIsUpdate())
+                if (base.value == null || CheckValueGUIsUpdate())
                 {
                     return;
                 }
@@ -112,15 +168,15 @@ namespace XJGUI
 
         public ValuesGUI() : base()
         {
-            this.foldOutPanel = new FoldoutPanel();
-
-            if (base.value != null)
+            this.foldOutPanel = new FoldoutPanel()
             {
-                for (int i = 0; i < this.value.Count; i++)
-                {
-                    this.valueGUIs[i] = GenerateValueGUI();
-                }
-            }
+                Title     = base.title,
+                BoldTitle = base.boldTitle,
+                Value     = false
+            };
+
+            this.textFieldWidth = 0;
+            this.withSlider = true;
         }
 
         #endregion Constructor
@@ -129,14 +185,14 @@ namespace XJGUI
 
         public override IList<T> Show()
         {
-            if (this.value == null)
+            if (base.value != null)
             {
-                return null;
+                CheckValueGUIsUpdate();
             }
 
             XJGUILayout.VerticalLayout(() =>
             {
-                if (base.Title != null)
+                if (base.title != null)
                 {
                     this.foldOutPanel.Show(delegate ()
                     {
@@ -154,9 +210,21 @@ namespace XJGUI
 
         protected void ShowComponentGUI()
         {
-            CheckValueGUIsUpdate();
+            if (base.value == null)
+            {
+                GUILayout.Label("NULL");
+                return;
+            }
 
-            for (int i = 0; i < base.value.Count; i++)
+            int valueCount = base.value.Count;
+
+            if (valueCount == 0)
+            {
+                GUILayout.Label("NO ELEMENT");
+                return;
+            }
+
+            for (int i = 0; i < valueCount; i++)
             {
                 base.value[i] = valueGUIs[i].Show();
             }
@@ -166,14 +234,17 @@ namespace XJGUI
         {
             int valueCount = base.value.Count;
 
-            if (base.value.Count == this.valueGUIs.Length)
+            if (this.valueGUIs != null && base.value.Count == this.valueGUIs.Length)
             {
                 return false;
             }
 
+            this.valueGUIs = new ValueGUI<T>[valueCount];
+
             for (int i = 0; i < valueCount; i++)
             {
                 this.valueGUIs[i] = GenerateValueGUI();
+                this.valueGUIs[i].Value = base.value[i];
             }
 
             return true;
