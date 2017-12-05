@@ -2,7 +2,7 @@
 
 namespace XJGUI
 {
-    public class IPv4GUI : BaseGUI<string>
+    public class IPv4GUI : ComponentBaseGUI<string>
     {
         #region Field
 
@@ -55,28 +55,7 @@ namespace XJGUI
 
         #region Method
 
-        protected virtual int[] ParseIPv4Text(string ipv4Text)
-        {
-            string[] values = ipv4Text.Split('.');
-
-            int[] intValues = new int[4];
-
-            for (int i = 0; i < 4; i++)
-            {
-                intValues[i] = 0;
-            }
-
-            for(int i = 0; i < values.Length && i < 4; i++)
-            {
-                int intValue = 0;
-                int.TryParse(values[i], out intValue);
-                intValues[i] = intValue;
-            }
-
-            return intValues;
-        }
-
-        public string Show()
+        public override string Show()
         {
             XJGUILayout.VerticalLayout(() => 
             {
@@ -104,6 +83,28 @@ namespace XJGUI
 
             return this.Value;
         }
-    }
+
+        protected virtual int[] ParseIPv4Text(string ipv4Text)
+        {
+            string[] values = ipv4Text.Split('.');
+
+            int[] intValues = new int[4];
+
+            for (int i = 0; i < 4; i++)
+            {
+                intValues[i] = 0;
+            }
+
+            for (int i = 0; i < values.Length && i < 4; i++)
+            {
+                int intValue = 0;
+                int.TryParse(values[i], out intValue);
+                intValues[i] = intValue;
+            }
+
+            return intValues;
+        }
+
         #endregion Method
+    }
 }

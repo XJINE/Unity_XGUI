@@ -2,46 +2,25 @@
 
 namespace XJGUI
 {
-    public abstract class FieldGUIBase<T>
+    public abstract class FieldGUIBase
     {
-        #region Field
-
-        protected ComponentBaseGUI<T> gui;
-
-        #endregion Field
-
         #region Property
 
-        public System.Object Data
-        {
-            get;
-            private set;
-        }
-
-        public FieldInfo FieldInfo
-        {
-            get;
-            private set;
-        }
-
-        public FieldGUIAttribute GUIAttribute
-        {
-            get;
-            private set;
-        }
+        protected System.Object data;
+        protected FieldInfo info;
+        protected FieldGUIAttribute attribute;
 
         #endregion Property
 
         #region Constructor
 
-        public FieldGUIBase(System.Object data, FieldInfo fieldInfo, FieldGUIAttribute guiAttribute)
+        public FieldGUIBase(System.Object data, FieldInfo info, FieldGUIAttribute attribute)
         {
-            this.Data = data;
-            this.FieldInfo = fieldInfo;
-            this.GUIAttribute = guiAttribute;
+            this.data = data;
+            this.info = info;
+            this.attribute = attribute;
 
             InitializeGUI();
-
             Load();
         }
 
@@ -49,23 +28,19 @@ namespace XJGUI
 
         #region Method
 
-        public virtual void Show()
+        protected abstract void InitializeGUI();
+
+        protected abstract void Save();
+
+        protected abstract void Load();
+
+        protected abstract void ShowGUI();
+
+        public void Show()
         {
-            this.gui.Show();
+            ShowGUI();
             Save();
         }
-
-        protected virtual void Save()
-        {
-            this.FieldInfo.SetValue(this.Data, this.gui.Value);
-        }
-
-        protected virtual void Load()
-        {
-            this.gui.Value = (T)this.FieldInfo.GetValue(this.Data);
-        }
-
-        protected abstract void InitializeGUI();
 
         #endregion Method
     }

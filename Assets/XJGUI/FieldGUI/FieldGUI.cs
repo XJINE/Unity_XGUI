@@ -80,43 +80,71 @@ namespace XJGUI
             }
         }
 
-        private FieldGUIBase GenerateGUI
-            (System.Object data, FieldInfo fieldInfo, FieldGUIAttribute guiAttribute)
+        private FieldGUIBase GenerateGUI(System.Object data, FieldInfo info, FieldGUIAttribute attribute)
         {
-            FieldType fieldType = GetFieldType(fieldInfo);
+            FieldType fieldType = GetFieldType(info);
 
             switch (fieldType)
             {
-                case FieldType.Int: return new FieldIntGUI(data, fieldInfo, guiAttribute);
-                //case FieldType.Float:
-                //    return new FieldGUIs.FloatGUI(data, fieldInfo, guiAttribute);
+                case FieldType.Int:
+                    return new FieldGUIComponents.IntGUI(data, info, attribute);
+                case FieldType.Float:
+                    return new  FieldGUIComponents.FloatGUI(data, info, attribute);
                 //case FieldType.Vector2:
-                //    return new FieldGUIs.Vector2GUI(data, fieldInfo, guiAttribute);
+                //    return new  FieldGUIComponents.Vector2GUI(data, info, attribute);
                 //case FieldType.Vector3:
-                //    return new FieldGUIs.Vector3GUI(data, fieldInfo, guiAttribute);
+                //    return new  FieldGUIComponents.Vector3GUI(data, info, attribute);
                 //case FieldType.Vector4:
-                //    return new FieldGUIs.Vector4GUI(data, fieldInfo, guiAttribute);
+                //    return new  FieldGUIComponents.Vector4GUI(data, info, attribute);
                 //case FieldType.Bool:
-                //    return new FieldGUIs.BoolGUI(data, fieldInfo, guiAttribute);
-                //case FieldType.Enum:
-                //    return new FieldGUIs.EnumGUI(data, fieldInfo, guiAttribute);
-                //case FieldType.Vector2Array:
-                //    return new FieldGUIs.Vector2ArrayGUI(data, fieldInfo, guiAttribute);
-                //case FieldType.Unsupported:
-                //    {
-                //        if (guiAttribute.IPv4)
-                //        {
-                //            return new FieldGUIs.IPv4GUI(data, fieldInfo, guiAttribute);
-                //        }
+                //    return new  FieldGUIComponents.BoolGUI(data, info, attribute);
+                case FieldType.Enum:
+                    Type enumTypeGUI = typeof(FieldGUIComponents.EnumGUI<>);
+                    Type genericType = enumTypeGUI.MakeGenericType(info.FieldType);
+                    return (FieldGUIBase)Activator.CreateInstance(genericType, data, info, attribute);
+                    //case FieldType.Vector2Array:
+                    //    return new  FieldGUIComponents.Vector2ArrayGUI(data, info, attribute);
+                    //case FieldType.Unsupported:
+                    //    {
+                    //        if (attribute.IPv4)
+                    //        {
+                    //            return new  FieldGUIComponents.IPv4GUI(data, info, attribute);
+                    //        }
 
-                //        return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiAttribute);
-                //    }
-                //default:
-                //    return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiAttribute);
+                    //        return new  FieldGUIComponents.UnSupportedGUI(data, info, attribute);
+                    //    }
+                    //default:
+                    //    return new  FieldGUIComponents.UnSupportedGUI(data, info, attribute);
+            }
+
+            return null;
+        }
+
+        public void Show()
+        {
+            for (int i = 0; i < this.fieldGUIs.Count; i++)
+            {
+                this.fieldGUIs[i].Show();
             }
         }
 
-        public FieldType GetFieldType(FieldInfo fieldInfo)
+        protected void Save()
+        {
+            foreach (FieldGUIBase fieldGUI in this.fieldGUIs)
+            {
+                //fieldGUI.Save();
+            }
+        }
+
+        protected void Load()
+        {
+            foreach (FieldGUIBase fieldGUI in this.fieldGUIs)
+            {
+                //fieldGUI.Load();
+            }
+        }
+
+        protected static FieldType GetFieldType(FieldInfo fieldInfo)
         {
             Type type = fieldInfo.FieldType;
 
@@ -174,30 +202,6 @@ namespace XJGUI
             }
 
             return FieldType.Unsupported;
-        }
-
-        public void Show()
-        {
-            for (int i = 0; i < this.fieldGUIs.Count; i++)
-            {
-                this.fieldGUIs[i].Show();
-            }
-        }
-
-        public void Save()
-        {
-            foreach (FieldGUIBase fieldGUI in this.fieldGUIs)
-            {
-                fieldGUI.Save();
-            }
-        }
-
-        public void Load()
-        {
-            foreach (FieldGUIBase fieldGUI in this.fieldGUIs)
-            {
-                fieldGUI.Load();
-            }
         }
 
         protected static string ToTitleCase(string text)
