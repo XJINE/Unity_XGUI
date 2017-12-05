@@ -25,6 +25,7 @@ namespace XJGUI.FieldGUIComponents
                 BoldTitle = base.guiInfo.BoldTitle,
                 MinValue = base.guiInfo.MinValue,
                 MaxValue = base.guiInfo.MaxValue,
+                Decimals = base.guiInfo.Decimals,
             };
         }
 

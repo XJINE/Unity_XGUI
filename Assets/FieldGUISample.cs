@@ -13,7 +13,7 @@ public class FieldGUISample : MonoBehaviour
     {
         public SampleEnum sampleEnum;
 
-        [FieldGUIInfo(MinValue = 0, MaxValue = 10)]
+        [FieldGUIInfo(MinValue = 0, MaxValue = 10, Decimals = 3)]
         public float sampleFloat;
     }
 

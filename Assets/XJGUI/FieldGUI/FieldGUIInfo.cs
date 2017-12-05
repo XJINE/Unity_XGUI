@@ -27,5 +27,23 @@ namespace XJGUI
         public bool FoldoutClear { get; set; }
 
         #endregion Property
+
+        #region Constructor
+
+        public FieldGUIInfo()
+        {
+            this.HideInGUI = false;
+            this.Title = null;
+            this.BoldTitle = false;
+            this.Labels = null;
+            this.MinValue = float.MinValue;
+            this.MaxValue = float.MaxValue;
+            this.Decimals = 2;
+            this.IPv4 = false;
+            this.FoldoutTitle = null;
+            this.FoldoutClear = false;
+        }
+
+        #endregion constructor
     }
 }
