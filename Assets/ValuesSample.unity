@@ -298,3 +298,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   intList: 0100000004000000
+  vector2Array:
+  - {x: 5, y: 0}
+  - {x: 0, y: 3}
