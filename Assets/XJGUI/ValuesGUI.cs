@@ -21,6 +21,25 @@ namespace XJGUI
 
         // NOTE:
         // Some properties initialized by base() constructor.
+        // So need null check.
+
+        public override IList<T> Value
+        {
+            get
+            {
+                return base.value;
+            }
+
+            set
+            {
+                base.value = value;
+
+                if (base.value != null)
+                {
+                    CheckValueGUIsUpdate();
+                }
+            }
+        }
 
         public override string Title
         {
@@ -52,24 +71,6 @@ namespace XJGUI
                 if (this.foldOutPanel != null)
                 {
                     this.foldOutPanel.BoldTitle = value;
-                }
-            }
-        }
-
-        public override IList<T> Value
-        {
-            get
-            {
-                return base.value;
-            }
-
-            set
-            {
-                base.value = value;
-
-                if (base.value != null)
-                {
-                    CheckValueGUIsUpdate();
                 }
             }
         }

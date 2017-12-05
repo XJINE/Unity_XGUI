@@ -6,13 +6,19 @@ namespace XJGUI
     {
         #region Field
 
+        protected T value;
         protected string title;
         protected bool boldTitle;
-        protected T value;
 
         #endregion Field
 
         #region Property
+
+        public virtual T Value
+        {
+            get { return this.value; }
+            set { this.value = value; }
+        }
 
         public virtual string Title
         {
@@ -24,12 +30,6 @@ namespace XJGUI
         {
             get { return this.boldTitle; }
             set { this.boldTitle = value; }
-        }
-
-        public virtual T Value
-        {
-            get { return this.value; }
-            set { this.value = value; }
         }
 
         #endregion Property
