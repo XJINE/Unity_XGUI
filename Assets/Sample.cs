@@ -28,6 +28,7 @@ public class Sample : MonoBehaviour
     {
         this.flexibleWindow = new FlexibleWindow()
         {
+            Title = "Sample",
             MinWidth  = 300,
             MinHeight = 300,
         };

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace XJGUI
 {
-    public class FlexibleWindow
+    public class FlexibleWindow : BaseGUI<Rect>
     {
         #region Field
 
@@ -14,15 +14,12 @@ namespace XJGUI
         #region Property
 
         public int ID { get; private set; }
-
-        public Rect Value { get; set; }
-        public string Title { get; set; }
         public float MinWidth { get; set; }
         public float MinHeight { get; set; }
         public float MaxWidth { get; set; }
         public float MaxHeight { get; set; }
-        public bool IsDraggable { get; set; }
-        public bool IsVisible { get; set; }
+        public bool  IsDraggable { get; set; }
+        public bool  IsVisible { get; set; }
 
         #endregion Property
 
