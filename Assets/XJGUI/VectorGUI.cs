@@ -1,6 +1,6 @@
 ﻿namespace XJGUI
 {
-    public abstract class VectorGUI<T> : FloatingPointValueGUI<T> where T : struct
+    public abstract class VectorGUI<T> : ValueGUI<T> where T : struct
     {
         #region Field
 

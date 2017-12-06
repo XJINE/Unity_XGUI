@@ -6,6 +6,7 @@
 
         protected T minValue;
         protected T maxValue;
+        protected int decimals;
         protected float textFieldWidth;
         protected bool withSlider;
 
@@ -23,6 +24,12 @@
         {
             get { return this.maxValue; }
             set { this.maxValue = value; }
+        }
+
+        public virtual int Decimals
+        {
+            get { return this.decimals; }
+            set { this.decimals = value; }
         }
 
         public virtual float TextFieldWidth
@@ -46,6 +53,7 @@
             // NOTE:
             // MinValue & MaxValue must be initialized in inheritance class.
 
+            this.decimals = 2;
             this.textFieldWidth = -1;
             this.withSlider = true;
         }

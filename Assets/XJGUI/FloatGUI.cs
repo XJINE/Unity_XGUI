@@ -2,7 +2,7 @@
 
 namespace XJGUI
 {
-    public class FloatGUI : FloatingPointValueGUI<float>
+    public class FloatGUI : ValueGUI<float>
     {
         #region Field
 

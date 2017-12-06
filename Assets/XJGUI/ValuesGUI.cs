@@ -12,6 +12,7 @@ namespace XJGUI
 
         protected T minValue;
         protected T maxValue;
+        protected int decimals;
         protected float textFieldWidth;
         protected bool withSlider;
 
@@ -119,6 +120,28 @@ namespace XJGUI
             }
         }
 
+        public virtual int Decimals
+        {
+            get
+            {
+                return this.decimals;
+            }
+            set
+            {
+                this.decimals = value;
+
+                if (base.value == null || CheckValueGUIsUpdate())
+                {
+                    return;
+                }
+
+                for (int i = 0; i < base.value.Count; i++)
+                {
+                    this.valueGUIs[i].Decimals = value;
+                }
+            }
+        }
+
         public virtual float TextFieldWidth
         {
             get
@@ -176,6 +199,7 @@ namespace XJGUI
                 Value     = false
             };
 
+            this.decimals = 2;
             this.textFieldWidth = 0;
             this.withSlider = true;
         }
