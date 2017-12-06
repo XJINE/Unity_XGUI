@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using UnityEngine;
 
-namespace XJGUI
+namespace XJGUI.FieldGUIComponents
 {
     public class UnSupportedGUI : FieldGUIBase
     {

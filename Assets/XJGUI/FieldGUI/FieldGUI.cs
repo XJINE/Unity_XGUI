@@ -55,19 +55,19 @@ namespace XJGUI
             }
 
             FieldInfo fieldInfo;
-            FieldGUIInfo fieldAttribute;
+            FieldGUIInfo guiInfo;
 
             for (var i = 0; i < fieldInfos.Length; i++)
             {
                 fieldInfo = fieldInfos[i];
-                fieldAttribute = GenerateAttribute(fieldInfo);
+                guiInfo = GenerateAttribute(fieldInfo);
 
-                if (fieldAttribute.HideInGUI)
+                if (guiInfo.HideInGUI)
                 {
                     continue;
                 }
 
-                FieldGUIBase gui = GenerateGUI(data, fieldInfo, fieldAttribute);
+                FieldGUIBase gui = GenerateGUI(data, fieldInfo, guiInfo);
 
                 this.fieldGUIs.Add(gui);
             }
@@ -93,44 +93,31 @@ namespace XJGUI
             return attribute;
         }
 
-        private FieldGUIBase GenerateGUI(System.Object data, FieldInfo info, FieldGUIInfo attribute)
+        private FieldGUIBase GenerateGUI(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
         {
-            FieldType fieldType = GetFieldType(info);
+            FieldType fieldType = GetFieldType(fieldInfo);
 
             switch (fieldType)
             {
+                case FieldType.Bool:
+                    return new FieldGUIComponents.BoolGUI(data, fieldInfo, guiInfo);
                 case FieldType.Int:
-                    return new FieldGUIComponents.IntGUI(data, info, attribute);
+                    return new FieldGUIComponents.IntGUI(data, fieldInfo, guiInfo);
                 case FieldType.Float:
-                    return new  FieldGUIComponents.FloatGUI(data, info, attribute);
-                //case FieldType.Vector2:
-                //    return new  FieldGUIComponents.Vector2GUI(data, info, attribute);
+                    return new  FieldGUIComponents.FloatGUI(data, fieldInfo, guiInfo);
+                case FieldType.Vector2:
+                    return new FieldGUIComponents.Vector2GUI(data, fieldInfo, guiInfo);
                 //case FieldType.Vector3:
                 //    return new  FieldGUIComponents.Vector3GUI(data, info, attribute);
                 //case FieldType.Vector4:
                 //    return new  FieldGUIComponents.Vector4GUI(data, info, attribute);
-                //case FieldType.Bool:
-                //    return new  FieldGUIComponents.BoolGUI(data, info, attribute);
                 case FieldType.Enum:
                     Type enumTypeGUI = typeof(FieldGUIComponents.EnumGUI<>);
-                    Type genericType = enumTypeGUI.MakeGenericType(info.FieldType);
-                    return (FieldGUIBase)Activator.CreateInstance(genericType, data, info, attribute);
-                    //case FieldType.Vector2Array:
-                    //    return new  FieldGUIComponents.Vector2ArrayGUI(data, info, attribute);
-                    //case FieldType.Unsupported:
-                    //    {
-                    //        if (attribute.IPv4)
-                    //        {
-                    //            return new  FieldGUIComponents.IPv4GUI(data, info, attribute);
-                    //        }
-
-                    //        return new  FieldGUIComponents.UnSupportedGUI(data, info, attribute);
-                    //    }
-                    //default:
-                    //    return new  FieldGUIComponents.UnSupportedGUI(data, info, attribute);
+                    Type genericType = enumTypeGUI.MakeGenericType(fieldInfo.FieldType);
+                    return (FieldGUIBase)Activator.CreateInstance(genericType, data, fieldInfo, guiInfo);
+                default:
+                    return new FieldGUIComponents.UnSupportedGUI(data, fieldInfo, guiInfo);
             }
-
-            return null;
         }
 
         public void Show()
@@ -141,42 +128,15 @@ namespace XJGUI
             }
         }
 
-        protected void Save()
-        {
-            foreach (FieldGUIBase fieldGUI in this.fieldGUIs)
-            {
-                //fieldGUI.Save();
-            }
-        }
-
-        protected void Load()
-        {
-            foreach (FieldGUIBase fieldGUI in this.fieldGUIs)
-            {
-                //fieldGUI.Load();
-            }
-        }
-
         protected static FieldType GetFieldType(FieldInfo info)
         {
             Type type = info.FieldType;
 
             if (type.IsPrimitive)
             {
-                if (type == typeof(int))
-                {
-                    return FieldType.Int;
-                }
-
-                if (type == typeof(float))
-                {
-                    return FieldType.Float;
-                }
-
-                if (type == typeof(bool))
-                {
-                    return FieldType.Bool;
-                }
+                if (type == typeof(int))   { return FieldType.Int;   }
+                if (type == typeof(float)) { return FieldType.Float; }
+                if (type == typeof(bool))  { return FieldType.Bool;  }
 
                 return FieldType.Unsupported;
             }
@@ -188,20 +148,9 @@ namespace XJGUI
 
             if (type.IsValueType)
             {
-                if (type == typeof(Vector2))
-                {
-                    return FieldType.Vector2;
-                }
-
-                if (type == typeof(Vector3))
-                {
-                    return FieldType.Vector3;
-                }
-
-                if (type == typeof(Vector4))
-                {
-                    return FieldType.Vector4;
-                }
+                if (type == typeof(Vector2)) { return FieldType.Vector2; }
+                if (type == typeof(Vector3)) { return FieldType.Vector3; }
+                if (type == typeof(Vector4)) { return FieldType.Vector4; }
             }
 
             if (type.IsArray)
