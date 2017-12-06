@@ -22,9 +22,9 @@ namespace XJGUI
 
         public bool IPv4 { get; set; }
 
-        public string FoldoutTitle { get; set; }
+        public string FoldoutStart { get; set; }
 
-        public bool FoldoutClear { get; set; }
+        public bool FoldoutEnd { get; set; }
 
         #endregion Property
 
@@ -33,15 +33,15 @@ namespace XJGUI
         public FieldGUIInfo()
         {
             this.HideInGUI = false;
-            this.Title = null;
+            this.Title     = null;
             this.BoldTitle = false;
-            this.Labels = null;
-            this.MinValue = float.MinValue;
-            this.MaxValue = float.MaxValue;
-            this.Decimals = 2;
-            this.IPv4 = false;
-            this.FoldoutTitle = null;
-            this.FoldoutClear = false;
+            this.Labels    = null;
+            this.MinValue  = float.MinValue;
+            this.MaxValue  = float.MaxValue;
+            this.Decimals  = 2;
+            this.IPv4      = false;
+            this.FoldoutStart = null;
+            this.FoldoutEnd   = false;
         }
 
         #endregion constructor
