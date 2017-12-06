@@ -1,6 +1,6 @@
 ﻿namespace XJGUI
 {
-    public abstract class ElementBaseGUI<T> : ComponentBaseGUI<T>
+    public abstract class ElementGUI<T> : ComponentGUI<T>
     {
         #region Method
 

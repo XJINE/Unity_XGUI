@@ -2,7 +2,7 @@
 
 namespace XJGUI
 {
-    public abstract class ComponentBaseGUI<T> : BaseGUI<T>
+    public abstract class ComponentGUI<T> : BaseGUI<T>
     {
         #region Field
 
@@ -22,7 +22,7 @@ namespace XJGUI
 
         #region Constructor
 
-        public ComponentBaseGUI()
+        public ComponentGUI()
         {
             this.boldTitle = false;
         }

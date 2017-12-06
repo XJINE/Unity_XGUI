@@ -6,7 +6,7 @@ namespace XJGUI
     {
         #region Field
 
-        protected ElementBaseGUI<T> gui;
+        protected ElementGUI<T> gui;
 
         #endregion Field
 

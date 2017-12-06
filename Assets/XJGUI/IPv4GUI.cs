@@ -2,7 +2,7 @@
 
 namespace XJGUI
 {
-    public class IPv4GUI : ElementBaseGUI<string>
+    public class IPv4GUI : ElementGUI<string>
     {
         #region Field
 

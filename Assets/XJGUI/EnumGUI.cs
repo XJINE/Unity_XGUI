@@ -6,7 +6,7 @@ namespace XJGUI
     // NOTE:
     // T must be "enum" type.
 
-    public class EnumGUI<T> : ElementBaseGUI<T> where T : IComparable, IFormattable, IConvertible
+    public class EnumGUI<T> : ElementGUI<T> where T : IComparable, IFormattable, IConvertible
     {
         #region Field
 

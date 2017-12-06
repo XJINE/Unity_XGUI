@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace XJGUI
 {
-    public abstract class ValuesGUI<T> : ElementBaseGUI<IList<T>> where T : struct
+    public abstract class ValuesGUI<T> : ElementGUI<IList<T>> where T : struct
     {
         #region Field
 

@@ -2,7 +2,7 @@
 
 namespace XJGUI
 {
-    public class BoolGUI : ElementBaseGUI<bool>
+    public class BoolGUI : ElementGUI<bool>
     {
         #region Method
 
