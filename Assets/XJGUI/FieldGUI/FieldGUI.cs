@@ -107,10 +107,10 @@ namespace XJGUI
                     return new  FieldGUIComponents.FloatGUI(data, fieldInfo, guiInfo);
                 case FieldType.Vector2:
                     return new FieldGUIComponents.Vector2GUI(data, fieldInfo, guiInfo);
-                //case FieldType.Vector3:
-                //    return new  FieldGUIComponents.Vector3GUI(data, info, attribute);
-                //case FieldType.Vector4:
-                //    return new  FieldGUIComponents.Vector4GUI(data, info, attribute);
+                case FieldType.Vector3:
+                    return new FieldGUIComponents.Vector3GUI(data, fieldInfo, guiInfo);
+                case FieldType.Vector4:
+                    return new FieldGUIComponents.Vector4GUI(data, fieldInfo, guiInfo);
                 case FieldType.Enum:
                     Type enumTypeGUI = typeof(FieldGUIComponents.EnumGUI<>);
                     Type genericType = enumTypeGUI.MakeGenericType(fieldInfo.FieldType);
