@@ -11,6 +11,8 @@ namespace XJGUI
 
         public enum FieldType
         {
+            Bool,
+            Enum,
             Int,
             Ints,
             Float,
@@ -21,8 +23,6 @@ namespace XJGUI
             Vector3s,
             Vector4,
             Vector4s,
-            Bool,
-            Enum,
             Unsupported
         }
 

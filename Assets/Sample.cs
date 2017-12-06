@@ -21,7 +21,7 @@ public class Sample : MonoBehaviour
 
     Vector2GUI vector2GUI;
 
-    Toolbar toolBar;
+    Toolbar<string> toolBar;
     IPv4GUI ipv4GUI;
 
     void Start()
@@ -83,10 +83,10 @@ public class Sample : MonoBehaviour
             MaxValue = new Vector2(1, 1)
         };
 
-        this.toolBar = new Toolbar()
+        this.toolBar = new Toolbar<string>()
         {
             Title = "Toolbar",
-            Labels = new string[] { "A", "B", "C" }
+            Values = new string[] { "A", "B", "C" }
         };
 
         this.ipv4GUI = new IPv4GUI()
