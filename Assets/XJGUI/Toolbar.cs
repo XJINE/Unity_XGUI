@@ -2,7 +2,7 @@
 
 namespace XJGUI
 {
-    public class Toolbar : ComponentBaseGUI<int>
+    public class Toolbar : ElementBaseGUI<int>
     {
         #region Property
 

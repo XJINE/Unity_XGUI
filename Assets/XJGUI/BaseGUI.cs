@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace XJGUI
+﻿namespace XJGUI
 {
     public class BaseGUI<T>
     {
@@ -8,7 +6,6 @@ namespace XJGUI
 
         protected T value;
         protected string title;
-        protected bool boldTitle;
 
         #endregion Field
 
@@ -26,12 +23,6 @@ namespace XJGUI
             set { this.title = value; }
         }
 
-        public virtual bool BoldTitle
-        {
-            get { return this.boldTitle; }
-            set { this.boldTitle = value; }
-        }
-
         #endregion Property
 
         #region Constructor
@@ -39,30 +30,8 @@ namespace XJGUI
         public BaseGUI()
         {
             this.title = null;
-            this.boldTitle = false;
         }
 
         #endregion Constructor
-
-        #region Method
-
-        protected virtual void ShowTitle()
-        {
-            if (this.Title == null)
-            {
-                return;
-            }
-
-            if (this.BoldTitle)
-            {
-                XJGUILayout.BoldLabel(this.Title);
-            }
-            else
-            {
-                GUILayout.Label(this.Title);
-            }
-        }
-
-        #endregion Method
     }
 }
