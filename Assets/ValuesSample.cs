@@ -30,26 +30,26 @@ public class ValuesSample : MonoBehaviour
 
         this.intsGUI = new IntsGUI()
         {
-            Value = this.intList,
             Title = "Int List",
             MaxValue = 100,
             TextFieldWidth = 50
         };
+        this.intsGUI.Value = this.intList;
 
         this.floatsGUI = new FloatsGUI()
         {
-            Value = this.floatArray,
             Title = "Float Array",
             MinValue = -1,
             MaxValue = 10
         };
+        this.floatsGUI.Value = this.floatArray;
 
         this.vector2sGUI = new Vector2sGUI()
         {
-            Value = this.vector2Array,
             Title = "Vector2 Array",
             MaxValue = new Vector2(10, 10)
         };
+        this.vector2sGUI.Value = this.vector2Array;
     }
 
     void Update()

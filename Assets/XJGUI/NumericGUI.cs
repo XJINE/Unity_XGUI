@@ -68,7 +68,7 @@ namespace XJGUI
 
                     if (float.TryParse(this.text, out textFieldValue))
                     {
-                        base.Value = CorrectValue((T)Convert.ChangeType(textFieldValue, typeof(T)));
+                        base.value = CorrectValue((T)Convert.ChangeType(textFieldValue, typeof(T)));
                     }
                 });
 
@@ -113,6 +113,5 @@ namespace XJGUI
         }
 
         #endregion Method
-
         }
-    }
+}
