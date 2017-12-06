@@ -113,5 +113,6 @@ namespace XJGUI
         }
 
         #endregion Method
+
+        }
     }
-}
