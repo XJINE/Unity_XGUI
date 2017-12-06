@@ -21,6 +21,26 @@ namespace XJGUI
 
         #region Property
 
+        public override T Value
+        {
+            get
+            {
+                return base.value;
+            }
+            set
+            {
+                if (this.values == null)
+                {
+                    base.value = value;
+                }
+                else
+                {
+                    base.value = this.Values.IndexOf(value) == -1 ?
+                                 this.Values[0] : value;
+                }
+            }
+        }
+
         public override string Title
         {
             get
@@ -58,7 +78,17 @@ namespace XJGUI
             set
             {
                 this.values = value;
-                UpdateLabels();
+
+                if (this.values == null)
+                {
+                    base.value = default(T);
+                }
+                else
+                {
+                    this.value = this.values.IndexOf(this.value) == -1 ?
+                                 this.values[0] : this.value;
+                    UpdateLabels();
+                }
             }
         }
 
@@ -88,18 +118,24 @@ namespace XJGUI
         {
             if (this.Values == null || this.Values.Count == 0)
             {
-                GUILayout.Label("Values Has No Item.");
-                //return DefaultValue.
+                GUILayout.Label("Values Has No Item. Value Shows Default.");
+
+                base.value = default(T);
+
+                return default(T);
+            }
+
+            int valueIndex = this.Values.IndexOf(this.Value);
+
+            if (base.Value == null || valueIndex == -1)
+            {
+                valueIndex = 0;
+                base.Value = this.Values[0];
             }
 
             if (this.Values.Count != this.labels.Length)
             {
                 UpdateLabels();
-            }
-
-            if (base.Value == null)
-            {
-                base.Value = this.Values[0];
             }
 
             XJGUILayout.VerticalLayout(()=>
@@ -111,14 +147,14 @@ namespace XJGUI
                 {
                     this.foldoutPanel.Show(() => 
                     {
-                        index = GUILayout.SelectionGrid(values.IndexOf(base.Value), this.labels, gridx);
+                        index = GUILayout.SelectionGrid(valueIndex, this.labels, gridx);
                     });
                 }
                 else
                 {
                     base.ShowTitle();
 
-                    index = GUILayout.SelectionGrid(values.IndexOf(base.Value), this.labels, gridx);
+                    index = GUILayout.SelectionGrid(valueIndex, this.labels, gridx);
                 }
 
                 base.Value = this.Values[index];
@@ -129,15 +165,12 @@ namespace XJGUI
 
         protected void UpdateLabels()
         {
-            if (this.Values != null)
-            {
-                int valuesCount = this.Values.Count;
-                this.labels = new string[valuesCount];
+            int valuesCount = this.Values.Count;
+            this.labels = new string[valuesCount];
 
-                for (int i = 0; i < valuesCount; i++)
-                {
-                    this.labels[i] = this.Values[i].ToString();
-                }
+            for (int i = 0; i < valuesCount; i++)
+            {
+                this.labels[i] = this.Values[i].ToString();
             }
         }
 
