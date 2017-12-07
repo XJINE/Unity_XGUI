@@ -29,6 +29,9 @@
 
         public BaseGUI()
         {
+            // NOTE:
+            // "value" must be initialized in inheritance class.
+
             this.title = null;
         }
 

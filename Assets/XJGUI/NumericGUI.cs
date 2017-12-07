@@ -10,7 +10,11 @@ namespace XJGUI
     {
         #region Field
 
-        protected string text = null;
+        // NOTE:
+        // "text" must be initialized in inheritance class.
+        // (same as "value" initialize.)
+
+        protected string text;
 
         #endregion Field
 
@@ -29,73 +33,35 @@ namespace XJGUI
             }
         }
 
+        public override T MinValue
+        {
+            get
+            {
+                return base.minValue;
+            }
+            set
+            {
+                base.minValue = value;
+                this.Value = base.value;
+            }
+        }
+
+        public override T MaxValue
+        {
+            get
+            {
+                return base.maxValue;
+            }
+            set
+            {
+                base.maxValue = value;
+                this.Value = base.value;
+            }
+        }
+
         #endregion Property
 
-        #region Constructor
-
-        public NumericGUI() : base()
-        {
-            this.Value = (T)Convert.ChangeType(0, typeof(T));
-
-            base.minValue = (T)(typeof(T).GetField("MinValue").GetValue(null));
-            base.maxValue = (T)(typeof(T).GetField("MaxValue").GetValue(null));
-            base.textFieldWidth = 0;
-            base.withSlider = true;
-        }
-
-        #endregion Constructor
-
         #region Method
-
-        public override T Show()
-        {
-            XJGUILayout.VerticalLayout(() =>
-            {
-                // TextField
-
-                XJGUILayout.HorizontalLayout(() =>
-                {
-                    base.ShowTitle();
-
-                    this.text = GUILayout.TextField(this.text, base.TextFieldWidth <= 0 ?
-                                GUILayout.ExpandWidth(true) : GUILayout.Width(base.TextFieldWidth));
-
-                    // NOTE:
-                    // float.TryParse("0.") return true.
-                    // But need to keep user input text, because the user may input "0.x~".
-
-                    float textFieldValue;
-
-                    if (float.TryParse(this.text, out textFieldValue))
-                    {
-                        base.value = CorrectValue((T)Convert.ChangeType(textFieldValue, typeof(T)));
-                    }
-                });
-
-                // Slider
-
-                if (!base.WithSlider)
-                {
-                    return;
-                }
-
-                // NOTE:
-                // Need to update text when the value is updated with Slider.
-
-                float floatValue = Convert.ToSingle(base.Value);
-                float floatMinValue = Convert.ToSingle(base.MinValue);
-                float floatMaxValue = Convert.ToSingle(base.MaxValue);
-
-                float sliderValue = GUILayout.HorizontalSlider(floatValue, floatMinValue, floatMaxValue);
-
-                if (sliderValue != floatValue)
-                {
-                    this.Value = (T)Convert.ChangeType(sliderValue, typeof(T));
-                }
-            });
-
-            return this.Value;
-        }
 
         protected virtual T CorrectValue(T value)
         {

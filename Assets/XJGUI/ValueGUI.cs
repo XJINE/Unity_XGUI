@@ -51,10 +51,10 @@
         public ValueGUI() : base()
         {
             // NOTE:
-            // MinValue & MaxValue must be initialized in inheritance class.
+            // "minValue" & "maxValue" must be initialized in inheritance class.
 
             this.decimals = 2;
-            this.textFieldWidth = -1;
+            this.textFieldWidth = 0;
             this.withSlider = true;
         }
 
