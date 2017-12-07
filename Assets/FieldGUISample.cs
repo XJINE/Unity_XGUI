@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using XJGUI;
 
 public class FieldGUISample : MonoBehaviour
@@ -15,12 +16,24 @@ public class FieldGUISample : MonoBehaviour
 
         [FieldGUIInfo(MinValue = 0, MaxValue = 10, Decimals = 3)]
         public float sampleFloat = 4;
+
         private float privateFloat = -1;
+
+        [FieldGUIInfo(MinValue = 0, MaxValue = 100)]
+        public int sampleInt = 0;
+
+        [FieldGUIInfo(HideInGUI = true)]
+        public int sampleIntHide = 0;
+
+        [FieldGUIInfo(MinValue = 0, MaxValue = 5)]
+        public List<Vector3> vector3List;
     }
 
     #region Field
 
     public SampleClass sampleClass;
+
+    public FlexibleWindow flexibleWindow;
 
     public FieldGUI fieldGUI;
 
@@ -31,14 +44,23 @@ public class FieldGUISample : MonoBehaviour
     void Start ()
     {
         this.sampleClass = new SampleClass();
-        this.fieldGUI = new FieldGUI(this.sampleClass);
+        this.sampleClass.vector3List = new List<Vector3>() { Vector3.one, Vector3.zero, Vector3.up, Vector3.right };
 
-        DebugEx.LogField(this.sampleClass);
+        this.flexibleWindow = new FlexibleWindow()
+        {
+            MinWidth = 400,
+            MinHeight = 300,
+        };
+
+        this.fieldGUI = new FieldGUI(this.sampleClass);
     }
     
     void OnGUI ()
     {
-        this.fieldGUI.Show();
+        this.flexibleWindow.Show(() =>
+        {
+            this.fieldGUI.Show();
+        });
     }
 
     #endregion Method
