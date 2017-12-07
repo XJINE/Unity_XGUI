@@ -54,4 +54,14 @@ public static class ColorEx
     {
         return new HSVColor(rgbColor);
     }
+
+    public static Vector4 ToVector4(this Color rgbColor)
+    {
+        return new Vector4(rgbColor.r, rgbColor.g, rgbColor.b, rgbColor.a);
+    }
+
+    public static Color FromVector4(Vector4 vector4)
+    {
+        return new Color(vector4.x, vector4.y, vector4.z, vector4.w);
+    }
 }

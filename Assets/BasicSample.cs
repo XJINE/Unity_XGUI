@@ -15,13 +15,16 @@ public class BasicSample : MonoBehaviour
     FoldoutPanel foldOutPanel;
 
     BoolGUI boolGUI;
+    StringGUI stringGUI;
     IntGUI intGUI;
-    FloatGUI floatGUI;
-    EnumGUI<SampleEnum> enumGUI;
+    FloatGUI  floatGUI;
 
     Vector2GUI vector2GUI;
+    Vector3GUI vector3GUI;
+    Vector4GUI vector4GUI;
 
     Toolbar<string> toolBar;
+    EnumGUI<SampleEnum> enumGUI;
     IPv4GUI ipv4GUI;
 
     void Start()
@@ -49,6 +52,12 @@ public class BasicSample : MonoBehaviour
             Title = "Bool Value",
             BoldTitle = true,
             Value = false
+        };
+
+        this.stringGUI = new StringGUI()
+        {
+            Title = "String Value",
+            Value = "XJGUI"
         };
 
         this.intGUI = new IntGUI()
@@ -107,6 +116,7 @@ public class BasicSample : MonoBehaviour
     void TabPanel_Basic()
     {
         this.boolGUI.Show();
+        this.stringGUI.Show();
         this.intGUI.Show();
         this.floatGUI.Show();
         this.enumGUI.Show();
