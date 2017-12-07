@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
@@ -95,7 +96,7 @@ namespace XJGUI
 
         private FieldGUIBase GenerateGUI(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
         {
-            FieldType fieldType = GetFieldType(fieldInfo);
+            FieldType fieldType = GetFieldType(data, fieldInfo);
 
             switch (fieldType)
             {
@@ -103,8 +104,12 @@ namespace XJGUI
                     return new FieldGUIComponents.BoolGUI(data, fieldInfo, guiInfo);
                 case FieldType.Int:
                     return new FieldGUIComponents.IntGUI(data, fieldInfo, guiInfo);
+                case FieldType.Ints:
+                    return new FieldGUIComponents.IntsGUI(data, fieldInfo, guiInfo);
                 case FieldType.Float:
                     return new  FieldGUIComponents.FloatGUI(data, fieldInfo, guiInfo);
+                case FieldType.Floats:
+                    return new FieldGUIComponents.FloatsGUI(data, fieldInfo, guiInfo);
                 case FieldType.Vector2:
                     return new FieldGUIComponents.Vector2GUI(data, fieldInfo, guiInfo);
                 case FieldType.Vector3:
@@ -128,7 +133,7 @@ namespace XJGUI
             }
         }
 
-        protected static FieldType GetFieldType(FieldInfo info)
+        protected static FieldType GetFieldType(System.Object data, FieldInfo info)
         {
             Type type = info.FieldType;
 
@@ -153,13 +158,33 @@ namespace XJGUI
                 if (type == typeof(Vector4)) { return FieldType.Vector4; }
             }
 
-            if (type.IsArray)
+            if (info.GetValue(data) is IList)
             {
-                type = type.GetElementType();
-
-                if (type == typeof(Vector2))
+                if (type.IsArray)
                 {
-                    return FieldType.Vector2s;
+                    type = type.GetElementType();
+                }
+                else
+                {
+                    Type[] types = type.GetGenericArguments();
+
+                    if (types.Length == 1)
+                    {
+                        type = types[0];
+                    }
+                }
+
+                if (type.IsPrimitive)
+                {
+                    if (type == typeof(int))   { return FieldType.Ints;   }
+                    if (type == typeof(float)) { return FieldType.Floats; }
+                }
+
+                if (type.IsValueType)
+                {
+                    if (type == typeof(Vector2)) { return FieldType.Vector2s; }
+                    if (type == typeof(Vector3)) { return FieldType.Vector3s; }
+                    if (type == typeof(Vector4)) { return FieldType.Vector4s; }
                 }
             }
 
