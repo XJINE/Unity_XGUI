@@ -71,8 +71,8 @@ public class BasicSample : MonoBehaviour
         {
             Title = "float Value",
             Value = 50,
-            //MinValue = 0,
-            //MaxValue = 100,
+            MinValue = 0,
+            MaxValue = 100,
             Decimals = 3,
         };
 
@@ -90,6 +90,20 @@ public class BasicSample : MonoBehaviour
             Decimals = 1,
             MinValue = new Vector2(-1, -1),
             MaxValue = new Vector2(1, 1)
+        };
+
+        this.vector3GUI = new Vector3GUI()
+        {
+            Title = "Vector3 Value",
+            MinValue = new Vector3(0, 0, 0),
+            MaxValue = new Vector3(100, 100, 100),
+        };
+
+        this.vector4GUI = new Vector4GUI()
+        {
+            Title = "Vector4 Value",
+            MinValue = new Vector4(-1, -2, -3, -4),
+            MaxValue = new Vector4(1, 2, 3, 4),
         };
 
         this.toolBar = new Toolbar<string>()
@@ -127,6 +141,8 @@ public class BasicSample : MonoBehaviour
         this.foldOutPanel.Show(() =>
         {
             this.vector2GUI.Show();
+            this.vector3GUI.Show();
+            this.vector4GUI.Show();
         });
     }
 
