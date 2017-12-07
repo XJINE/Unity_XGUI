@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using XJGUI;
 
-public class Sample : MonoBehaviour
+public class BasicSample : MonoBehaviour
 {
     public enum SampleEnum
     {

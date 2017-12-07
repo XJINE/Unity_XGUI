@@ -235,3 +235,7 @@ MonoBehaviour:
   intList: 0400000008000000
   floatArray:
   - 0.4
+  vector2Array:
+  - {x: -9, y: 0}
+  - {x: 0, y: 3}
+  - {x: 5, y: 0}

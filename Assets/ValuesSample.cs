@@ -10,11 +10,11 @@ public class ValuesSample : MonoBehaviour
 
     IntsGUI intsGUI;
     FloatsGUI floatsGUI;
-    //Vector2sGUI vector2sGUI;
+    Vector2sGUI vector2sGUI;
 
     public List<int> intList;
     public float[] floatArray;
-    //public List<Vector2> vector2Array;
+    public List<Vector2> vector2Array;
 
     #endregion Field
 
@@ -32,9 +32,9 @@ public class ValuesSample : MonoBehaviour
         {
             Title = "Int List",
             Value = this.intList,
-            //MinValue = -100,
-            //MaxValue = 100,
-            //TextFieldWidth = 50
+            MinValue = -100,
+            MaxValue = 100,
+            TextFieldWidth = 50
         };
 
         this.floatsGUI = new FloatsGUI()
@@ -45,12 +45,13 @@ public class ValuesSample : MonoBehaviour
         };
         this.floatsGUI.Value = this.floatArray;
 
-        //this.vector2sGUI = new Vector2sGUI()
-        //{
-        //    Title = "Vector2 Array",
-        //    MaxValue = new Vector2(10, 10)
-        //};
-        //this.vector2sGUI.Value = this.vector2Array;
+        this.vector2sGUI = new Vector2sGUI()
+        {
+            Title = "Vector2 Array",
+            MinValue = new Vector2(-10, -10),
+            MaxValue = new Vector2(10, 10)
+        };
+        this.vector2sGUI.Value = this.vector2Array;
     }
 
     void Update()
@@ -67,7 +68,7 @@ public class ValuesSample : MonoBehaviour
         {
             this.intsGUI.Show();
             this.floatsGUI.Show();
-            //this.vector2sGUI.Show();
+            this.vector2sGUI.Show();
         });
     }
 
