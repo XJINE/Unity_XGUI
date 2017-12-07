@@ -12,12 +12,7 @@ public class FieldGUISample : MonoBehaviour
 
     public class SampleClass
     {
-        public SampleEnum sampleEnum;
-
-        [FieldGUIInfo(MinValue = 0, MaxValue = 10, Decimals = 3)]
-        public float sampleFloat = 4;
-
-        private float privateFloat = -1;
+        public string sampleString = "SAMPLE";
 
         [FieldGUIInfo(MinValue = 0, MaxValue = 100)]
         public int sampleInt = 0;
@@ -25,8 +20,15 @@ public class FieldGUISample : MonoBehaviour
         [FieldGUIInfo(HideInGUI = true)]
         public int sampleIntHide = 0;
 
+        [FieldGUIInfo(MinValue = 0, MaxValue = 10, Decimals = 3)]
+        public float sampleFloat = 4;
+
+        private float privateFloat = -1;
+
         [FieldGUIInfo(MinValue = 0, MaxValue = 5)]
         public List<Vector3> vector3List;
+
+        public SampleEnum sampleEnum;
     }
 
     #region Field

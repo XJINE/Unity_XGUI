@@ -13,7 +13,7 @@ namespace XJGUI
         public enum FieldType
         {
             Bool,
-            Enum,
+            String,
             Int,
             Ints,
             Float,
@@ -24,6 +24,7 @@ namespace XJGUI
             Vector3s,
             Vector4,
             Vector4s,
+            Enum,
             Unsupported
         }
 
@@ -102,24 +103,26 @@ namespace XJGUI
             {
                 case FieldType.Bool:
                     return new FieldGUIComponents.BoolGUI(data, fieldInfo, guiInfo);
+                case FieldType.String:
+                    return new FieldGUIComponents.StringGUI(data, fieldInfo, guiInfo);
                 case FieldType.Int:
                     return new FieldGUIComponents.IntGUI(data, fieldInfo, guiInfo);
-                case FieldType.Ints:
-                    return new FieldGUIComponents.IntsGUI(data, fieldInfo, guiInfo);
                 case FieldType.Float:
                     return new  FieldGUIComponents.FloatGUI(data, fieldInfo, guiInfo);
-                case FieldType.Floats:
-                    return new FieldGUIComponents.FloatsGUI(data, fieldInfo, guiInfo);
                 case FieldType.Vector2:
                     return new FieldGUIComponents.Vector2GUI(data, fieldInfo, guiInfo);
-                case FieldType.Vector2s:
-                    return new FieldGUIComponents.Vector2sGUI(data, fieldInfo, guiInfo);
                 case FieldType.Vector3:
                     return new FieldGUIComponents.Vector3GUI(data, fieldInfo, guiInfo);
-                case FieldType.Vector3s:
-                    return new FieldGUIComponents.Vector3sGUI(data, fieldInfo, guiInfo);
                 case FieldType.Vector4:
                     return new FieldGUIComponents.Vector4GUI(data, fieldInfo, guiInfo);
+                case FieldType.Ints:
+                    return new FieldGUIComponents.IntsGUI(data, fieldInfo, guiInfo);
+                case FieldType.Floats:
+                    return new FieldGUIComponents.FloatsGUI(data, fieldInfo, guiInfo);
+                case FieldType.Vector2s:
+                    return new FieldGUIComponents.Vector2sGUI(data, fieldInfo, guiInfo);
+                case FieldType.Vector3s:
+                    return new FieldGUIComponents.Vector3sGUI(data, fieldInfo, guiInfo);
                 case FieldType.Vector4s:
                     return new FieldGUIComponents.Vector4sGUI(data, fieldInfo, guiInfo);
                 case FieldType.Enum:
@@ -143,18 +146,16 @@ namespace XJGUI
         {
             Type type = info.FieldType;
 
-            if (type.IsPrimitive)
+            if (type == typeof(string))
             {
-                if (type == typeof(int))   { return FieldType.Int;   }
-                if (type == typeof(float)) { return FieldType.Float; }
-                if (type == typeof(bool))  { return FieldType.Bool;  }
-
-                return FieldType.Unsupported;
+                return FieldType.String;
             }
 
-            if (type.IsEnum)
+            if (type.IsPrimitive)
             {
-                return FieldType.Enum;
+                if (type == typeof(bool))  { return FieldType.Bool;   }
+                if (type == typeof(int))   { return FieldType.Int;   }
+                if (type == typeof(float)) { return FieldType.Float; }
             }
 
             if (type.IsValueType)
@@ -192,6 +193,11 @@ namespace XJGUI
                     if (type == typeof(Vector3)) { return FieldType.Vector3s; }
                     if (type == typeof(Vector4)) { return FieldType.Vector4s; }
                 }
+            }
+
+            if (type.IsEnum)
+            {
+                return FieldType.Enum;
             }
 
             return FieldType.Unsupported;
