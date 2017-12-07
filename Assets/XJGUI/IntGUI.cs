@@ -35,6 +35,8 @@ namespace XJGUI
 
         public override int Show()
         {
+            InitializeGUIStyle();
+
             XJGUILayout.VerticalLayout(() =>
             {
                 // TextField
@@ -43,8 +45,10 @@ namespace XJGUI
                 {
                     base.ShowTitle();
 
-                    this.text = GUILayout.TextField(this.text, base.TextFieldWidth <= 0 ?
-                                GUILayout.ExpandWidth(true) : GUILayout.Width(base.TextFieldWidth));
+                    this.text = GUILayout.TextField
+                               (this.text, ValueGUI<int>.TextFieldStyle,
+                                base.TextFieldWidth <= 0 ? GUILayout.ExpandWidth(true)
+                                                         : GUILayout.Width(base.TextFieldWidth));
 
                     // NOTE:
                     // float.TryParse("0.") return true.

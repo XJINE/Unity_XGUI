@@ -1,8 +1,12 @@
-﻿namespace XJGUI
+﻿using UnityEngine;
+
+namespace XJGUI
 {
     public abstract class ValueGUI<T> : ElementGUI<T> where T : struct
     {
         #region Field
+
+        protected static GUIStyle TextFieldStyle;
 
         protected T minValue;
         protected T maxValue;
@@ -59,5 +63,18 @@
         }
 
         #endregion Constructor
+
+        #region Method
+
+        protected static void InitializeGUIStyle()
+        {
+            if (TextFieldStyle == null)
+            {
+                TextFieldStyle = new GUIStyle(GUI.skin.textField);
+                TextFieldStyle.alignment = TextAnchor.MiddleRight;
+            }
+        }
+
+        #endregion Method
     }
 }
