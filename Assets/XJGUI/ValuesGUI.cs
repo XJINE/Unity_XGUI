@@ -20,10 +20,6 @@ namespace XJGUI
 
         #region Property
 
-        // NOTE:
-        // Some properties initialized by base() constructor.
-        // So need null check.
-
         public override IList<T> Value
         {
             get
@@ -51,11 +47,7 @@ namespace XJGUI
             set
             {
                 base.title = value;
-
-                if (this.foldOutPanel != null)
-                {
-                    this.foldOutPanel.Title = value;
-                }
+                this.foldOutPanel.Title = value;
             }
         }
 
@@ -68,11 +60,7 @@ namespace XJGUI
             set
             {
                 base.boldTitle = value;
-
-                if (this.foldOutPanel != null)
-                {
-                    this.foldOutPanel.BoldTitle = value;
-                }
+                this.foldOutPanel.BoldTitle = value;
             }
         }
 
@@ -192,12 +180,18 @@ namespace XJGUI
 
         public ValuesGUI() : base()
         {
+            // NOTE:
+            // base.title & base.boldTitle is initialized in base() constructor.
+
             this.foldOutPanel = new FoldoutPanel()
             {
-                Title     = base.title,
+                Title = base.title,
                 BoldTitle = base.boldTitle,
-                Value     = false
+                Value = false
             };
+
+            // NOTE:
+            // this.minValue & this.maxValue are initialized in inherit constructor.
 
             this.decimals = 2;
             this.textFieldWidth = 0;
@@ -257,6 +251,10 @@ namespace XJGUI
 
         protected bool CheckValueGUIsUpdate()
         {
+            // NOTE:
+            // We have not to check if base.value is changed.
+            // When "Value" property is changed, call this function.
+
             int valueCount = this.Value.Count;
 
             if (this.valueGUIs != null && this.valueGUIs.Length == this.Value.Count)
@@ -268,8 +266,17 @@ namespace XJGUI
 
             for (int i = 0; i < valueCount; i++)
             {
-                this.valueGUIs[i] = GenerateValueGUI();
-                this.valueGUIs[i].Value = this.Value[i];
+                ValueGUI<T> gui = GenerateValueGUI();
+
+                gui.Value = this.Value[i];
+                gui.BoldTitle = false;
+                gui.MinValue = this.MinValue;
+                gui.MaxValue = this.MaxValue;
+                gui.Decimals = this.Decimals;
+                gui.TextFieldWidth = this.TextFieldWidth;
+                gui.WithSlider = this.WithSlider;
+
+                this.valueGUIs[i] = gui;
             }
 
             return true;

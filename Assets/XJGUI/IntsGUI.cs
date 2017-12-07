@@ -2,19 +2,21 @@
 {
     public class IntsGUI : ValuesGUI<int>
     {
+        #region Constructor
+
+        public IntsGUI()
+        {
+            base.minValue = int.MinValue;
+            base.maxValue = int.MaxValue;
+        }
+
+        #endregion Constructor
+
         #region Method
 
         protected override ValueGUI<int> GenerateValueGUI()
         {
-            UnityEngine.Debug.Log();
-
-            return new IntGUI()
-            {
-                MinValue = base.minValue,
-                MaxValue = base.maxValue,
-                TextFieldWidth = base.textFieldWidth,
-                WithSlider = base.withSlider
-            };
+            return new IntGUI();
         }
 
         #endregion Method
