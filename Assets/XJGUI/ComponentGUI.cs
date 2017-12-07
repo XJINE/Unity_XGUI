@@ -6,6 +6,8 @@ namespace XJGUI
     {
         #region Field
 
+        private static GUIStyle TitleStyle;
+
         protected bool boldTitle;
 
         #endregion Filed
@@ -38,14 +40,14 @@ namespace XJGUI
                 return;
             }
 
-            if (this.BoldTitle)
+            if (TitleStyle == null)
             {
-                XJGUILayout.BoldLabel(this.Title);
+                TitleStyle = new GUIStyle(GUI.skin.label);
             }
-            else
-            {
-                GUILayout.Label(this.Title);
-            }
+
+            TitleStyle.fontStyle = this.boldTitle ? FontStyle.Bold : FontStyle.Normal;
+
+            GUILayout.Label(this.Title, TitleStyle);
         }
 
         #endregion Method

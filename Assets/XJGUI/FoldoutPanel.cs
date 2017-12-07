@@ -5,10 +5,23 @@ namespace XJGUI
 {
     public class FoldoutPanel : PanelGUI<bool>
     {
+        #region Field
+
+        private static GUIStyle ButtonStyle;
+
+        #endregion Field
+
         #region Method
 
         public override bool Show(params Action[] guiActions)
         {
+            if (FoldoutPanel.ButtonStyle == null)
+            {
+                FoldoutPanel.ButtonStyle = new GUIStyle(GUI.skin.label);
+            }
+
+            FoldoutPanel.ButtonStyle.fontStyle = base.boldTitle ? FontStyle.Bold : FontStyle.Normal;
+
             // NOTE:
             // (value = true  && button = true)  => false
             // (value = true  && button = false) => true
@@ -17,9 +30,7 @@ namespace XJGUI
 
             string buttonContent = (base.Value ? "\u25BC " : "\u25BA ") + base.Title;
 
-            GUIStyle guiStyle = base.BoldTitle ? XJGUILayout.BoldLabelStyle : GUIStyle.none;
-
-            base.Value = !(base.Value == GUILayout.Button(buttonContent, guiStyle));
+            base.Value = !(base.Value == GUILayout.Button(buttonContent, FoldoutPanel.ButtonStyle));
 
             if (base.Value)
             {

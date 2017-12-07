@@ -22,6 +22,8 @@ public class ValuesSample : MonoBehaviour
 
     void Start ()
     {
+        //GUI.skin = null;
+
         this.flexibleWindow = new FlexibleWindow()
         {
             MinWidth = 300,
