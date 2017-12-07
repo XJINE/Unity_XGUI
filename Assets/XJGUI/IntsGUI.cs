@@ -6,6 +6,8 @@
 
         protected override ValueGUI<int> GenerateValueGUI()
         {
+            UnityEngine.Debug.Log();
+
             return new IntGUI()
             {
                 MinValue = base.minValue,
