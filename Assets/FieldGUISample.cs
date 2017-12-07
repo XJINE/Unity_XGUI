@@ -14,6 +14,9 @@ public class FieldGUISample : MonoBehaviour
     {
         public string sampleString = "SAMPLE";
 
+        [FieldGUIInfo(IPv4 = true)]
+        public string sampleIPv4 = "127.0.0.1";
+
         [FieldGUIInfo(MinValue = 0, MaxValue = 100)]
         public int sampleInt = 0;
 

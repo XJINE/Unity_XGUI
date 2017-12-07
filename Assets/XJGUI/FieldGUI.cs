@@ -103,8 +103,6 @@ namespace XJGUI
             {
                 case FieldType.Bool:
                     return new FieldGUIComponents.BoolGUI(data, fieldInfo, guiInfo);
-                case FieldType.String:
-                    return new FieldGUIComponents.StringGUI(data, fieldInfo, guiInfo);
                 case FieldType.Int:
                     return new FieldGUIComponents.IntGUI(data, fieldInfo, guiInfo);
                 case FieldType.Float:
@@ -125,6 +123,9 @@ namespace XJGUI
                     return new FieldGUIComponents.Vector3sGUI(data, fieldInfo, guiInfo);
                 case FieldType.Vector4s:
                     return new FieldGUIComponents.Vector4sGUI(data, fieldInfo, guiInfo);
+                case FieldType.String:
+                    if (guiInfo.IPv4) { return new FieldGUIComponents.IPv4GUI(data, fieldInfo, guiInfo); }
+                    else { return new FieldGUIComponents.StringGUI(data, fieldInfo, guiInfo); }
                 case FieldType.Enum:
                     Type enumTypeGUI = typeof(FieldGUIComponents.EnumGUI<>);
                     Type genericType = enumTypeGUI.MakeGenericType(fieldInfo.FieldType);
@@ -146,14 +147,9 @@ namespace XJGUI
         {
             Type type = info.FieldType;
 
-            if (type == typeof(string))
-            {
-                return FieldType.String;
-            }
-
             if (type.IsPrimitive)
             {
-                if (type == typeof(bool))  { return FieldType.Bool;   }
+                if (type == typeof(bool))  { return FieldType.Bool;  }
                 if (type == typeof(int))   { return FieldType.Int;   }
                 if (type == typeof(float)) { return FieldType.Float; }
             }
@@ -193,6 +189,11 @@ namespace XJGUI
                     if (type == typeof(Vector3)) { return FieldType.Vector3s; }
                     if (type == typeof(Vector4)) { return FieldType.Vector4s; }
                 }
+            }
+
+            if (type == typeof(string))
+            {
+                return FieldType.String;
             }
 
             if (type.IsEnum)
