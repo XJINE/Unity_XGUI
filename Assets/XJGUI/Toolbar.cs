@@ -170,7 +170,17 @@ namespace XJGUI
 
             for (int i = 0; i < valuesCount; i++)
             {
-                this.labels[i] = this.Values[i].ToString();
+                // NOTE:
+                // C# ver.6 gets 'nameof' syntax.
+
+                if (typeof(T).IsClass)
+                {
+                    this.labels[i] = this.Values[i].GetType().Name + i;
+                }
+                else
+                {
+                    this.labels[i] = this.Values[i].ToString();
+                }
             }
         }
 
