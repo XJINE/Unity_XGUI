@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 using UnityEngine;
 
 /// <summary>
@@ -169,5 +170,38 @@ public static class DebugEx
         {
             DebugEx.Log(logAction, message, messages);
         }
+    }
+
+    /// <summary>
+    /// オブジェクトに定義されたすべてのフィールドの値を出力します。
+    /// </summary>
+    /// <param name="data">
+    /// フィールドの値を出力するオブジェクトのインスタンス。
+    /// </param>
+    public static void LogField(object data)
+    {
+        FieldInfo fieldInfo;
+        FieldInfo[] fieldInfos = data.GetType().GetFields(BindingFlags.NonPublic
+                                                        | BindingFlags.Public
+                                                        | BindingFlags.Instance);
+
+        if (fieldInfos.Length == 0)
+        {
+            return;
+        }
+
+        const string BR = "\n";
+
+        string result = "Log Field : " + data.ToString() + "\nSelect & See below window.\n";
+
+        for (var i = 0; i < fieldInfos.Length; i++)
+        {
+            fieldInfo = fieldInfos[i];
+            result += BR + fieldInfo.Name + " : " + fieldInfo.GetValue(data);
+        }
+
+        result += BR;
+
+        Debug.Log(result);
     }
 }

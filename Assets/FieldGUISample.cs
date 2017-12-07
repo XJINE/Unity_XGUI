@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using XJGUI;
 
 public class FieldGUISample : MonoBehaviour
@@ -16,7 +14,8 @@ public class FieldGUISample : MonoBehaviour
         public SampleEnum sampleEnum;
 
         [FieldGUIInfo(MinValue = 0, MaxValue = 10, Decimals = 3)]
-        public float sampleFloat;
+        public float sampleFloat = 4;
+        private float privateFloat = -1;
     }
 
     #region Field
@@ -33,6 +32,8 @@ public class FieldGUISample : MonoBehaviour
     {
         this.sampleClass = new SampleClass();
         this.fieldGUI = new FieldGUI(this.sampleClass);
+
+        DebugEx.LogField(this.sampleClass);
     }
     
     void OnGUI ()
