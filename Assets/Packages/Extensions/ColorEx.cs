@@ -55,12 +55,30 @@ public static class ColorEx
         return new HSVColor(rgbColor);
     }
 
+    /// <summary>
+    /// Vector4 に変換します.
+    /// </summary>
+    /// <param name="rgbColor">
+    /// Vector4 に変換する Color.
+    /// </param>
+    /// <returns>
+    /// Color から変換された Vector4.
+    /// </returns>
     public static Vector4 ToVector4(this Color rgbColor)
     {
         return new Vector4(rgbColor.r, rgbColor.g, rgbColor.b, rgbColor.a);
     }
 
-    public static Color FromVector4(Vector4 vector4)
+    /// <summary>
+    /// Color に変換します。
+    /// </summary>
+    /// <param name="vector4">
+    /// Color に変換する Vector4.
+    /// </param>
+    /// <returns>
+    /// Vector4 から変換された Color.
+    /// </returns>
+    public static Color ToColor(this Vector4 vector4)
     {
         return new Color(vector4.x, vector4.y, vector4.z, vector4.w);
     }
