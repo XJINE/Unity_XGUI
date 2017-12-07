@@ -22,6 +22,8 @@ namespace XJGUI
 
         public bool IPv4 { get; set; }
 
+        public bool Toolbar { get; set; }
+
         public string FoldoutStart { get; set; }
 
         public bool FoldoutEnd { get; set; }

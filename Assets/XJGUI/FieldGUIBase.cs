@@ -4,11 +4,17 @@ namespace XJGUI
 {
     public abstract class FieldGUIBase
     {
-        #region Property
+        #region Filed
 
         protected System.Object data;
         protected FieldInfo fieldInfo;
         protected FieldGUIInfo guiInfo;
+
+        #endregion Field
+
+        #region Property
+
+        public bool Unsupported { get; protected set; }
 
         #endregion Property
 

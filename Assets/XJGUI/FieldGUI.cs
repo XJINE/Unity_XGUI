@@ -10,10 +10,9 @@ namespace XJGUI
     {
         #region Enum
 
-        public enum FieldType
+        public enum FieldGUIType
         {
             Bool,
-            String,
             Int,
             Ints,
             Float,
@@ -24,6 +23,7 @@ namespace XJGUI
             Vector3s,
             Vector4,
             Vector4s,
+            String,
             Enum,
             Unsupported
         }
@@ -34,7 +34,19 @@ namespace XJGUI
 
         protected readonly List<FieldGUIBase> fieldGUIs = new List<FieldGUIBase>();
 
+        protected bool hideUnsupportedGUI;
+
         #endregion Field
+
+        #region Property
+
+        public bool HideUnsupportedGUI
+        {
+            get { return this.hideUnsupportedGUI; }
+            set { this.hideUnsupportedGUI = value; }
+        }
+
+        #endregion Property
 
         #region Constructor
 
@@ -58,6 +70,7 @@ namespace XJGUI
 
             FieldInfo fieldInfo;
             FieldGUIInfo guiInfo;
+            FieldGUIType guiType;
 
             for (var i = 0; i < fieldInfos.Length; i++)
             {
@@ -69,7 +82,7 @@ namespace XJGUI
                     continue;
                 }
 
-                FieldGUIBase gui = GenerateGUI(data, fieldInfo, guiInfo);
+                FieldGUIBase gui = GenerateGUI(data, fieldInfo, guiInfo, out guiType);
 
                 this.fieldGUIs.Add(gui);
             }
@@ -95,40 +108,44 @@ namespace XJGUI
             return attribute;
         }
 
-        private FieldGUIBase GenerateGUI(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
+        private FieldGUIBase GenerateGUI(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo, out FieldGUIType fieldGUIType)
         {
-            FieldType fieldType = GetFieldType(data, fieldInfo);
+            Type type;
+            Type guiType;
+            Type genericType;
 
-            switch (fieldType)
+            fieldGUIType = GetFieldGUIType(data, fieldInfo, guiInfo, out type);
+
+            switch (fieldGUIType)
             {
-                case FieldType.Bool:
+                case FieldGUIType.Bool:
                     return new FieldGUIComponents.BoolGUI(data, fieldInfo, guiInfo);
-                case FieldType.Int:
+                case FieldGUIType.Int:
                     return new FieldGUIComponents.IntGUI(data, fieldInfo, guiInfo);
-                case FieldType.Float:
+                case FieldGUIType.Float:
                     return new  FieldGUIComponents.FloatGUI(data, fieldInfo, guiInfo);
-                case FieldType.Vector2:
+                case FieldGUIType.Vector2:
                     return new FieldGUIComponents.Vector2GUI(data, fieldInfo, guiInfo);
-                case FieldType.Vector3:
+                case FieldGUIType.Vector3:
                     return new FieldGUIComponents.Vector3GUI(data, fieldInfo, guiInfo);
-                case FieldType.Vector4:
+                case FieldGUIType.Vector4:
                     return new FieldGUIComponents.Vector4GUI(data, fieldInfo, guiInfo);
-                case FieldType.Ints:
+                case FieldGUIType.Ints:
                     return new FieldGUIComponents.IntsGUI(data, fieldInfo, guiInfo);
-                case FieldType.Floats:
+                case FieldGUIType.Floats:
                     return new FieldGUIComponents.FloatsGUI(data, fieldInfo, guiInfo);
-                case FieldType.Vector2s:
+                case FieldGUIType.Vector2s:
                     return new FieldGUIComponents.Vector2sGUI(data, fieldInfo, guiInfo);
-                case FieldType.Vector3s:
+                case FieldGUIType.Vector3s:
                     return new FieldGUIComponents.Vector3sGUI(data, fieldInfo, guiInfo);
-                case FieldType.Vector4s:
+                case FieldGUIType.Vector4s:
                     return new FieldGUIComponents.Vector4sGUI(data, fieldInfo, guiInfo);
-                case FieldType.String:
+                case FieldGUIType.String:
                     if (guiInfo.IPv4) { return new FieldGUIComponents.IPv4GUI(data, fieldInfo, guiInfo); }
                     else { return new FieldGUIComponents.StringGUI(data, fieldInfo, guiInfo); }
-                case FieldType.Enum:
-                    Type enumTypeGUI = typeof(FieldGUIComponents.EnumGUI<>);
-                    Type genericType = enumTypeGUI.MakeGenericType(fieldInfo.FieldType);
+                case FieldGUIType.Enum:
+                    guiType = typeof(FieldGUIComponents.EnumGUI<>);
+                    genericType = guiType.MakeGenericType(fieldInfo.FieldType);
                     return (FieldGUIBase)Activator.CreateInstance(genericType, data, fieldInfo, guiInfo);
                 default:
                     return new FieldGUIComponents.UnSupportedGUI(data, fieldInfo, guiInfo);
@@ -139,29 +156,35 @@ namespace XJGUI
         {
             for (int i = 0; i < this.fieldGUIs.Count; i++)
             {
+                if (this.fieldGUIs[i].Unsupported && this.HideUnsupportedGUI)
+                {
+                    continue;
+                }
+
                 this.fieldGUIs[i].Show();
             }
         }
 
-        protected static FieldType GetFieldType(System.Object data, FieldInfo info)
+        protected static FieldGUIType GetFieldGUIType
+            (System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo, out Type type)
         {
-            Type type = info.FieldType;
+            type = fieldInfo.FieldType;
 
             if (type.IsPrimitive)
             {
-                if (type == typeof(bool))  { return FieldType.Bool;  }
-                if (type == typeof(int))   { return FieldType.Int;   }
-                if (type == typeof(float)) { return FieldType.Float; }
+                if (type == typeof(bool))  { return FieldGUIType.Bool;  }
+                if (type == typeof(int))   { return FieldGUIType.Int;   }
+                if (type == typeof(float)) { return FieldGUIType.Float; }
             }
 
             if (type.IsValueType)
             {
-                if (type == typeof(Vector2)) { return FieldType.Vector2; }
-                if (type == typeof(Vector3)) { return FieldType.Vector3; }
-                if (type == typeof(Vector4)) { return FieldType.Vector4; }
+                if (type == typeof(Vector2)) { return FieldGUIType.Vector2; }
+                if (type == typeof(Vector3)) { return FieldGUIType.Vector3; }
+                if (type == typeof(Vector4)) { return FieldGUIType.Vector4; }
             }
 
-            if (info.GetValue(data) is IList)
+            if (fieldInfo.GetValue(data) is IList)
             {
                 if (type.IsArray)
                 {
@@ -179,29 +202,29 @@ namespace XJGUI
 
                 if (type.IsPrimitive)
                 {
-                    if (type == typeof(int))   { return FieldType.Ints;   }
-                    if (type == typeof(float)) { return FieldType.Floats; }
+                    if (type == typeof(int))   { return FieldGUIType.Ints;   }
+                    if (type == typeof(float)) { return FieldGUIType.Floats; }
                 }
 
                 if (type.IsValueType)
                 {
-                    if (type == typeof(Vector2)) { return FieldType.Vector2s; }
-                    if (type == typeof(Vector3)) { return FieldType.Vector3s; }
-                    if (type == typeof(Vector4)) { return FieldType.Vector4s; }
+                    if (type == typeof(Vector2)) { return FieldGUIType.Vector2s; }
+                    if (type == typeof(Vector3)) { return FieldGUIType.Vector3s; }
+                    if (type == typeof(Vector4)) { return FieldGUIType.Vector4s; }
                 }
             }
 
             if (type == typeof(string))
             {
-                return FieldType.String;
+                return FieldGUIType.String;
             }
 
             if (type.IsEnum)
             {
-                return FieldType.Enum;
+                return FieldGUIType.Enum;
             }
 
-            return FieldType.Unsupported;
+            return FieldGUIType.Unsupported;
         }
 
         protected static string ToTitleCase(string text)

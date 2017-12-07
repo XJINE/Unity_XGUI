@@ -10,6 +10,7 @@ namespace XJGUI.FieldGUIComponents
         public UnSupportedGUI(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             :base(data, fieldInfo, guiInfo)
         {
+            base.Unsupported = true;
         }
 
         #endregion Constructor
