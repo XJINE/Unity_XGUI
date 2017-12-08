@@ -229,13 +229,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1423871381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6aa429a42a18c1e48a756f95d3038855, type: 3}
+  m_Script: {fileID: 11500000, guid: 4bde71e8e2bc6bb41a7a766034240827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intList: 0100000004000000
-  floatArray:
-  - 1
-  - 1
-  vector2Array:
-  - {x: 5, y: 0}
-  - {x: 0, y: 3}
