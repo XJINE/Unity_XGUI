@@ -43,12 +43,41 @@ namespace XJGUI
             const int IPV4_VALUE_MIN = 0;
             const int IPV4_VALUE_MAX = 255;
 
-            this.x = new IntGUI() { Value = 0, MinValue = IPV4_VALUE_MIN, MaxValue = IPV4_VALUE_MAX, WithSlider = false };
-            this.y = new IntGUI() { Value = 0, MinValue = IPV4_VALUE_MIN, MaxValue = IPV4_VALUE_MAX, WithSlider = false };
-            this.z = new IntGUI() { Value = 0, MinValue = IPV4_VALUE_MIN, MaxValue = IPV4_VALUE_MAX, WithSlider = false };
-            this.w = new IntGUI() { Value = 0, MinValue = IPV4_VALUE_MIN, MaxValue = IPV4_VALUE_MAX, WithSlider = false };
+            int[] defaultValue = ParseIPv4Text(XJGUILayout.DefaultIPv4Value);
 
-            this.value = "0.0.0.0";
+            this.x = new IntGUI()
+            {
+                Value = defaultValue[0],
+                MinValue = IPV4_VALUE_MIN,
+                MaxValue = IPV4_VALUE_MAX,
+                WithSlider = false
+            };
+            this.y = new IntGUI()
+            {
+                Value = defaultValue[1],
+                MinValue = IPV4_VALUE_MIN,
+                MaxValue = IPV4_VALUE_MAX,
+                WithSlider = false
+            };
+            this.z = new IntGUI()
+            {
+                Value = defaultValue[2],
+                MinValue = IPV4_VALUE_MIN,
+                MaxValue = IPV4_VALUE_MAX,
+                WithSlider = false
+            };
+            this.w = new IntGUI()
+            {
+                Value = defaultValue[3],
+                MinValue = IPV4_VALUE_MIN,
+                MaxValue = IPV4_VALUE_MAX,
+                WithSlider = false
+            };
+
+            this.value = defaultValue[0] + "."
+                       + defaultValue[1] + "."
+                       + defaultValue[2] + "."
+                       + defaultValue[3];
         }
 
         #endregion Constructor

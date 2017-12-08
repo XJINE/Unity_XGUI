@@ -34,14 +34,14 @@ namespace XJGUI
 
         public FieldGUIInfo()
         {
-            this.HideInGUI = false;
-            this.Title     = null;
-            this.BoldTitle = false;
+            this.HideInGUI = XJGUILayout.DefaultHideInGUI;
+            this.Title     = XJGUILayout.DefaultTitle;
+            this.BoldTitle = XJGUILayout.DefaultBoldTitle;
             this.Labels    = null;
-            this.MinValue  = float.MinValue;
-            this.MaxValue  = float.MaxValue;
-            this.Decimals  = 2;
-            this.IPv4      = false;
+            this.MinValue  = XJGUILayout.DefaultMinValueFloat;
+            this.MaxValue  = XJGUILayout.DefaultMaxValueFloat;
+            this.Decimals  = XJGUILayout.DefaultDecimals;
+            this.IPv4      = XJGUILayout.DefaultIPv4;
             this.FoldoutStart = null;
             this.FoldoutEnd   = false;
         }

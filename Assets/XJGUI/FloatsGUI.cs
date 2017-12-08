@@ -6,8 +6,8 @@
 
         public FloatsGUI()
         {
-            base.minValue = float.MinValue;
-            base.maxValue = float.MaxValue;
+            base.minValue = XJGUILayout.DefaultMinValueFloat;
+            base.maxValue = XJGUILayout.DefaultMaxValueFloat;
         }
 
         #endregion Constructor

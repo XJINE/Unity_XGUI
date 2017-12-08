@@ -7,6 +7,38 @@ public static class XJGUILayout
 
     public static Texture2D TransparentTexture;
 
+    public static string DefaultTitle = null;
+    public static bool DefaultBoldTitle = false;
+    public static bool DefaultWithSlider = true;
+    public static bool DefaultHideInGUI = false;
+    public static int DefaultDecimals = 2;
+
+    public static float DefaultTextFieldWidthValue = 50;
+    public static float DefaultTextFieldWidthString = 100;
+
+    public static int DefaultValueInt = 0;
+    public static int DefaultMinValueInt = -50;
+    public static int DefaultMaxValueInt = 50;
+
+    public static float DefaultValueFloat = 0;
+    public static float DefaultMinValueFloat = -50;
+    public static float DefaultMaxValueFloat = 50;
+
+    public static Vector2 DefaultValueVector2 = new Vector2(0, 0);
+    public static Vector2 DefaultMinValueVector2 = new Vector2(-50, -50);
+    public static Vector2 DefaultMaxValueVector2 = new Vector2(50, 50);
+
+    public static Vector3 DefaultValueVector3 = new Vector3(0, 0, 0);
+    public static Vector3 DefaultMinValueVector3 = new Vector3(-50, -50, -50);
+    public static Vector3 DefaultMaxValueVector3 = new Vector3(50, 50, 50);
+
+    public static Vector4 DefaultValueVector4 = new Vector4(0, 0, 0, 0);
+    public static Vector4 DefaultMinValueVector4 = new Vector4(-50, -50, -50, -50);
+    public static Vector4 DefaultMaxValueVector4 = new Vector4(50, 50, 50, 50);
+
+    public static bool DefaultIPv4 = false;
+    public static string DefaultIPv4Value = "0.0.0.0";
+
     #endregion Field
 
     #region Constructor

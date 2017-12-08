@@ -193,9 +193,9 @@ namespace XJGUI
             // NOTE:
             // this.minValue & this.maxValue are initialized in inherit constructor.
 
-            this.decimals = 2;
-            this.textFieldWidth = 0;
-            this.withSlider = true;
+            this.decimals = XJGUILayout.DefaultDecimals;
+            this.textFieldWidth = XJGUILayout.DefaultTextFieldWidthValue;
+            this.withSlider = XJGUILayout.DefaultWithSlider;
         }
 
         #endregion Constructor
@@ -231,7 +231,7 @@ namespace XJGUI
         {
             if (this.Value == null)
             {
-                GUILayout.Label("NULL");
+                GUILayout.Label("Null");
                 return;
             }
 
@@ -239,7 +239,7 @@ namespace XJGUI
 
             if (valueCount == 0)
             {
-                GUILayout.Label("NO ELEMENT");
+                GUILayout.Label("No Element");
                 return;
             }
 

@@ -6,8 +6,8 @@
 
         public IntsGUI()
         {
-            base.minValue = int.MinValue;
-            base.maxValue = int.MaxValue;
+            base.minValue = XJGUILayout.DefaultMinValueInt;
+            base.maxValue = XJGUILayout.DefaultMaxValueInt;
         }
 
         #endregion Constructor

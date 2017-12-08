@@ -8,8 +8,8 @@ namespace XJGUI
 
         public Vector4sGUI()
         {
-            base.minValue = new Vector4(float.MinValue, float.MinValue, float.MinValue, float.MinValue);
-            base.maxValue = new Vector4(float.MaxValue, float.MaxValue, float.MaxValue, float.MaxValue);
+            base.minValue = XJGUILayout.DefaultMinValueVector4;
+            base.maxValue = XJGUILayout.DefaultMaxValueVector4;
         }
 
         #endregion Constructor
