@@ -13,8 +13,8 @@ public static class XJGUILayout
     public static bool DefaultHideInGUI = false;
     public static int DefaultDecimals = 2;
 
-    public static float DefaultTextFieldWidthValue = 50;
-    public static float DefaultTextFieldWidthString = 100;
+    public static float DefaultTextFieldWidthValue = 100;
+    public static float DefaultTextFieldWidthString = 150;
 
     public static int DefaultValueInt = 0;
     public static int DefaultMinValueInt = -50;

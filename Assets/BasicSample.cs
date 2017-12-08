@@ -63,8 +63,6 @@ public class BasicSample : MonoBehaviour
         this.intGUI = new IntGUI()
         {
             Title = "int Value",
-            MinValue = int.MinValue,
-            MaxValue = int.MaxValue,
         };
 
         this.floatGUI = new FloatGUI()
