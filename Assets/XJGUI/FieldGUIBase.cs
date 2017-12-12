@@ -42,6 +42,8 @@ namespace XJGUI
 
         protected abstract void ShowGUI();
 
+        public abstract void SetValue(object value);
+
         public void Show()
         {
             ShowGUI();

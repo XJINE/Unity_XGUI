@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.Networking;
 using XJGUI;
@@ -10,6 +11,9 @@ public class FieldGUISyncVarSample : NetworkBehaviour
     public FlexibleWindow flexWindow = new FlexibleWindow();
 
     public FieldGUI fieldGUI;
+
+    [SyncVar]
+    public int syncValue = 5;
 
     [SyncVar]
     [FieldGUIInfo(Title = "Hide UnsupportedGUI")]
@@ -65,8 +69,29 @@ public class FieldGUISyncVarSample : NetworkBehaviour
         this.fieldGUI = new FieldGUI(this);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            this.flexWindow.IsVisible = !this.flexWindow.IsVisible;
+        }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            FieldInfo[] fieldInfos = this.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
+            foreach (FieldInfo fieldInfo in fieldInfos)
+            {
+                if (fieldInfo.Name == "syncValue")
+                {
+                    fieldInfo.SetValue(this, (int)fieldInfo.GetValue(this) + 1);
+                }
+            }
+        }
+    }
+
     void OnGUI()
     {
+        GUI.Label(new Rect(Screen.width / 2, Screen.height/2, 500, 500), "VALUE : " + this.syncValue);
+
         this.fieldGUI.HideUnsupportedGUI = this.boolValue;
 
         this.flexWindow.Show(() =>

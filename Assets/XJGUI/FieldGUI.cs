@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Reflection;
 using UnityEngine;
 
@@ -46,6 +47,12 @@ namespace XJGUI
             set { this.hideUnsupportedGUI = value; }
         }
 
+        public ReadOnlyCollection<FieldGUIBase> FieldGUIs
+        {
+            get;
+            private set;
+        }
+
         #endregion Property
 
         #region Constructor
@@ -53,6 +60,8 @@ namespace XJGUI
         public FieldGUI(System.Object data)
         {
             GenerateGUIs(data);
+
+            this.FieldGUIs = new ReadOnlyCollection<FieldGUIBase>(this.fieldGUIs);
         }
 
         #endregion Constructor

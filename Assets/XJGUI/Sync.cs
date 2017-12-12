@@ -1,19 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.Networking;
-
-
-// NOTE:
-// SyncVar が Field.SetValue に対応するのが一番良い。
-// 
-// Message でやるメリット・デメリット
-// - FieldGUI が NetworkBehaviour でなくて良くなる。
-// - Receive 時のフックが可能。
-// - SyncList などの用意が不要かも。
-// SyncList でやるメリット・デメリット
-// - 特に送受信を考慮しなくて良くなる。
-// - 
-// - FieldGUI が NetworkBehaviour である必要があるかも。
-// -- Sync する内容だけ、SyncList で共有する、という手はあるが。
+﻿using UnityEngine.Networking;
+using XJGUI;
 
 public class Sync : NetworkBehaviour
 {
@@ -26,31 +12,20 @@ public class Sync : NetworkBehaviour
 
     public class ValueUpdateMessage : MessageBase
     {
-        public object value;
         public int index;
+        public object value;
+        public int valueIndex;
     }
 
     #endregion Class
 
     #region Field
 
+    public FieldGUI fieldGUI;
+
     protected int reliableChannel = 1;
 
     #endregion Field
-
-    protected void SetRealiableChannel()
-    {
-        this.reliableChannel = NetworkManager.singleton.channels.FindIndex((channel) =>
-        {
-            return channel == QosType.Reliable;
-        });
-
-        if (this.reliableChannel == -1)
-        {
-            NetworkManager.singleton.channels.Add(QosType.Reliable);
-            this.reliableChannel = NetworkManager.singleton.channels.Count - 1;
-        }
-    }
 
     public void SendMessage(object value)
     {
@@ -65,16 +40,6 @@ public class Sync : NetworkBehaviour
 
     public void ReceiveMessage(ValueUpdateMessage message)
     {
-        //fieldGUIs[message.index]
-        //fieldInfos[message.fieldInfoIndex].SetValue(base.data, message.value);
+        this.fieldGUI.FieldGUIs[message.index].SetValue(message.value);
     }
-
-    public struct UpdateValue<T>
-    {
-        int index;
-        public T value;
-    }
-
-    public SyncListStruct<UpdateValue<T>> syncList;
-
 }

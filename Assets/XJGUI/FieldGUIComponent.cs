@@ -36,6 +36,11 @@ namespace XJGUI
             this.gui.Show();
         }
 
+        public override void SetValue(object value)
+        {
+            this.gui.Value = (T)value;
+        }
+
         #endregion Method
     }
 }
