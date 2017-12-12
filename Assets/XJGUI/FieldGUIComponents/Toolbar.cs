@@ -14,7 +14,7 @@ namespace XJGUI.FieldGUIComponents
         public Toolbar(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
-            base.Unsupported = true;
+            base.IsUnsupported = true;
         }
 
         #endregion Constructor

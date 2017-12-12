@@ -165,7 +165,7 @@ namespace XJGUI
         {
             for (int i = 0; i < this.fieldGUIs.Count; i++)
             {
-                if (this.fieldGUIs[i].Unsupported && this.HideUnsupportedGUI)
+                if (this.fieldGUIs[i].IsUnsupported && this.HideUnsupportedGUI)
                 {
                     continue;
                 }

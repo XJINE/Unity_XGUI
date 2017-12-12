@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 
 namespace XJGUI
 {
@@ -7,6 +8,8 @@ namespace XJGUI
         #region Field
 
         protected ElementGUI<T> gui;
+
+        protected T previousValue;
 
         #endregion Field
 
@@ -33,13 +36,19 @@ namespace XJGUI
 
         protected override void ShowGUI()
         {
-            this.gui.Show();
+            T currentValue = this.gui.Show();
+
+            base.IsUpdate = !CheckSameValue(currentValue, previousValue);
+
+            this.previousValue = currentValue;
         }
 
         public override void SetValue(object value)
         {
             this.gui.Value = (T)value;
         }
+
+        protected abstract bool CheckSameValue(T value1, T value2);
 
         #endregion Method
     }

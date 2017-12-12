@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using UnityEngine;
 
 namespace XJGUI.FieldGUIComponents
@@ -10,7 +11,7 @@ namespace XJGUI.FieldGUIComponents
         public UnSupportedGUI(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             :base(data, fieldInfo, guiInfo)
         {
-            base.Unsupported = true;
+            base.IsUnsupported = true;
         }
 
         #endregion Constructor
@@ -35,6 +36,11 @@ namespace XJGUI.FieldGUIComponents
         protected override void ShowGUI()
         {
             GUILayout.Label("Unsupported Field : " + base.fieldInfo.Name);
+        }
+
+        public override void SetValue(object value)
+        {
+            // Nothing to do.
         }
 
         #endregion Method

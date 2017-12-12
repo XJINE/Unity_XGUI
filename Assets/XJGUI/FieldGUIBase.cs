@@ -14,7 +14,9 @@ namespace XJGUI
 
         #region Property
 
-        public bool Unsupported { get; protected set; }
+        public bool IsUnsupported { get; protected set; }
+
+        public bool IsUpdate { get; protected set; }
 
         #endregion Property
 
