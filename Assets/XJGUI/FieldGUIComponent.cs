@@ -18,6 +18,7 @@ namespace XJGUI
         public FieldGUIComponent(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             :base(data, fieldInfo, guiInfo)
         {
+            base.Type = typeof(T);
         }
 
         #endregion Constructor
@@ -46,6 +47,11 @@ namespace XJGUI
         public override void SetValue(object value)
         {
             this.gui.Value = (T)value;
+        }
+
+        public override object GetValue()
+        {
+            return this.gui.Value;
         }
 
         protected abstract bool CheckSameValue(T value1, T value2);

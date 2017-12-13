@@ -18,6 +18,8 @@ namespace XJGUI
 
         public bool IsUpdate { get; protected set; }
 
+        public System.Type Type { get; protected set; }
+
         #endregion Property
 
         #region Constructor
@@ -45,6 +47,8 @@ namespace XJGUI
         protected abstract void ShowGUI();
 
         public abstract void SetValue(object value);
+
+        public abstract object GetValue();
 
         public void Show()
         {

@@ -33,7 +33,7 @@ namespace XJGUI
 
         #region Field
 
-        protected readonly List<FieldGUIBase> fieldGUIs = new List<FieldGUIBase>();
+        protected readonly List<FieldGUIBase> guis = new List<FieldGUIBase>();
 
         protected bool hideUnsupportedGUI;
 
@@ -47,7 +47,7 @@ namespace XJGUI
             set { this.hideUnsupportedGUI = value; }
         }
 
-        public ReadOnlyCollection<FieldGUIBase> FieldGUIs
+        public ReadOnlyCollection<FieldGUIBase> GUIs
         {
             get;
             private set;
@@ -61,7 +61,7 @@ namespace XJGUI
         {
             GenerateGUIs(data);
 
-            this.FieldGUIs = new ReadOnlyCollection<FieldGUIBase>(this.fieldGUIs);
+            this.GUIs = new ReadOnlyCollection<FieldGUIBase>(this.guis);
         }
 
         #endregion Constructor
@@ -93,7 +93,7 @@ namespace XJGUI
 
                 FieldGUIBase gui = GenerateGUI(data, fieldInfo, guiInfo, out guiType);
 
-                this.fieldGUIs.Add(gui);
+                this.guis.Add(gui);
             }
         }
 
@@ -163,14 +163,14 @@ namespace XJGUI
 
         public void Show()
         {
-            for (int i = 0; i < this.fieldGUIs.Count; i++)
+            for (int i = 0; i < this.guis.Count; i++)
             {
-                if (this.fieldGUIs[i].IsUnsupported && this.HideUnsupportedGUI)
+                if (this.guis[i].IsUnsupported && this.HideUnsupportedGUI)
                 {
                     continue;
                 }
 
-                this.fieldGUIs[i].Show();
+                this.guis[i].Show();
             }
         }
 
