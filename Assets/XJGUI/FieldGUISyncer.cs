@@ -3,8 +3,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 using XJGUI;
 
-// https://docs.unity3d.com/jp/current/Manual/UNetMessages.html
-
 public class FieldGUISyncer : NetworkBehaviour
 {
     #region Class
@@ -15,10 +13,16 @@ public class FieldGUISyncer : NetworkBehaviour
 
     public class ValueUpdateMessageType
     {
-        public const short ValueUpdate = MsgType.Highest + 1;
+        public const short ValueUpdateInt     = MsgType.Highest + 1;
+        public const short ValueUpdateFloat   = MsgType.Highest + 2;
+        public const short ValueUpdateBool    = MsgType.Highest + 3;
+        public const short ValueUpdateString  = MsgType.Highest + 4;
+        public const short ValueUpdateVector2 = MsgType.Highest + 5;
+        public const short ValueUpdateVector3 = MsgType.Highest + 6;
+        public const short ValueUpdateVector4 = MsgType.Highest + 7;
     }
 
-    public class ValueUpdateMessage : NetworkMessage//MessageBase
+    public class ValueUpdateMessage : MessageBase
     {
         public int index;
         public int valueIndex;
@@ -44,6 +48,8 @@ public class FieldGUISyncer : NetworkBehaviour
 
     protected int reliableChannel = 1;
 
+    SyncListInt intlist = new SyncListInt();
+
     #endregion Field
 
     #region Method
@@ -52,63 +58,79 @@ public class FieldGUISyncer : NetworkBehaviour
     {
         if (base.isClient)
         {
-            // NOTE:
-            // https://docs.unity3d.com/ScriptReference/Networking.NetworkMessageDelegate.html
-
-            NetworkManager.singleton.client.RegisterHandler(ValueUpdateMessageType.ValueUpdate, Some);
+            NetworkManager.singleton.client.RegisterHandler
+                (ValueUpdateMessageType.ValueUpdateInt, ReceiveValueUpdateMessageInt);
+            NetworkManager.singleton.client.RegisterHandler
+                (ValueUpdateMessageType.ValueUpdateFloat, ReceiveValueUpdateMessageFloat);
+            NetworkManager.singleton.client.RegisterHandler
+                (ValueUpdateMessageType.ValueUpdateBool, ReceiveValueUpdateMessageBool);
+            NetworkManager.singleton.client.RegisterHandler
+                (ValueUpdateMessageType.ValueUpdateString, ReceiveValueUpdateMessageString);
+            NetworkManager.singleton.client.RegisterHandler
+                (ValueUpdateMessageType.ValueUpdateVector2, ReceiveValueUpdateMessageVector2);
+            NetworkManager.singleton.client.RegisterHandler
+                (ValueUpdateMessageType.ValueUpdateVector3, ReceiveValueUpdateMessageVector3);
+            NetworkManager.singleton.client.RegisterHandler
+                (ValueUpdateMessageType.ValueUpdateVector4, ReceiveValueUpdateMessageVector4);
         }
     }
 
     public void SendMessage(object value)
     {
-
         for (int i = 0; i < this.fieldGUI.FieldGUIs.Count; i++)
         {
             if (this.fieldGUI.FieldGUIs[i].IsUpdate)
             {
-                NetworkServer.SendByChannelToAll(ValueUpdateMessageType.ValueUpdate, message, this.reliableChannel);
+                ValueUpdateMessageInt message = new ValueUpdateMessageInt();
+                message.index = i;
+                //message.value = this.fieldGUI.FieldGUIs[i].GetValue();
+
+                NetworkServer.SendByChannelToAll
+                    (ValueUpdateMessageType.ValueUpdateInt, message, this.reliableChannel);
             }
         }
     }
 
-    public void Some(ValueUpdateMessage message)
+    public void ReceiveValueUpdateMessageInt(NetworkMessage message)
     {
-        //NON.
+        ValueUpdateMessageInt valueUpdateMessage = message.ReadMessage<ValueUpdateMessageInt>();
+        this.fieldGUI.FieldGUIs[valueUpdateMessage.index].SetValue(valueUpdateMessage.value);
     }
 
-    public void ReceiveValueUpdateMessage(ValueUpdateMessageInt message)
+    public void ReceiveValueUpdateMessageFloat(NetworkMessage message)
     {
-        this.fieldGUI.FieldGUIs[message.index].SetValue(message.value);
+        ValueUpdateMessageFloat valueUpdateMessage = message.ReadMessage<ValueUpdateMessageFloat>();
+        this.fieldGUI.FieldGUIs[valueUpdateMessage.index].SetValue(valueUpdateMessage.value);
     }
 
-    public void ReceiveValueUpdateMessage(ValueUpdateMessageFloat message)
+    public void ReceiveValueUpdateMessageString(NetworkMessage message)
     {
-        this.fieldGUI.FieldGUIs[message.index].SetValue(message.value);
+        ValueUpdateMessageString valueUpdateMessage = message.ReadMessage<ValueUpdateMessageString>();
+        this.fieldGUI.FieldGUIs[valueUpdateMessage.index].SetValue(valueUpdateMessage.value);
     }
 
-    public void ReceiveValueUpdateMessage(ValueUpdateMessageBool message)
+    public void ReceiveValueUpdateMessageBool(NetworkMessage message)
     {
-        this.fieldGUI.FieldGUIs[message.index].SetValue(message.value);
+        ValueUpdateMessageBool valueUpdateMessage = message.ReadMessage<ValueUpdateMessageBool>();
+        this.fieldGUI.FieldGUIs[valueUpdateMessage.index].SetValue(valueUpdateMessage.value);
     }
 
-    public void ReceiveValueUpdateMessage(ValueUpdateMessageString message)
+    public void ReceiveValueUpdateMessageVector2(NetworkMessage message)
     {
-        this.fieldGUI.FieldGUIs[message.index].SetValue(message.value);
+        ValueUpdateMessageVector2 valueUpdateMessage = message.ReadMessage<ValueUpdateMessageVector2>();
+        this.fieldGUI.FieldGUIs[valueUpdateMessage.index].SetValue(valueUpdateMessage.value);
     }
 
-    public void ReceiveValueUpdateMessage(ValueUpdateMessageVector2 message)
+    public void ReceiveValueUpdateMessageVector3(NetworkMessage message)
     {
-        this.fieldGUI.FieldGUIs[message.index].SetValue(message.value);
+        ValueUpdateMessageVector3 valueUpdateMessage = message.ReadMessage<ValueUpdateMessageVector3>();
+        this.fieldGUI.FieldGUIs[valueUpdateMessage.index].SetValue(valueUpdateMessage.value);
     }
 
-    public void ReceiveValueUpdateMessage(ValueUpdateMessageVector3 message)
+    public void ReceiveValueUpdateMessageVector4(NetworkMessage message)
     {
-        this.fieldGUI.FieldGUIs[message.index].SetValue(message.value);
-    }
-
-    public void ReceiveValueUpdateMessage(ValueUpdateMessageVector4 message)
-    {
-        this.fieldGUI.FieldGUIs[message.index].SetValue(message.value);
+        ValueUpdateMessageVector4 valueUpdateMessage = message.ReadMessage<ValueUpdateMessageVector4>();
+        this.fieldGUI.FieldGUIs[valueUpdateMessage.index].SetValue(valueUpdateMessage.value);
     }
 
     #endregion Method
