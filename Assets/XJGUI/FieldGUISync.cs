@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using XJGUI;
@@ -8,10 +7,9 @@ public class FieldGUISync : NetworkBehaviour
 {
     #region Class
 
-    protected struct ValueUpdate
+    protected struct UpdateValue
     {
-        public int     valueIndex;
-
+        public int     index;
         public int     valueInt;
         public float   valueFloat;
         public bool    valueBool;
@@ -27,7 +25,7 @@ public class FieldGUISync : NetworkBehaviour
 
     public FieldGUI fieldGUI;
 
-    protected SyncListStruct<ValueUpdate> syncList  = new SyncListStruct<ValueUpdate>();
+    protected SyncListStruct<UpdateValue> syncList  = new SyncListStruct<UpdateValue>();
 
     #endregion Field
 
@@ -35,19 +33,15 @@ public class FieldGUISync : NetworkBehaviour
 
     public void Start()
     {
-        // Initialize.
-
         for (int i = 0; i < this.fieldGUI.GUIs.Count; i++)
         {
             Type type = this.fieldGUI.GUIs[i].Type;
 
             if (type == typeof(int))
             {
-                this.syncList.Add(new ValueUpdate() { valueIndex = 0, valueInt = (int)this.fieldGUI.GUIs[i].GetValue(), });
+                this.syncList.Add(new UpdateValue() { index = 0, valueInt = (int)this.fieldGUI.GUIs[i].GetValue(), });
             }
         }
-
-        // Register Handler.
 
         this.syncList.Callback += OnSyncListUpdated;
     }
@@ -56,7 +50,9 @@ public class FieldGUISync : NetworkBehaviour
     {
         for (int i = 0; i < this.fieldGUI.GUIs.Count; i++)
         {
-            if (!this.fieldGUI.GUIs[i].IsUpdate)
+            int updateIndex = this.fieldGUI.GUIs[i].IsUpdate;
+
+            if (updateIndex < 0)
             {
                 continue;
             }
@@ -64,23 +60,27 @@ public class FieldGUISync : NetworkBehaviour
             Type type = this.fieldGUI.GUIs[i].Type;
             object value = this.fieldGUI.GUIs[i].GetValue();
 
-            if (type == typeof(int))     { this.syncList[i] = new ValueUpdate() { valueInt     = (int)    value }; }
-            if (type == typeof(float))   { this.syncList[i] = new ValueUpdate() { valueFloat   = (float)  value }; }
-            if (type == typeof(bool))    { this.syncList[i] = new ValueUpdate() { valueBool    = (bool)   value }; }
-            if (type == typeof(string))  { this.syncList[i] = new ValueUpdate() { valueString  = (string) value }; }
-            if (type == typeof(Vector2)) { this.syncList[i] = new ValueUpdate() { valueVector2 = (Vector2)value }; }
-            if (type == typeof(Vector3)) { this.syncList[i] = new ValueUpdate() { valueVector3 = (Vector3)value }; }
-            if (type == typeof(Vector4)) { this.syncList[i] = new ValueUpdate() { valueVector4 = (Vector4)value }; }
+                if (type == typeof(int))     { this.syncList[i] = new UpdateValue() { valueInt     = (int)    value }; }
+           else if (type == typeof(float))   { this.syncList[i] = new UpdateValue() { valueFloat   = (float)  value }; }
+           else if (type == typeof(bool))    { this.syncList[i] = new UpdateValue() { valueBool    = (bool)   value }; }
+           else if (type == typeof(string))  { this.syncList[i] = new UpdateValue() { valueString  = (string) value }; }
+           else if (type == typeof(Vector2)) { this.syncList[i] = new UpdateValue() { valueVector2 = (Vector2)value }; }
+           else if (type == typeof(Vector3)) { this.syncList[i] = new UpdateValue() { valueVector3 = (Vector3)value }; }
+           else if (type == typeof(Vector4)) { this.syncList[i] = new UpdateValue() { valueVector4 = (Vector4)value }; }
         }
     }
 
-    private void OnSyncListUpdated(SyncListStruct<ValueUpdate>.Operation op, int index)
+    private void OnSyncListUpdated(SyncListStruct<UpdateValue>.Operation op, int index)
     {
-        object value = 0;
-        //bool   isList = false;
+        if (op != SyncList<UpdateValue>.Operation.OP_DIRTY)
+        {
+            return;
+        }
 
+        object value = 0;
+        int valueIndex = this.syncList[index].index;
         Type type = this.fieldGUI.GUIs[index].Type;
-        //isList = type is IList;
+
 
              if (type == typeof(int))     { value = this.syncList[index].valueInt;     }
         else if (type == typeof(float))   { value = this.syncList[index].valueFloat;   }
@@ -90,7 +90,7 @@ public class FieldGUISync : NetworkBehaviour
         else if (type == typeof(Vector3)) { value = this.syncList[index].valueVector3; }
         else if (type == typeof(Vector4)) { value = this.syncList[index].valueVector4; }
 
-        this.fieldGUI.GUIs[index].SetValue(value);
+        this.fieldGUI.GUIs[index].SetValue(value, valueIndex);
     }
 
     #endregion Method

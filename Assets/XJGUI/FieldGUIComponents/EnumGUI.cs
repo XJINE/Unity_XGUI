@@ -26,6 +26,11 @@ namespace XJGUI.FieldGUIComponents
             };
         }
 
+        protected override int CheckUpdate(T value1, T value2)
+        {
+            return value1.CompareTo(value2) == 0 ? -1 : 0;
+        }
+
         #endregion Method
     }
 }

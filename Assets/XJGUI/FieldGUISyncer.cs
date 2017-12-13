@@ -75,21 +75,25 @@ public class FieldGUISyncer : NetworkBehaviour
         }
     }
 
-    public void SendMessage(object value)
-    {
-        for (int i = 0; i < this.fieldGUI.GUIs.Count; i++)
-        {
-            if (this.fieldGUI.GUIs[i].IsUpdate)
-            {
-                ValueUpdateMessageInt message = new ValueUpdateMessageInt();
-                message.index = i;
-                //message.value = this.fieldGUI.FieldGUIs[i].GetValue();
+    //public void SendMessage(object value)
+    //{
+    //    for (int i = 0; i < this.fieldGUI.GUIs.Count; i++)
+    //    {
+    //        if (this.fieldGUI.GUIs[i].IsUpdate < 0)
+    //        {
+    //            continue;
+    //        }
 
-                NetworkServer.SendByChannelToAll
-                    (ValueUpdateMessageType.ValueUpdateInt, message, this.reliableChannel);
-            }
-        }
-    }
+    //        ValueUpdateMessageInt message = new ValueUpdateMessageInt()
+    //        {
+    //            index = i,
+    //            value = (this.fieldGUI.GUIs[i].Type)this.fieldGUI.GUIs[i].GetValue(),
+    //        };
+
+    //        NetworkServer.SendByChannelToAll
+    //            (ValueUpdateMessageType.ValueUpdateInt, message, this.reliableChannel);
+    //    }
+    //}
 
     public void ReceiveValueUpdateMessageInt(NetworkMessage message)
     {

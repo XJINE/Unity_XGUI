@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Collections;
 using System.Reflection;
 
 namespace XJGUI
@@ -18,7 +18,8 @@ namespace XJGUI
         public FieldGUIComponent(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             :base(data, fieldInfo, guiInfo)
         {
-            base.Type = typeof(T);
+            base.IsIListType = data is IList;
+            base.Type = base.IsIListType ? typeof(T).GetGenericTypeDefinition() : typeof(T);
         }
 
         #endregion Constructor
@@ -39,7 +40,7 @@ namespace XJGUI
         {
             T currentValue = this.gui.Show();
 
-            base.IsUpdate = !CheckSameValue(currentValue, previousValue);
+            base.IsUpdate = CheckUpdate(currentValue, previousValue);
 
             this.previousValue = currentValue;
         }
@@ -54,7 +55,11 @@ namespace XJGUI
             return this.gui.Value;
         }
 
-        protected abstract bool CheckSameValue(T value1, T value2);
+        // NOTE:
+        // Return <= -1 : SameValue,
+        // Return >= 0  : UpdateValue & the List Index.
+
+        protected abstract int CheckUpdate(T value1, T value2);
 
         #endregion Method
     }

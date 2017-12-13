@@ -29,6 +29,11 @@ namespace XJGUI.FieldGUIComponents
             };
         }
 
+        protected override int CheckUpdate(Vector3 value1, Vector3 value2)
+        {
+            return value1 == value2 ? -1 : 0;
+        }
+
         #endregion Method
     }
 }

@@ -16,9 +16,11 @@ namespace XJGUI
 
         public bool IsUnsupported { get; protected set; }
 
-        public bool IsUpdate { get; protected set; }
+        public int IsUpdate { get; protected set; }
 
         public System.Type Type { get; protected set; }
+
+        public bool IsIListType { get; protected set; }
 
         #endregion Property
 
@@ -46,7 +48,7 @@ namespace XJGUI
 
         protected abstract void ShowGUI();
 
-        public abstract void SetValue(object value);
+        public abstract void SetValue(object value, int index = -1);
 
         public abstract object GetValue();
 

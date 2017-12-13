@@ -1,5 +1,4 @@
-﻿using System;
-using System.Reflection;
+﻿using System.Reflection;
 using UnityEngine;
 
 namespace XJGUI.FieldGUIComponents
@@ -41,6 +40,11 @@ namespace XJGUI.FieldGUIComponents
         public override void SetValue(object value)
         {
             // Nothing to do.
+        }
+
+        public override object GetValue()
+        {
+            return null;
         }
 
         #endregion Method

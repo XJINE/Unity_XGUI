@@ -25,6 +25,11 @@ namespace XJGUI.FieldGUIComponents
             };
         }
 
+        protected override int CheckUpdate(bool value1, bool value2)
+        {
+            return value1 == value2 ? -1 : 0;
+        }
+
         #endregion Method
     }
 }
