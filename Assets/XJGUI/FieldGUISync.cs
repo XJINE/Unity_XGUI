@@ -72,6 +72,10 @@ public class FieldGUISync : NetworkBehaviour
                 continue;
             }
 
+            // NOTE:
+            // There is no reason to implement with logic which use "Dirty".
+            // Because "UpdateInfo" is struct.
+
             Type type = this.fieldGUI.GUIs[i].Type;
             object value = this.fieldGUI.GUIs[i].GetValue();
             bool isIListType = this.fieldGUI.GUIs[i].IsIListType;
@@ -87,7 +91,6 @@ public class FieldGUISync : NetworkBehaviour
             else if (type == typeof(Vector4)) { info.valueVector4 = (Vector4)(isIListType ? ((IList<Vector4>)value)[updateIndex] : value); }
 
             this.syncList[i] = info;
-            //this.syncList.Dirty(i);
         }
     }
 
