@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Reflection;
+﻿using System.Reflection;
 
 namespace XJGUI
 {
@@ -18,8 +17,6 @@ namespace XJGUI
         public FieldGUIComponentBase(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             :base(data, fieldInfo, guiInfo)
         {
-            base.IsIListType = data is IList;
-            base.Type = base.IsIListType ? typeof(T).GetGenericTypeDefinition() : typeof(T);
         }
 
         #endregion Constructor
@@ -34,15 +31,6 @@ namespace XJGUI
         protected override void Load()
         {
             this.gui.Value = (T)base.fieldInfo.GetValue(base.data);
-        }
-
-        protected override void ShowGUI()
-        {
-            T currentValue = this.gui.Show();
-
-            base.UpdateIndex = CheckUpdate(currentValue, previousValue);
-
-            this.previousValue = currentValue;
         }
 
         public override object GetValue()

@@ -18,6 +18,18 @@ namespace XJGUI
 
         #region Method
 
+        protected override void ShowGUI()
+        {
+            IList<T> currentValue = this.gui.Show();
+
+            base.UpdateIndex = CheckUpdate(currentValue, base.previousValue);
+
+            T[] previousValue = new T[currentValue.Count];
+            currentValue.CopyTo(previousValue, 0);
+
+            base.previousValue = previousValue;
+        }
+
         public override void SetValue(object value, int index = -1)
         {
             ((ValuesGUI<T>)base.gui).SetValue((T)value, index);
