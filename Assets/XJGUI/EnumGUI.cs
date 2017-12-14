@@ -6,13 +6,20 @@ namespace XJGUI
     // NOTE:
     // T must be "enum" type.
 
+    // CAUTION:
+    // Enum.GetValues return wrong pattern in sometimes.
+    // If some of the Enum components has a same value, the values has same Enum components.
+    // Ex. When Enum is defined like this {valueA = 0, valueB = 0},
+    // Enum.GetValues will return 2 valueB and valueA is not included there.
+    // So we need to Name based implement.
+
     public class EnumGUI<T> : ElementGUI<T> where T : IComparable, IFormattable, IConvertible
     {
         #region Field
 
         protected Type enumType;
 
-        protected T[] enumValues;
+        protected string[] enumNames;
 
         protected int selectedIndex;
 
@@ -30,7 +37,6 @@ namespace XJGUI
             {
                 return base.value;
             }
-
             set
             {
                 this.selectedIndex = GetSelectedEnumIndex(value);
@@ -57,13 +63,7 @@ namespace XJGUI
                 // Exception.
             }
 
-            Array enumValues = Enum.GetValues(this.enumType);
-            this.enumValues = new T[enumValues.Length];
-
-            for (int i = 0; i < enumValues.Length; i++)
-            {
-                this.enumValues[i] = (T)enumValues.GetValue(i);
-            }
+            this.enumNames = Enum.GetNames(this.enumType);
         }
 
         #endregion Constructor
@@ -76,7 +76,7 @@ namespace XJGUI
             {
                 base.ShowTitle();
 
-                string buttonContent = this.enumValues[this.selectedIndex].ToString();
+                string buttonContent = this.enumNames[this.selectedIndex];
 
                 if (this.ButtonWidth <= 0 ? GUILayout.Button(buttonContent)
                                           : GUILayout.Button(buttonContent, GUILayout.Width(this.ButtonWidth)))
@@ -87,10 +87,10 @@ namespace XJGUI
 
             if (!this.isEditing)
             {
-                return base.Value;
+                return this.Value;
             }
 
-            for (int i = 0; i < this.enumValues.Length; i++)
+            for (int i = 0; i < this.enumNames.Length; i++)
             {
                 if (i == this.selectedIndex)
                 {
@@ -98,7 +98,7 @@ namespace XJGUI
                 }
 
                 bool buttonPressed = false;
-                string buttonContent = this.enumValues[i].ToString();
+                string buttonContent = this.enumNames[i];
 
                 if (this.ButtonWidth <= 0)
                 {
@@ -117,7 +117,7 @@ namespace XJGUI
                 {
                     this.selectedIndex = i;
                     this.isEditing = false;
-                    base.Value = this.enumValues[i];
+                    base.value = (T)Enum.Parse(this.enumType, this.enumNames[i]);
                 }
             }
 
@@ -126,9 +126,12 @@ namespace XJGUI
 
         protected int GetSelectedEnumIndex(T value)
         {
-            for (int i = 0; i < this.enumValues.Length; i++)
+            string enumName = value.ToString();
+
+            for (int i = 0; i < this.enumNames.Length; i++)
             {
-                if (this.enumValues[i].CompareTo(value) == 0)
+
+                if (this.enumNames[i] == enumName)
                 {
                     return i;
                 }

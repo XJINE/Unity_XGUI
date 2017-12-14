@@ -117,11 +117,6 @@ public class BasicSample : MonoBehaviour
             Title = "IPV4",
             Value = "7.7.7.7",
         };
-
-        foreach (var value in System.Enum.GetValues(typeof(SampleEnum)))
-        {
-            Debug.Log(value);
-        }
     }
 
     void OnGUI()
