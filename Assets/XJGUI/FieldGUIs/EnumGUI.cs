@@ -26,6 +26,11 @@ namespace XJGUI.FieldGUIs
             };
         }
 
+        public override void SetValue(object value, int index = -1)
+        {
+            this.gui.Value = (T)Enum.Parse(typeof(T), (string)value);
+        }
+
         #endregion Method
     }
 }

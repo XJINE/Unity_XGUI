@@ -8,7 +8,9 @@ public class FieldGUISync : NetworkBehaviour
 {
     // NOTE:
     // There are 2 implement pattern to sync, the one is using Message, another one is using SyncList.
-    // Message pattern is not so bad, but it need to define custom message type with MsgType.Highest.
+    // Message pattern is not so bad, but it needs to define custom message type with MsgType.Highest.
+    // MsgType must be unique. So when the user use another custom message type, 
+    // the user must solve the problem about MsgType conflict.
 
     #region Class
 
@@ -71,7 +73,7 @@ public class FieldGUISync : NetworkBehaviour
 
             int updateIndex = this.fieldGUI.GUIs[i].UpdateIndex;
 
-            if (updateIndex < 0)
+            if (updateIndex < 0 || this.fieldGUI.GUIs[i].IsUnsupported)
             {
                 continue;
             }
@@ -93,6 +95,7 @@ public class FieldGUISync : NetworkBehaviour
             else if (type == typeof(Vector2)) { info.valueVector2 = (Vector2)(isIListType ? ((IList<Vector2>)value)[updateIndex] : value); }
             else if (type == typeof(Vector3)) { info.valueVector3 = (Vector3)(isIListType ? ((IList<Vector3>)value)[updateIndex] : value); }
             else if (type == typeof(Vector4)) { info.valueVector4 = (Vector4)(isIListType ? ((IList<Vector4>)value)[updateIndex] : value); }
+            else if (type.IsEnum) { info.valueString = (isIListType ? ((IList<IComparable>)value)[updateIndex] : value).ToString(); }
 
             this.syncList[i] = info;
         }
@@ -100,6 +103,11 @@ public class FieldGUISync : NetworkBehaviour
 
     private void OnSyncListUpdated(SyncListStruct<UpdateInfo>.Operation op, int index)
     {
+        // NOTE:
+        // Enum is passed as string. Enum value able to set byte ~ ulong.
+        // So to cover all of the case, we have no choice but to use string(name).
+        // Ex. If use ulong, it cannot keep negative value.
+
         if (op != SyncList<UpdateInfo>.Operation.OP_SET)
         {
             return;
@@ -116,6 +124,7 @@ public class FieldGUISync : NetworkBehaviour
         else if (type == typeof(Vector2)) { value = this.syncList[index].valueVector2; }
         else if (type == typeof(Vector3)) { value = this.syncList[index].valueVector3; }
         else if (type == typeof(Vector4)) { value = this.syncList[index].valueVector4; }
+        else if (type.IsEnum)             { value = this.syncList[index].valueString; }
 
         this.fieldGUI.GUIs[index].SetValue(value, valueIndex);
     }

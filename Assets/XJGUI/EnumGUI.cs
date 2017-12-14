@@ -52,7 +52,7 @@ namespace XJGUI
         {
             this.enumType = typeof(T);
 
-            if (this.enumType.IsEnum)
+            if (!this.enumType.IsEnum)
             {
                 // Exception.
             }

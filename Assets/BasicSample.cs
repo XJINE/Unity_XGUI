@@ -5,8 +5,10 @@ public class BasicSample : MonoBehaviour
 {
     public enum SampleEnum
     {
-        value1,
-        value2,
+        Value1 = 0,
+        Value2 = 1,
+        Value3 = 3,
+        Value4 = 3,
     }
 
     FlexibleWindow flexibleWindow;
@@ -76,7 +78,7 @@ public class BasicSample : MonoBehaviour
 
         this.enumGUI = new EnumGUI<SampleEnum>()
         {
-            Value = SampleEnum.value2,
+            Value = SampleEnum.Value2,
             Title = "Sample Enum Value",
             ButtonWidth = 100
         };
@@ -115,6 +117,11 @@ public class BasicSample : MonoBehaviour
             Title = "IPV4",
             Value = "7.7.7.7",
         };
+
+        foreach (var value in System.Enum.GetValues(typeof(SampleEnum)))
+        {
+            Debug.Log(value);
+        }
     }
 
     void OnGUI()

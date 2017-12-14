@@ -12,39 +12,45 @@ public class FieldGUISyncSample : MonoBehaviour
 
     protected FieldGUI fieldGUI;
 
-    [FieldGUIInfo(Title = "Hide UnsupportedGUI")]
-    public bool boolValue = true;
+    //[FieldGUIInfo(Title = "Hide UnsupportedGUI")]
+    //public bool boolValue = true;
 
-    public string stringValue = "Sample";
+    //public string stringValue = "Sample";
 
-    [FieldGUIInfo(MinValue = 0, MaxValue = 100)]
-    public int intValue = 0;
+    //[FieldGUIInfo(MinValue = 0, MaxValue = 100)]
+    //public int intValue = 0;
 
-    [FieldGUIInfo(HideInGUI = true)]
-    public int intValueHide = 5;
+    //[FieldGUIInfo(HideInGUI = true)]
+    //public int intValueHide = 5;
 
-    public float floatValue = 10;
+    //public float floatValue = 10;
 
-    public Vector2 vector2Value = new Vector2(0, 0);
+    //public Vector2 vector2Value = new Vector2(0, 0);
 
-    public Vector3 vector3Value = new Vector3(1, 1, 1);
+    //public Vector3 vector3Value = new Vector3(1, 1, 1);
 
-    public Vector4 vector4Value = new Vector4(1, 1, 1, 1);
+    //public Vector4 vector4Value = new Vector4(1, 1, 1, 1);
 
-    public List<int> intValues = new List<int>() { 0, 1, 2 };
+    //public List<int> intValues = new List<int>() { 0, 1, 2 };
 
-    [FieldGUIInfo(Decimals = 1)]
-    public float[] floatValues = new float[] { 0, 1, 2 };
+    //[FieldGUIInfo(Decimals = 1)]
+    //public float[] floatValues = new float[] { 0, 1, 2 };
 
-    public List<Vector3> vector3Values = new List<Vector3>() { Vector3.one, Vector3.up, Vector3.back };
+    //public List<Vector3> vector3Values = new List<Vector3>() { Vector3.one, Vector3.up, Vector3.back };
 
     [FieldGUIInfo(Title = "Camera Clear Enum")]
     public CameraClearFlags enumValue = CameraClearFlags.Skybox;
 
-    [FieldGUIInfo(IPv4 = true)]
-    public string ipV4Value = "0.7.7.7";
+    //[FieldGUIInfo(IPv4 = true)]
+    //public string ipV4Value = "0.7.7.7";
 
     #endregion Field
+
+    public enum sample
+    {
+        value1 = 0,
+        value2 = 1,
+    }
 
     void Start()
     {
@@ -65,7 +71,7 @@ public class FieldGUISyncSample : MonoBehaviour
 
     void OnGUI()
     {
-        this.fieldGUI.HideUnsupportedGUI = this.boolValue;
+        //this.fieldGUI.HideUnsupportedGUI = this.boolValue;
 
         this.flexWindow.Show(() =>
         {
