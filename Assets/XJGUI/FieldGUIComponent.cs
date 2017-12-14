@@ -45,7 +45,7 @@ namespace XJGUI
             this.previousValue = currentValue;
         }
 
-        public override void SetValue(object value)
+        public override void SetValue(object value, int index = -1)
         {
             this.gui.Value = (T)value;
         }

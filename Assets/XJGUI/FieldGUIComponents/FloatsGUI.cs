@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Reflection;
 
 namespace XJGUI.FieldGUIComponents
@@ -27,6 +28,16 @@ namespace XJGUI.FieldGUIComponents
                 MaxValue = base.guiInfo.MaxValue,
                 Decimals = base.guiInfo.Decimals,
             };
+        }
+
+        protected override int CheckUpdate(IList<float> value1, IList<float> value2)
+        {
+            return value1 != value2 ? 0 : -1;
+        }
+
+        public override void SetValue(object value, int index = -1)
+        {
+            base.SetValue(value, index);
         }
 
         #endregion Method

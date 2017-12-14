@@ -39,7 +39,7 @@ public class FieldGUISync : NetworkBehaviour
 
             if (type == typeof(int))
             {
-                this.syncList.Add(new UpdateValue() { index = 0, valueInt = (int)this.fieldGUI.GUIs[i].GetValue(), });
+                this.syncList.Add(new UpdateValue() { valueInt = (int)this.fieldGUI.GUIs[i].GetValue(), });
             }
         }
 
@@ -50,6 +50,12 @@ public class FieldGUISync : NetworkBehaviour
     {
         for (int i = 0; i < this.fieldGUI.GUIs.Count; i++)
         {
+            // NOTE:
+            // "UpdateIndex" shows the GUI is updated or not.
+            // When updated, the value shows index of the value list,
+            // and the value is greater than or equal to 0.
+            // When not updated, the value shows less than 0.
+
             int updateIndex = this.fieldGUI.GUIs[i].IsUpdate;
 
             if (updateIndex < 0)
@@ -80,7 +86,6 @@ public class FieldGUISync : NetworkBehaviour
         object value = 0;
         int valueIndex = this.syncList[index].index;
         Type type = this.fieldGUI.GUIs[index].Type;
-
 
              if (type == typeof(int))     { value = this.syncList[index].valueInt;     }
         else if (type == typeof(float))   { value = this.syncList[index].valueFloat;   }
