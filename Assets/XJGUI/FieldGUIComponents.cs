@@ -11,21 +11,30 @@ namespace XJGUI
             :base(data, fieldInfo, guiInfo)
         {
             base.IsIListType = true;
-            base.Type = typeof(T).GetGenericTypeDefinition();
+            base.Type = typeof(T);
         }
 
         #endregion Constructor
 
         #region Method
 
+        protected override void Load()
+        {
+            base.Load();
+
+            T[] previousValue = new T[this.gui.Value.Count];
+            this.gui.Value.CopyTo(previousValue, 0);
+            this.previousValue = previousValue;
+        }
+
         protected override void ShowGUI()
         {
-            IList<T> currentValue = this.gui.Show();
+            this.gui.Show();
 
-            base.UpdateIndex = CheckUpdate(currentValue, base.previousValue);
+            base.UpdateIndex = CheckUpdate(this.gui.Value, base.previousValue);
 
-            T[] previousValue = new T[currentValue.Count];
-            currentValue.CopyTo(previousValue, 0);
+            T[] previousValue = new T[this.gui.Value.Count];
+            this.gui.Value.CopyTo(previousValue, 0);
 
             base.previousValue = previousValue;
         }

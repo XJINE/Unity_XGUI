@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using XJGUI;
@@ -7,9 +8,9 @@ public class FieldGUISync : NetworkBehaviour
 {
     #region Class
 
-    protected struct UpdateValue
+    protected struct UpdateInfo
     {
-        public int     index;
+        public int     updateIndex;
         public int     valueInt;
         public float   valueFloat;
         public bool    valueBool;
@@ -22,16 +23,16 @@ public class FieldGUISync : NetworkBehaviour
     // NOTE:
     // Following SyncList define is illegal. Unity will notify the error.
     // We have to define a inherit class.
-    // protected SyncListStruct<UpdateValue> syncList = new SyncListStruct<UpdateValue>();
+    // protected SyncListStruct<T> syncList = new SyncListStruct<T>();
 
-    protected class SyncListUpdateValue : SyncListStruct<UpdateValue> { }
+    protected class SyncListUpdateInfo : SyncListStruct<UpdateInfo> { }
 
     #endregion Class
 
     #region Field
 
     protected FieldGUI fieldGUI;
-    protected SyncListUpdateValue syncList = new SyncListUpdateValue();
+    protected SyncListUpdateInfo syncList = new SyncListUpdateInfo();
 
     #endregion Field
 
@@ -44,14 +45,20 @@ public class FieldGUISync : NetworkBehaviour
         for (int i = 0; i < this.fieldGUI.GUIs.Count; i++)
         {
             Type type = this.fieldGUI.GUIs[i].Type;
-            this.syncList.Add(new UpdateValue());
+            this.syncList.Add(new UpdateInfo());
         }
 
         this.syncList.Callback += OnSyncListUpdated;
     }
 
+    [ServerCallback]
     public void Update()
     {
+        if (this.fieldGUI == null)
+        {
+            return;
+        }
+
         for (int i = 0; i < this.fieldGUI.GUIs.Count; i++)
         {
             // NOTE:
@@ -67,26 +74,32 @@ public class FieldGUISync : NetworkBehaviour
 
             Type type = this.fieldGUI.GUIs[i].Type;
             object value = this.fieldGUI.GUIs[i].GetValue();
+            bool isIListType = this.fieldGUI.GUIs[i].IsIListType;
 
-                if (type == typeof(int))     { this.syncList[i] = new UpdateValue() { valueInt     = (int)    value, index = updateIndex }; }
-           else if (type == typeof(float))   { this.syncList[i] = new UpdateValue() { valueFloat   = (float)  value, index = updateIndex }; }
-           else if (type == typeof(bool))    { this.syncList[i] = new UpdateValue() { valueBool    = (bool)   value, index = updateIndex }; }
-           else if (type == typeof(string))  { this.syncList[i] = new UpdateValue() { valueString  = (string) value, index = updateIndex }; }
-           else if (type == typeof(Vector2)) { this.syncList[i] = new UpdateValue() { valueVector2 = (Vector2)value, index = updateIndex }; }
-           else if (type == typeof(Vector3)) { this.syncList[i] = new UpdateValue() { valueVector3 = (Vector3)value, index = updateIndex }; }
-           else if (type == typeof(Vector4)) { this.syncList[i] = new UpdateValue() { valueVector4 = (Vector4)value, index = updateIndex }; }
+            UpdateInfo info = new UpdateInfo() { updateIndex = updateIndex };
+
+                 if (type == typeof(int))     { info.valueInt     = (int)    (isIListType ? ((IList<int>)value)    [updateIndex] : value); }
+            else if (type == typeof(float))   { info.valueFloat   = (float)  (isIListType ? ((IList<float>)value)  [updateIndex] : value); }
+            else if (type == typeof(bool))    { info.valueBool    = (bool)   (isIListType ? ((IList<bool>)value)   [updateIndex] : value); }
+            else if (type == typeof(string))  { info.valueString  = (string) (isIListType ? ((IList<string>)value) [updateIndex] : value); }
+            else if (type == typeof(Vector2)) { info.valueVector2 = (Vector2)(isIListType ? ((IList<Vector2>)value)[updateIndex] : value); }
+            else if (type == typeof(Vector3)) { info.valueVector3 = (Vector3)(isIListType ? ((IList<Vector3>)value)[updateIndex] : value); }
+            else if (type == typeof(Vector4)) { info.valueVector4 = (Vector4)(isIListType ? ((IList<Vector4>)value)[updateIndex] : value); }
+
+            this.syncList[i] = info;
+            //this.syncList.Dirty(i);
         }
     }
 
-    private void OnSyncListUpdated(SyncListStruct<UpdateValue>.Operation op, int index)
+    private void OnSyncListUpdated(SyncListStruct<UpdateInfo>.Operation op, int index)
     {
-        if (op != SyncList<UpdateValue>.Operation.OP_DIRTY)
+        if (op != SyncList<UpdateInfo>.Operation.OP_SET)
         {
             return;
         }
 
         object value = 0;
-        int valueIndex = this.syncList[index].index;
+        int valueIndex = this.syncList[index].updateIndex;
         Type type = this.fieldGUI.GUIs[index].Type;
 
              if (type == typeof(int))     { value = this.syncList[index].valueInt;     }

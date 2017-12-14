@@ -2,7 +2,7 @@
 using UnityEngine;
 using XJGUI;
 
-public class FieldGUISyncVarSample : MonoBehaviour
+public class FieldGUISyncSample : MonoBehaviour
 {
     #region Field
 

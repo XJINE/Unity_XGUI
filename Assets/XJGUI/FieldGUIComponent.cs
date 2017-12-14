@@ -17,6 +17,12 @@ namespace XJGUI
 
         #region Method
 
+        protected override void Load()
+        {
+            base.Load();
+            this.previousValue = this.gui.Value;
+        }
+
         protected override void ShowGUI()
         {
             T currentValue = this.gui.Show();
