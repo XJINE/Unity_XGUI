@@ -6,7 +6,7 @@ namespace XJGUI.FieldGUIs
     {
         #region Constructor
 
-        public BoolGUI(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
+        public BoolGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
         }

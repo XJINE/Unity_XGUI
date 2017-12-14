@@ -6,7 +6,7 @@ namespace XJGUI.FieldGUIs
     {
         #region Constructor
 
-        public FloatGUI(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
+        public FloatGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
         }

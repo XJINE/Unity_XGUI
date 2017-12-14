@@ -6,7 +6,7 @@ namespace XJGUI
     {
         #region Filed
 
-        protected System.Object data;
+        protected object data;
         protected FieldInfo fieldInfo;
         protected FieldGUIInfo guiInfo;
 
@@ -26,7 +26,7 @@ namespace XJGUI
 
         #region Constructor
 
-        public FieldGUIBase(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
+        public FieldGUIBase(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
         {
             this.data = data;
             this.fieldInfo = fieldInfo;

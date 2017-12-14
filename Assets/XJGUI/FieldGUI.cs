@@ -57,7 +57,7 @@ namespace XJGUI
 
         #region Constructor
 
-        public FieldGUI(System.Object data)
+        public FieldGUI(object data)
         {
             GenerateGUIs(data);
 
@@ -68,7 +68,7 @@ namespace XJGUI
 
         #region Method
 
-        private void GenerateGUIs(System.Object data)
+        private void GenerateGUIs(object data)
         {
             FieldInfo[] fieldInfos = data.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
 
@@ -117,7 +117,7 @@ namespace XJGUI
             return attribute;
         }
 
-        private FieldGUIBase GenerateGUI(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo, out FieldGUIType fieldGUIType)
+        private FieldGUIBase GenerateGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo, out FieldGUIType fieldGUIType)
         {
             Type type;
             Type guiType;
@@ -175,7 +175,7 @@ namespace XJGUI
         }
 
         protected static FieldGUIType GetFieldGUIType
-            (System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo, out Type type)
+            (object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo, out Type type)
         {
             type = fieldInfo.FieldType;
 

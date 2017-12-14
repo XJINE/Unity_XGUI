@@ -30,16 +30,17 @@ public class FieldGUISync : NetworkBehaviour
 
     #region Field
 
-    public FieldGUI fieldGUI;
-
+    protected FieldGUI fieldGUI;
     protected SyncListUpdateValue syncList = new SyncListUpdateValue();
 
     #endregion Field
 
     #region Method
 
-    public void Start()
+    public void SetFieldGUI(FieldGUI fieldGUI)
     {
+        this.fieldGUI = fieldGUI;
+
         for (int i = 0; i < this.fieldGUI.GUIs.Count; i++)
         {
             Type type = this.fieldGUI.GUIs[i].Type;

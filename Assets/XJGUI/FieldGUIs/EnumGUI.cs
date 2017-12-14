@@ -7,7 +7,7 @@ namespace XJGUI.FieldGUIs
     {
         #region Constructor
 
-        public EnumGUI(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
+        public EnumGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
         }

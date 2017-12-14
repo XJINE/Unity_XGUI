@@ -8,7 +8,7 @@ namespace XJGUI.FieldGUIs
     {
         #region Constructor
 
-        public Vector2sGUI(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
+        public Vector2sGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
         }

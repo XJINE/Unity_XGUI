@@ -15,7 +15,7 @@ namespace XJGUI
 
         #region Constructor
 
-        public FieldGUIComponent(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
+        public FieldGUIComponent(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             :base(data, fieldInfo, guiInfo)
         {
             base.IsIListType = data is IList;
