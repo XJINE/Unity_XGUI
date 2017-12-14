@@ -55,6 +55,10 @@ namespace XJGUI
             return this.gui.Value;
         }
 
+        // CAUTION:
+        // Make this inheritance class & implement common "CheckUpdate" is bad way.
+        // Instance of "T" cannot compare by "==" & Vector2,3,4… can't compare by "IComparable.CompareTo".
+
         protected abstract int CheckUpdate(T value1, T value2);
 
         #endregion Method
