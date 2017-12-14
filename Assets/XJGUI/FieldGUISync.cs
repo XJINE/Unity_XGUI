@@ -6,6 +6,10 @@ using XJGUI;
 
 public class FieldGUISync : NetworkBehaviour
 {
+    // NOTE:
+    // There are 2 implement pattern to sync, the one is using Message, another one is using SyncList.
+    // Message pattern is not so bad, but it need to define custom message type with MsgType.Highest.
+
     #region Class
 
     protected struct UpdateInfo
