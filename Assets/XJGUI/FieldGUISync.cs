@@ -43,8 +43,7 @@ public class FieldGUISync : NetworkBehaviour
         for (int i = 0; i < this.fieldGUI.GUIs.Count; i++)
         {
             Type type = this.fieldGUI.GUIs[i].Type;
-
-            if (type == typeof(int)) { this.syncList.Add(new UpdateValue() { valueInt = (int)this.fieldGUI.GUIs[i].GetValue(), }); }
+            this.syncList.Add(new UpdateValue());
         }
 
         this.syncList.Callback += OnSyncListUpdated;
@@ -58,9 +57,9 @@ public class FieldGUISync : NetworkBehaviour
             // "UpdateIndex" shows the GUI is updated or not. 
             // When updated, the value shows index of the value list, and when not, the value shows less than 0.
 
-            int index = this.fieldGUI.GUIs[i].UpdateIndex;
+            int updateIndex = this.fieldGUI.GUIs[i].UpdateIndex;
 
-            if (index < 0)
+            if (updateIndex < 0)
             {
                 continue;
             }
@@ -68,13 +67,13 @@ public class FieldGUISync : NetworkBehaviour
             Type type = this.fieldGUI.GUIs[i].Type;
             object value = this.fieldGUI.GUIs[i].GetValue();
 
-                if (type == typeof(int))     { this.syncList[i] = new UpdateValue() { valueInt     = (int)    value, index = index }; }
-           else if (type == typeof(float))   { this.syncList[i] = new UpdateValue() { valueFloat   = (float)  value, index = index }; }
-           else if (type == typeof(bool))    { this.syncList[i] = new UpdateValue() { valueBool    = (bool)   value, index = index }; }
-           else if (type == typeof(string))  { this.syncList[i] = new UpdateValue() { valueString  = (string) value, index = index }; }
-           else if (type == typeof(Vector2)) { this.syncList[i] = new UpdateValue() { valueVector2 = (Vector2)value, index = index }; }
-           else if (type == typeof(Vector3)) { this.syncList[i] = new UpdateValue() { valueVector3 = (Vector3)value, index = index }; }
-           else if (type == typeof(Vector4)) { this.syncList[i] = new UpdateValue() { valueVector4 = (Vector4)value, index = index }; }
+                if (type == typeof(int))     { this.syncList[i] = new UpdateValue() { valueInt     = (int)    value, index = updateIndex }; }
+           else if (type == typeof(float))   { this.syncList[i] = new UpdateValue() { valueFloat   = (float)  value, index = updateIndex }; }
+           else if (type == typeof(bool))    { this.syncList[i] = new UpdateValue() { valueBool    = (bool)   value, index = updateIndex }; }
+           else if (type == typeof(string))  { this.syncList[i] = new UpdateValue() { valueString  = (string) value, index = updateIndex }; }
+           else if (type == typeof(Vector2)) { this.syncList[i] = new UpdateValue() { valueVector2 = (Vector2)value, index = updateIndex }; }
+           else if (type == typeof(Vector3)) { this.syncList[i] = new UpdateValue() { valueVector3 = (Vector3)value, index = updateIndex }; }
+           else if (type == typeof(Vector4)) { this.syncList[i] = new UpdateValue() { valueVector4 = (Vector4)value, index = updateIndex }; }
         }
     }
 
