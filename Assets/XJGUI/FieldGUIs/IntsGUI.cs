@@ -3,7 +3,7 @@ using System.Reflection;
 
 namespace XJGUI.FieldGUIs
 {
-    public class IntsGUI : FieldGUIComponent<IList<int>>
+    public class IntsGUI : FieldGUIComponents<int>
     {
         #region Constructor
 
@@ -20,30 +20,12 @@ namespace XJGUI.FieldGUIs
         {
             base.gui = new XJGUI.IntsGUI()
             {
-                Value = (IList<int>)base.fieldInfo.GetValue(base.data),
-                Title = base.guiInfo.Title,
+                Value     = (IList<int>)base.fieldInfo.GetValue(base.data),
+                Title     = base.guiInfo.Title,
                 BoldTitle = base.guiInfo.BoldTitle,
-                MinValue = (int)base.guiInfo.MinValue,
-                MaxValue = (int)base.guiInfo.MaxValue,
+                MinValue  = (int)base.guiInfo.MinValue,
+                MaxValue  = (int)base.guiInfo.MaxValue,
             };
-        }
-
-        protected override int CheckUpdate(IList<int> value1, IList<int> value2)
-        {
-            for (int i = 0; i < value1.Count; i++)
-            {
-                if (value1[i] == value2[i])
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-
-        public override void SetValue(object value, int index = -1)
-        {
-            ((ValuesGUI<int>)base.gui).SetValue((int)value, index);
         }
 
         #endregion Method

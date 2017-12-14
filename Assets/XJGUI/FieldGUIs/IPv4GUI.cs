@@ -19,15 +19,10 @@ namespace XJGUI.FieldGUIs
         {
             base.gui = new XJGUI.IPv4GUI()
             {
-                Value = base.fieldInfo.GetValue(base.data).ToString(),
-                Title = base.guiInfo.Title,
+                Value     = base.fieldInfo.GetValue(base.data).ToString(),
+                Title     = base.guiInfo.Title,
                 BoldTitle = base.guiInfo.BoldTitle,
             };
-        }
-
-        protected override int CheckUpdate(string value1, string value2)
-        {
-            return value1 == value2 ? -1 : 0;
         }
 
         #endregion Method

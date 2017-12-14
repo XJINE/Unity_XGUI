@@ -20,15 +20,10 @@ namespace XJGUI.FieldGUIs
         {
             base.gui = new XJGUI.EnumGUI<T>()
             {
-                Value = (T)base.fieldInfo.GetValue(base.data),
-                Title = base.guiInfo.Title,
+                Value     = (T)base.fieldInfo.GetValue(base.data),
+                Title     = base.guiInfo.Title,
                 BoldTitle = base.guiInfo.BoldTitle,
             };
-        }
-
-        protected override int CheckUpdate(T value1, T value2)
-        {
-            return value1.CompareTo(value2) == 0 ? -1 : 0;
         }
 
         #endregion Method

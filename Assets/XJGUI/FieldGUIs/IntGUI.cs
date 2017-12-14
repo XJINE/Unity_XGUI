@@ -19,17 +19,12 @@ namespace XJGUI.FieldGUIs
         {
             base.gui = new XJGUI.IntGUI()
             {
-                Value = (int)base.fieldInfo.GetValue(base.data),
-                Title = base.guiInfo.Title,
+                Value     = (int)base.fieldInfo.GetValue(base.data),
+                Title     = base.guiInfo.Title,
                 BoldTitle = base.guiInfo.BoldTitle,
-                MinValue = (int)base.guiInfo.MinValue,
-                MaxValue = (int)base.guiInfo.MaxValue,
+                MinValue  = (int)base.guiInfo.MinValue,
+                MaxValue  = (int)base.guiInfo.MaxValue,
             };
-        }
-
-        protected override int CheckUpdate(int value1, int value2)
-        {
-            return value1 == value2 ? -1 : 0;
         }
 
         #endregion Method

@@ -19,15 +19,10 @@ namespace XJGUI.FieldGUIs
         {
             base.gui = new XJGUI.BoolGUI()
             {
-                Value = (bool)base.fieldInfo.GetValue(base.data),
-                Title = base.guiInfo.Title,
+                Value     = (bool)base.fieldInfo.GetValue(base.data),
+                Title     = base.guiInfo.Title,
                 BoldTitle = base.guiInfo.BoldTitle,
             };
-        }
-
-        protected override int CheckUpdate(bool value1, bool value2)
-        {
-            return value1 == value2 ? -1 : 0;
         }
 
         #endregion Method
