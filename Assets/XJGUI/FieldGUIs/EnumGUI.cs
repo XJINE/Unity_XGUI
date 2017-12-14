@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace XJGUI.FieldGUIComponents
+namespace XJGUI.FieldGUIs
 {
     public class EnumGUI<T> : FieldGUIComponent<T> where T : IComparable, IFormattable, IConvertible
     {

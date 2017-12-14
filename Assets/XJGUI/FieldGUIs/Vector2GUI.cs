@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using UnityEngine;
 
-namespace XJGUI.FieldGUIComponents
+namespace XJGUI.FieldGUIs
 {
     public class Vector2GUI : FieldGUIComponent<Vector2>
     {

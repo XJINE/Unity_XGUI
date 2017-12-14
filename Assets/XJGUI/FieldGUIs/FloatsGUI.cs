@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
-using UnityEngine;
 
-namespace XJGUI.FieldGUIComponents
+namespace XJGUI.FieldGUIs
 {
-    public class Vector2sGUI : FieldGUIComponent<IList<Vector2>>
+    public class FloatsGUI : FieldGUIComponent<IList<float>>
     {
         #region Constructor
 
-        public Vector2sGUI(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
+        public FloatsGUI(System.Object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
         }
@@ -19,18 +18,18 @@ namespace XJGUI.FieldGUIComponents
 
         protected override void InitializeGUI()
         {
-            base.gui = new XJGUI.Vector2sGUI()
+            base.gui = new XJGUI.FloatsGUI()
             {
-                Value = (IList<Vector2>)base.fieldInfo.GetValue(base.data),
+                Value = (IList<float>)base.fieldInfo.GetValue(base.data),
                 Title = base.guiInfo.Title,
                 BoldTitle = base.guiInfo.BoldTitle,
-                MinValue = new Vector2(base.guiInfo.MinValue, base.guiInfo.MinValue),
-                MaxValue = new Vector2(base.guiInfo.MaxValue, base.guiInfo.MaxValue),
+                MinValue = base.guiInfo.MinValue,
+                MaxValue = base.guiInfo.MaxValue,
                 Decimals = base.guiInfo.Decimals,
             };
         }
 
-        protected override int CheckUpdate(IList<Vector2> value1, IList<Vector2> value2)
+        protected override int CheckUpdate(IList<float> value1, IList<float> value2)
         {
             for (int i = 0; i < value1.Count; i++)
             {
@@ -45,7 +44,7 @@ namespace XJGUI.FieldGUIComponents
 
         public override void SetValue(object value, int index = -1)
         {
-            ((ValuesGUI<Vector2>)base.gui).SetValue((Vector2)value, index);
+            ((ValuesGUI<float>)base.gui).SetValue((float)value, index);
         }
 
         #endregion Method

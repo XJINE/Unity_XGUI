@@ -128,36 +128,36 @@ namespace XJGUI
             switch (fieldGUIType)
             {
                 case FieldGUIType.Bool:
-                    return new FieldGUIComponents.BoolGUI(data, fieldInfo, guiInfo);
+                    return new FieldGUIs.BoolGUI(data, fieldInfo, guiInfo);
                 case FieldGUIType.Int:
-                    return new FieldGUIComponents.IntGUI(data, fieldInfo, guiInfo);
+                    return new FieldGUIs.IntGUI(data, fieldInfo, guiInfo);
                 case FieldGUIType.Float:
-                    return new  FieldGUIComponents.FloatGUI(data, fieldInfo, guiInfo);
+                    return new  FieldGUIs.FloatGUI(data, fieldInfo, guiInfo);
                 case FieldGUIType.Vector2:
-                    return new FieldGUIComponents.Vector2GUI(data, fieldInfo, guiInfo);
+                    return new FieldGUIs.Vector2GUI(data, fieldInfo, guiInfo);
                 case FieldGUIType.Vector3:
-                    return new FieldGUIComponents.Vector3GUI(data, fieldInfo, guiInfo);
+                    return new FieldGUIs.Vector3GUI(data, fieldInfo, guiInfo);
                 case FieldGUIType.Vector4:
-                    return new FieldGUIComponents.Vector4GUI(data, fieldInfo, guiInfo);
+                    return new FieldGUIs.Vector4GUI(data, fieldInfo, guiInfo);
                 case FieldGUIType.Ints:
-                    return new FieldGUIComponents.IntsGUI(data, fieldInfo, guiInfo);
+                    return new FieldGUIs.IntsGUI(data, fieldInfo, guiInfo);
                 case FieldGUIType.Floats:
-                    return new FieldGUIComponents.FloatsGUI(data, fieldInfo, guiInfo);
+                    return new FieldGUIs.FloatsGUI(data, fieldInfo, guiInfo);
                 case FieldGUIType.Vector2s:
-                    return new FieldGUIComponents.Vector2sGUI(data, fieldInfo, guiInfo);
+                    return new FieldGUIs.Vector2sGUI(data, fieldInfo, guiInfo);
                 case FieldGUIType.Vector3s:
-                    return new FieldGUIComponents.Vector3sGUI(data, fieldInfo, guiInfo);
+                    return new FieldGUIs.Vector3sGUI(data, fieldInfo, guiInfo);
                 case FieldGUIType.Vector4s:
-                    return new FieldGUIComponents.Vector4sGUI(data, fieldInfo, guiInfo);
+                    return new FieldGUIs.Vector4sGUI(data, fieldInfo, guiInfo);
                 case FieldGUIType.String:
-                    if (guiInfo.IPv4) { return new FieldGUIComponents.IPv4GUI(data, fieldInfo, guiInfo); }
-                    else { return new FieldGUIComponents.StringGUI(data, fieldInfo, guiInfo); }
+                    if (guiInfo.IPv4) { return new FieldGUIs.IPv4GUI(data, fieldInfo, guiInfo); }
+                    else { return new FieldGUIs.StringGUI(data, fieldInfo, guiInfo); }
                 case FieldGUIType.Enum:
-                    guiType = typeof(FieldGUIComponents.EnumGUI<>);
+                    guiType = typeof(FieldGUIs.EnumGUI<>);
                     genericType = guiType.MakeGenericType(fieldInfo.FieldType);
                     return (FieldGUIBase)Activator.CreateInstance(genericType, data, fieldInfo, guiInfo);
                 default:
-                    return new FieldGUIComponents.UnSupportedGUI(data, fieldInfo, guiInfo);
+                    return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiInfo);
             }
         }
 

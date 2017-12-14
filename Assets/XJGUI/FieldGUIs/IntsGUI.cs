@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
 
-namespace XJGUI.FieldGUIComponents
+namespace XJGUI.FieldGUIs
 {
     public class IntsGUI : FieldGUIComponent<IList<int>>
     {

@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace XJGUI.FieldGUIComponents
+namespace XJGUI.FieldGUIs
 {
     public class IPv4GUI : FieldGUIComponent<string>
     {
