@@ -40,7 +40,7 @@ namespace XJGUI
         {
             T currentValue = this.gui.Show();
 
-            base.IsUpdate = CheckUpdate(currentValue, previousValue);
+            base.UpdateIndex = CheckUpdate(currentValue, previousValue);
 
             this.previousValue = currentValue;
         }
@@ -54,10 +54,6 @@ namespace XJGUI
         {
             return this.gui.Value;
         }
-
-        // NOTE:
-        // Return <= -1 : SameValue,
-        // Return >= 0  : UpdateValue & the List Index.
 
         protected abstract int CheckUpdate(T value1, T value2);
 

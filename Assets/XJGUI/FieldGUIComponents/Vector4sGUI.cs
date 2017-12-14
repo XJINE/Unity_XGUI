@@ -36,6 +36,24 @@ namespace XJGUI.FieldGUIComponents
             };
         }
 
+        protected override int CheckUpdate(IList<Vector4> value1, IList<Vector4> value2)
+        {
+            for (int i = 0; i < value1.Count; i++)
+            {
+                if (value1[i] == value2[i])
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        public override void SetValue(object value, int index = -1)
+        {
+            ((ValuesGUI<Vector4>)base.gui).SetValue((Vector4)value, index);
+        }
+
         #endregion Method
     }
 }

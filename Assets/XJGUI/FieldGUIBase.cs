@@ -16,7 +16,7 @@ namespace XJGUI
 
         public bool IsUnsupported { get; protected set; }
 
-        public int IsUpdate { get; protected set; }
+        public int UpdateIndex { get; protected set; }
 
         public System.Type Type { get; protected set; }
 

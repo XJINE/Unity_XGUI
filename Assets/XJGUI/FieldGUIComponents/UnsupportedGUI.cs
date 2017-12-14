@@ -37,7 +37,7 @@ namespace XJGUI.FieldGUIComponents
             GUILayout.Label("Unsupported Field : " + base.fieldInfo.Name);
         }
 
-        public override void SetValue(object value)
+        public override void SetValue(object value, int index = -1)
         {
             // Nothing to do.
         }

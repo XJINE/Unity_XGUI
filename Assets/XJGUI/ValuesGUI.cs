@@ -227,6 +227,14 @@ namespace XJGUI
             return this.Value;
         }
 
+        public void SetValue(T value, int index)
+        {
+            // NOTE:
+            // Almost for FieldGUISync.
+
+            this.valueGUIs[index].Value = value;
+        }
+
         protected void ShowComponentGUI()
         {
             if (this.Value == null)

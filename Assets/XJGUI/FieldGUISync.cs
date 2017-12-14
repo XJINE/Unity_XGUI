@@ -19,13 +19,20 @@ public class FieldGUISync : NetworkBehaviour
         public Vector4 valueVector4;
     }
 
+    // NOTE:
+    // Following SyncList define is illegal. Unity will notify the error.
+    // We have to define a inherit class.
+    // protected SyncListStruct<UpdateValue> syncList = new SyncListStruct<UpdateValue>();
+
+    protected class SyncListUpdateValue : SyncListStruct<UpdateValue> { }
+
     #endregion Class
 
     #region Field
 
     public FieldGUI fieldGUI;
 
-    protected SyncListStruct<UpdateValue> syncList  = new SyncListStruct<UpdateValue>();
+    protected SyncListUpdateValue syncList = new SyncListUpdateValue();
 
     #endregion Field
 
@@ -37,10 +44,7 @@ public class FieldGUISync : NetworkBehaviour
         {
             Type type = this.fieldGUI.GUIs[i].Type;
 
-            if (type == typeof(int))
-            {
-                this.syncList.Add(new UpdateValue() { valueInt = (int)this.fieldGUI.GUIs[i].GetValue(), });
-            }
+            if (type == typeof(int)) { this.syncList.Add(new UpdateValue() { valueInt = (int)this.fieldGUI.GUIs[i].GetValue(), }); }
         }
 
         this.syncList.Callback += OnSyncListUpdated;
@@ -51,14 +55,12 @@ public class FieldGUISync : NetworkBehaviour
         for (int i = 0; i < this.fieldGUI.GUIs.Count; i++)
         {
             // NOTE:
-            // "UpdateIndex" shows the GUI is updated or not.
-            // When updated, the value shows index of the value list,
-            // and the value is greater than or equal to 0.
-            // When not updated, the value shows less than 0.
+            // "UpdateIndex" shows the GUI is updated or not. 
+            // When updated, the value shows index of the value list, and when not, the value shows less than 0.
 
-            int updateIndex = this.fieldGUI.GUIs[i].IsUpdate;
+            int index = this.fieldGUI.GUIs[i].UpdateIndex;
 
-            if (updateIndex < 0)
+            if (index < 0)
             {
                 continue;
             }
@@ -66,13 +68,13 @@ public class FieldGUISync : NetworkBehaviour
             Type type = this.fieldGUI.GUIs[i].Type;
             object value = this.fieldGUI.GUIs[i].GetValue();
 
-                if (type == typeof(int))     { this.syncList[i] = new UpdateValue() { valueInt     = (int)    value }; }
-           else if (type == typeof(float))   { this.syncList[i] = new UpdateValue() { valueFloat   = (float)  value }; }
-           else if (type == typeof(bool))    { this.syncList[i] = new UpdateValue() { valueBool    = (bool)   value }; }
-           else if (type == typeof(string))  { this.syncList[i] = new UpdateValue() { valueString  = (string) value }; }
-           else if (type == typeof(Vector2)) { this.syncList[i] = new UpdateValue() { valueVector2 = (Vector2)value }; }
-           else if (type == typeof(Vector3)) { this.syncList[i] = new UpdateValue() { valueVector3 = (Vector3)value }; }
-           else if (type == typeof(Vector4)) { this.syncList[i] = new UpdateValue() { valueVector4 = (Vector4)value }; }
+                if (type == typeof(int))     { this.syncList[i] = new UpdateValue() { valueInt     = (int)    value, index = index }; }
+           else if (type == typeof(float))   { this.syncList[i] = new UpdateValue() { valueFloat   = (float)  value, index = index }; }
+           else if (type == typeof(bool))    { this.syncList[i] = new UpdateValue() { valueBool    = (bool)   value, index = index }; }
+           else if (type == typeof(string))  { this.syncList[i] = new UpdateValue() { valueString  = (string) value, index = index }; }
+           else if (type == typeof(Vector2)) { this.syncList[i] = new UpdateValue() { valueVector2 = (Vector2)value, index = index }; }
+           else if (type == typeof(Vector3)) { this.syncList[i] = new UpdateValue() { valueVector3 = (Vector3)value, index = index }; }
+           else if (type == typeof(Vector4)) { this.syncList[i] = new UpdateValue() { valueVector4 = (Vector4)value, index = index }; }
         }
     }
 

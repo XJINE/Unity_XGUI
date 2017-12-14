@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Reflection;
 
 namespace XJGUI.FieldGUIComponents
@@ -32,12 +31,20 @@ namespace XJGUI.FieldGUIComponents
 
         protected override int CheckUpdate(IList<float> value1, IList<float> value2)
         {
-            return value1 != value2 ? 0 : -1;
+            for (int i = 0; i < value1.Count; i++)
+            {
+                if (value1[i] == value2[i])
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
 
         public override void SetValue(object value, int index = -1)
         {
-            base.SetValue(value, index);
+            ((ValuesGUI<float>)base.gui).SetValue((float)value, index);
         }
 
         #endregion Method
