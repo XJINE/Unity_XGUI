@@ -9,8 +9,8 @@ public class FieldGUISync : NetworkBehaviour
     // NOTE:
     // There are 2 implement pattern to sync, the one is using Message, another one is using SyncList.
     // Message pattern is not so bad, but it needs to define custom message type with MsgType.Highest.
-    // MsgType must be unique. So when the user use another custom message type, 
-    // the user must solve the problem about MsgType conflict.
+    // MsgType must be unique. So when the user use another custom message type in their project,
+    // user have to solve the problem about MsgType conflict. That is nonsense.
 
     #region Class
 
