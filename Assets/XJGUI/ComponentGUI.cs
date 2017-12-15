@@ -10,6 +10,8 @@ namespace XJGUI
 
         protected bool boldTitle;
 
+        protected Color? titleColor;
+
         #endregion Filed
 
         #region Property
@@ -18,6 +20,12 @@ namespace XJGUI
         {
             get { return this.boldTitle; }
             set { this.boldTitle = value; }
+        }
+
+        protected virtual Color? TitleColor
+        {
+            get { return this.titleColor; }
+            set { this.titleColor = value; }
         }
 
         #endregion Property
@@ -54,6 +62,9 @@ namespace XJGUI
             }
 
             TitleStyle.fontStyle = this.boldTitle ? FontStyle.Bold : FontStyle.Normal;
+
+            TitleStyle.normal.textColor = this.titleColor != null ?
+               (Color)this.TitleColor : TitleStyle.normal.textColor;
 
             GUILayout.Label(this.Title, TitleStyle);
         }
