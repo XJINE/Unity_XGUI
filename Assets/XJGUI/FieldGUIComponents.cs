@@ -3,7 +3,10 @@ using System.Reflection;
 
 namespace XJGUI
 {
-    public abstract class FieldGUIComponents<T> : FieldGUIComponentBase<IList<T>> where T: struct
+    // NOTE:
+    // We cannot set a "where T: struct" because of the "string" allow null.
+
+    public abstract class FieldGUIComponents<T> : FieldGUIComponentBase<IList<T>>
     {
         #region Constructor
 
