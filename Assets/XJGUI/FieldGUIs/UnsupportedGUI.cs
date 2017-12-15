@@ -37,14 +37,16 @@ namespace XJGUI.FieldGUIs
             GUILayout.Label("Unsupported Field : " + base.fieldInfo.Name);
         }
 
-        public override void SetValue(object value, int index = -1)
+
+        public override void SetSyncValue(int index, string value)
         {
             // Nothing to do.
         }
 
-        public override object GetValue()
+        public override void GetSyncValue(out int index, out string value)
         {
-            return null;
+            index = -1;
+            value = null;
         }
 
         #endregion Method

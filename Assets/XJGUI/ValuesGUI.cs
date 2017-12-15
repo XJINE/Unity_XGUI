@@ -227,7 +227,7 @@ namespace XJGUI
             return this.Value;
         }
 
-        public void SetValue(T value, int index)
+        public void SetValue(int index, T value)
         {
             // NOTE:
             // Almost for FieldGUISync.

@@ -9,18 +9,13 @@ namespace XJGUI
         protected object data;
         protected FieldInfo fieldInfo;
         protected FieldGUIInfo guiInfo;
+        protected int updateIndex;
 
         #endregion Field
 
         #region Property
 
         public bool IsUnsupported { get; protected set; }
-
-        public int UpdateIndex { get; protected set; }
-
-        public System.Type Type { get; protected set; }
-
-        public bool IsIListType { get; protected set; }
 
         #endregion Property
 
@@ -48,9 +43,9 @@ namespace XJGUI
 
         protected abstract void ShowGUI();
 
-        public abstract void SetValue(object value, int index = -1);
+        public abstract void SetSyncValue(int index, string value);
 
-        public abstract object GetValue();
+        public abstract void GetSyncValue(out int index, out string value);
 
         public void Show()
         {

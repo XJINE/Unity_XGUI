@@ -33,11 +33,6 @@ namespace XJGUI
             this.gui.Value = (T)base.fieldInfo.GetValue(base.data);
         }
 
-        public override object GetValue()
-        {
-            return this.gui.Value;
-        }
-
         protected abstract int CheckUpdate(T value1, T value2);
 
         #endregion Method

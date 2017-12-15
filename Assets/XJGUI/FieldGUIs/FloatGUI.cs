@@ -28,6 +28,17 @@ namespace XJGUI.FieldGUIs
             };
         }
 
+        public override void SetSyncValue(int index, string value)
+        {
+            this.gui.Value = float.Parse(value);
+        }
+
+        public override void GetSyncValue(out int index, out string value)
+        {
+            index = base.updateIndex;
+            value = this.gui.Value.ToString("G");
+        }
+
         #endregion Method
     }
 }

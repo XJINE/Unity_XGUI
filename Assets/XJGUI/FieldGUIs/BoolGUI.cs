@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 
 namespace XJGUI.FieldGUIs
 {
@@ -23,6 +24,17 @@ namespace XJGUI.FieldGUIs
                 Title     = base.guiInfo.Title,
                 BoldTitle = base.guiInfo.BoldTitle,
             };
+        }
+
+        public override void SetSyncValue(int index, string value)
+        {
+            this.gui.Value = Convert.ToBoolean(value);
+        }
+
+        public override void GetSyncValue(out int index, out string value)
+        {
+            index = base.updateIndex;
+            value = gui.Value.ToString();
         }
 
         #endregion Method

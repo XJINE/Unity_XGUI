@@ -26,9 +26,15 @@ namespace XJGUI.FieldGUIs
             };
         }
 
-        public override void SetValue(object value, int index = -1)
+        public override void SetSyncValue(int index, string value)
         {
-            this.gui.Value = (T)Enum.Parse(typeof(T), (string)value);
+            this.gui.Value = (T)Enum.Parse(typeof(T), value);
+        }
+
+        public override void GetSyncValue(out int index, out string value)
+        {
+            index = base.updateIndex;
+            value = this.gui.Value.ToString();
         }
 
         #endregion Method

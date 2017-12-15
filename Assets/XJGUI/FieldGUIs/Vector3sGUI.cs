@@ -30,6 +30,25 @@ namespace XJGUI.FieldGUIs
             };
         }
 
+        public override void SetSyncValue(int index, string value)
+        {
+            string[] values = value.Split(',');
+            ((ValuesGUI<Vector3>)base.gui).SetValue(index, new Vector3()
+            {
+                x = float.Parse(values[0]),
+                y = float.Parse(values[1]),
+                z = float.Parse(values[2]),
+            });
+        }
+
+        public override void GetSyncValue(out int index, out string value)
+        {
+            index = base.updateIndex;
+            value = index < 0 ? null : base.gui.Value[index].x.ToString("G") + ","
+                                     + base.gui.Value[index].y.ToString("G") + ","
+                                     + base.gui.Value[index].z.ToString("G");
+        }
+
         #endregion Method
     }
 }

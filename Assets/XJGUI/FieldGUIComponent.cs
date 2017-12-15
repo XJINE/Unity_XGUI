@@ -9,8 +9,6 @@ namespace XJGUI
         public FieldGUIComponent(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             :base(data, fieldInfo, guiInfo)
         {
-            base.IsIListType = false;
-            base.Type = typeof(T);
         }
 
         #endregion Constructor
@@ -27,14 +25,9 @@ namespace XJGUI
         {
             T currentValue = this.gui.Show();
 
-            base.UpdateIndex = CheckUpdate(currentValue, previousValue);
+            base.updateIndex = CheckUpdate(currentValue, previousValue);
 
             this.previousValue = currentValue;
-        }
-
-        public override void SetValue(object value, int index = -1)
-        {
-            this.gui.Value = (T)value;
         }
 
         protected override int CheckUpdate(T value1, T value2)

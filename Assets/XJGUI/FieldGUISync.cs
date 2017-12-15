@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Networking;
+﻿using UnityEngine.Networking;
 using XJGUI;
 
 public class FieldGUISync : NetworkBehaviour
@@ -16,14 +13,14 @@ public class FieldGUISync : NetworkBehaviour
 
     protected struct UpdateInfo
     {
-        public int     updateIndex;
-        public int     valueInt;
-        public float   valueFloat;
-        public bool    valueBool;
-        public string  valueString;
-        public Vector2 valueVector2;
-        public Vector3 valueVector3;
-        public Vector4 valueVector4;
+        public int index;
+        public string value;
+
+        public UpdateInfo(int index, string value)
+        {
+            this.index = index;
+            this.value = value;
+        }
     }
 
     // NOTE:
@@ -50,7 +47,6 @@ public class FieldGUISync : NetworkBehaviour
 
         for (int i = 0; i < this.fieldGUI.GUIs.Count; i++)
         {
-            Type type = this.fieldGUI.GUIs[i].Type;
             this.syncList.Add(new UpdateInfo());
         }
 
@@ -68,65 +64,35 @@ public class FieldGUISync : NetworkBehaviour
         for (int i = 0; i < this.fieldGUI.GUIs.Count; i++)
         {
             // NOTE:
-            // "UpdateIndex" shows the GUI is updated or not. 
+            // "index" shows the GUI is updated or not. 
             // When updated, the value shows index of the value list, and when not, the value shows less than 0.
-
-            int updateIndex = this.fieldGUI.GUIs[i].UpdateIndex;
-
-            if (updateIndex < 0 || this.fieldGUI.GUIs[i].IsUnsupported)
-            {
-                continue;
-            }
 
             // NOTE:
             // There is no reason to implement with logic which use "Dirty".
             // Because "UpdateInfo" is struct.
 
-            Type type = this.fieldGUI.GUIs[i].Type;
-            object value = this.fieldGUI.GUIs[i].GetValue();
-            bool isIListType = this.fieldGUI.GUIs[i].IsIListType;
+            int index;
+            string value;
 
-            UpdateInfo info = new UpdateInfo() { updateIndex = updateIndex };
+            this.fieldGUI.GUIs[i].GetSyncValue(out index, out value);
 
-                 if (type == typeof(int))     { info.valueInt     = (int)    (isIListType ? ((IList<int>)value)    [updateIndex] : value); }
-            else if (type == typeof(float))   { info.valueFloat   = (float)  (isIListType ? ((IList<float>)value)  [updateIndex] : value); }
-            else if (type == typeof(bool))    { info.valueBool    = (bool)   (isIListType ? ((IList<bool>)value)   [updateIndex] : value); }
-            else if (type == typeof(string))  { info.valueString  = (string) (isIListType ? ((IList<string>)value) [updateIndex] : value); }
-            else if (type == typeof(Vector2)) { info.valueVector2 = (Vector2)(isIListType ? ((IList<Vector2>)value)[updateIndex] : value); }
-            else if (type == typeof(Vector3)) { info.valueVector3 = (Vector3)(isIListType ? ((IList<Vector3>)value)[updateIndex] : value); }
-            else if (type == typeof(Vector4)) { info.valueVector4 = (Vector4)(isIListType ? ((IList<Vector4>)value)[updateIndex] : value); }
-            else if (type.IsEnum) { info.valueString = (isIListType ? ((IList<IComparable>)value)[updateIndex] : value).ToString(); }
+            if (index < 0 || this.fieldGUI.GUIs[i].IsUnsupported)
+            {
+                continue;
+            }
 
-            this.syncList[i] = info;
+            this.syncList[i] = new UpdateInfo(index, value);
         }
     }
 
-    private void OnSyncListUpdated(SyncListStruct<UpdateInfo>.Operation op, int index)
+    private void OnSyncListUpdated(SyncListStruct<UpdateInfo>.Operation op, int i)
     {
-        // NOTE:
-        // Enum is passed as string. Enum value able to set byte ~ ulong.
-        // So to cover all of the case, we have no choice but to use string(name).
-        // Ex. If use ulong, it cannot keep negative value.
-
         if (op != SyncList<UpdateInfo>.Operation.OP_SET)
         {
             return;
         }
 
-        object value = 0;
-        int valueIndex = this.syncList[index].updateIndex;
-        Type type = this.fieldGUI.GUIs[index].Type;
-
-             if (type == typeof(int))     { value = this.syncList[index].valueInt;     }
-        else if (type == typeof(float))   { value = this.syncList[index].valueFloat;   }
-        else if (type == typeof(bool))    { value = this.syncList[index].valueBool;    }
-        else if (type == typeof(string))  { value = this.syncList[index].valueString;  }
-        else if (type == typeof(Vector2)) { value = this.syncList[index].valueVector2; }
-        else if (type == typeof(Vector3)) { value = this.syncList[index].valueVector3; }
-        else if (type == typeof(Vector4)) { value = this.syncList[index].valueVector4; }
-        else if (type.IsEnum)             { value = this.syncList[index].valueString; }
-
-        this.fieldGUI.GUIs[index].SetValue(value, valueIndex);
+        this.fieldGUI.GUIs[i].SetSyncValue(this.syncList[i].index, this.syncList[i].value);
     }
 
     #endregion Method
