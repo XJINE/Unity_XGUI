@@ -52,7 +52,7 @@ public class ValuesSample : MonoBehaviour
             Value = this.intList,
             MinValue = -100,
             MaxValue = 100,
-            TextFieldWidth = 50
+            FieldWidth = 50
         };
 
         this.floatsGUI = new FloatsGUI()

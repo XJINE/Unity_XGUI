@@ -12,7 +12,7 @@ namespace XJGUI
 
         #region Property
 
-        public float TextFieldWidth
+        public float FieldWidth
         {
             get { return this.textFieldWidth; }
             set { this.textFieldWidth = value; }
@@ -40,7 +40,7 @@ namespace XJGUI
 
                 string tempTitle = base.Title;
 
-                if (this.TextFieldWidth > 0 && base.Title == null)
+                if (this.FieldWidth > 0 && base.Title == null)
                 {
                     base.Title = "";
                 }
@@ -48,8 +48,8 @@ namespace XJGUI
                 base.ShowTitle();
 
                 base.Value = GUILayout.TextField
-                    (base.Value, this.TextFieldWidth <= 0 ? GUILayout.ExpandWidth(true)
-                                                          : GUILayout.Width(this.TextFieldWidth));
+                    (base.Value, this.FieldWidth <= 0 ? GUILayout.ExpandWidth(true)
+                                                          : GUILayout.Width(this.FieldWidth));
 
                 base.Title = tempTitle;
             });

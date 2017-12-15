@@ -8,7 +8,7 @@
 
         #endregion Field
 
-        public virtual float TextFieldWidth
+        public virtual float FieldWidth
         {
             get
             {
@@ -25,7 +25,7 @@
 
                 for (int i = 0; i < base.value.Count; i++)
                 {
-                    ((StringGUI)base.guis[i]).TextFieldWidth = value;
+                    ((StringGUI)base.guis[i]).FieldWidth = value;
                 }
             }
         }
@@ -45,7 +45,7 @@
         {
             return new StringGUI()
             {
-                TextFieldWidth = this.TextFieldWidth
+                FieldWidth = this.FieldWidth
             };
         }
 

@@ -36,7 +36,7 @@ namespace XJGUI
             set { this.decimals = value; }
         }
 
-        public virtual float TextFieldWidth
+        public virtual float FieldWidth
         {
             get { return this.textFieldWidth; }
             set { this.textFieldWidth = value; }

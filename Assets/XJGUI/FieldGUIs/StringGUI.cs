@@ -22,7 +22,7 @@ namespace XJGUI.FieldGUIs
                 Value     = (string)base.fieldInfo.GetValue(base.data),
                 Title     = base.guiInfo.Title,
                 BoldTitle = base.guiInfo.BoldTitle,
-                TextFieldWidth = base.guiInfo.FieldWidth,
+                FieldWidth = base.guiInfo.FieldWidth,
             };
         }
 

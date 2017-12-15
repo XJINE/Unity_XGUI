@@ -47,8 +47,8 @@ namespace XJGUI
 
                     this.text = GUILayout.TextField
                                (this.text, ValueGUI<int>.TextFieldStyle,
-                                base.TextFieldWidth <= 0 ? GUILayout.ExpandWidth(true)
-                                                         : GUILayout.Width(base.TextFieldWidth));
+                                base.FieldWidth <= 0 ? GUILayout.ExpandWidth(true)
+                                                         : GUILayout.Width(base.FieldWidth));
 
                     // NOTE:
                     // float.TryParse("0.") return true.

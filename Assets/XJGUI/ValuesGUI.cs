@@ -80,7 +80,7 @@
             }
         }
 
-        public virtual float TextFieldWidth
+        public virtual float FieldWidth
         {
             get
             {
@@ -97,7 +97,7 @@
 
                 for (int i = 0; i < base.value.Count; i++)
                 {
-                    ((ValueGUI<T>)base.guis[i]).TextFieldWidth = value;
+                    ((ValueGUI<T>)base.guis[i]).FieldWidth = value;
                 }
             }
         }
@@ -149,7 +149,7 @@
             valueGUI.MinValue = this.MinValue;
             valueGUI.MaxValue = this.MaxValue;
             valueGUI.Decimals = this.Decimals;
-            valueGUI.TextFieldWidth = this.TextFieldWidth;
+            valueGUI.FieldWidth = this.FieldWidth;
             valueGUI.WithSlider = this.WithSlider;
         }
 
