@@ -16,15 +16,9 @@ namespace XJGUI
 
         #region Method
 
-        protected override ValueGUI<Vector3> GenerateValueGUI()
+        protected override ElementGUI<Vector3> GenerateGUI()
         {
-            return new Vector3GUI()
-            {
-                MinValue = base.minValue,
-                MaxValue = base.maxValue,
-                TextFieldWidth = base.textFieldWidth,
-                WithSlider = base.withSlider
-            };
+            return new Vector3GUI();
         }
 
         #endregion Method

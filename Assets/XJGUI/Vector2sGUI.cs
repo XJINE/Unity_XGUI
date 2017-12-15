@@ -16,7 +16,7 @@ namespace XJGUI
 
         #region Method
 
-        protected override ValueGUI<Vector2> GenerateValueGUI()
+        protected override ElementGUI<Vector2> GenerateGUI()
         {
             return new Vector2GUI();
         }

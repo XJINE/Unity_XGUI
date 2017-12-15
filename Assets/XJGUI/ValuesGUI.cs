@@ -1,14 +1,8 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
-
-namespace XJGUI
+﻿namespace XJGUI
 {
-    public abstract class ValuesGUI<T> : ElementGUI<IList<T>> where T : struct
+    public abstract class ValuesGUI<T> : ElementsGUI<T> where T : struct
     {
         #region Field
-
-        protected ValueGUI<T>[] valueGUIs;
-        protected FoldoutPanel foldOutPanel;
 
         protected T minValue;
         protected T maxValue;
@@ -19,50 +13,6 @@ namespace XJGUI
         #endregion Field
 
         #region Property
-
-        public override IList<T> Value
-        {
-            get
-            {
-                return base.value;
-            }
-
-            set
-            {
-                base.value = value;
-
-                if (base.value != null)
-                {
-                    CheckGUIsUpdate();
-                }
-            }
-        }
-
-        public override string Title
-        {
-            get
-            {
-                return base.title;
-            }
-            set
-            {
-                base.title = value;
-                this.foldOutPanel.Title = value;
-            }
-        }
-
-        public override bool BoldTitle
-        {
-            get
-            {
-                return base.boldTitle;
-            }
-            set
-            {
-                base.boldTitle = value;
-                this.foldOutPanel.BoldTitle = value;
-            }
-        }
 
         public virtual T MinValue
         {
@@ -81,7 +31,7 @@ namespace XJGUI
 
                 for (int i = 0; i < base.value.Count; i++)
                 {
-                    this.valueGUIs[i].MinValue = value;
+                    ((ValueGUI<T>)base.guis[i]).MinValue = value;
                 }
             }
         }
@@ -103,7 +53,7 @@ namespace XJGUI
 
                 for (int i = 0; i < base.value.Count; i++)
                 {
-                    this.valueGUIs[i].MaxValue = value;
+                    ((ValueGUI<T>)base.guis[i]).MaxValue = value;
                 }
             }
         }
@@ -125,7 +75,7 @@ namespace XJGUI
 
                 for (int i = 0; i < base.value.Count; i++)
                 {
-                    this.valueGUIs[i].Decimals = value;
+                    ((ValueGUI<T>)base.guis[i]).Decimals = value;
                 }
             }
         }
@@ -147,7 +97,7 @@ namespace XJGUI
 
                 for (int i = 0; i < base.value.Count; i++)
                 {
-                    this.valueGUIs[i].TextFieldWidth = value;
+                    ((ValueGUI<T>)base.guis[i]).TextFieldWidth = value;
                 }
             }
         }
@@ -169,7 +119,7 @@ namespace XJGUI
 
                 for (int i = 0; i < base.value.Count; i++)
                 {
-                    this.valueGUIs[i].WithSlider = value;
+                    ((ValueGUI<T>)base.guis[i]).WithSlider = value;
                 }
             }
         }
@@ -180,16 +130,6 @@ namespace XJGUI
 
         public ValuesGUI() : base()
         {
-            // NOTE:
-            // base.title & base.boldTitle is initialized in base() constructor.
-
-            this.foldOutPanel = new FoldoutPanel()
-            {
-                Title = base.title,
-                BoldTitle = base.boldTitle,
-                Value = false
-            };
-
             // NOTE:
             // this.minValue & this.maxValue are initialized in inherit constructor.
 
@@ -202,95 +142,16 @@ namespace XJGUI
 
         #region Method
 
-        public override IList<T> Show()
+        protected override void InitializeGUI(ElementGUI<T> gui)
         {
-            if (this.Value != null)
-            {
-                CheckGUIsUpdate();
-            }
-
-            XJGUILayout.VerticalLayout(() =>
-            {
-                if (this.Title != null)
-                {
-                    this.foldOutPanel.Show(delegate ()
-                    {
-                        ShowComponentGUI();
-                    });
-                }
-                else
-                {
-                    ShowComponentGUI();
-                }
-            });
-
-            return this.Value;
+            base.InitializeGUI(gui);
+            ValueGUI<T> valueGUI = (ValueGUI<T>)gui;
+            valueGUI.MinValue = this.MinValue;
+            valueGUI.MaxValue = this.MaxValue;
+            valueGUI.Decimals = this.Decimals;
+            valueGUI.TextFieldWidth = this.TextFieldWidth;
+            valueGUI.WithSlider = this.WithSlider;
         }
-
-        public void SetValue(int index, T value)
-        {
-            // NOTE:
-            // Almost for FieldGUISync.
-
-            this.valueGUIs[index].Value = value;
-        }
-
-        protected void ShowComponentGUI()
-        {
-            if (this.Value == null)
-            {
-                GUILayout.Label("Null");
-                return;
-            }
-
-            int valueCount = this.Value.Count;
-
-            if (valueCount == 0)
-            {
-                GUILayout.Label("No Element");
-                return;
-            }
-
-            for (int i = 0; i < valueCount; i++)
-            {
-                this.Value[i] = this.valueGUIs[i].Show();
-            }
-        }
-
-        protected bool CheckGUIsUpdate()
-        {
-            // NOTE:
-            // We have not to check if base.value is changed.
-            // When "Value" property is changed, call this function.
-
-            int valueCount = this.Value.Count;
-
-            if (this.valueGUIs != null && this.valueGUIs.Length == this.Value.Count)
-            {
-                return false;
-            }
-
-            this.valueGUIs = new ValueGUI<T>[valueCount];
-
-            for (int i = 0; i < valueCount; i++)
-            {
-                ValueGUI<T> gui = GenerateValueGUI();
-
-                gui.Value = this.Value[i];
-                gui.BoldTitle = false;
-                gui.MinValue = this.MinValue;
-                gui.MaxValue = this.MaxValue;
-                gui.Decimals = this.Decimals;
-                gui.TextFieldWidth = this.TextFieldWidth;
-                gui.WithSlider = this.WithSlider;
-
-                this.valueGUIs[i] = gui;
-            }
-
-            return true;
-        }
-
-        protected abstract ValueGUI<T> GenerateValueGUI();
 
         #endregion Method
     }

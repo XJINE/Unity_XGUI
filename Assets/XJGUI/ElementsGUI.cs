@@ -151,16 +151,21 @@ namespace XJGUI
 
             for (int i = 0; i < valueCount; i++)
             {
-                ElementGUI<T> gui = GenerateValueGUI();
+                ElementGUI<T> gui = GenerateGUI();
                 gui.Value = this.Value[i];
-                gui.BoldTitle = false;
+                InitializeGUI(gui);
                 this.guis[i] = gui;
             }
 
             return true;
         }
 
-        protected abstract ElementGUI<T> GenerateValueGUI();
+        protected abstract ElementGUI<T> GenerateGUI();
+
+        protected virtual void InitializeGUI(ElementGUI<T> gui)
+        {
+            gui.BoldTitle = false;
+        }
 
         #endregion Method
     }

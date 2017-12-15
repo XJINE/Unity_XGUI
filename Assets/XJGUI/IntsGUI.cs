@@ -14,7 +14,7 @@
 
         #region Method
 
-        protected override ValueGUI<int> GenerateValueGUI()
+        protected override ElementGUI<int> GenerateGUI()
         {
             return new IntGUI();
         }

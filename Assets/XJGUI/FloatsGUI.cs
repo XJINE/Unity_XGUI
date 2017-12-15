@@ -14,7 +14,7 @@
 
         #region Method
 
-        protected override ValueGUI<float> GenerateValueGUI()
+        protected override ElementGUI<float> GenerateGUI()
         {
             return new FloatGUI();
         }

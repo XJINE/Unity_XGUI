@@ -32,7 +32,7 @@
 
         #region Method
 
-        protected override ElementGUI<string> GenerateValueGUI()
+        protected override ElementGUI<string> GenerateGUI()
         {
             return new StringGUI()
             {

@@ -4,7 +4,7 @@
     {
         #region Method
 
-        protected override ElementGUI<bool> GenerateValueGUI()
+        protected override ElementGUI<bool> GenerateGUI()
         {
             return new BoolGUI();
         }
