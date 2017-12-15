@@ -55,7 +55,9 @@ public class FieldGUISyncSample : MonoBehaviour
 
     void Start()
     {
-        this.fieldGUI = new FieldGUI(this);
+        this.fieldGUI = new FieldGUI();
+        this.fieldGUI.Value = this;
+
         this.FieldGUISync.SetFieldGUI(this.fieldGUI);
 
         this.flexWindow.MinWidth = 300;

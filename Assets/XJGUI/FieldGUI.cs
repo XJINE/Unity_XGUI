@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace XJGUI
 {
-    public class FieldGUI
+    public class FieldGUI : ElementGUI<object>
     {
         #region Enum
 
@@ -48,18 +48,21 @@ namespace XJGUI
             private set;
         }
 
-        #endregion Property
-
-        #region Constructor
-
-        public FieldGUI(object data)
+        public override object Value
         {
-            GenerateGUIs(data);
-
-            this.GUIs = new ReadOnlyCollection<FieldGUIBase>(this.guis);
+            get
+            {
+                return base.Value;
+            }
+            set
+            {
+                GenerateGUIs(value);
+                this.GUIs = new ReadOnlyCollection<FieldGUIBase>(this.guis);
+                base.Value = value;
+            }
         }
 
-        #endregion Constructor
+        #endregion Property
 
         #region Method
 
@@ -143,19 +146,6 @@ namespace XJGUI
                     return (FieldGUIBase)Activator.CreateInstance(genericType, data, fieldInfo, guiInfo);
 
                 default: return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiInfo);
-            }
-        }
-
-        public void Show()
-        {
-            for (int i = 0; i < this.guis.Count; i++)
-            {
-                if (this.guis[i].Unsupported && this.HideUnsupportedGUI)
-                {
-                    continue;
-                }
-
-                this.guis[i].Show();
             }
         }
 
@@ -258,6 +248,23 @@ namespace XJGUI
             // NOTE:
             // This is not good. Only first character becomes uppercase.
             // return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(text);
+        }
+
+        public override object Show()
+        {
+            base.ShowTitle();
+
+            for (int i = 0; i < this.guis.Count; i++)
+            {
+                if (this.guis[i].Unsupported && this.HideUnsupportedGUI)
+                {
+                    continue;
+                }
+
+                this.guis[i].Show();
+            }
+
+            return this.Value;
         }
 
         #endregion Method

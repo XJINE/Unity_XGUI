@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 using XJGUI;
 
 public class FieldGUISample : MonoBehaviour
@@ -49,7 +48,8 @@ public class FieldGUISample : MonoBehaviour
     {
         this.flexWindow.MinWidth = 300;
         this.flexWindow.MinHeight = 300;
-        this.fieldGUI = new FieldGUI(this);
+        this.fieldGUI = new FieldGUI();
+        this.fieldGUI.Value = this;
     }
 
     void OnGUI()
