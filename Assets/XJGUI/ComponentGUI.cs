@@ -26,7 +26,7 @@ namespace XJGUI
 
         public ComponentGUI()
         {
-            this.boldTitle = false;
+            this.boldTitle = XJGUILayout.DefaultBoldTitle;
         }
 
         #endregion Constructor
