@@ -150,7 +150,7 @@ namespace XJGUI
         {
             for (int i = 0; i < this.guis.Count; i++)
             {
-                if (this.guis[i].IsUnsupported && this.HideUnsupportedGUI)
+                if (this.guis[i].Unsupported && this.HideUnsupportedGUI)
                 {
                     continue;
                 }

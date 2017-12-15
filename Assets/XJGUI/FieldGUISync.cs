@@ -47,7 +47,6 @@ public class FieldGUISync : NetworkBehaviour
 
         for (int i = 0; i < this.fieldGUI.GUIs.Count; i++)
         {
-            //if(this.fieldGUI.GUIs[i])
             this.syncList.Add(new UpdateInfo());
         }
 
@@ -72,12 +71,17 @@ public class FieldGUISync : NetworkBehaviour
             // There is no reason to implement with logic which use "Dirty".
             // Because "UpdateInfo" is struct.
 
+            if (!this.fieldGUI.GUIs[i].Sync)
+            {
+                continue;
+            }
+
             int index;
             string value;
 
             this.fieldGUI.GUIs[i].GetSyncValue(out index, out value);
 
-            if (index < 0 || this.fieldGUI.GUIs[i].IsUnsupported)
+            if (index < 0 || this.fieldGUI.GUIs[i].Unsupported)
             {
                 continue;
             }

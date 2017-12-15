@@ -26,10 +26,6 @@ namespace XJGUI
 
         public bool Toolbar { get; set; }
 
-        //public string FoldoutStart { get; set; }
-
-        //public bool FoldoutEnd { get; set; }
-
         #endregion Property
 
         #region Constructor
@@ -37,6 +33,7 @@ namespace XJGUI
         public FieldGUIInfo()
         {
             this.Hide       = XJGUILayout.DefaultHide;
+            this.Sync       = XJGUILayout.DefaultSync;
             this.Title      = XJGUILayout.DefaultTitle;
             this.BoldTitle  = XJGUILayout.DefaultBoldTitle;
             this.FieldWidth = XJGUILayout.DefaultFieldWidthString;
@@ -44,8 +41,6 @@ namespace XJGUI
             this.MaxValue   = XJGUILayout.DefaultMaxValueFloat;
             this.Decimals   = XJGUILayout.DefaultDecimals;
             this.IPv4       = XJGUILayout.DefaultIPv4;
-            //this.FoldoutStart = null;
-            //this.FoldoutEnd   = false;
         }
 
         #endregion constructor

@@ -15,7 +15,9 @@ namespace XJGUI
 
         #region Property
 
-        public bool IsUnsupported { get; protected set; }
+        public bool Unsupported { get; protected set; }
+
+        public bool Sync { get; protected set; }
 
         #endregion Property
 
@@ -26,6 +28,8 @@ namespace XJGUI
             this.data = data;
             this.fieldInfo = fieldInfo;
             this.guiInfo = guiInfo;
+
+            this.Sync = guiInfo.Sync;
 
             InitializeGUI();
             Load();

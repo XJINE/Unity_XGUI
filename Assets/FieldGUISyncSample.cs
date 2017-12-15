@@ -15,7 +15,10 @@ public class FieldGUISyncSample : MonoBehaviour
     [FieldGUIInfo(Title = "Hide UnsupportedGUI")]
     public bool boolValue = true;
 
-    public string stringValue = "Sample";
+    public string stringValue1 = "Sync";
+
+    [FieldGUIInfo(Sync = false)]
+    public string stringValue2 = "No Sync";
 
     [FieldGUIInfo(MinValue = 0, MaxValue = 100)]
     public int intValue = 0;
@@ -69,7 +72,7 @@ public class FieldGUISyncSample : MonoBehaviour
 
     void OnGUI()
     {
-        //this.fieldGUI.HideUnsupportedGUI = this.boolValue;
+        this.fieldGUI.HideUnsupportedGUI = this.boolValue;
 
         this.flexWindow.Show(() =>
         {
