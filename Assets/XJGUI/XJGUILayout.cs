@@ -7,14 +7,16 @@ public static class XJGUILayout
 
     public static Texture2D TransparentTexture;
 
+    public static bool DefaultHide = false;
+    public static bool DefaultSync = true;
+
     public static string DefaultTitle = null;
     public static bool DefaultBoldTitle = false;
     public static bool DefaultWithSlider = true;
-    public static bool DefaultHideInGUI = false;
     public static int DefaultDecimals = 2;
 
-    public static float DefaultTextFieldWidthValue = 100;
-    public static float DefaultTextFieldWidthString = 150;
+    public static float DefaultFieldWidthValue = 100;
+    public static float DefaultFieldWidthString = 150;
 
     public static int DefaultValueInt = 0;
     public static int DefaultMinValueInt = -50;

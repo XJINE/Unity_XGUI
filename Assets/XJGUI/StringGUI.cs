@@ -24,7 +24,7 @@ namespace XJGUI
 
         public StringGUI()
         {
-            this.textFieldWidth = XJGUILayout.DefaultTextFieldWidthString;
+            this.textFieldWidth = XJGUILayout.DefaultFieldWidthString;
         }
 
         #endregion Constructor
@@ -35,11 +35,23 @@ namespace XJGUI
         {
             XJGUILayout.HorizontalLayout(() => 
             {
+                // NOTE:
+                // Set blank title to align text-field to right.
+
+                string tempTitle = base.Title;
+
+                if (this.TextFieldWidth > 0 && base.Title == null)
+                {
+                    base.Title = "";
+                }
+
                 base.ShowTitle();
 
                 base.Value = GUILayout.TextField
                     (base.Value, this.TextFieldWidth <= 0 ? GUILayout.ExpandWidth(true)
                                                           : GUILayout.Width(this.TextFieldWidth));
+
+                base.Title = tempTitle;
             });
 
             return base.Value;

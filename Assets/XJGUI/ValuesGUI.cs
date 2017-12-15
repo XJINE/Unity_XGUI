@@ -134,7 +134,7 @@
             // this.minValue & this.maxValue are initialized in inherit constructor.
 
             this.decimals = XJGUILayout.DefaultDecimals;
-            this.textFieldWidth = XJGUILayout.DefaultTextFieldWidthValue;
+            this.textFieldWidth = XJGUILayout.DefaultFieldWidthValue;
             this.withSlider = XJGUILayout.DefaultWithSlider;
         }
 

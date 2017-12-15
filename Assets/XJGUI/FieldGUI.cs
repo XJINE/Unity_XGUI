@@ -81,7 +81,7 @@ namespace XJGUI
                 fieldInfo = fieldInfos[i];
                 guiInfo = GenerateAttribute(fieldInfo);
 
-                if (guiInfo.HideInGUI)
+                if (guiInfo.Hide)
                 {
                     continue;
                 }

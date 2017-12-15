@@ -19,7 +19,7 @@ public class FieldGUISample : MonoBehaviour
     [FieldGUIInfo(MinValue = 0, MaxValue = 100)]
     public int intValue = 0;
 
-    [FieldGUIInfo(HideInGUI = true)]
+    [FieldGUIInfo(Hide = true)]
     public int intValueHide = 5;
 
     public float floatValue = 10;

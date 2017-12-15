@@ -6,13 +6,15 @@ namespace XJGUI
     {
         #region Property
 
-        public bool HideInGUI { get; set; }
+        public bool Hide { get; set; }
+
+        public bool Sync { get; set; }
 
         public string Title { get; set; }
 
         public bool BoldTitle { get; set; }
 
-        public string[] Labels { get; set; }
+        public float FieldWidth { get; set; }
 
         public float MinValue { get; set; }
 
@@ -24,9 +26,9 @@ namespace XJGUI
 
         public bool Toolbar { get; set; }
 
-        public string FoldoutStart { get; set; }
+        //public string FoldoutStart { get; set; }
 
-        public bool FoldoutEnd { get; set; }
+        //public bool FoldoutEnd { get; set; }
 
         #endregion Property
 
@@ -34,16 +36,16 @@ namespace XJGUI
 
         public FieldGUIInfo()
         {
-            this.HideInGUI = XJGUILayout.DefaultHideInGUI;
-            this.Title     = XJGUILayout.DefaultTitle;
-            this.BoldTitle = XJGUILayout.DefaultBoldTitle;
-            this.Labels    = null;
-            this.MinValue  = XJGUILayout.DefaultMinValueFloat;
-            this.MaxValue  = XJGUILayout.DefaultMaxValueFloat;
-            this.Decimals  = XJGUILayout.DefaultDecimals;
-            this.IPv4      = XJGUILayout.DefaultIPv4;
-            this.FoldoutStart = null;
-            this.FoldoutEnd   = false;
+            this.Hide       = XJGUILayout.DefaultHide;
+            this.Title      = XJGUILayout.DefaultTitle;
+            this.BoldTitle  = XJGUILayout.DefaultBoldTitle;
+            this.FieldWidth = XJGUILayout.DefaultFieldWidthString;
+            this.MinValue   = XJGUILayout.DefaultMinValueFloat;
+            this.MaxValue   = XJGUILayout.DefaultMaxValueFloat;
+            this.Decimals   = XJGUILayout.DefaultDecimals;
+            this.IPv4       = XJGUILayout.DefaultIPv4;
+            //this.FoldoutStart = null;
+            //this.FoldoutEnd   = false;
         }
 
         #endregion constructor

@@ -30,6 +30,15 @@
             }
         }
 
+        #region Constructor
+
+        public StringsGUI() : base()
+        {
+            this.textFieldWidth = XJGUILayout.DefaultFieldWidthString;
+        }
+
+        #endregion Constructor
+
         #region Method
 
         protected override ElementGUI<string> GenerateGUI()

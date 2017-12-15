@@ -58,7 +58,7 @@ namespace XJGUI
             // "minValue" & "maxValue" must be initialized in inheritance class.
 
             this.decimals = XJGUILayout.DefaultDecimals;
-            this.textFieldWidth = XJGUILayout.DefaultTextFieldWidthValue;
+            this.textFieldWidth = XJGUILayout.DefaultFieldWidthValue;
             this.withSlider = XJGUILayout.DefaultWithSlider;
         }
 

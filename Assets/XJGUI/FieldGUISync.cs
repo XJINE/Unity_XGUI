@@ -47,6 +47,7 @@ public class FieldGUISync : NetworkBehaviour
 
         for (int i = 0; i < this.fieldGUI.GUIs.Count; i++)
         {
+            //if(this.fieldGUI.GUIs[i])
             this.syncList.Add(new UpdateInfo());
         }
 
