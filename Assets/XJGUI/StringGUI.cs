@@ -35,23 +35,11 @@ namespace XJGUI
         {
             XJGUILayout.HorizontalLayout(() => 
             {
-                // NOTE:
-                // Set blank title to align text-field to right.
-
-                string tempTitle = base.Title;
-
-                if (this.FieldWidth > 0 && base.Title == null)
-                {
-                    base.Title = "";
-                }
-
-                base.ShowTitle();
+                base.ShowTitle(this.FieldWidth > 0 && base.Title == null);
 
                 base.Value = GUILayout.TextField
                     (base.Value, this.FieldWidth <= 0 ? GUILayout.ExpandWidth(true)
-                                                          : GUILayout.Width(this.FieldWidth));
-
-                base.Title = tempTitle;
+                                                      : GUILayout.Width(this.FieldWidth));
             });
 
             return base.Value;

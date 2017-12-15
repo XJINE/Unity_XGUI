@@ -28,12 +28,12 @@ namespace XJGUI
 
                 XJGUILayout.HorizontalLayout(() =>
                 {
-                    base.ShowTitle();
+                    base.ShowTitle(this.FieldWidth > 0 && base.Title == null);
 
                     this.text = GUILayout.TextField
                                (this.text, ValueGUI<float>.TextFieldStyle,
                                 base.FieldWidth <= 0 ? GUILayout.ExpandWidth(true)
-                                                         : GUILayout.Width(base.FieldWidth));
+                                                     : GUILayout.Width(base.FieldWidth));
 
                     // NOTE:
                     // float.TryParse("0.") return true.
