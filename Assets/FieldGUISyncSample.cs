@@ -8,6 +8,7 @@ public class FieldGUISyncSample : MonoBehaviour
 
     public FieldGUISync FieldGUISync;
 
+    [FieldGUIInfo(Hide = true)]
     public FlexibleWindow flexWindow = new FlexibleWindow();
 
     protected FieldGUI fieldGUI;
@@ -15,35 +16,36 @@ public class FieldGUISyncSample : MonoBehaviour
     [FieldGUIInfo(Title = "Hide UnsupportedGUI")]
     public bool boolValue = true;
 
+    [FieldGUIInfo(Sync = true)]
     public string stringValue1 = "Sync";
 
     [FieldGUIInfo(Sync = false)]
     public string stringValue2 = "No Sync";
 
-    [FieldGUIInfo(MinValue = 0, MaxValue = 100)]
-    public int intValue = 0;
+    //[FieldGUIInfo(MinValue = 0, MaxValue = 100)]
+    //public int intValue = 0;
 
-    [FieldGUIInfo(Hide = true)]
-    public int intValueHide = 5;
+    //[FieldGUIInfo(Hide = true)]
+    //public int intValueHide = 5;
 
-    public float floatValue = 10;
+    //public float floatValue = 10;
 
-    public Vector3 vector3Value = new Vector3(1, 1, 1);
+    //public Vector3 vector3Value = new Vector3(1, 1, 1);
 
-    public List<bool> boolValues = new List<bool> { true, false, false };
+    //public List<bool> boolValues = new List<bool> { true, false, false };
 
-    public List<string> stringValues = new List<string> { "a", "i", "u" };
+    //public List<string> stringValues = new List<string> { "a", "i", "u" };
 
-    [FieldGUIInfo(Decimals = 1)]
-    public float[] floatValues = new float[] { 0, 1, 2 };
+    //[FieldGUIInfo(Decimals = 1)]
+    //public float[] floatValues = new float[] { 0, 1, 2 };
 
-    public List<Vector3> vector3Values = new List<Vector3>() { Vector3.one, Vector3.up, Vector3.back };
+    //public List<Vector3> vector3Values = new List<Vector3>() { Vector3.one, Vector3.up, Vector3.back };
 
-    [FieldGUIInfo(Title = "Camera Clear Enum")]
-    public CameraClearFlags enumValue = CameraClearFlags.Skybox;
+    //[FieldGUIInfo(Title = "Camera Clear Enum")]
+    //public CameraClearFlags enumValue = CameraClearFlags.Skybox;
 
-    [FieldGUIInfo(IPv4 = true)]
-    public string ipV4Value = "0.7.7.7";
+    //[FieldGUIInfo(IPv4 = true)]
+    //public string ipV4Value = "0.7.7.7";
 
     #endregion Field
 

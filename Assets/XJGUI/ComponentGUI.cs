@@ -69,6 +69,14 @@ namespace XJGUI
             GUILayout.Label(this.Title, TitleStyle);
         }
 
+        // CAUTION:
+        // Mainly use for notification (Ex.Sync or Not), Don't use for design.
+
+        internal virtual void SetTitleColor(Color? titleColor)
+        {
+            this.titleColor = titleColor;
+        }
+
         #endregion Method
     }
 }

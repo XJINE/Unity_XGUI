@@ -17,6 +17,14 @@ namespace XJGUI
         public FieldGUIComponentBase(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             :base(data, fieldInfo, guiInfo)
         {
+            if (base.Sync)
+            {
+                this.gui.SetTitleColor(XJGUILayout.DefaultSyncColor);
+            }
+            else
+            {
+                this.gui.SetTitleColor(null);
+            }
         }
 
         #endregion Constructor

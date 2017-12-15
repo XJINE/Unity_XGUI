@@ -8,7 +8,6 @@ public static class XJGUILayout
     public static Texture2D TransparentTexture;
 
     public static bool DefaultHide = false;
-    public static bool DefaultSync = true;
 
     public static string DefaultTitle = null;
     public static bool DefaultBoldTitle = false;
@@ -40,6 +39,9 @@ public static class XJGUILayout
 
     public static bool DefaultIPv4 = false;
     public static string DefaultIPv4Value = "0.0.0.0";
+
+    public static bool DefaultSync = false;
+    public static Color DefaultSyncColor = Color.green;
 
     #endregion Field
 
