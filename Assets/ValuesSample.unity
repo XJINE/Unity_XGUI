@@ -232,6 +232,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6aa429a42a18c1e48a756f95d3038855, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  boolList: 000100
+  stringArray:
+  - a
+  - i
+  - u
+  - e
+  - o
   intList: 0400000008000000
   floatArray:
   - 0.4

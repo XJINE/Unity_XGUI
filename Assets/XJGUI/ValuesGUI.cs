@@ -33,7 +33,7 @@ namespace XJGUI
 
                 if (base.value != null)
                 {
-                    CheckValueGUIsUpdate();
+                    CheckGUIsUpdate();
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace XJGUI
             {
                 this.minValue = value;
 
-                if (base.value == null || CheckValueGUIsUpdate())
+                if (base.value == null || CheckGUIsUpdate())
                 {
                     return;
                 }
@@ -96,7 +96,7 @@ namespace XJGUI
             {
                 this.maxValue = value;
 
-                if (base.value == null || CheckValueGUIsUpdate())
+                if (base.value == null || CheckGUIsUpdate())
                 {
                     return;
                 }
@@ -118,7 +118,7 @@ namespace XJGUI
             {
                 this.decimals = value;
 
-                if (base.value == null || CheckValueGUIsUpdate())
+                if (base.value == null || CheckGUIsUpdate())
                 {
                     return;
                 }
@@ -140,7 +140,7 @@ namespace XJGUI
             {
                 this.textFieldWidth = value;
 
-                if (base.value == null || CheckValueGUIsUpdate())
+                if (base.value == null || CheckGUIsUpdate())
                 {
                     return;
                 }
@@ -162,7 +162,7 @@ namespace XJGUI
             {
                 this.withSlider = value;
 
-                if (base.value == null || CheckValueGUIsUpdate())
+                if (base.value == null || CheckGUIsUpdate())
                 {
                     return;
                 }
@@ -206,7 +206,7 @@ namespace XJGUI
         {
             if (this.Value != null)
             {
-                CheckValueGUIsUpdate();
+                CheckGUIsUpdate();
             }
 
             XJGUILayout.VerticalLayout(() =>
@@ -257,7 +257,7 @@ namespace XJGUI
             }
         }
 
-        protected bool CheckValueGUIsUpdate()
+        protected bool CheckGUIsUpdate()
         {
             // NOTE:
             // We have not to check if base.value is changed.

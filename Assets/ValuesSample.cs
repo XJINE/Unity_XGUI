@@ -8,9 +8,15 @@ public class ValuesSample : MonoBehaviour
 
     FlexibleWindow flexibleWindow;
 
+    BoolsGUI boolsGUI;
+    StringsGUI stringsGUI;
+
     IntsGUI intsGUI;
     FloatsGUI floatsGUI;
     Vector2sGUI vector2sGUI;
+
+    public List<bool> boolList;
+    public string[] stringArray;
 
     public List<int> intList;
     public float[] floatArray;
@@ -22,12 +28,22 @@ public class ValuesSample : MonoBehaviour
 
     void Start ()
     {
-        //GUI.skin = null;
-
         this.flexibleWindow = new FlexibleWindow()
         {
             MinWidth = 300,
             MinHeight = 300,
+        };
+
+        this.boolsGUI = new BoolsGUI()
+        {
+            Title = "BoolList",
+            Value = this.boolList
+        };
+
+        this.stringsGUI = new StringsGUI()
+        {
+            Title = "String Array",
+            Value = this.stringArray
         };
 
         this.intsGUI = new IntsGUI()
@@ -68,6 +84,9 @@ public class ValuesSample : MonoBehaviour
     {
         this.flexibleWindow.Show(() =>
         {
+            this.boolsGUI.Show();
+            this.stringsGUI.Show();
+
             this.intsGUI.Show();
             this.floatsGUI.Show();
             this.vector2sGUI.Show();
