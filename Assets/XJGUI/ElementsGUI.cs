@@ -20,7 +20,6 @@ namespace XJGUI
             {
                 return base.value;
             }
-
             set
             {
                 base.value = value;
@@ -104,14 +103,6 @@ namespace XJGUI
             return this.Value;
         }
 
-        public void SetValue(int index, T value)
-        {
-            // NOTE:
-            // Almost for FieldGUISync.
-
-            this.guis[index].Value = value;
-        }
-
         protected void ShowComponentGUI()
         {
             if (this.Value == null)
@@ -132,6 +123,24 @@ namespace XJGUI
             {
                 this.Value[i] = this.guis[i].Show();
             }
+        }
+
+        internal override void SetTitleColor(Color? titleColor)
+        {
+            base.SetTitleColor(titleColor);
+
+            if (this.foldOutPanel != null)
+            {
+                this.foldOutPanel.SetTitleColor(titleColor);
+            }
+        }
+
+        public void SetValue(int index, T value)
+        {
+            // NOTE:
+            // Almost for FieldGUISync.
+
+            this.guis[index].Value = value;
         }
 
         protected virtual bool CheckGUIsUpdate()

@@ -25,7 +25,7 @@ namespace XJGUI
         protected virtual Color? TitleColor
         {
             get { return this.titleColor; }
-            set { this.titleColor = value; }
+            private set { this.titleColor = value; }
         }
 
         #endregion Property

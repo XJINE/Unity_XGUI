@@ -21,6 +21,8 @@ namespace XJGUI
             }
 
             FoldoutPanel.ButtonStyle.fontStyle = base.boldTitle ? FontStyle.Bold : FontStyle.Normal;
+            FoldoutPanel.ButtonStyle.normal.textColor = base.TitleColor == null ?
+                GUI.skin.label.normal.textColor : (Color)base.TitleColor;
 
             // NOTE:
             // (value = true  && button = true)  => false
