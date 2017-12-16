@@ -1,4 +1,5 @@
-﻿using UnityEngine.Networking;
+﻿using System.Collections.Generic;
+using UnityEngine.Networking;
 using XJGUI;
 
 public class FieldGUISync : NetworkBehaviour
@@ -34,70 +35,100 @@ public class FieldGUISync : NetworkBehaviour
 
     #region Field
 
-    protected FieldGUI fieldGUI;
+    protected List<FieldGUI> fieldGUIs = new List<FieldGUI>();
     protected SyncListUpdateInfo syncList = new SyncListUpdateInfo();
 
     #endregion Field
 
     #region Method
 
-    public void SetFieldGUI(FieldGUI fieldGUI)
+    protected void Awake()
     {
-        this.fieldGUI = fieldGUI;
+        this.syncList.Callback += OnSyncListUpdated;
+    }
 
-        for (int i = 0; i < this.fieldGUI.GUIs.Count; i++)
+    public void AddFieldGUI(FieldGUI fieldGUI)
+    {
+        this.fieldGUIs.Add(fieldGUI);
+
+        for (int i = 0; i < fieldGUI.GUIs.Count; i++)
         {
             this.syncList.Add(new UpdateInfo());
         }
-
-        this.syncList.Callback += OnSyncListUpdated;
     }
 
     [ServerCallback]
     public void Update()
     {
-        if (this.fieldGUI == null)
+        if (this.fieldGUIs.Count == 0)
         {
             return;
         }
 
-        for (int i = 0; i < this.fieldGUI.GUIs.Count; i++)
+        int fieldGUICount = 0;
+        int syncListIndex = 0;
+
+        for (int i = 0; i < this.fieldGUIs.Count; i++)
         {
-            // NOTE:
-            // "index" shows the GUI is updated or not. 
-            // When updated, the value shows index of the value list, and when not, the value shows less than 0.
+            fieldGUICount = this.fieldGUIs[i].GUIs.Count;
 
-            // NOTE:
-            // There is no reason to implement with logic which use "Dirty".
-            // Because "UpdateInfo" is struct.
-
-            if (!this.fieldGUI.GUIs[i].Sync)
+            for (int j = 0; j < this.fieldGUIs[i].GUIs.Count; j++)
             {
-                continue;
+                // NOTE:
+                // "index" shows the GUI is updated or not.
+                // When updated, the value shows 0 or index of the updated value,
+                // and when not, the value shows less than 0.
+
+                // NOTE:
+                // There is no reason to implement with logic which use "Dirty".
+                // Because "UpdateInfo" is struct.
+
+                if (!this.fieldGUIs[i].GUIs[j].Sync)
+                {
+                    continue;
+                }
+
+                int index;
+                string value;
+
+                this.fieldGUIs[i].GUIs[j].GetSyncValue(out index, out value);
+
+                if (index < 0 || this.fieldGUIs[i].GUIs[j].Unsupported)
+                {
+                    continue;
+                }
+
+                this.syncList[syncListIndex + j] = new UpdateInfo(index, value);
             }
 
-            int index;
-            string value;
-
-            this.fieldGUI.GUIs[i].GetSyncValue(out index, out value);
-
-            if (index < 0 || this.fieldGUI.GUIs[i].Unsupported)
-            {
-                continue;
-            }
-
-            this.syncList[i] = new UpdateInfo(index, value);
+            syncListIndex += fieldGUICount;
         }
     }
 
-    private void OnSyncListUpdated(SyncListStruct<UpdateInfo>.Operation op, int i)
+    private void OnSyncListUpdated(SyncListStruct<UpdateInfo>.Operation op, int syncListIndex)
     {
         if (op != SyncList<UpdateInfo>.Operation.OP_SET)
         {
             return;
         }
 
-        this.fieldGUI.GUIs[i].SetSyncValue(this.syncList[i].index, this.syncList[i].value);
+        int fieldGUIsIndex = 0;
+        int fieldCount = 0;
+
+        for (fieldGUIsIndex = 0; fieldGUIsIndex < this.fieldGUIs.Count; fieldGUIsIndex++)
+        {
+            fieldCount += fieldGUIs[fieldGUIsIndex].GUIs.Count;
+
+            if (syncListIndex < fieldCount)
+            {
+                break;
+            }
+        }
+
+        int fieldIndex = syncListIndex - (fieldCount - this.fieldGUIs[fieldGUIsIndex].GUIs.Count);
+
+        this.fieldGUIs[fieldGUIsIndex].GUIs[fieldIndex]
+            .SetSyncValue(this.syncList[syncListIndex].index, this.syncList[syncListIndex].value);
     }
 
     #endregion Method
