@@ -64,7 +64,7 @@ namespace XJGUI
             TitleStyle.fontStyle = this.boldTitle ? FontStyle.Bold : FontStyle.Normal;
 
             TitleStyle.normal.textColor = this.titleColor != null ?
-               (Color)this.TitleColor : TitleStyle.normal.textColor;
+                (Color)this.TitleColor : GUI.skin.label.normal.textColor;
 
             GUILayout.Label(this.Title, TitleStyle);
         }
