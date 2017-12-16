@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using UnityEngine;
 
 namespace XJGUI
 {
@@ -17,14 +18,6 @@ namespace XJGUI
         public FieldGUIComponentBase(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             :base(data, fieldInfo, guiInfo)
         {
-            if (base.Sync)
-            {
-                this.gui.SetTitleColor(XJGUILayout.DefaultSyncColor);
-            }
-            else
-            {
-                this.gui.SetTitleColor(null);
-            }
         }
 
         #endregion Constructor
@@ -39,6 +32,11 @@ namespace XJGUI
         protected override void Load()
         {
             this.gui.Value = (T)base.fieldInfo.GetValue(base.data);
+        }
+
+        public override void SetTitleColor(Color? color)
+        {
+            this.gui.SetTitleColor(color);
         }
 
         protected abstract int CheckUpdate(T value1, T value2);

@@ -41,7 +41,8 @@ public static class XJGUILayout
     public static string DefaultIPv4Value = "0.0.0.0";
 
     public static bool DefaultSync = true;
-    public static Color DefaultSyncColor = new Color(0, 1f, 0f);
+    public static Color DefaultSyncColorServer = new Color(0, 1f, 0f);
+    public static Color DefaultSyncColorClient = new Color(1f, 1f, 0f);
 
     #endregion Field
 

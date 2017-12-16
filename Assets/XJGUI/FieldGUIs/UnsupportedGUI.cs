@@ -37,6 +37,10 @@ namespace XJGUI.FieldGUIs
             GUILayout.Label("Unsupported Field : " + base.fieldInfo.Name);
         }
 
+        public override void SetTitleColor(Color? color)
+        {
+            // Nothing to do.
+        }
 
         public override void SetSyncValue(int index, string value)
         {

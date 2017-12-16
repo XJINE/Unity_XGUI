@@ -62,15 +62,17 @@ namespace XJGUI
             }
 
             TitleStyle.fontStyle = this.boldTitle ? FontStyle.Bold : FontStyle.Normal;
-
-            TitleStyle.normal.textColor = this.titleColor != null ?
-                (Color)this.TitleColor : GUI.skin.label.normal.textColor;
+            TitleStyle.normal.textColor = this.TitleColor == null ?
+                GUI.skin.label.normal.textColor : (Color)this.TitleColor;
 
             GUILayout.Label(this.Title, TitleStyle);
         }
 
         // CAUTION:
-        // Mainly use for notification (Ex.Sync or Not), Don't use for design.
+        // Mainly use for notification (Ex. Sync or Not), Must not use for design.
+
+        // NOTE:
+        // Consider to check called from FieldGUIBase or not.
 
         internal virtual void SetTitleColor(Color? titleColor)
         {

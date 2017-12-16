@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Networking;
 using XJGUI;
 
@@ -47,17 +48,6 @@ public class FieldGUISync : NetworkBehaviour
         this.syncList.Callback += OnSyncListUpdated;
     }
 
-    public void AddFieldGUI(FieldGUI fieldGUI)
-    {
-        this.fieldGUIs.Add(fieldGUI);
-
-        for (int i = 0; i < fieldGUI.GUIs.Count; i++)
-        {
-            this.syncList.Add(new UpdateInfo());
-        }
-    }
-
-    [ServerCallback]
     public void Update()
     {
         if (this.fieldGUIs.Count == 0)
@@ -74,6 +64,21 @@ public class FieldGUISync : NetworkBehaviour
 
             for (int j = 0; j < this.fieldGUIs[i].GUIs.Count; j++)
             {
+                if (!this.fieldGUIs[i].GUIs[j].Sync)
+                {
+                    continue;
+                }
+
+                this.fieldGUIs[i].GUIs[j].SetTitleColor(GetTitleColor());
+
+                // NOTE:
+                // If use "isClient", Host is also ignored.
+
+                if (!this.isServer)
+                {
+                    continue;
+                }
+
                 // NOTE:
                 // "index" shows the GUI is updated or not.
                 // When updated, the value shows 0 or index of the updated value,
@@ -82,11 +87,6 @@ public class FieldGUISync : NetworkBehaviour
                 // NOTE:
                 // There is no reason to implement with logic which use "Dirty".
                 // Because "UpdateInfo" is struct.
-
-                if (!this.fieldGUIs[i].GUIs[j].Sync)
-                {
-                    continue;
-                }
 
                 int index;
                 string value;
@@ -102,6 +102,30 @@ public class FieldGUISync : NetworkBehaviour
             }
 
             syncListIndex += fieldGUICount;
+        }
+    }
+
+    protected void OnDisable()
+    {
+        // NOTE:
+        // Called when NetworkServer/Client is not active.
+
+        for (int i = 0; i < this.fieldGUIs.Count; i++)
+        {
+            for (int j = 0; j < this.fieldGUIs[i].GUIs.Count; j++)
+            {
+                this.fieldGUIs[i].GUIs[j].SetTitleColor(null);
+            }
+        }
+    }
+
+    public void AddFieldGUI(FieldGUI fieldGUI)
+    {
+        this.fieldGUIs.Add(fieldGUI);
+
+        for (int i = 0; i < fieldGUI.GUIs.Count; i++)
+        {
+            this.syncList.Add(new UpdateInfo());
         }
     }
 
@@ -129,6 +153,20 @@ public class FieldGUISync : NetworkBehaviour
 
         this.fieldGUIs[fieldGUIsIndex].GUIs[fieldIndex]
             .SetSyncValue(this.syncList[syncListIndex].index, this.syncList[syncListIndex].value);
+    }
+
+    private Color? GetTitleColor()
+    {
+        if (NetworkServer.active)
+        {
+            return XJGUILayout.DefaultSyncColorServer;
+        }
+        else if (NetworkClient.active && NetworkManager.singleton.IsClientConnected())
+        {
+            return XJGUILayout.DefaultSyncColorClient;
+        }
+
+        return null;
     }
 
     #endregion Method

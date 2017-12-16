@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using UnityEngine;
 
 namespace XJGUI
 {
@@ -46,6 +47,8 @@ namespace XJGUI
         protected abstract void Load();
 
         protected abstract void ShowGUI();
+
+        public abstract void SetTitleColor(Color? color);
 
         public abstract void SetSyncValue(int index, string value);
 
