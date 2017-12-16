@@ -10,7 +10,7 @@ namespace XJGUI
         {
             XJGUILayout.HorizontalLayout(()=>
             {
-                base.ShowTitle();
+                base.ShowTitle(base.title == null);
 
                 GUILayout.FlexibleSpace();
 
