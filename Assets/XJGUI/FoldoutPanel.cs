@@ -30,20 +30,23 @@ namespace XJGUI
             // (value = false && button = true)  => true
             // (value = false && button = false) => false
 
-            string buttonContent = (base.Value ? "\u25BC " : "\u25BA ") + base.Title;
-
-            base.Value = !(base.Value == GUILayout.Button(buttonContent, FoldoutPanel.ButtonStyle));
-
-            if (base.Value)
+            XJGUILayout.VerticalLayout(() =>
             {
-                XJGUILayout.VerticalLayout(()=>
+                string buttonContent = (base.Value ? "\u25BC " : "\u25BA ") + base.Title;
+
+                base.Value = !(base.Value == GUILayout.Button(buttonContent, FoldoutPanel.ButtonStyle));
+
+                if (base.Value)
                 {
-                    for (int i = 0; i < guiActions.Length; i++)
+                    XJGUILayout.VerticalLayout(()=>
                     {
-                        guiActions[i]();
-                    }
-                });
-            }
+                        for (int i = 0; i < guiActions.Length; i++)
+                        {
+                            guiActions[i]();
+                        }
+                    });
+                }
+            }, base.Value ? GUI.skin.box : null);
 
             return base.Value;
         }

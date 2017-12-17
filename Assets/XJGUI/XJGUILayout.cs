@@ -62,21 +62,35 @@ public static class XJGUILayout
 
     #region Method
 
-    public static void HorizontalLayout(Action guiAction)
+    public static void HorizontalLayout(Action guiAction, GUIStyle style = null)
     {
-        GUILayout.BeginHorizontal();
+        if (style == null)
         {
-            guiAction();
+            GUILayout.BeginHorizontal();
         }
+        else
+        {
+            GUILayout.BeginHorizontal(style);
+        }
+
+        guiAction();
+
         GUILayout.EndHorizontal();
     }
 
-    public static void VerticalLayout(Action guiAction)
+    public static void VerticalLayout(Action guiAction, GUIStyle style = null)
     {
-        GUILayout.BeginVertical();
+        if (style == null)
         {
-            guiAction();
+            GUILayout.BeginVertical();
         }
+        else
+        {
+            GUILayout.BeginVertical(style);
+        }
+
+        guiAction();
+
         GUILayout.EndVertical();
     }
 

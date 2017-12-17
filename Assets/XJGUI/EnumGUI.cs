@@ -27,6 +27,8 @@ namespace XJGUI
 
         protected float buttonWidth;
 
+        private static GUIStyle ButtonStyle;
+
         #endregion Field
 
         #region Property
@@ -72,14 +74,22 @@ namespace XJGUI
 
         public override T Show()
         {
+            if (EnumGUI<T>.ButtonStyle == null)
+            {
+                EnumGUI<T>.ButtonStyle = new GUIStyle(GUI.skin.button);
+                EnumGUI<T>.ButtonStyle.normal = GUI.skin.button.active;
+            }
+
             XJGUILayout.HorizontalLayout(() =>
             {
                 base.ShowTitle();
 
                 string buttonContent = this.enumNames[this.selectedIndex];
 
-                if (this.ButtonWidth <= 0 ? GUILayout.Button(buttonContent)
-                                          : GUILayout.Button(buttonContent, GUILayout.Width(this.ButtonWidth)))
+                GUIStyle buttonStyle = this.isEditing ? EnumGUI<T>.ButtonStyle : GUI.skin.button;
+
+                if (this.ButtonWidth <= 0 ? GUILayout.Button(buttonContent, buttonStyle)
+                                          : GUILayout.Button(buttonContent, buttonStyle, GUILayout.Width(this.ButtonWidth)))
                 {
                     this.isEditing = !this.isEditing;
                 }
@@ -90,36 +100,39 @@ namespace XJGUI
                 return this.Value;
             }
 
-            for (int i = 0; i < this.enumNames.Length; i++)
+            XJGUILayout.VerticalLayout(() =>
             {
-                if (i == this.selectedIndex)
+                for (int i = 0; i < this.enumNames.Length; i++)
                 {
-                    continue;
-                }
-
-                bool buttonPressed = false;
-                string buttonContent = this.enumNames[i];
-
-                if (this.ButtonWidth <= 0)
-                {
-                    buttonPressed = GUILayout.Button(buttonContent);
-                }
-                else
-                {
-                    XJGUILayout.HorizontalLayout(()=> 
+                    if (i == this.selectedIndex)
                     {
-                        GUILayout.FlexibleSpace();
-                        buttonPressed = GUILayout.Button(buttonContent, GUILayout.Width(this.ButtonWidth));
-                    });
-                }
+                        continue;
+                    }
 
-                if (buttonPressed)
-                {
-                    this.selectedIndex = i;
-                    this.isEditing = false;
-                    base.value = (T)Enum.Parse(this.enumType, this.enumNames[i]);
+                    bool buttonPressed = false;
+                    string buttonContent = this.enumNames[i];
+
+                    if (this.ButtonWidth <= 0)
+                    {
+                        buttonPressed = GUILayout.Button(buttonContent);
+                    }
+                    else
+                    {
+                        XJGUILayout.HorizontalLayout(() =>
+                        {
+                            GUILayout.FlexibleSpace();
+                            buttonPressed = GUILayout.Button(buttonContent, GUILayout.Width(this.ButtonWidth));
+                        });
+                    }
+
+                    if (buttonPressed)
+                    {
+                        this.selectedIndex = i;
+                        this.isEditing = false;
+                        base.value = (T)Enum.Parse(this.enumType, this.enumNames[i]);
+                    }
                 }
-            }
+            }, GUI.skin.box);
 
             return base.Value;
         }
