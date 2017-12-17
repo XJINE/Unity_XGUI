@@ -37,6 +37,11 @@ public static class XJGUILayout
     public static Vector4 DefaultMinValueVector4 = new Vector4(-50, -50, -50, -50);
     public static Vector4 DefaultMaxValueVector4 = new Vector4(50, 50, 50, 50);
 
+    public static Color DefaultValueColor = new Color(0, 0, 0, 1);
+    public static Color DefaultMinValueColor = new Color(0, 0, 0, 0);
+    public static Color DefaultMaxValueColor = new Color(1, 1, 1, 1);
+    public static bool DefaultHSVMode = false;
+
     public static bool DefaultIPv4 = false;
     public static string DefaultIPv4Value = "0.0.0.0";
 
@@ -50,8 +55,7 @@ public static class XJGUILayout
 
     static XJGUILayout()
     {
-        XJGUILayout.TransparentTexture = GenerateBackgroundTexture(Color.clear);
-        XJGUILayout.TransparentTexture.hideFlags = HideFlags.HideAndDontSave;
+        XJGUILayout.TransparentTexture = Generate1x1Texture(Color.clear);
     }
 
     #endregion Constructor
@@ -76,7 +80,7 @@ public static class XJGUILayout
         GUILayout.EndVertical();
     }
 
-    private static Texture2D GenerateBackgroundTexture(Color color)
+    internal static Texture2D Generate1x1Texture(Color color)
     {
         int width  = 1;
         int height = 1;
@@ -89,10 +93,17 @@ public static class XJGUILayout
         }
 
         Texture2D texture = new Texture2D(width, height);
+        texture.hideFlags = HideFlags.HideAndDontSave;
         texture.SetPixels(pixels);
         texture.Apply();
 
         return texture;
+    }
+
+    internal static void SetColorTo1x1Texture(Texture2D tex1x1, Color color)
+    {
+        tex1x1.SetPixel(0, 0, color);
+        tex1x1.Apply();
     }
 
     #endregion Method

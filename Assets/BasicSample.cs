@@ -25,6 +25,8 @@ public class BasicSample : MonoBehaviour
     Vector3GUI vector3GUI;
     Vector4GUI vector4GUI;
 
+    ColorGUI colorGUI;
+    ColorGUI colorGUIHSV;
     Toolbar<string> toolBar;
     EnumGUI<SampleEnum> enumGUI;
     IPv4GUI ipv4GUI;
@@ -106,6 +108,17 @@ public class BasicSample : MonoBehaviour
             MaxValue = new Vector4(1, 2, 3, 4),
         };
 
+        this.colorGUI = new ColorGUI()
+        {
+            Title = "RGB Color"
+        };
+
+        this.colorGUIHSV = new ColorGUI()
+        {
+            Title = "HSV Color",
+            HSVMode = true
+        };
+
         this.toolBar = new Toolbar<string>()
         {
             Title = "Toolbar",
@@ -148,6 +161,8 @@ public class BasicSample : MonoBehaviour
 
     void tabPanel_Special()
     {
+        this.colorGUI.Show();
+        this.colorGUIHSV.Show();
         this.toolBar.Show();
         this.ipv4GUI.Show();
     }
