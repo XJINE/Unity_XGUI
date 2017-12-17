@@ -15,19 +15,16 @@ public class FieldGUISample : MonoBehaviour
 
     public string stringValue = "Sample";
 
-    [FieldGUIInfo(MinValue = 0, MaxValue = 100)]
-    public int intValue = 0;
-
     [FieldGUIInfo(Hide = true)]
     public int intValueHide = 5;
 
+    [FieldGUIInfo(MinValue = 0, MaxValue = 100)]
     public float floatValue = 10;
-
-    public Vector2 vector2Value = new Vector2(0, 0);
 
     public Vector3 vector3Value = new Vector3(1, 1, 1);
 
-    public Vector4 vector4Value = new Vector4(1, 1, 1, 1);
+    [FieldGUIInfo(HSV = false)]
+    public Color colorValue = new Color(1, 0, 0, 0.5f);
 
     public List<int> intValues = new List<int>() { 0, 1, 2 };
 

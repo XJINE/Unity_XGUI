@@ -116,7 +116,7 @@ public class BasicSample : MonoBehaviour
         this.colorGUIHSV = new ColorGUI()
         {
             Title = "HSV Color",
-            HSVMode = true
+            HSV = true
         };
 
         this.toolBar = new Toolbar<string>()
@@ -162,7 +162,7 @@ public class BasicSample : MonoBehaviour
     void tabPanel_Special()
     {
         this.colorGUI.Show();
-        //this.colorGUIHSV.Show();
+        this.colorGUIHSV.Show();
         this.toolBar.Show();
         this.ipv4GUI.Show();
     }

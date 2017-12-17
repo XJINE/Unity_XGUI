@@ -30,7 +30,7 @@ namespace XJGUI
 
                 for (int i = 0; i < base.value.Count; i++)
                 {
-                    ((ColorGUI)base.guis[i]).HSVMode = value;
+                    ((ColorGUI)base.guis[i]).HSV = value;
                 }
             }
         }

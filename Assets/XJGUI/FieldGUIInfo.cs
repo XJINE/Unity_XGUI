@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace XJGUI
 {
@@ -22,6 +23,12 @@ namespace XJGUI
 
         public int Decimals { get; set; }
 
+        public Color MinColor { get; set; }
+
+        public Color MaxColor { get; set; }
+
+        public bool HSV { get; set; }
+
         public bool IPv4 { get; set; }
 
         public bool Toolbar { get; set; }
@@ -39,6 +46,8 @@ namespace XJGUI
             this.FieldWidth = XJGUILayout.DefaultFieldWidthString;
             this.MinValue   = XJGUILayout.DefaultMinValueFloat;
             this.MaxValue   = XJGUILayout.DefaultMaxValueFloat;
+            this.MinColor   = XJGUILayout.DefaultMinValueColor;
+            this.MaxColor   = XJGUILayout.DefaultMaxValueColor;
             this.Decimals   = XJGUILayout.DefaultDecimals;
             this.IPv4       = XJGUILayout.DefaultIPv4;
         }

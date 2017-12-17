@@ -40,7 +40,7 @@ public static class XJGUILayout
     public static Color DefaultValueColor = new Color(0, 0, 0, 1);
     public static Color DefaultMinValueColor = new Color(0, 0, 0, 0);
     public static Color DefaultMaxValueColor = new Color(1, 1, 1, 1);
-    public static bool DefaultHSVMode = false;
+    public static bool DefaultHSV = false;
 
     public static bool DefaultIPv4 = false;
     public static string DefaultIPv4Value = "0.0.0.0";

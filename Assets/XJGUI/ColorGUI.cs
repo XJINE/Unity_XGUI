@@ -14,7 +14,7 @@ namespace XJGUI
         private FloatGUI floatGUIB;
         private FloatGUI floatGUIA;
 
-        protected bool hsvMode;
+        protected bool hsv;
 
         #endregion Field
 
@@ -131,18 +131,18 @@ namespace XJGUI
             }
         }
 
-        public virtual bool HSVMode
+        public virtual bool HSV
         {
             get
             {
-                return this.hsvMode;
+                return this.hsv;
             }
             set
             {
-                bool hsvModePrev = this.hsvMode;
-                this.hsvMode = value;
+                bool hsvPrev = this.hsv;
+                this.hsv = value;
 
-                if (this.hsvMode && !hsvModePrev)
+                if (this.hsv && !hsvPrev)
                 {
                     this.floatGUIR.Title = "H";
                     this.floatGUIG.Title = "S";
@@ -154,7 +154,7 @@ namespace XJGUI
                     Color.RGBToHSV(this.Value, out h, out s, out v);
                     this.Value = new Color(h, s, v, a);
                 }
-                else if(!this.hsvMode && hsvModePrev)
+                else if(!this.hsv && hsvPrev)
                 {
                     this.floatGUIR.Title = "R";
                     this.floatGUIG.Title = "G";
@@ -187,7 +187,7 @@ namespace XJGUI
             this.Value = XJGUILayout.DefaultValueColor;
             this.MinValue = XJGUILayout.DefaultMinValueColor;
             this.MaxValue = XJGUILayout.DefaultMaxValueColor;
-            this.HSVMode = XJGUILayout.DefaultHSVMode;
+            this.HSV = XJGUILayout.DefaultHSV;
         }
 
         #endregion Constructor
@@ -201,10 +201,10 @@ namespace XJGUI
                 ColorGUI.ColorStyle = new GUIStyle(GUI.skin.label);
             }
 
-            Color backgroundColor = this.HSVMode ? Color.HSVToRGB
-                (this.Value.r, this.Value.g, this.Value.b) : this.Value;
+            Color backgroundColor = this.hsv ? Color.HSVToRGB(base.value.r, base.value.g, base.value.b) : base.value;
+            backgroundColor.a = base.value.a;
 
-            UpdateBackgrondTexture(this.Value, this.backgroundTexture);
+            UpdateBackgrondTexture(backgroundColor, this.backgroundTexture);
             ColorGUI.ColorStyle.normal.background = this.backgroundTexture;
 
             GUILayout.Label("     ", ColorGUI.ColorStyle);

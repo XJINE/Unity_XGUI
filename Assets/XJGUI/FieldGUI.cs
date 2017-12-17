@@ -19,6 +19,7 @@ namespace XJGUI
             Vector2, Vector2s,
             Vector3, Vector3s,
             Vector4, Vector4s,
+            Color,
             String,  Strings,
             Enum,
             Unsupported
@@ -136,6 +137,7 @@ namespace XJGUI
                 case FieldGUIType.Vector3s: return new FieldGUIs.Vector3sGUI(data, fieldInfo, guiInfo);
                 case FieldGUIType.Vector4:  return new FieldGUIs.Vector4GUI (data, fieldInfo, guiInfo);
                 case FieldGUIType.Vector4s: return new FieldGUIs.Vector4sGUI(data, fieldInfo, guiInfo);
+                case FieldGUIType.Color:    return new FieldGUIs.ColorGUI   (data, fieldInfo, guiInfo);
                 case FieldGUIType.String:
                     if (guiInfo.IPv4)       return new FieldGUIs.IPv4GUI    (data, fieldInfo, guiInfo);
                     else                    return new FieldGUIs.StringGUI  (data, fieldInfo, guiInfo);
@@ -165,6 +167,7 @@ namespace XJGUI
                 if (type == typeof(Vector2)) { return FieldGUIType.Vector2; }
                 if (type == typeof(Vector3)) { return FieldGUIType.Vector3; }
                 if (type == typeof(Vector4)) { return FieldGUIType.Vector4; }
+                if (type == typeof(Color))   { return FieldGUIType.Color; }
             }
 
             if (type == typeof(string))
