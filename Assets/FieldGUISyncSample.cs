@@ -41,6 +41,8 @@ public class FieldGUISyncSample : MonoBehaviour
 
     public List<Vector3> vector3Values = new List<Vector3>() { Vector3.one, Vector3.up, Vector3.back };
 
+    public Color colorValue = new Color(1, 0, 0, 1);
+
     [FieldGUIInfo(Title = "Camera Clear Enum")]
     public CameraClearFlags enumValue = CameraClearFlags.Skybox;
 
@@ -48,12 +50,6 @@ public class FieldGUISyncSample : MonoBehaviour
     public string ipV4Value = "0.7.7.7";
 
     #endregion Field
-
-    public enum sample
-    {
-        value1 = 0,
-        value2 = 1,
-    }
 
     void Start()
     {

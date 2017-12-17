@@ -45,10 +45,10 @@ namespace XJGUI.FieldGUIs
         public override void GetSyncValue(out int index, out string value)
         {
             index = base.updateIndex;
-            value = base.gui.Value.r.ToString("R") + ","
+            value = base.gui.Value.r.ToString("G") + ","
                   + base.gui.Value.g.ToString("G") + ","
-                  + base.gui.Value.b.ToString("B") + ","
-                  + base.gui.Value.a.ToString("A");
+                  + base.gui.Value.b.ToString("G") + ","
+                  + base.gui.Value.a.ToString("G");
         }
 
         #endregion Method

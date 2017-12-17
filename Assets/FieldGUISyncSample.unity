@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -213,16 +213,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FieldGUISync: {fileID: 26720029}
-  syncValue: 5
   boolValue: 1
-  stringValue: Sample
+  stringValue1: Sync
+  stringValue2: No Sync
   intValue: 0
   intValueHide: 5
   floatValue: 10
-  vector2Value: {x: 0, y: 0}
   vector3Value: {x: 1, y: 1, z: 1}
-  vector4Value: {x: 1, y: 1, z: 1, w: 1}
-  intValues: 000000000100000002000000
+  boolValues: 010000
+  stringValues:
+  - a
+  - i
+  - u
   floatValues:
   - 0
   - 1
@@ -231,6 +233,7 @@ MonoBehaviour:
   - {x: 1, y: 1, z: 1}
   - {x: 0, y: 1, z: 0}
   - {x: 0, y: 0, z: -1}
+  colorValue: {r: 1, g: 0, b: 0, a: 1}
   enumValue: 1
   ipV4Value: 0.7.7.7
 --- !u!4 &566489070
