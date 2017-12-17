@@ -19,7 +19,7 @@ namespace XJGUI
             Vector2, Vector2s,
             Vector3, Vector3s,
             Vector4, Vector4s,
-            Color,
+            Color,   Colors,
             String,  Strings,
             Enum,
             Unsupported
@@ -87,7 +87,6 @@ namespace XJGUI
 
             FieldInfo fieldInfo;
             FieldGUIInfo guiInfo;
-            FieldGUIType guiType;
 
             for (var i = 0; i < fieldInfos.Length; i++)
             {
@@ -99,7 +98,7 @@ namespace XJGUI
                     continue;
                 }
 
-                FieldGUIBase gui = GenerateGUI(data, fieldInfo, guiInfo, out guiType);
+                FieldGUIBase gui = GenerateGUI(data, fieldInfo, guiInfo);
 
                 this.guis.Add(gui);
             }
@@ -125,12 +124,12 @@ namespace XJGUI
             return attribute;
         }
 
-        private FieldGUIBase GenerateGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo, out FieldGUIType fieldGUIType)
+        private FieldGUIBase GenerateGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
         {
             Type guiType;
             Type genericType;
 
-            fieldGUIType = GetFieldGUIType(data, fieldInfo, guiInfo);
+            FieldGUIType fieldGUIType = GetFieldGUIType(data, fieldInfo, guiInfo);
 
             switch (fieldGUIType)
             {
@@ -147,6 +146,7 @@ namespace XJGUI
                 case FieldGUIType.Vector4:  return new FieldGUIs.Vector4GUI (data, fieldInfo, guiInfo);
                 case FieldGUIType.Vector4s: return new FieldGUIs.Vector4sGUI(data, fieldInfo, guiInfo);
                 case FieldGUIType.Color:    return new FieldGUIs.ColorGUI   (data, fieldInfo, guiInfo);
+                case FieldGUIType.Colors:   return new FieldGUIs.ColorsGUI  (data, fieldInfo, guiInfo);
                 case FieldGUIType.String:
                     if (guiInfo.IPv4)       return new FieldGUIs.IPv4GUI    (data, fieldInfo, guiInfo);
                     else                    return new FieldGUIs.StringGUI  (data, fieldInfo, guiInfo);
@@ -217,6 +217,7 @@ namespace XJGUI
                     if (type == typeof(Vector2)) { return FieldGUIType.Vector2s; }
                     if (type == typeof(Vector3)) { return FieldGUIType.Vector3s; }
                     if (type == typeof(Vector4)) { return FieldGUIType.Vector4s; }
+                    if (type == typeof(Color))   { return FieldGUIType.Colors;   }
                 }
 
                 if (type == typeof(string)) { return FieldGUIType.Strings; }
