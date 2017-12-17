@@ -4,6 +4,10 @@ using XJGUI;
 
 public class ValuesSample : MonoBehaviour
 {
+    // CAUTION:
+    // IList type GUI cannot detect some array length is changed from Inspector.
+    // (List length change is able to detect.)
+
     #region Field
 
     FlexibleWindow flexibleWindow;
@@ -16,6 +20,7 @@ public class ValuesSample : MonoBehaviour
     Vector2sGUI vector2sGUI;
 
     ColorsGUI colorsGUI;
+    EnumsGUI<CameraClearFlags> enumsGUI;
 
     public List<bool> boolList;
     public string[] stringArray;
@@ -25,6 +30,7 @@ public class ValuesSample : MonoBehaviour
     public List<Vector2> vector2Array;
 
     public List<Color> colorList;
+    public CameraClearFlags[] enumsArray;
 
     #endregion Field
 
@@ -80,6 +86,12 @@ public class ValuesSample : MonoBehaviour
             Title = "Colors",
             Value = this.colorList
         };
+
+        this.enumsGUI = new EnumsGUI<CameraClearFlags>()
+        {
+            Title = "Enums",
+            Value = this.enumsArray,
+        };
     }
 
     void Update()
@@ -102,6 +114,7 @@ public class ValuesSample : MonoBehaviour
             this.vector2sGUI.Show();
 
             this.colorsGUI.Show();
+            this.enumsGUI.Show();
         });
     }
 

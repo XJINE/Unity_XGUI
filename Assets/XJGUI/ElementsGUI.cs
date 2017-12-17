@@ -143,6 +143,10 @@ namespace XJGUI
             this.guis[index].Value = value;
         }
 
+        // CAUTION:
+        // We can't detect some array length is changed from Inspector in CheckGUIsUpdate.
+        // Only list is enable.
+
         protected virtual bool CheckGUIsUpdate()
         {
             // NOTE:

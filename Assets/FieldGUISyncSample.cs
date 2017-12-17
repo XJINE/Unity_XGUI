@@ -37,6 +37,7 @@ public class FieldGUISyncSample : MonoBehaviour
 
     public List<Vector3> vector3Values = new List<Vector3>() { Vector3.one, Vector3.up, Vector3.back };
 
+    [FieldGUIInfo(HSV = true)]
     public List<Color> colorValues = new List<Color>() { Color.red, Color.green, Color.blue };
 
     [FieldGUIInfo(Title = "Camera Clear Enum")]

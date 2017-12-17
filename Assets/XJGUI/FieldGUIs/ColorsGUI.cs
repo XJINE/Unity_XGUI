@@ -27,6 +27,7 @@ namespace XJGUI.FieldGUIs
                 MinValue  = base.guiInfo.MinColor,
                 MaxValue  = base.guiInfo.MaxColor,
                 Decimals  = base.guiInfo.Decimals,
+                HSV       = base.guiInfo.HSV,
             };
         }
 

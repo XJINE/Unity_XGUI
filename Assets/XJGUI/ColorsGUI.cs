@@ -12,7 +12,7 @@ namespace XJGUI
 
         #region Property
 
-        public bool HSVMode
+        public bool HSV
         {
             get
             {
