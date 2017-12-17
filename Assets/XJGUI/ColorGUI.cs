@@ -68,12 +68,12 @@ namespace XJGUI
         {
             get
             {
-                return new Vector4()
+                return new Color()
                 {
-                    x = this.floatGUIR.MaxValue,
-                    y = this.floatGUIG.MaxValue,
-                    z = this.floatGUIB.MaxValue,
-                    w = this.floatGUIA.MaxValue
+                    r = this.floatGUIR.MaxValue,
+                    g = this.floatGUIG.MaxValue,
+                    b = this.floatGUIB.MaxValue,
+                    a = this.floatGUIA.MaxValue
                 };
             }
             set
@@ -139,18 +139,32 @@ namespace XJGUI
             }
             set
             {
-                this.hsvMode = true;
+                bool hsvModePrev = this.hsvMode;
+                this.hsvMode = value;
 
-                this.floatGUIR.Title = "H";
-                this.floatGUIG.Title = "S";
-                this.floatGUIB.Title = "V";
-                this.floatGUIA.Title = "A";
+                if (this.hsvMode && !hsvModePrev)
+                {
+                    this.floatGUIR.Title = "H";
+                    this.floatGUIG.Title = "S";
+                    this.floatGUIB.Title = "V";
+                    this.floatGUIA.Title = "A";
 
-                float h, s, v;
-                float a = this.Value.a;
-                Color.RGBToHSV(this.Value, out h, out s, out v);
+                    float h, s, v;
+                    float a = this.Value.a;
+                    Color.RGBToHSV(this.Value, out h, out s, out v);
+                    this.Value = new Color(h, s, v, a);
+                }
+                else if(!this.hsvMode && hsvModePrev)
+                {
+                    this.floatGUIR.Title = "R";
+                    this.floatGUIG.Title = "G";
+                    this.floatGUIB.Title = "B";
+                    this.floatGUIA.Title = "A";
 
-                this.Value = new Color(h, s, v, a);
+                    Color color = Color.HSVToRGB(this.Value.r, this.Value.g, this.Value.b);
+                    color.a = this.Value.a;
+                    this.Value = color;
+                }
             }
         }
 
@@ -168,12 +182,12 @@ namespace XJGUI
             this.backgroundTexture = UpdateBackgrondTexture(this.Value);
 
             // NOTE:
-            // Use Property to update each FloatGUI.
+            // Use this.Property to update each FloatGUI.
 
+            this.Value = XJGUILayout.DefaultValueColor;
             this.MinValue = XJGUILayout.DefaultMinValueColor;
             this.MaxValue = XJGUILayout.DefaultMaxValueColor;
-
-            this.hsvMode = XJGUILayout.DefaultHSVMode;
+            this.HSVMode = XJGUILayout.DefaultHSVMode;
         }
 
         #endregion Constructor

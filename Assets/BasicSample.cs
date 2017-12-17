@@ -162,7 +162,7 @@ public class BasicSample : MonoBehaviour
     void tabPanel_Special()
     {
         this.colorGUI.Show();
-        this.colorGUIHSV.Show();
+        //this.colorGUIHSV.Show();
         this.toolBar.Show();
         this.ipv4GUI.Show();
     }
