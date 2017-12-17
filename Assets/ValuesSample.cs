@@ -21,6 +21,7 @@ public class ValuesSample : MonoBehaviour
 
     ColorsGUI colorsGUI;
     EnumsGUI<CameraClearFlags> enumsGUI;
+    IPv4sGUI ipv4sGUI;
 
     public List<bool> boolList;
     public string[] stringArray;
@@ -31,6 +32,7 @@ public class ValuesSample : MonoBehaviour
 
     public List<Color> colorList;
     public CameraClearFlags[] enumsArray;
+    public string[] ipv4Array;
 
     #endregion Field
 
@@ -38,11 +40,7 @@ public class ValuesSample : MonoBehaviour
 
     void Start ()
     {
-        this.flexibleWindow = new FlexibleWindow()
-        {
-            MinWidth = 300,
-            MinHeight = 300,
-        };
+        this.flexibleWindow = new FlexibleWindow();
 
         this.boolsGUI = new BoolsGUI()
         {
@@ -62,7 +60,6 @@ public class ValuesSample : MonoBehaviour
             Value = this.intList,
             MinValue = -100,
             MaxValue = 100,
-            FieldWidth = 50
         };
 
         this.floatsGUI = new FloatsGUI()
@@ -92,14 +89,12 @@ public class ValuesSample : MonoBehaviour
             Title = "Enums",
             Value = this.enumsArray,
         };
-    }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Return))
+        this.ipv4sGUI = new IPv4sGUI()
         {
-            this.intList.Add(0);
-        }
+            Title = "IPv4s",
+            Value = this.ipv4Array,
+        };
     }
 
     void OnGUI()
@@ -115,6 +110,7 @@ public class ValuesSample : MonoBehaviour
 
             this.colorsGUI.Show();
             this.enumsGUI.Show();
+            this.ipv4sGUI.Show();
         });
     }
 

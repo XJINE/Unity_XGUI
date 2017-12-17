@@ -34,13 +34,13 @@ namespace XJGUI
 
             this.ID = Guid.NewGuid().GetHashCode();
 
-            this.Title = null;
-            this.MinWidth = 100;
-            this.MinHeight = 100;
-            this.MaxWidth = 2000;
-            this.MaxHeight = 2000;
-            this.IsDraggable = true;
-            this.IsVisible = true;
+            this.Title       = XJGUILayout.DefaultWindowTitle;
+            this.MinWidth    = XJGUILayout.DefaultWindowMinWidth;
+            this.MinHeight   = XJGUILayout.DefaultWindowMinHeight;
+            this.MaxWidth    = XJGUILayout.DefaultWindowMaxWidth;
+            this.MaxHeight   = XJGUILayout.DefaultWindowMaxHeight;
+            this.IsDraggable = XJGUILayout.DefaultWindowIsDraggable;
+            this.IsVisible   = XJGUILayout.DefaultWindowIsVisible;
         }
 
         #endregion Constructor

@@ -7,15 +7,43 @@ public static class XJGUILayout
 
     public static Texture2D TransparentTexture;
 
-    public static bool DefaultHide = false;
-    public static bool DefaultHideUnsupportedGUI = true;
+    #region FlexibleWindow Settings
+
+    public static string DefaultWindowTitle = null;
+    public static float  DefaultWindowMinWidth = 300;
+    public static float  DefaultWindowMinHeight = 300;
+    public static float  DefaultWindowMaxWidth = 1000;
+    public static float  DefaultWindowMaxHeight = 800;
+    public static bool   DefaultWindowIsDraggable = true;
+    public static bool   DefaultWindowIsVisible = true;
+
+    #endregion FlexibleWindow Settings
+
+    #region ComponentGUI Settings
 
     public static string DefaultTitle = null;
     public static bool   DefaultBoldTitle = false;
+
+    #endregion ComponentGUI Settings
+
+    #region ElementGUI/ValueGUI Settings
+
     public static bool   DefaultWithSlider = true;
     public static int    DefaultDecimals = 2;
     public static float  DefaultFieldWidthValue = 100;
     public static float  DefaultFieldWidthString = 150;
+    public static Color  DefaultInvalidValueColor = new Color(1, 0, 0, 1);
+
+    #endregion ElementGUI/ValueGUI Settings
+
+    #region FieldGUI Settings
+
+    public static bool DefaultHide = false;
+    public static bool DefaultHideUnsupportedGUI = true;
+
+    #endregion FieldGUI Settings
+
+    #region Value Settings
 
     public static int DefaultValueInt = 0;
     public static int DefaultMinValueInt = -50;
@@ -37,19 +65,23 @@ public static class XJGUILayout
     public static Vector4 DefaultMinValueVector4 = new Vector4(-50, -50, -50, -50);
     public static Vector4 DefaultMaxValueVector4 = new Vector4(50, 50, 50, 50);
 
+    public static bool  DefaultHSV = false;
     public static Color DefaultValueColor = new Color(0, 0, 0, 1);
     public static Color DefaultMinValueColor = new Color(0, 0, 0, 0);
     public static Color DefaultMaxValueColor = new Color(1, 1, 1, 1);
-    public static bool  DefaultHSV = false;
 
     public static bool   DefaultIPv4 = false;
     public static string DefaultIPv4Value = "0.0.0.0";
+
+    #endregion Value Settings
+
+    #region Sync Settings
 
     public static bool  DefaultSync = true;
     public static Color DefaultSyncColorServer = new Color(0, 1f, 0f);
     public static Color DefaultSyncColorClient = new Color(1f, 1f, 0f);
 
-    public static Color DefaultInvalidValueColor = new Color(1, 0, 0, 1);
+    #endregion Sync Settings
 
     #endregion Field
 
@@ -104,12 +136,6 @@ public static class XJGUILayout
         texture.Apply();
 
         return texture;
-    }
-
-    private static void SetColorToBackgroundTexture(Texture2D backgroundTexture, Color color)
-    {
-        backgroundTexture.SetPixel(0, 0, color);
-        backgroundTexture.Apply();
     }
 
     #endregion Method

@@ -251,3 +251,7 @@ MonoBehaviour:
   - {r: 0, g: 1, b: 0, a: 0}
   - {r: 0, g: 0, b: 1, a: 1}
   enumsArray: 010000000200000003000000
+  ipv4Array:
+  - 
+  - 
+  - 
