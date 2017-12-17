@@ -165,7 +165,7 @@ namespace XJGUI
             this.floatGUIB = new FloatGUI() { Title = "B" };
             this.floatGUIA = new FloatGUI() { Title = "A" };
 
-            this.backgroundTexture = XJGUILayout.Generate1x1Texture(this.Value);
+            this.backgroundTexture = UpdateBackgrondTexture(this.Value);
 
             // NOTE:
             // Use Property to update each FloatGUI.
@@ -190,10 +190,7 @@ namespace XJGUI
             Color backgroundColor = this.HSVMode ? Color.HSVToRGB
                 (this.Value.r, this.Value.g, this.Value.b) : this.Value;
 
-            backgroundColor.a = 1;
-
-            XJGUILayout.SetColorTo1x1Texture(this.backgroundTexture, backgroundColor);
-
+            UpdateBackgrondTexture(this.Value, this.backgroundTexture);
             ColorGUI.ColorStyle.normal.background = this.backgroundTexture;
 
             GUILayout.Label("     ", ColorGUI.ColorStyle);
@@ -202,6 +199,32 @@ namespace XJGUI
             base.value.g = this.floatGUIG.Show();
             this.value.b = this.floatGUIB.Show();
             this.value.a = this.floatGUIA.Show();
+        }
+
+        private static Texture2D UpdateBackgrondTexture(Color color, Texture2D backgroundTexture = null)
+        {
+            float a = color.a;
+            color = new Color(color.r, color.g, color.b, 1);
+
+            Color[] pixels = new Color[9]
+            {
+                color, color, new Color(a, a, a, 1),
+                color, color, color,
+                color, color, color,
+            };
+
+            if (backgroundTexture == null)
+            {
+                backgroundTexture = new Texture2D(3, 3);
+                backgroundTexture.hideFlags = HideFlags.HideAndDontSave;
+                backgroundTexture.wrapMode = TextureWrapMode.Clamp;
+                backgroundTexture.filterMode = FilterMode.Point;
+            }
+
+            backgroundTexture.SetPixels(pixels);
+            backgroundTexture.Apply();
+
+            return backgroundTexture;
         }
 
         #endregion Method

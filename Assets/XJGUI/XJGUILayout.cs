@@ -55,7 +55,7 @@ public static class XJGUILayout
 
     static XJGUILayout()
     {
-        XJGUILayout.TransparentTexture = Generate1x1Texture(Color.clear);
+        XJGUILayout.TransparentTexture = GenerateBackgroundTexture(Color.clear);
     }
 
     #endregion Constructor
@@ -80,30 +80,20 @@ public static class XJGUILayout
         GUILayout.EndVertical();
     }
 
-    internal static Texture2D Generate1x1Texture(Color color)
+    private static Texture2D GenerateBackgroundTexture(Color color)
     {
-        int width  = 1;
-        int height = 1;
-
-        Color[] pixels = new Color[width * height];
-
-        for (int i = 0; i < pixels.Length; i++)
-        {
-            pixels[i] = color;
-        }
-
-        Texture2D texture = new Texture2D(width, height);
+        Texture2D texture = new Texture2D(1, 1);
         texture.hideFlags = HideFlags.HideAndDontSave;
-        texture.SetPixels(pixels);
+        texture.SetPixel(0, 0, color);
         texture.Apply();
 
         return texture;
     }
 
-    internal static void SetColorTo1x1Texture(Texture2D tex1x1, Color color)
+    private static void SetColorToBackgroundTexture(Texture2D backgroundTexture, Color color)
     {
-        tex1x1.SetPixel(0, 0, color);
-        tex1x1.Apply();
+        backgroundTexture.SetPixel(0, 0, color);
+        backgroundTexture.Apply();
     }
 
     #endregion Method
