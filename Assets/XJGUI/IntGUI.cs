@@ -45,6 +45,8 @@ namespace XJGUI
                 {
                     base.ShowTitle(this.FieldWidth > 0 && base.Title == null);
 
+                    UpdateTextFieldColor();
+
                     this.text = GUILayout.TextField
                                (this.text, ValueGUI<int>.TextFieldStyle,
                                 base.FieldWidth <= 0 ? GUILayout.ExpandWidth(true)
@@ -81,6 +83,28 @@ namespace XJGUI
             });
 
             return this.Value;
+        }
+
+        protected override bool TextIsCorrect()
+        {
+            int value;
+
+            if (!int.TryParse(this.text, out value))
+            {
+                return false;
+            }
+
+            if (value < base.MinValue)
+            {
+                return false;
+            }
+
+            if (value > base.MaxValue)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         #endregion Method

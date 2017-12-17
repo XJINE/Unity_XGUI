@@ -68,10 +68,10 @@ namespace XJGUI
 
         protected static void InitializeGUIStyle()
         {
-            if (TextFieldStyle == null)
+            if (ValueGUI<T>.TextFieldStyle == null)
             {
-                TextFieldStyle = new GUIStyle(GUI.skin.textField);
-                TextFieldStyle.alignment = TextAnchor.MiddleRight;
+                ValueGUI<T>.TextFieldStyle = new GUIStyle(GUI.skin.textField);
+                ValueGUI<T>.TextFieldStyle.alignment = TextAnchor.MiddleRight;
             }
         }
 

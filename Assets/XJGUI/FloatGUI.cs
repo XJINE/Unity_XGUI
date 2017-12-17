@@ -30,6 +30,8 @@ namespace XJGUI
                 {
                     base.ShowTitle(this.FieldWidth > 0 && base.Title == null);
 
+                    UpdateTextFieldColor();
+
                     this.text = GUILayout.TextField
                                (this.text, ValueGUI<float>.TextFieldStyle,
                                 base.FieldWidth <= 0 ? GUILayout.ExpandWidth(true)
@@ -71,6 +73,40 @@ namespace XJGUI
         protected override float CorrectValue(float value)
         {
             return (float)System.Math.Round(base.CorrectValue(value), base.Decimals);
+        }
+
+        protected override bool TextIsCorrect()
+        {
+            float value;
+
+            if (!float.TryParse(this.text, out value))
+            {
+                return false;
+            }
+
+            if (value < base.MinValue)
+            {
+                return false;
+            }
+
+            if (value > base.MaxValue)
+            {
+                return false;
+            }
+
+            string[] splits = this.text.Split('.');
+
+            if (splits.Length == 1)
+            {
+                return true;
+            }
+
+            if (splits[1].Length <= base.Decimals)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         #endregion Method

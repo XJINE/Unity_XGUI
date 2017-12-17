@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace XJGUI
 {
@@ -14,6 +15,8 @@ namespace XJGUI
         // (same as "value" initialize.)
 
         protected string text;
+
+        protected Color textColor;
 
         #endregion Field
 
@@ -76,6 +79,25 @@ namespace XJGUI
 
             return value;
         }
+
+        protected void UpdateTextFieldColor()
+        {
+            bool textIsCoorect = TextIsCorrect();
+
+            ValueGUI<T>.TextFieldStyle.normal.textColor 
+                = !textIsCoorect ? XJGUILayout.DefaultInvalidValueColor
+                                 : GUI.skin.textField.normal.textColor;
+
+            ValueGUI<T>.TextFieldStyle.active.textColor
+                = !textIsCoorect ? XJGUILayout.DefaultInvalidValueColor
+                                 : GUI.skin.textField.active.textColor;
+
+            ValueGUI<T>.TextFieldStyle.focused.textColor
+                = !textIsCoorect ? XJGUILayout.DefaultInvalidValueColor
+                                 : GUI.skin.textField.focused.textColor;
+        }
+
+        protected abstract bool TextIsCorrect();
 
         #endregion Method
     }

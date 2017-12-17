@@ -49,6 +49,8 @@ public static class XJGUILayout
     public static Color DefaultSyncColorServer = new Color(0, 1f, 0f);
     public static Color DefaultSyncColorClient = new Color(1f, 1f, 0f);
 
+    public static Color DefaultInvalidValueColor = new Color(1, 0, 0, 1);
+
     #endregion Field
 
     #region Constructor
