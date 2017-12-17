@@ -8,14 +8,14 @@ public static class XJGUILayout
     public static Texture2D TransparentTexture;
 
     public static bool DefaultHide = false;
+    public static bool DefaultHideUnsupportedGUI = true;
 
     public static string DefaultTitle = null;
-    public static bool DefaultBoldTitle = false;
-    public static bool DefaultWithSlider = true;
-    public static int DefaultDecimals = 2;
-
-    public static float DefaultFieldWidthValue = 100;
-    public static float DefaultFieldWidthString = 150;
+    public static bool   DefaultBoldTitle = false;
+    public static bool   DefaultWithSlider = true;
+    public static int    DefaultDecimals = 2;
+    public static float  DefaultFieldWidthValue = 100;
+    public static float  DefaultFieldWidthString = 150;
 
     public static int DefaultValueInt = 0;
     public static int DefaultMinValueInt = -50;
@@ -40,12 +40,12 @@ public static class XJGUILayout
     public static Color DefaultValueColor = new Color(0, 0, 0, 1);
     public static Color DefaultMinValueColor = new Color(0, 0, 0, 0);
     public static Color DefaultMaxValueColor = new Color(1, 1, 1, 1);
-    public static bool DefaultHSV = false;
+    public static bool  DefaultHSV = false;
 
-    public static bool DefaultIPv4 = false;
+    public static bool   DefaultIPv4 = false;
     public static string DefaultIPv4Value = "0.0.0.0";
 
-    public static bool DefaultSync = true;
+    public static bool  DefaultSync = true;
     public static Color DefaultSyncColorServer = new Color(0, 1f, 0f);
     public static Color DefaultSyncColorClient = new Color(1f, 1f, 0f);
 

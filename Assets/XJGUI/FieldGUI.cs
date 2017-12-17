@@ -65,6 +65,15 @@ namespace XJGUI
 
         #endregion Property
 
+        #region Constructor
+
+        public FieldGUI() : base()
+        {
+            this.hideUnsupportedGUI = XJGUILayout.DefaultHideUnsupportedGUI;
+        }
+
+        #endregion constructor
+
         #region Method
 
         private void GenerateGUIs(object data)
