@@ -199,6 +199,10 @@ namespace XJGUI
             if (ColorGUI.ColorStyle == null)
             {
                 ColorGUI.ColorStyle = new GUIStyle(GUI.skin.label);
+                ColorGUI.ColorStyle.margin = new RectOffset(ColorGUI.ColorStyle.margin.left   + 5,
+                                                            ColorGUI.ColorStyle.margin.right  + 5,
+                                                            ColorGUI.ColorStyle.margin.top    + 5,
+                                                            ColorGUI.ColorStyle.margin.bottom + 5);
             }
 
             Color backgroundColor = this.hsv ? Color.HSVToRGB(base.value.r, base.value.g, base.value.b) : base.value;
