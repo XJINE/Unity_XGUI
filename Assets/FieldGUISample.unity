@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed8cdf2729f3ac4da5ee0ecda36eda8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boolValue: 0
+  boolValue: 1
   stringValue: Sample
   intValueHide: 5
   floatValue: 10
