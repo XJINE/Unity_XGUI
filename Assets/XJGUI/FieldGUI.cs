@@ -21,7 +21,7 @@ namespace XJGUI
             Vector4, Vector4s,
             Color,   Colors,
             String,  Strings,
-            Enum,
+            Enum,    Enums,
             Unsupported
         }
 
@@ -150,7 +150,9 @@ namespace XJGUI
                 case FieldGUIType.String:
                     if (guiInfo.IPv4)       return new FieldGUIs.IPv4GUI    (data, fieldInfo, guiInfo);
                     else                    return new FieldGUIs.StringGUI  (data, fieldInfo, guiInfo);
-                case FieldGUIType.Strings:  return new FieldGUIs.StringsGUI (data, fieldInfo, guiInfo);
+                case FieldGUIType.Strings:
+                    if (guiInfo.IPv4)       return new FieldGUIs.IPv4sGUI   (data, fieldInfo, guiInfo);
+                    else                    return new FieldGUIs.StringsGUI (data, fieldInfo, guiInfo);
                 case FieldGUIType.Enum:
                     guiType = typeof(FieldGUIs.EnumGUI<>);
                     genericType = guiType.MakeGenericType(fieldInfo.FieldType);

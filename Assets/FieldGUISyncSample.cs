@@ -44,7 +44,10 @@ public class FieldGUISyncSample : MonoBehaviour
     public CameraClearFlags enumValue = CameraClearFlags.Skybox;
 
     [FieldGUIInfo(IPv4 = true)]
-    public string ipV4Value = "0.7.7.7";
+    public string ipv4Value = "0.7.7.7";
+
+    [FieldGUIInfo(IPv4 = true)]
+    public string[] ipv4Values = new string[] { "192.168.11.1", "127.0.0.1" };
 
     #endregion Field
 
