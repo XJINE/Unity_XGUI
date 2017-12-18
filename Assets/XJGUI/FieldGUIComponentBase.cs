@@ -39,7 +39,7 @@ namespace XJGUI
             this.gui.SetTitleColor(color);
         }
 
-        protected abstract int CheckUpdate(T value1, T value2);
+        protected abstract int CheckUpdateForSync(T value1, T value2);
 
         #endregion Method
     }

@@ -6,6 +6,14 @@ namespace XJGUI
     // NOTE:
     // We cannot set a "where T: struct" because of the "string" allow null.
 
+    // CAUTION:
+    // FieldGUI(Components) does not support "Value" Count / Length changing when Sync.
+    // Because we can not identify the operation is "add", "remove", "replace" or anyothers.
+    // We can update all of the value when update the values counts.
+    // However, do not so now. Maybe it occurs some problem.
+    // Ex.If an array value is replaced and the Length is different from previous's,
+    // there is no way to same update in client.
+
     public abstract class FieldGUIComponents<T> : FieldGUIComponentBase<IList<T>>
     {
         #region Constructor
@@ -32,7 +40,7 @@ namespace XJGUI
         {
             this.gui.Show();
 
-            base.updateIndex = CheckUpdate(this.gui.Value, base.previousValue);
+            base.updateIndex = CheckUpdateForSync(this.gui.Value, base.previousValue);
 
             T[] previousValue = new T[this.gui.Value.Count];
 
@@ -41,8 +49,20 @@ namespace XJGUI
             base.previousValue = previousValue;
         }
 
-        protected override int CheckUpdate(IList<T> value1, IList<T> value2)
+        protected override int CheckUpdateForSync(IList<T> value1, IList<T> value2)
         {
+            if (value1.Count != value2.Count)
+            {
+                if (base.Sync)
+                {
+                    // throw exception.
+                }
+                else
+                {
+                    return -1;
+                }
+            }
+
             for (int i = 0; i < value1.Count; i++)
             {
                 if (!value1[i].Equals(value2[i]))

@@ -25,12 +25,12 @@ namespace XJGUI
         {
             T currentValue = this.gui.Show();
 
-            base.updateIndex = CheckUpdate(currentValue, previousValue);
+            base.updateIndex = CheckUpdateForSync(currentValue, previousValue);
 
             this.previousValue = currentValue;
         }
 
-        protected override int CheckUpdate(T value1, T value2)
+        protected override int CheckUpdateForSync(T value1, T value2)
         {
             return value1.Equals(value2) ? -1 : 0;
         }
