@@ -35,6 +35,7 @@ namespace XJGUI
             base.updateIndex = CheckUpdate(this.gui.Value, base.previousValue);
 
             T[] previousValue = new T[this.gui.Value.Count];
+
             this.gui.Value.CopyTo(previousValue, 0);
 
             base.previousValue = previousValue;

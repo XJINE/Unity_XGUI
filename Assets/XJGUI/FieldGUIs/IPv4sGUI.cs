@@ -34,7 +34,7 @@ namespace XJGUI.FieldGUIs
         public override void GetSyncValue(out int index, out string value)
         {
             index = base.updateIndex;
-            value = base.gui.Value[index];
+            value = index < 0 ? null : base.gui.Value[index];
         }
 
         #endregion Method
