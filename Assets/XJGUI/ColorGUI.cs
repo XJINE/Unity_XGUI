@@ -179,8 +179,6 @@ namespace XJGUI
             this.floatGUIB = new FloatGUI() { Title = "B" };
             this.floatGUIA = new FloatGUI() { Title = "A" };
 
-            this.backgroundTexture = UpdateBackgrondTexture(this.Value);
-
             // NOTE:
             // Use this.Property to update each FloatGUI.
 
@@ -208,7 +206,7 @@ namespace XJGUI
             Color backgroundColor = this.hsv ? Color.HSVToRGB(base.value.r, base.value.g, base.value.b) : base.value;
             backgroundColor.a = base.value.a;
 
-            UpdateBackgrondTexture(backgroundColor, this.backgroundTexture);
+            this.backgroundTexture = UpdateBackgrondTexture(backgroundColor, this.backgroundTexture);
             ColorGUI.ColorStyle.normal.background = this.backgroundTexture;
 
             GUILayout.Label("     ", ColorGUI.ColorStyle);
