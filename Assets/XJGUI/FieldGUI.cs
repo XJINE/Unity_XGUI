@@ -178,7 +178,7 @@ namespace XJGUI
                 if (type == typeof(Vector2)) { return FieldGUIType.Vector2; }
                 if (type == typeof(Vector3)) { return FieldGUIType.Vector3; }
                 if (type == typeof(Vector4)) { return FieldGUIType.Vector4; }
-                if (type == typeof(Color))   { return FieldGUIType.Color; }
+                if (type == typeof(Color))   { return FieldGUIType.Color;   }
             }
 
             if (type == typeof(string))
@@ -252,7 +252,8 @@ namespace XJGUI
 
             for (int i = 0; i < textLength - 1; i++)
             {
-                if (char.IsLower(text[i]) && (char.IsUpper(text[i + 1]) || char.IsDigit(text[i + 1])))
+                if ((char.IsLower(text[i]) && (char.IsUpper(text[i + 1]) || char.IsDigit(text[i + 1])))
+                 || (char.IsDigit(text[i]) && char.IsUpper(text[i + 1])))
                 {
                     text = text.Insert(i + 1, " ");
                 }
@@ -261,7 +262,7 @@ namespace XJGUI
             return char.ToUpper(text[0]) + text.Substring(1);
 
             // NOTE:
-            // This is not good. Only first character becomes uppercase.
+            // Following case is not good. Only first character becomes uppercase.
             // return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(text);
         }
 
