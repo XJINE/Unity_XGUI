@@ -157,7 +157,10 @@ namespace XJGUI
                     guiType = typeof(FieldGUIs.EnumGUI<>);
                     genericType = guiType.MakeGenericType(fieldInfo.FieldType);
                     return (FieldGUIBase)Activator.CreateInstance(genericType, data, fieldInfo, guiInfo);
-
+                case FieldGUIType.Enums:
+                    guiType = typeof(FieldGUIs.EnumsGUI<>);
+                    genericType = guiType.MakeGenericType(fieldInfo.FieldType.GetGenericArguments()[0]);
+                    return (FieldGUIBase)Activator.CreateInstance(genericType, data, fieldInfo, guiInfo);
                 default: return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiInfo);
             }
         }
@@ -181,15 +184,8 @@ namespace XJGUI
                 if (type == typeof(Color))   { return FieldGUIType.Color;   }
             }
 
-            if (type == typeof(string))
-            {
-                return FieldGUIType.String;
-            }
-
-            if (type.IsEnum)
-            {
-                return FieldGUIType.Enum;
-            }
+            if (type == typeof(string)) { return FieldGUIType.String; }
+            if (type.IsEnum)            { return FieldGUIType.Enum;   }
 
             if (fieldInfo.GetValue(data) is IList)
             {
@@ -223,6 +219,7 @@ namespace XJGUI
                 }
 
                 if (type == typeof(string)) { return FieldGUIType.Strings; }
+                if (type.IsEnum)            { return FieldGUIType.Enums;   }
             }
 
             return FieldGUIType.Unsupported;
