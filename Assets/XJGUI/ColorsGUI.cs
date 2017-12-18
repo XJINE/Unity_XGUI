@@ -39,7 +39,7 @@ namespace XJGUI
 
         #region Constructor
 
-        public ColorsGUI()
+        public ColorsGUI() : base()
         {
             base.minValue = XJGUILayout.DefaultMinValueColor;
             base.maxValue = XJGUILayout.DefaultMaxValueColor;

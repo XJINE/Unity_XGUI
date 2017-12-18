@@ -39,17 +39,17 @@ namespace XJGUI
 
         public FieldGUIInfo()
         {
-            this.Hide       = XJGUILayout.DefaultHide;
-            this.Sync       = XJGUILayout.DefaultSync;
             this.Title      = XJGUILayout.DefaultTitle;
             this.BoldTitle  = XJGUILayout.DefaultBoldTitle;
-            this.FieldWidth = XJGUILayout.DefaultFieldWidthString;
+            this.Decimals   = XJGUILayout.DefaultDecimals;
+            this.FieldWidth = XJGUILayout.DefaultFieldWidth;
             this.MinValue   = XJGUILayout.DefaultMinValueFloat;
             this.MaxValue   = XJGUILayout.DefaultMaxValueFloat;
             this.MinColor   = XJGUILayout.DefaultMinValueColor;
             this.MaxColor   = XJGUILayout.DefaultMaxValueColor;
-            this.Decimals   = XJGUILayout.DefaultDecimals;
             this.IPv4       = XJGUILayout.DefaultIPv4;
+            this.Hide       = XJGUILayout.DefaultHide;
+            this.Sync       = XJGUILayout.DefaultSync;
         }
 
         #endregion constructor

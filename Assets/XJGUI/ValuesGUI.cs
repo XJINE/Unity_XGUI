@@ -7,7 +7,7 @@
         protected T minValue;
         protected T maxValue;
         protected int decimals;
-        protected float textFieldWidth;
+        protected float fieldWidth;
         protected bool withSlider;
 
         #endregion Field
@@ -84,11 +84,11 @@
         {
             get
             {
-                return this.textFieldWidth;
+                return this.fieldWidth;
             }
             set
             {
-                this.textFieldWidth = value;
+                this.fieldWidth = value;
 
                 if (base.value == null || CheckGUIsUpdate())
                 {
@@ -134,7 +134,7 @@
             // this.minValue & this.maxValue are initialized in inherit constructor.
 
             this.decimals = XJGUILayout.DefaultDecimals;
-            this.textFieldWidth = XJGUILayout.DefaultFieldWidthValue;
+            this.fieldWidth = XJGUILayout.DefaultFieldWidth;
             this.withSlider = XJGUILayout.DefaultWithSlider;
         }
 

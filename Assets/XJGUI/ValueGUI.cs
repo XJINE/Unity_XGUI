@@ -11,7 +11,7 @@ namespace XJGUI
         protected T minValue;
         protected T maxValue;
         protected int decimals;
-        protected float textFieldWidth;
+        protected float fieldWidth;
         protected bool withSlider;
 
         #endregion Field
@@ -38,8 +38,8 @@ namespace XJGUI
 
         public virtual float FieldWidth
         {
-            get { return this.textFieldWidth; }
-            set { this.textFieldWidth = value; }
+            get { return this.fieldWidth; }
+            set { this.fieldWidth = value; }
         }
 
         public virtual bool WithSlider
@@ -58,7 +58,7 @@ namespace XJGUI
             // "minValue" & "maxValue" must be initialized in inheritance class.
 
             this.decimals = XJGUILayout.DefaultDecimals;
-            this.textFieldWidth = XJGUILayout.DefaultFieldWidthValue;
+            this.fieldWidth = XJGUILayout.DefaultFieldWidth;
             this.withSlider = XJGUILayout.DefaultWithSlider;
         }
 

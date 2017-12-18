@@ -11,7 +11,6 @@ namespace XJGUI
             this.Value = XJGUILayout.DefaultValueFloat;
             base.minValue = XJGUILayout.DefaultMinValueFloat;
             base.maxValue = XJGUILayout.DefaultMaxValueFloat;
-            base.decimals = XJGUILayout.DefaultDecimals;
         }
 
         #endregion Constructor

@@ -6,7 +6,7 @@ namespace XJGUI
     {
         #region Field
 
-        protected float textFieldWidth;
+        protected float fieldWidth;
 
         #endregion Field
 
@@ -14,8 +14,8 @@ namespace XJGUI
 
         public float FieldWidth
         {
-            get { return this.textFieldWidth; }
-            set { this.textFieldWidth = value; }
+            get { return this.fieldWidth; }
+            set { this.fieldWidth = value; }
         }
 
         #endregion Property
@@ -24,7 +24,8 @@ namespace XJGUI
 
         public StringGUI()
         {
-            this.textFieldWidth = XJGUILayout.DefaultFieldWidthString;
+            base.value = XJGUILayout.DefaultValueString;
+            this.fieldWidth = XJGUILayout.DefaultFieldWidth;
         }
 
         #endregion Constructor

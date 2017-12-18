@@ -4,7 +4,7 @@
     {
         #region Field
 
-        protected float textFieldWidth;
+        protected float fieldWidth;
 
         #endregion Field
 
@@ -12,11 +12,11 @@
         {
             get
             {
-                return this.textFieldWidth;
+                return this.fieldWidth;
             }
             set
             {
-                this.textFieldWidth = value;
+                this.fieldWidth = value;
 
                 if (base.value == null || CheckGUIsUpdate())
                 {
@@ -34,7 +34,7 @@
 
         public StringsGUI() : base()
         {
-            this.textFieldWidth = XJGUILayout.DefaultFieldWidthString;
+            this.fieldWidth = XJGUILayout.DefaultFieldWidth;
         }
 
         #endregion Constructor

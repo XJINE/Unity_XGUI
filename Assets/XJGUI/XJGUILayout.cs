@@ -26,21 +26,13 @@ public static class XJGUILayout
 
     #region ElementGUI/ValueGUI Settings
 
-    public static bool  DefaultWithSlider = true;
     public static int   DefaultDecimals = 2;
-    public static float DefaultButtonWidth = 150;
-    public static float DefaultFieldWidthValue = 100;
-    public static float DefaultFieldWidthString = 150;
+    public static float DefaultButtonWidth = 120;
+    public static float DefaultFieldWidth = 120;
+    public static bool  DefaultWithSlider = true;
     public static Color DefaultInvalidValueColor = new Color(1, 0, 0, 1);
 
     #endregion ElementGUI/ValueGUI Settings
-
-    #region FieldGUI Settings
-
-    public static bool DefaultHide = false;
-    public static bool DefaultHideUnsupportedGUI = true;
-
-    #endregion FieldGUI Settings
 
     #region Value Settings
 
@@ -51,6 +43,9 @@ public static class XJGUILayout
     public static float DefaultValueFloat = 0;
     public static float DefaultMinValueFloat = -50;
     public static float DefaultMaxValueFloat = 50;
+
+    public static bool DefaultValueBool = false;
+    public static string DefaultValueString = null;
 
     public static Vector2 DefaultValueVector2 = new Vector2(0, 0);
     public static Vector2 DefaultMinValueVector2 = new Vector2(-50, -50);
@@ -70,9 +65,16 @@ public static class XJGUILayout
     public static Color DefaultMaxValueColor = new Color(1, 1, 1, 1);
 
     public static bool   DefaultIPv4 = false;
-    public static string DefaultIPv4Value = "0.0.0.0";
+    public static string DefaultValueIPv4 = "0.0.0.0";
 
     #endregion Value Settings
+
+    #region FieldGUI Settings
+
+    public static bool DefaultHide = false;
+    public static bool DefaultHideUnsupportedGUI = true;
+
+    #endregion FieldGUI Settings
 
     #region Sync Settings
 

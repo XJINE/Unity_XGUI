@@ -12,7 +12,7 @@ namespace XJGUI
 
         // NOTE:
         // "text" must be initialized in inheritance class.
-        // (same as "value" initialize.)
+        // It is same as "value" initialize.In most cases, initialize with "Value" property.
 
         protected string text;
 

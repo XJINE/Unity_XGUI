@@ -32,7 +32,7 @@
             // NOTE:
             // "value" must be initialized in inheritance class.
 
-            this.title = null;
+            this.title = XJGUILayout.DefaultTitle;
         }
 
         #endregion Constructor

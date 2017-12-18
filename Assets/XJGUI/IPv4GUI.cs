@@ -43,7 +43,7 @@ namespace XJGUI
             const int IPV4_VALUE_MIN = 0;
             const int IPV4_VALUE_MAX = 255;
 
-            int[] defaultValue = ParseIPv4Text(XJGUILayout.DefaultIPv4Value);
+            int[] defaultValue = ParseIPv4Text(XJGUILayout.DefaultValueIPv4);
 
             this.x = new IntGUI()
             {
