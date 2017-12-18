@@ -100,39 +100,37 @@ namespace XJGUI
                 return this.Value;
             }
 
-            XJGUILayout.VerticalLayout(() =>
+            XJGUILayout.HorizontalLayout(() =>
             {
-                for (int i = 0; i < this.enumNames.Length; i++)
+                if(this.ButtonWidth > 0)
                 {
-                    if (i == this.selectedIndex)
-                    {
-                        continue;
-                    }
-
-                    bool buttonPressed = false;
-                    string buttonContent = this.enumNames[i];
-
-                    if (this.ButtonWidth <= 0)
-                    {
-                        buttonPressed = GUILayout.Button(buttonContent);
-                    }
-                    else
-                    {
-                        XJGUILayout.HorizontalLayout(() =>
-                        {
-                            GUILayout.FlexibleSpace();
-                            buttonPressed = GUILayout.Button(buttonContent, GUILayout.Width(this.ButtonWidth));
-                        });
-                    }
-
-                    if (buttonPressed)
-                    {
-                        this.selectedIndex = i;
-                        this.isEditing = false;
-                        base.value = (T)Enum.Parse(this.enumType, this.enumNames[i]);
-                    }
+                    GUILayout.FlexibleSpace();
                 }
-            }, GUI.skin.box);
+
+                XJGUILayout.VerticalLayout(() =>
+                {
+                    for (int i = 0; i < this.enumNames.Length; i++)
+                    {
+                        if (i == this.selectedIndex)
+                        {
+                            continue;
+                        }
+
+                        string buttonContent = this.enumNames[i];
+
+                        bool buttonPressed = this.ButtonWidth <= 0 ?
+                            GUILayout.Button(buttonContent) :
+                            GUILayout.Button(buttonContent, GUILayout.Width(this.ButtonWidth));
+
+                        if (buttonPressed)
+                        {
+                            this.selectedIndex = i;
+                            this.isEditing = false;
+                            base.value = (T)Enum.Parse(this.enumType, this.enumNames[i]);
+                        }
+                    }
+                }, GUI.skin.box);
+            });
 
             return base.Value;
         }
