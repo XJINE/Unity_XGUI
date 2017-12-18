@@ -21,12 +21,12 @@ namespace XJGUI.FieldGUIs
         {
             base.gui = new XJGUI.Vector3sGUI()
             {
-                Value     = (IList<Vector3>)base.fieldInfo.GetValue(base.data),
                 Title     = base.guiInfo.Title,
                 BoldTitle = base.guiInfo.BoldTitle,
                 MinValue  = new Vector3(base.guiInfo.MinValue, base.guiInfo.MinValue, base.guiInfo.MinValue),
                 MaxValue  = new Vector3(base.guiInfo.MaxValue, base.guiInfo.MaxValue, base.guiInfo.MaxValue),
                 Decimals  = base.guiInfo.Decimals,
+                Value     = (IList<Vector3>)base.fieldInfo.GetValue(base.data),
             };
         }
 

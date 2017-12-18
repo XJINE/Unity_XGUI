@@ -17,7 +17,7 @@ public class CustomNetworkManagerSample : MonoBehaviour
 
     protected virtual void Start()
     {
-        CustomNetworkManager.singleton.networkAddress = this.networkAddress;
+        //CustomNetworkManager.singleton.networkAddress = this.networkAddress;
         CustomNetworkManager.singleton.networkPort = this.networkPort;
     }
 

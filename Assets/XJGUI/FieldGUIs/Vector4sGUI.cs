@@ -21,12 +21,12 @@ namespace XJGUI.FieldGUIs
         {
             base.gui = new XJGUI.Vector4sGUI()
             {
-                Value     = (IList<Vector4>)base.fieldInfo.GetValue(base.data),
                 Title     = base.guiInfo.Title,
                 BoldTitle = base.guiInfo.BoldTitle,
                 MinValue  = new Vector4(base.guiInfo.MinValue, base.guiInfo.MinValue, base.guiInfo.MinValue, base.guiInfo.MinValue),
                 MaxValue  = new Vector4(base.guiInfo.MaxValue, base.guiInfo.MaxValue, base.guiInfo.MaxValue, base.guiInfo.MaxValue),
                 Decimals  = base.guiInfo.Decimals,
+                Value     = (IList<Vector4>)base.fieldInfo.GetValue(base.data),
             };
         }
 

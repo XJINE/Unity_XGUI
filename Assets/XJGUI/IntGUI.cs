@@ -24,9 +24,12 @@ namespace XJGUI
 
         public IntGUI() : base()
         {
-            this.Value = XJGUILayout.DefaultValueInt;
+            // NOTE:
+            // Set min/max value first. If not, "Value" will collect with min/ max value 0.
+
             base.minValue = XJGUILayout.DefaultMinValueInt;
             base.maxValue = XJGUILayout.DefaultMaxValueInt;
+            this.Value = XJGUILayout.DefaultValueInt;
         }
 
         #endregion Constructor

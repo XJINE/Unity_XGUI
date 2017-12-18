@@ -20,11 +20,11 @@ namespace XJGUI.FieldGUIs
         {
             base.gui = new XJGUI.IntsGUI()
             {
-                Value     = (IList<int>)base.fieldInfo.GetValue(base.data),
                 Title     = base.guiInfo.Title,
                 BoldTitle = base.guiInfo.BoldTitle,
                 MinValue  = (int)base.guiInfo.MinValue,
                 MaxValue  = (int)base.guiInfo.MaxValue,
+                Value     = (IList<int>)base.fieldInfo.GetValue(base.data),
             };
         }
 

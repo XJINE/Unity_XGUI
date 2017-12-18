@@ -8,9 +8,12 @@ namespace XJGUI
 
         public FloatGUI() : base()
         {
-            this.Value = XJGUILayout.DefaultValueFloat;
+            // NOTE:
+            // Set min/max value first. If not, "Value" will collect with min/ max value 0.
+
             base.minValue = XJGUILayout.DefaultMinValueFloat;
             base.maxValue = XJGUILayout.DefaultMaxValueFloat;
+            this.Value = XJGUILayout.DefaultValueFloat;
         }
 
         #endregion Constructor

@@ -20,9 +20,9 @@ namespace XJGUI.FieldGUIs
         {
             base.gui = new XJGUI.IPv4sGUI()
             {
-                Value     = (IList<string>)base.fieldInfo.GetValue(base.data),
                 Title     = base.guiInfo.Title,
                 BoldTitle = base.guiInfo.BoldTitle,
+                Value     = (IList<string>)base.fieldInfo.GetValue(base.data),
             };
         }
 
