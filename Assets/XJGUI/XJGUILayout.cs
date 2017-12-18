@@ -5,8 +5,6 @@ public static class XJGUILayout
 {
     #region Field
 
-    public static Texture2D TransparentTexture;
-
     #region FlexibleWindow Settings
 
     public static string DefaultWindowTitle = null;
@@ -85,15 +83,6 @@ public static class XJGUILayout
 
     #endregion Field
 
-    #region Constructor
-
-    static XJGUILayout()
-    {
-        XJGUILayout.TransparentTexture = GenerateBackgroundTexture(Color.clear);
-    }
-
-    #endregion Constructor
-
     #region Method
 
     public static void HorizontalLayout(Action guiAction, GUIStyle style = null)
@@ -128,7 +117,7 @@ public static class XJGUILayout
         GUILayout.EndVertical();
     }
 
-    private static Texture2D GenerateBackgroundTexture(Color color)
+    internal static Texture2D Generate1x1Texture(Color color)
     {
         // CAUTION:
         // Do not generate Texture2D (or any other resources) in constructor.

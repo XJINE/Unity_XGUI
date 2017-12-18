@@ -25,20 +25,9 @@ namespace XJGUI
             {
                 TabPanel.ButtonStyle = new GUIStyle(GUI.skin.button);
 
-                if (GUI.skin.label.normal.background == null)
-                {
-                    TabPanel.ButtonStyle.onNormal.background = XJGUILayout.TransparentTexture;
-                }
-                else
-                {
-                    TabPanel.ButtonStyle.onNormal.background = GUI.skin.label.normal.background;
-                }
+                TabPanel.ButtonStyle.onNormal.background
+                    = XJGUILayout.Generate1x1Texture(Color.clear);
             }
-
-            //if (functions.Length != this.labels.Length)
-            //{
-            //    throw new Exception(string.Format(ErrorMessage.DifferentDataLengthError, functions, this.labels));
-            //}
 
             XJGUILayout.VerticalLayout((Action)(()=> 
             {
