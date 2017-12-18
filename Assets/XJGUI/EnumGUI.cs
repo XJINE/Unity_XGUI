@@ -58,6 +58,8 @@ namespace XJGUI
 
         public EnumGUI() : base()
         {
+            this.buttonWidth = XJGUILayout.DefaultButtonWidth;
+
             this.enumType = typeof(T);
 
             if (!this.enumType.IsEnum)
@@ -80,16 +82,25 @@ namespace XJGUI
                 EnumGUI<T>.ButtonStyle.normal = GUI.skin.button.active;
             }
 
+            // Selected Element
+
             XJGUILayout.HorizontalLayout(() =>
             {
                 base.ShowTitle();
 
                 string buttonContent = this.enumNames[this.selectedIndex];
-
                 GUIStyle buttonStyle = this.isEditing ? EnumGUI<T>.ButtonStyle : GUI.skin.button;
 
-                if (this.ButtonWidth <= 0 ? GUILayout.Button(buttonContent, buttonStyle)
-                                          : GUILayout.Button(buttonContent, buttonStyle, GUILayout.Width(this.ButtonWidth)))
+                if (this.ButtonWidth > 0)
+                {
+                    GUILayout.FlexibleSpace();
+                }
+
+                bool buttonPressed = this.ButtonWidth <= 0 ?
+                    GUILayout.Button(buttonContent, buttonStyle) :
+                    GUILayout.Button(buttonContent, buttonStyle, GUILayout.Width(this.ButtonWidth));
+
+                if (buttonPressed)
                 {
                     this.isEditing = !this.isEditing;
                 }
@@ -99,6 +110,8 @@ namespace XJGUI
             {
                 return this.Value;
             }
+
+            // Other Element
 
             XJGUILayout.HorizontalLayout(() =>
             {

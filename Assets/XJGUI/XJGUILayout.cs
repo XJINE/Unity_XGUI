@@ -26,11 +26,12 @@ public static class XJGUILayout
 
     #region ElementGUI/ValueGUI Settings
 
-    public static bool   DefaultWithSlider = true;
-    public static int    DefaultDecimals = 2;
-    public static float  DefaultFieldWidthValue = 100;
-    public static float  DefaultFieldWidthString = 150;
-    public static Color  DefaultInvalidValueColor = new Color(1, 0, 0, 1);
+    public static bool  DefaultWithSlider = true;
+    public static int   DefaultDecimals = 2;
+    public static float DefaultButtonWidth = 150;
+    public static float DefaultFieldWidthValue = 100;
+    public static float DefaultFieldWidthString = 150;
+    public static Color DefaultInvalidValueColor = new Color(1, 0, 0, 1);
 
     #endregion ElementGUI/ValueGUI Settings
 
