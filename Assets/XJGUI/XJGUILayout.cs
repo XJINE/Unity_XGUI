@@ -27,8 +27,8 @@ public static class XJGUILayout
     #region ElementGUI/ValueGUI Settings
 
     public static int   DefaultDecimals = 2;
-    public static float DefaultButtonWidth = 120;
-    public static float DefaultFieldWidth = 120;
+    public static float DefaultButtonWidth = 100;
+    public static float DefaultFieldWidth = 100;
     public static bool  DefaultWithSlider = true;
     public static Color DefaultInvalidValueColor = new Color(1, 0, 0, 1);
 
