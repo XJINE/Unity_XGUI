@@ -2,7 +2,7 @@
 using UnityEngine;
 using XJGUI;
 
-public class ValuesSample : MonoBehaviour
+public class Sample06_Values : MonoBehaviour
 {
     // CAUTION:
     // IList type GUI cannot detect some array length is changed from Inspector.

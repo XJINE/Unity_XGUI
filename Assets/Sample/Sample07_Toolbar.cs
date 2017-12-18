@@ -2,7 +2,7 @@
 using UnityEngine;
 using XJGUI;
 
-public class Sample05_Toolbar : MonoBehaviour
+public class Sample07_Toolbar : MonoBehaviour
 {
     // NOTE:
     // Toolbar return selected index value.
