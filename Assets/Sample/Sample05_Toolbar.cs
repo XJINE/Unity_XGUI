@@ -1,18 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using XJGUI;
 
 public class Sample05_Toolbar : MonoBehaviour
 {
+    // NOTE:
+    // Toolbar return selected index value.
+    // However, in almost case, I think you should use
+    // Enum & EnumGUI to switch your operation or any others.
+    // This GUI is implemented for standard GUILayout.Toolbar user.
+
     #region Class
 
-    public enum SampleEnum
+    public class SampleClass
     {
-        value1, value2, value3, value4, value5, value6, value7, value8, value9, value0
-    }
+        public string name;
 
-    public class SampleClass { }
+        public override string ToString() { return name; }
+    }
 
     #endregion Class
 
@@ -20,14 +25,25 @@ public class Sample05_Toolbar : MonoBehaviour
 
     FlexibleWindow flexibleWindow;
     Toolbar<int> toolbarInt;
-    Toolbar<SampleEnum> toolbarEnum;
-    Toolbar<SampleClass> toolbarSampleClass;
+    Toolbar<CameraClearFlags> toolbarEnum;
+    Toolbar<SampleClass> toolbarObject;
 
-    int[] toolbarIntValues = new int[] { 0, 5, 10, 15 };
-    List<SampleClass> toolbarSampleClassValues = new List<SampleClass>()
+    CameraClearFlags currentEnum;
+    CameraClearFlags[] enumValues = new CameraClearFlags[] { CameraClearFlags.Color,
+                                                             CameraClearFlags.Depth,
+                                                             CameraClearFlags.Nothing };
+    SampleClass currentObject;
+    List<SampleClass> objectValues = new List<SampleClass>()
     {
-        new SampleClass(), new SampleClass(), new SampleClass()
+        new SampleClass() { name = "ObjectA" },
+        new SampleClass() { name = "ObjectB" },
+        new SampleClass() { name = "ObjectC" }
     };
+
+    int currentInt;
+    int[] intValues = new int[] {  2,  3,  5,  7,
+                                  11, 13, 17, 19,
+                                  23, 29, 31, 37 };
 
     #endregion Field
 
@@ -37,24 +53,30 @@ public class Sample05_Toolbar : MonoBehaviour
     {
         this.flexibleWindow = new FlexibleWindow();
 
+        this.currentEnum = CameraClearFlags.Depth;
+        this.toolbarEnum = new Toolbar<CameraClearFlags>()
+        {
+            Title = "Toolbar Enum",
+            Value = this.currentEnum,
+            Values = this.enumValues,
+        };
+
+        this.currentObject = this.objectValues[2];
+        this.toolbarObject = new Toolbar<SampleClass>()
+        {
+            Title = "Toolbar Sample Class",
+            Value = this.currentObject,
+            Values = this.objectValues
+        };
+
+        this.currentInt = this.intValues[1];
         this.toolbarInt = new Toolbar<int>()
         {
             Title = "Toolbar Int",
-            Values = this.toolbarIntValues
-        };
-
-        this.toolbarEnum = new Toolbar<SampleEnum>()
-        {
-            Title = "Toolbar Enum",
-            GridX = 3,
-            //Values = Enum.GetValues(typeof(SampleEnum)),
+            Value = this.currentInt,
+            Values = this.intValues,
+            GridX = 4,
             Foldout = true
-        };
-
-        this.toolbarSampleClass = new Toolbar<SampleClass>()
-        {
-            Title = "Toolbar Sample Class",
-            Values = this.toolbarSampleClassValues,
         };
     }
 
@@ -62,10 +84,14 @@ public class Sample05_Toolbar : MonoBehaviour
     {
         this.flexibleWindow.Show(() =>
         {
-            this.toolbarInt.Show();
-            this.toolbarEnum.Show();
-            this.toolbarSampleClass.Show();
+            this.currentEnum = this.toolbarEnum.Show();
+            this.currentObject = this.toolbarObject.Show();
+            this.currentInt = this.toolbarInt.Show();
         });
+
+        Debug.Log(currentEnum.ToString() + " / "
+                + currentObject.ToString() + " / "
+                + currentInt.ToString());
     }
 
     #endregion Method

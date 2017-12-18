@@ -85,8 +85,8 @@ namespace XJGUI
                 }
                 else
                 {
-                    this.value = this.values.IndexOf(this.value) == -1 ?
-                                 this.values[0] : this.value;
+                    base.value = this.values.IndexOf(base.value) == -1 ?
+                                 this.values[0] : base.value;
                     UpdateLabels();
                 }
             }
@@ -116,51 +116,50 @@ namespace XJGUI
 
         public override T Show()
         {
-            if (this.Values == null || this.Values.Count == 0)
+            if (this.values == null || this.values.Count == 0)
             {
-                GUILayout.Label("Values Has No Item. Value Shows Default.");
+                GUILayout.Label("Values has no item. Return value shows default.");
 
                 base.value = default(T);
 
                 return default(T);
             }
 
-            int valueIndex = this.Values.IndexOf(this.Value);
+            int index = this.values.IndexOf(base.value);
 
-            if (base.Value == null || valueIndex == -1)
+            if (base.value == null || index == -1)
             {
-                valueIndex = 0;
-                base.Value = this.Values[0];
+                index = 0;
+                base.value = this.values[0];
             }
 
-            if (this.Values.Count != this.labels.Length)
+            if (this.values.Count != this.labels.Length)
             {
                 UpdateLabels();
             }
 
             XJGUILayout.VerticalLayout(()=>
             {
-                int index = 0;
-                int gridx = this.GridX <= 0 ? this.Values.Count : this.GridX;
+                int gridx = this.GridX <= 0 ? this.values.Count : this.GridX;
 
                 if (this.Foldout)
                 {
                     this.foldoutPanel.Show(() => 
                     {
-                        index = GUILayout.SelectionGrid(valueIndex, this.labels, gridx);
+                        index = GUILayout.SelectionGrid(index, this.labels, gridx);
                     });
                 }
                 else
                 {
                     base.ShowTitle();
 
-                    index = GUILayout.SelectionGrid(valueIndex, this.labels, gridx);
+                    index = GUILayout.SelectionGrid(index, this.labels, gridx);
                 }
 
-                base.Value = this.Values[index];
+                base.value = this.values[index];
             });
 
-            return base.Value;
+            return base.value;
         }
 
         protected void UpdateLabels()
@@ -170,9 +169,6 @@ namespace XJGUI
 
             for (int i = 0; i < valuesCount; i++)
             {
-                // NOTE:
-                // C# ver.6 gets 'nameof' syntax.
-
                 if (typeof(T).IsClass)
                 {
                     this.labels[i] = this.Values[i].GetType().Name + i;
