@@ -51,18 +51,6 @@ namespace XJGUI
 
         protected override int CheckUpdateForSync(IList<T> value1, IList<T> value2)
         {
-            if (value1.Count != value2.Count)
-            {
-                if (base.Sync)
-                {
-                    // throw exception.
-                }
-                else
-                {
-                    return -1;
-                }
-            }
-
             for (int i = 0; i < value1.Count; i++)
             {
                 if (!value1[i].Equals(value2[i]))
