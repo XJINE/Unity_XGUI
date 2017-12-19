@@ -2,19 +2,22 @@
 using UnityEngine;
 using XJGUI;
 
-public class FieldGUISyncSample : MonoBehaviour
+public class Sample09_FieldGUISync : MonoBehaviour
 {
     #region Field
 
     public FieldGUISync FieldGUISync;
 
-    [FieldGUIInfo(Hide = true)]
     public FlexibleWindow flexWindow = new FlexibleWindow();
 
     protected FieldGUI fieldGUI;
 
     [FieldGUIInfo(Title = "Hide UnsupportedGUI")]
     public bool boolValue = true;
+
+    // NOTE:
+    // If you want to sync a field, set Sync = true (default). And if not, set false.
+    // If you want to change default setting, set XJGUILayout.DefaultSync = false.
 
     [FieldGUIInfo(Sync = true)]
     public string stringValue1 = "Sync";
@@ -59,24 +62,14 @@ public class FieldGUISyncSample : MonoBehaviour
         this.fieldGUI = new FieldGUI();
         this.fieldGUI.Value = this;
 
+        // NOTE:
+        // If you want to sync FieldGUI values, add to FieldGUISync.
+
         this.FieldGUISync.Add(this.fieldGUI);
-
-        this.flexWindow.MinWidth = 300;
-        this.flexWindow.MinHeight = 300;
-    }
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            this.flexWindow.IsVisible = !this.flexWindow.IsVisible;
-        }
     }
 
     void OnGUI()
     {
-        this.fieldGUI.HideUnsupportedGUI = this.boolValue;
-
         this.flexWindow.Show(() =>
         {
             this.fieldGUI.Show();

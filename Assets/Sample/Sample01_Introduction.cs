@@ -14,10 +14,10 @@ public class Sample01_Introduction : MonoBehaviour
     {
         // NOTE:
         // Any other settings.
-        //this.flexibleWindow.IsVisible
-        //this.flexibleWindow.IsDraggable
-        //this.flexibleWindow.MinHeight/MaxHeight
-        //this.flexibleWindow.MinWidth/MaxWidth
+        // this.flexibleWindow.IsVisible
+        // this.flexibleWindow.IsDraggable
+        // this.flexibleWindow.MinHeight/MaxHeight
+        // this.flexibleWindow.MinWidth/MaxWidth
 
         this.flexibleWindow = new FlexibleWindow();
         this.flexibleWindow.Title = "Sample01";
@@ -41,15 +41,26 @@ public class Sample01_Introduction : MonoBehaviour
         };
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            this.flexibleWindow.IsVisible = !this.flexibleWindow.IsVisible;
+        }
+    }
+
     void OnGUI()
     {
         this.flexibleWindow.Show(() =>
         {
             // NOTE:
-            // You can receive the result of GUI operation as return value.
+            // You can get the result of GUI operation as return value.
+            // Or Value property is also show the result.
 
             this.intValue = this.intGUI.Show();
-            this.floatValue = this.floatGUI.Show();
+
+            this.floatGUI.Show();
+            this.floatValue = this.floatGUI.Value;
         });
     }
 }

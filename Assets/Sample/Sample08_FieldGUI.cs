@@ -2,13 +2,22 @@
 using UnityEngine;
 using XJGUI;
 
-public class FieldGUISample : MonoBehaviour
+public class Sample08_FieldGUI : MonoBehaviour
 {
+    // NOTE:
+    // FieldGUI generates and shows GUI automatically.
+    // Public and supported type fields are shown.
+    // Supported types are introduced in previous samples.
+
     #region Field
 
     public FlexibleWindow flexWindow = new FlexibleWindow();
 
     public FieldGUI fieldGUI;
+
+    // NOTE:
+    // You can set some settings with Attribute.
+    // If you want to hide some field from FieldGUI, use "Hide" option.
 
     [FieldGUIInfo(Title = "Hide UnsupportedGUI")]
     public bool boolValue = false;
@@ -43,14 +52,17 @@ public class FieldGUISample : MonoBehaviour
 
     void Start()
     {
-        this.flexWindow.MinWidth = 300;
-        this.flexWindow.MinHeight = 300;
         this.fieldGUI = new FieldGUI();
         this.fieldGUI.Value = this;
     }
 
     void OnGUI()
     {
+        // NOTE:
+        // This sample set "this" instance to FieldGUI.Value, so fields include "flexWindow" & "fieldGUI".
+        // These are unsupported value. FieldGUI default setting generates "UnsupportedGUI" & hide them.
+        // If you need to check them, set HideUnsupportedGUI option false.
+
         this.fieldGUI.HideUnsupportedGUI = this.boolValue;
 
         this.flexWindow.Show(() =>

@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 1423871382}
   - component: {fileID: 1423871384}
   m_Layer: 0
-  m_Name: FieldGUISample
+  m_Name: Sample08_FieldGUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
