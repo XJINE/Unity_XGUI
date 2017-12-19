@@ -35,7 +35,7 @@ namespace XJGUI.FieldGUIs
 
             for (int i = 0; i < tempValues.Length; i++)
             {
-                values.Add((T)Enum.Parse(typeof(T), value));
+                values.Add((T)Enum.Parse(typeof(T), tempValues[i]));
             }
 
             if (base.gui.Value.GetType().IsArray)

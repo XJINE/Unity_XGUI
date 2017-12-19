@@ -10,7 +10,8 @@ public class FieldGUIExam : MonoBehaviour
     public FieldGUI fieldGUI;
     public FieldGUISync fieldGUISync;
 
-    public List<bool>boolList = new List<bool> { true, false, false };
+    public List<CameraClearFlags>enums = new List<CameraClearFlags>
+    { CameraClearFlags.Color, CameraClearFlags.Color, CameraClearFlags.Color };
 
     #endregion Field
 
@@ -22,8 +23,6 @@ public class FieldGUIExam : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-            this.boolList.Add(false);
     }
 
     void OnGUI()
