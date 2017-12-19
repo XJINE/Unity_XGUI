@@ -20,8 +20,8 @@ public class Sample06_Values : MonoBehaviour
     Vector2sGUI vector2sGUI;
 
     ColorsGUI colorsGUI;
-    EnumsGUI<CameraClearFlags> enumsGUI;
     IPv4sGUI ipv4sGUI;
+    EnumsGUI<CameraClearFlags> enumsGUI;
 
     public List<bool> boolList;
     public string[] stringArray;
@@ -31,8 +31,8 @@ public class Sample06_Values : MonoBehaviour
     public List<Vector2> vector2Array;
 
     public List<Color> colorList;
-    public CameraClearFlags[] enumsArray;
     public string[] ipv4Array;
+    public CameraClearFlags[] enumsArray;
 
     #endregion Field
 
@@ -51,8 +51,8 @@ public class Sample06_Values : MonoBehaviour
         this.stringsGUI = new StringsGUI()
         {
             Title = "String Array",
-            Value = this.stringArray
         };
+        this.stringsGUI.Value = this.stringArray;
 
         this.intsGUI = new IntsGUI()
         {
@@ -65,18 +65,16 @@ public class Sample06_Values : MonoBehaviour
         this.floatsGUI = new FloatsGUI()
         {
             Title = "Float Array",
-            MinValue = -1,
-            MaxValue = 10
+            Value = this.floatArray,
         };
-        this.floatsGUI.Value = this.floatArray;
 
         this.vector2sGUI = new Vector2sGUI()
         {
             Title = "Vector2 Array",
             MinValue = new Vector2(-10, -10),
-            MaxValue = new Vector2(10, 10)
+            MaxValue = new Vector2(10, 10),
+            Value = this.vector2Array
         };
-        this.vector2sGUI.Value = this.vector2Array;
 
         this.colorsGUI = new ColorsGUI()
         {
@@ -84,16 +82,16 @@ public class Sample06_Values : MonoBehaviour
             Value = this.colorList
         };
 
-        this.enumsGUI = new EnumsGUI<CameraClearFlags>()
-        {
-            Title = "Enums",
-            Value = this.enumsArray,
-        };
-
         this.ipv4sGUI = new IPv4sGUI()
         {
             Title = "IPv4s",
             Value = this.ipv4Array,
+        };
+
+        this.enumsGUI = new EnumsGUI<CameraClearFlags>()
+        {
+            Title = "Enums",
+            Value = this.enumsArray,
         };
     }
 
@@ -109,8 +107,8 @@ public class Sample06_Values : MonoBehaviour
             this.vector2sGUI.Show();
 
             this.colorsGUI.Show();
-            this.enumsGUI.Show();
             this.ipv4sGUI.Show();
+            this.enumsGUI.Show();
         });
     }
 
