@@ -12,6 +12,10 @@ public class FieldGUISync : NetworkBehaviour
     // user have to solve the problem about MsgType conflict. That is nonsense.
     // (By the way, SyncList use msg inside it!)
 
+    // CAUTION:
+    // "SyncList not Initialized" error is not depend on connection type such as Server or Client.
+    // Even if Client access some SyncList, it is not occurs.
+
     #region Field
 
     protected List<FieldGUI> fieldGUIs = new List<FieldGUI>();
@@ -26,7 +30,7 @@ public class FieldGUISync : NetworkBehaviour
         this.syncList.Callback += OnSyncListUpdated;
     }
 
-    public void Update()
+    protected void Update()
     {
         if (this.fieldGUIs.Count == 0)
         {
@@ -52,9 +56,9 @@ public class FieldGUISync : NetworkBehaviour
                 // NOTE:
                 // If use "isClient", Host is also ignored.
 
-                if (!this.isServer)
+                if (!base.isServer)
                 {
-                    continue;
+                    return;
                 }
 
                 // NOTE:
@@ -75,6 +79,21 @@ public class FieldGUISync : NetworkBehaviour
         }
     }
 
+    protected void OnEnable()
+    {
+        // CAUTION:
+        // In Editor, NetworkBehaviour.OnEnable is called before connect network.
+        // However, in build application, OnEnable is called when connect network.
+
+        //for (int i = 0; i < this.fieldGUIs.Count; i++)
+        //{
+        //    for (int j = 0; j < this.fieldGUIs[i].GUIs.Count; j++)
+        //    {
+        //        this.syncList.Add("");
+        //    }
+        //}
+    }
+
     protected void OnDisable()
     {
         for (int i = 0; i < this.fieldGUIs.Count; i++)
@@ -88,7 +107,25 @@ public class FieldGUISync : NetworkBehaviour
 
     public void Add(FieldGUI fieldGUI)
     {
+        //if (this.fieldGUIs.Contains(fieldGUI))
+        //{
+        //    return;
+        //}
+
         this.fieldGUIs.Add(fieldGUI);
+
+        // CAUTION:
+        // If already start as Server, add new data to this.syncList.
+        // When network not start, base.isServer always returns false.
+        // So in such case, initialize syncList in OnEnable function.
+        // It called when start as Client or Server(Host).
+        // 
+        // This error is not appear in Editor, only in build application.
+
+        //if (!base.isServer)
+        //{
+        //    return;
+        //}
 
         for (int i = 0; i < fieldGUI.GUIs.Count; i++)
         {
