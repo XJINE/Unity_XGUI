@@ -39,8 +39,8 @@ public class Sample06_FoldoutTabPanel : MonoBehaviour
         this.boolGUI = new BoolGUI() { Title = "Bool Value" };
 
         this.vector2GUI = new Vector2GUI() { Title = "Vector2 Value" };
-        this.vector3GUI = new Vector3GUI() { Title = "Vector2 Value" };
-        this.vector4GUI = new Vector4GUI() { Title = "Vector2 Value" };
+        this.vector3GUI = new Vector3GUI() { Title = "Vector3 Value" };
+        this.vector4GUI = new Vector4GUI() { Title = "Vector4 Value" };
 
         this.ipv4GUI = new IPv4GUI() { Title = "IPv4 Value" };
         this.colorGUI = new ColorGUI() { Title = "Color Value" };

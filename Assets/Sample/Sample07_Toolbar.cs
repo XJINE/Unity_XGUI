@@ -25,13 +25,13 @@ public class Sample07_Toolbar : MonoBehaviour
 
     FlexibleWindow flexibleWindow;
     Toolbar<int> toolbarInt;
-    Toolbar<CameraClearFlags> toolbarEnum;
+    Toolbar<CameraType> toolbarEnum;
     Toolbar<SampleClass> toolbarObject;
 
-    CameraClearFlags currentEnum;
-    CameraClearFlags[] enumValues = new CameraClearFlags[] { CameraClearFlags.Color,
-                                                             CameraClearFlags.Depth,
-                                                             CameraClearFlags.Nothing };
+    CameraType currentEnum;
+    CameraType[] enumValues = new CameraType[] { CameraType.Game,
+                                                 CameraType.VR,
+                                                 CameraType.SceneView };
     SampleClass currentObject;
     List<SampleClass> objectValues = new List<SampleClass>()
     {
@@ -53,8 +53,8 @@ public class Sample07_Toolbar : MonoBehaviour
     {
         this.flexibleWindow = new FlexibleWindow();
 
-        this.currentEnum = CameraClearFlags.Depth;
-        this.toolbarEnum = new Toolbar<CameraClearFlags>()
+        this.currentEnum = CameraType.Game;
+        this.toolbarEnum = new Toolbar<CameraType>()
         {
             Title = "Toolbar Enum",
             Value = this.currentEnum,

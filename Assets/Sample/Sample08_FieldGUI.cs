@@ -42,8 +42,8 @@ public class Sample08_FieldGUI : MonoBehaviour
 
     public List<Vector3> vector3Values = new List<Vector3>() { Vector3.one, Vector3.up, Vector3.back };
 
-    [FieldGUIInfo(Title = "Camera Clear Enum")]
-    public CameraClearFlags enumValue = CameraClearFlags.Skybox;
+    [FieldGUIInfo(Title = "Camera Type Enum")]
+    public CameraType enumValue = CameraType.Game;
 
     [FieldGUIInfo(IPv4 = true)]
     public string ipV4Value = "0.7.7.7";

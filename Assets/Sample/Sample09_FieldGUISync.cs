@@ -47,11 +47,11 @@ public class Sample09_FieldGUISync : MonoBehaviour
     [FieldGUIInfo(HSV = true)]
     public List<Color> colorValues = new List<Color>() { Color.red, Color.green, Color.blue };
 
-    [FieldGUIInfo(Title = "Camera Clear Enum")]
-    public CameraClearFlags enumValue = CameraClearFlags.Skybox;
+    [FieldGUIInfo(Title = "Camera Type Enum")]
+    public CameraType enumValue = CameraType.Game;
 
-    public List<CameraClearFlags> enumValues
-        = new List<CameraClearFlags>() { CameraClearFlags.Color, CameraClearFlags.Depth };
+    public List<CameraType> enumValues
+        = new List<CameraType>() { CameraType.Preview, CameraType.VR };
 
     [FieldGUIInfo(IPv4 = true)]
     public string ipv4Value = "0.7.7.7";

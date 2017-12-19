@@ -7,12 +7,12 @@ public class Sample04_VariouslTypes : MonoBehaviour
 
     private ColorGUI colorGUI;
     private ColorGUI colorGUIHSV;
-    private EnumGUI<CameraClearFlags> enumGUI;
+    private EnumGUI<CameraType> enumGUI;
     private IPv4GUI ipv4GUI;
 
     public Color colorValue;
     public Color colorValueHSV;
-    public CameraClearFlags enumValue;
+    public CameraType enumValue;
     public string ipv4Value;
 
     void Start()
@@ -32,7 +32,7 @@ public class Sample04_VariouslTypes : MonoBehaviour
             HSV   = true
         };
 
-        this.enumGUI = new EnumGUI<CameraClearFlags>()
+        this.enumGUI = new EnumGUI<CameraType>()
         {
             Title = "Enum Value",
             Value = this.enumValue

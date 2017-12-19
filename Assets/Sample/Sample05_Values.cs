@@ -21,7 +21,7 @@ public class Sample05_Values : MonoBehaviour
 
     ColorsGUI colorsGUI;
     IPv4sGUI ipv4sGUI;
-    EnumsGUI<CameraClearFlags> enumsGUI;
+    EnumsGUI<CameraType> enumsGUI;
 
     public List<bool> boolList;
     public string[] stringArray;
@@ -32,7 +32,7 @@ public class Sample05_Values : MonoBehaviour
 
     public List<Color> colorList;
     public string[] ipv4Array;
-    public CameraClearFlags[] enumsArray;
+    public CameraType[] enumsArray;
 
     #endregion Field
 
@@ -88,7 +88,7 @@ public class Sample05_Values : MonoBehaviour
             Value = this.ipv4Array,
         };
 
-        this.enumsGUI = new EnumsGUI<CameraClearFlags>()
+        this.enumsGUI = new EnumsGUI<CameraType>()
         {
             Title = "Enums",
             Value = this.enumsArray,
