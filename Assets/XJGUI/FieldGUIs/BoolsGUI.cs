@@ -27,21 +27,44 @@ namespace XJGUI.FieldGUIs
             };
         }
 
-        public override void SetSyncValue(int index, string value)
+        public override void SetSyncValue(string value)
         {
-            DebugEx.Log("HERE1 : " + base.gui.Value + " / " + base.gui.Value[0]);
+            string[] tempValues = value.Split(',');
 
-            base.fieldInfo.SetValue(base.data, new List<bool>() { false, false, false });
-            ((ElementsGUI<bool>)base.gui).Value = new List<bool>() { false, false, false };
-            //((ElementsGUI<bool>)base.gui).SetValue(index, Convert.ToBoolean(value));
+            List<bool> values = new List<bool>();
 
-            DebugEx.Log("HERE2 : " + base.gui.Value + " / " + base.gui.Value[0]);
+            for (int i = 0; i < tempValues.Length; i++)
+            {
+                values.Add(Convert.ToBoolean(tempValues[i]));
+            }
+
+            if (base.gui.Value.GetType().IsArray)
+            {
+                base.gui.Value = values.ToArray();
+            }
+            else
+            {
+                base.gui.Value = new List<bool>(values);
+            }
+
+            base.Save();
         }
 
-        public override void GetSyncValue(out int index, out string value)
+        public override string GetSyncValue()
         {
-            index = base.updateIndex;
-            value = index < 0 ? null : base.gui.Value[index].ToString();
+            if (!base.updated)
+            {
+                return null;
+            }
+
+            string value = "";
+
+            for (int i = 0; i < base.gui.Value.Count; i++)
+            {
+                value += base.gui.Value[i].ToString() + ",";
+            }
+
+            return value.TrimEnd(',');
         }
 
         #endregion Method

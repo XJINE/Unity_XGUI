@@ -6,7 +6,7 @@ public class Sample06_Values : MonoBehaviour
 {
     // CAUTION:
     // IList type GUI cannot detect some array length is changed from Inspector.
-    // (List length change is able to detect.)
+    // (List length changing is able to detect.)
 
     #region Field
 

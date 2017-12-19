@@ -29,15 +29,44 @@ namespace XJGUI.FieldGUIs
             };
         }
 
-        public override void SetSyncValue(int index, string value)
+        public override void SetSyncValue(string value)
         {
-            ((ValuesGUI<float>)base.gui).SetValue(index, float.Parse(value));
+            string[] tempValues = value.Split(',');
+
+            List<float> values = new List<float>();
+
+            for (int i = 0; i < tempValues.Length; i++)
+            {
+                values.Add(float.Parse(tempValues[i]));
+            }
+
+            if (base.gui.Value.GetType().IsArray)
+            {
+                base.gui.Value = values.ToArray();
+            }
+            else
+            {
+                base.gui.Value = new List<float>(values);
+            }
+
+            base.Save();
         }
 
-        public override void GetSyncValue(out int index, out string value)
+        public override string GetSyncValue()
         {
-            index = base.updateIndex;
-            value = index < 0 ? null : this.gui.Value[index].ToString("G");
+            if (!base.updated)
+            {
+                return null;
+            }
+
+            string value = "";
+
+            for (int i = 0; i < base.gui.Value.Count; i++)
+            {
+                value += base.gui.Value[i].ToString("G") + ",";
+            }
+
+            return value.TrimEnd(',');
         }
 
         #endregion Method

@@ -25,14 +25,14 @@ namespace XJGUI
         {
             T currentValue = this.gui.Show();
 
-            base.updateIndex = CheckUpdateForSync(currentValue, previousValue);
+            base.updated = GetValueIsUpdated(currentValue, previousValue);
 
             this.previousValue = currentValue;
         }
 
-        protected override int CheckUpdateForSync(T value1, T value2)
+        protected override bool GetValueIsUpdated(T value1, T value2)
         {
-            return value1.Equals(value2) ? -1 : 0;
+            return !value1.Equals(value2);
         }
 
         #endregion Method

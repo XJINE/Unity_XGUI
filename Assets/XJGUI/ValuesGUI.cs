@@ -24,15 +24,12 @@
             {
                 this.minValue = value;
 
-                if (base.value == null || CheckGUIsUpdate())
+                if (base.value == null)
                 {
                     return;
                 }
 
-                for (int i = 0; i < base.value.Count; i++)
-                {
-                    ((ValueGUI<T>)base.guis[i]).MinValue = value;
-                }
+                UpdateGUIs();
             }
         }
 
@@ -46,15 +43,12 @@
             {
                 this.maxValue = value;
 
-                if (base.value == null || CheckGUIsUpdate())
+                if (base.value == null)
                 {
                     return;
                 }
 
-                for (int i = 0; i < base.value.Count; i++)
-                {
-                    ((ValueGUI<T>)base.guis[i]).MaxValue = value;
-                }
+                UpdateGUIs();
             }
         }
 
@@ -68,15 +62,12 @@
             {
                 this.decimals = value;
 
-                if (base.value == null || CheckGUIsUpdate())
+                if (base.value == null)
                 {
                     return;
                 }
 
-                for (int i = 0; i < base.value.Count; i++)
-                {
-                    ((ValueGUI<T>)base.guis[i]).Decimals = value;
-                }
+                UpdateGUIs();
             }
         }
 
@@ -90,15 +81,12 @@
             {
                 this.fieldWidth = value;
 
-                if (base.value == null || CheckGUIsUpdate())
+                if (base.value == null)
                 {
                     return;
                 }
 
-                for (int i = 0; i < base.value.Count; i++)
-                {
-                    ((ValueGUI<T>)base.guis[i]).FieldWidth = value;
-                }
+                UpdateGUIs();
             }
         }
 
@@ -112,15 +100,12 @@
             {
                 this.withSlider = value;
 
-                if (base.value == null || CheckGUIsUpdate())
+                if (base.value == null)
                 {
                     return;
                 }
 
-                for (int i = 0; i < base.value.Count; i++)
-                {
-                    ((ValueGUI<T>)base.guis[i]).WithSlider = value;
-                }
+                UpdateGUIs();
             }
         }
 

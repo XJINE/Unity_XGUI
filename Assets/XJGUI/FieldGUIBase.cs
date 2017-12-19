@@ -10,7 +10,7 @@ namespace XJGUI
         protected object data;
         protected FieldInfo fieldInfo;
         protected FieldGUIInfo guiInfo;
-        protected int updateIndex;
+        protected bool updated;
 
         #endregion Field
 
@@ -50,9 +50,9 @@ namespace XJGUI
 
         public abstract void SetTitleColor(Color? color);
 
-        public abstract void SetSyncValue(int index, string value);
+        public abstract void SetSyncValue(string value);
 
-        public abstract void GetSyncValue(out int index, out string value);
+        public abstract string GetSyncValue();
 
         public void Show()
         {

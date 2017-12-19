@@ -42,15 +42,14 @@ namespace XJGUI.FieldGUIs
             // Nothing to do.
         }
 
-        public override void SetSyncValue(int index, string value)
+        public override void SetSyncValue(string value)
         {
             // Nothing to do.
         }
 
-        public override void GetSyncValue(out int index, out string value)
+        public override string GetSyncValue()
         {
-            index = -1;
-            value = null;
+            return null;
         }
 
         #endregion Method

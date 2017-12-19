@@ -30,25 +30,50 @@ namespace XJGUI.FieldGUIs
             };
         }
 
-        public override void SetSyncValue(int index, string value)
+        public override void SetSyncValue(string value)
         {
-            string[] values = value.Split(',');
-            ((ValuesGUI<Vector4>)base.gui).SetValue(index, new Vector4()
+            string[] tempValues = value.Split(',');
+
+            List<Vector4> values = new List<Vector4>();
+
+            for (int i = 0; i < tempValues.Length; i += 4)
             {
-                x = float.Parse(values[0]),
-                y = float.Parse(values[1]),
-                z = float.Parse(values[2]),
-                w = float.Parse(values[3]),
-            });
+                values.Add(new Vector4(float.Parse(tempValues[i]),
+                                       float.Parse(tempValues[i + 1]),
+                                       float.Parse(tempValues[i + 2]),
+                                       float.Parse(tempValues[i + 3])));
+            }
+
+            if (base.gui.Value.GetType().IsArray)
+            {
+                base.gui.Value = values.ToArray();
+            }
+            else
+            {
+                base.gui.Value = new List<Vector4>(values);
+            }
+
+            base.Save();
         }
 
-        public override void GetSyncValue(out int index, out string value)
+        public override string GetSyncValue()
         {
-            index = base.updateIndex;
-            value = index < 0 ? null : base.gui.Value[index].x.ToString("G") + ","
-                                     + base.gui.Value[index].y.ToString("G") + ","
-                                     + base.gui.Value[index].z.ToString("G") + ","
-                                     + base.gui.Value[index].w.ToString("G");
+            if (!base.updated)
+            {
+                return null;
+            }
+
+            string value = "";
+
+            for (int i = 0; i < base.gui.Value.Count; i++)
+            {
+                value += base.gui.Value[i].x.ToString("G") + ","
+                       + base.gui.Value[i].y.ToString("G") + ","
+                       + base.gui.Value[i].z.ToString("G") + ","
+                       + base.gui.Value[i].w.ToString("G") + ",";
+            }
+
+            return value.TrimEnd(',');
         }
 
         #endregion Method

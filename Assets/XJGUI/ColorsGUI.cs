@@ -23,9 +23,9 @@ namespace XJGUI
             {
                 this.hsvMode = value;
 
-                if (base.value == null || CheckGUIsUpdate())
+                if (base.value != null)
                 {
-                    return;
+                    UpdateGUIs();
                 }
 
                 for (int i = 0; i < base.value.Count; i++)

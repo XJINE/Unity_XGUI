@@ -26,15 +26,14 @@ namespace XJGUI.FieldGUIs
             };
         }
 
-        public override void SetSyncValue(int index, string value)
+        public override void SetSyncValue(string value)
         {
             this.gui.Value = Convert.ToBoolean(value);
         }
 
-        public override void GetSyncValue(out int index, out string value)
+        public override string GetSyncValue()
         {
-            index = base.updateIndex;
-            value = gui.Value.ToString();
+            return base.updated ? gui.Value.ToString() : null;
         }
 
         #endregion Method

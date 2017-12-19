@@ -30,7 +30,7 @@ namespace XJGUI.FieldGUIs
             };
         }
 
-        public override void SetSyncValue(int index, string value)
+        public override void SetSyncValue(string value)
         {
             string[] values = value.Split(',');
             base.gui.Value = new Color()
@@ -42,13 +42,13 @@ namespace XJGUI.FieldGUIs
             };
         }
 
-        public override void GetSyncValue(out int index, out string value)
+        public override string GetSyncValue()
         {
-            index = base.updateIndex;
-            value = base.gui.Value.r.ToString("G") + ","
-                  + base.gui.Value.g.ToString("G") + ","
-                  + base.gui.Value.b.ToString("G") + ","
-                  + base.gui.Value.a.ToString("G");
+            return base.updated ? base.gui.Value.r.ToString("G") + ","
+                                + base.gui.Value.g.ToString("G") + ","
+                                + base.gui.Value.b.ToString("G") + ","
+                                + base.gui.Value.a.ToString("G")
+                                : null;
         }
 
         #endregion Method

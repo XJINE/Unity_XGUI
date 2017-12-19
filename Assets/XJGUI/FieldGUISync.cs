@@ -15,12 +15,10 @@ public class FieldGUISync : NetworkBehaviour
 
     protected struct UpdateInfo
     {
-        public int index;
         public string value;
 
-        public UpdateInfo(int index, string value)
+        public UpdateInfo(string value)
         {
-            this.index = index;
             this.value = value;
         }
     }
@@ -88,17 +86,14 @@ public class FieldGUISync : NetworkBehaviour
                 // There is no reason to implement with logic which use "Dirty".
                 // Because "UpdateInfo" is struct.
 
-                int index;
-                string value;
+                string syncValue = this.fieldGUIs[i].GUIs[j].GetSyncValue();
 
-                this.fieldGUIs[i].GUIs[j].GetSyncValue(out index, out value);
-
-                if (index < 0 || this.fieldGUIs[i].GUIs[j].Unsupported)
+                if (syncValue == null || this.fieldGUIs[i].GUIs[j].Unsupported)
                 {
                     continue;
                 }
 
-                this.syncList[syncListIndex + j] = new UpdateInfo(index, value);
+                this.syncList[syncListIndex + j] = new UpdateInfo(syncValue);
             }
 
             syncListIndex += fieldGUICount;
@@ -151,8 +146,7 @@ public class FieldGUISync : NetworkBehaviour
 
         int fieldIndex = syncListIndex - (fieldCount - this.fieldGUIs[fieldGUIsIndex].GUIs.Count);
 
-        this.fieldGUIs[fieldGUIsIndex].GUIs[fieldIndex]
-            .SetSyncValue(this.syncList[syncListIndex].index, this.syncList[syncListIndex].value);
+        this.fieldGUIs[fieldGUIsIndex].GUIs[fieldIndex].SetSyncValue(this.syncList[syncListIndex].value);
     }
 
     private Color? GetTitleColor()

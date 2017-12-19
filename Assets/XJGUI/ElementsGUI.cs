@@ -26,7 +26,7 @@ namespace XJGUI
 
                 if (base.value != null)
                 {
-                    CheckGUIsUpdate();
+                    UpdateGUIs();
                 }
             }
         }
@@ -80,9 +80,9 @@ namespace XJGUI
 
         public override IList<T> Show()
         {
-            if (this.Value != null)
+            if (this.Value != null && this.guis.Length != this.Value.Count)
             {
-                CheckGUIsUpdate();
+                UpdateGUIs();
             }
 
             XJGUILayout.VerticalLayout(() => 
@@ -135,31 +135,9 @@ namespace XJGUI
             }
         }
 
-        public void SetValue(int index, T value)
+        protected virtual void UpdateGUIs()
         {
-            // NOTE:
-            // Almost for FieldGUISync.
-
-            this.guis[index].Value = value;
-        }
-
-        // CAUTION:
-        // We can't detect some array length is changed from Inspector in CheckGUIsUpdate.
-        // Only list is enable.
-
-        protected virtual bool CheckGUIsUpdate()
-        {
-            // NOTE:
-            // We have not to check if base.value is changed.
-            // When "Value" property is changed, call this function.
-
             int valueCount = this.Value.Count;
-
-            if (this.guis != null && this.guis.Length == this.Value.Count)
-            {
-                return false;
-            }
-
             this.guis = new ElementGUI<T>[valueCount];
 
             for (int i = 0; i < valueCount; i++)
@@ -169,8 +147,6 @@ namespace XJGUI
                 InitializeGUI(gui);
                 this.guis[i] = gui;
             }
-
-            return true;
         }
 
         protected abstract ElementGUI<T> GenerateGUI();

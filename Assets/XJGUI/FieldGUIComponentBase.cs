@@ -26,7 +26,6 @@ namespace XJGUI
 
         protected override void Save()
         {
-            DebugEx.Log("HERE3 : " + this.gui.Value + " / " + ((System.Collections.Generic.IList<bool>)this.gui.Value)[0]);
             base.fieldInfo.SetValue(base.data, this.gui.Value);
         }
 
@@ -40,7 +39,7 @@ namespace XJGUI
             this.gui.SetTitleColor(color);
         }
 
-        protected abstract int CheckUpdateForSync(T value1, T value2);
+        protected abstract bool GetValueIsUpdated(T value1, T value2);
 
         #endregion Method
     }
