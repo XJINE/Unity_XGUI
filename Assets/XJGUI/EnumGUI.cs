@@ -9,9 +9,13 @@ namespace XJGUI
     // CAUTION:
     // Enum.GetValues return wrong pattern in sometimes.
     // If some of the Enum components has a same value, the values has same Enum components.
-    // Ex. When Enum is defined like this {valueA = 0, valueB = 0},
-    // Enum.GetValues will return 2 valueB and valueA is not included there.
-    // So we need to Name based implement.
+    // Ex. When Enum is defined like this {EnumA = 0, EnumB = 0},
+    // Enum.GetValues will return 2 EnumB and EnumA is not included there.
+    // So we should Name based implement. However, still have another problem.
+    // 
+    // When try to Enum.Parse in same case, it returns EnumB only.
+    // Even if the string value shows "EnumA", Enum.Parse returns EnumB.
+    // I try to use Reflection, but the result was not good.
 
     public class EnumGUI<T> : ElementGUI<T> where T : IComparable, IFormattable, IConvertible
     {
