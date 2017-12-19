@@ -11,7 +11,7 @@ public class Sample08_FieldGUI : MonoBehaviour
 
     #region Field
 
-    public FlexibleWindow flexWindow = new FlexibleWindow();
+    public FlexibleWindow flexibleWindow = new FlexibleWindow();
 
     public FieldGUI fieldGUI;
 
@@ -65,7 +65,7 @@ public class Sample08_FieldGUI : MonoBehaviour
 
         this.fieldGUI.HideUnsupportedGUI = this.boolValue;
 
-        this.flexWindow.Show(() =>
+        this.flexibleWindow.Show(() =>
         {
             this.fieldGUI.Show();
         });

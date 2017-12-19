@@ -30,7 +30,7 @@ namespace XJGUI.FieldGUIs
             };
         }
 
-        public override void SetSyncValue(string value)
+        protected override void SetSyncValueToGUI(string value)
         {
             string[] tempValues = value.Split(',');
 
@@ -50,8 +50,6 @@ namespace XJGUI.FieldGUIs
             {
                 base.gui.Value = new List<Vector2>(values);
             }
-
-            base.Save();
         }
 
         public override string GetSyncValue()

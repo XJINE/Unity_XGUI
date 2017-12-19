@@ -50,7 +50,13 @@ namespace XJGUI
 
         public abstract void SetTitleColor(Color? color);
 
-        public abstract void SetSyncValue(string value);
+        public void SetSyncValue(string value)
+        {
+            SetSyncValueToGUI(value);
+            Save();
+        }
+
+        protected abstract void SetSyncValueToGUI(string value);
 
         public abstract string GetSyncValue();
 

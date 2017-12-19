@@ -26,7 +26,7 @@ namespace XJGUI.FieldGUIs
             };
         }
 
-        public override void SetSyncValue(string value)
+        protected override void SetSyncValueToGUI(string value)
         {
             base.gui.Value = value;
         }

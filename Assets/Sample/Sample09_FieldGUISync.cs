@@ -4,11 +4,15 @@ using XJGUI;
 
 public class Sample09_FieldGUISync : MonoBehaviour
 {
+    // CAUTION:
+    // This sample use resources in Packages/CustomNetworkManager.
+    // However, XJGUI does not depends on these.
+
     #region Field
 
     public FieldGUISync FieldGUISync;
 
-    public FlexibleWindow flexWindow = new FlexibleWindow();
+    public FlexibleWindow flexibleWindow = new FlexibleWindow();
 
     protected FieldGUI fieldGUI;
 
@@ -68,9 +72,17 @@ public class Sample09_FieldGUISync : MonoBehaviour
         this.FieldGUISync.Add(this.fieldGUI);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            this.flexibleWindow.IsVisible = !this.flexibleWindow.IsVisible;
+        }
+    }
+
     void OnGUI()
     {
-        this.flexWindow.Show(() =>
+        this.flexibleWindow.Show(() =>
         {
             this.fieldGUI.Show();
         });

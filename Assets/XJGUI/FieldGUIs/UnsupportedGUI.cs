@@ -42,7 +42,7 @@ namespace XJGUI.FieldGUIs
             // Nothing to do.
         }
 
-        public override void SetSyncValue(string value)
+        protected override void SetSyncValueToGUI(string value)
         {
             // Nothing to do.
         }
