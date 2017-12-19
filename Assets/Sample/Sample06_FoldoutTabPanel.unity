@@ -112,17 +112,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &189192978
+--- !u!1 &450177637
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 189192982}
-  - component: {fileID: 189192981}
-  - component: {fileID: 189192980}
-  - component: {fileID: 189192979}
+  - component: {fileID: 450177641}
+  - component: {fileID: 450177640}
+  - component: {fileID: 450177639}
+  - component: {fileID: 450177638}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -130,26 +130,26 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &189192979
+--- !u!81 &450177638
 AudioListener:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 189192978}
+  m_GameObject: {fileID: 450177637}
   m_Enabled: 1
---- !u!124 &189192980
+--- !u!124 &450177639
 Behaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 189192978}
+  m_GameObject: {fileID: 450177637}
   m_Enabled: 1
---- !u!20 &189192981
+--- !u!20 &450177640
 Camera:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 189192978}
+  m_GameObject: {fileID: 450177637}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
@@ -179,12 +179,12 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!4 &189192982
+--- !u!4 &450177641
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 189192978}
+  m_GameObject: {fileID: 450177637}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -192,28 +192,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1423871381
+--- !u!1 &1318322691
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 1423871382}
-  - component: {fileID: 1423871383}
+  - component: {fileID: 1318322693}
+  - component: {fileID: 1318322692}
   m_Layer: 0
-  m_Name: Sample06_Values
+  m_Name: Sample06_FoldoutTabPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1423871382
+--- !u!114 &1318322692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1318322691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7af40aff9faf95543bc9e8d2d47a60e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1318322693
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1423871381}
+  m_GameObject: {fileID: 1318322691}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -221,37 +232,3 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1423871383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1423871381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6aa429a42a18c1e48a756f95d3038855, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boolList: 000100
-  stringArray:
-  - a
-  - i
-  - u
-  - e
-  - o
-  intList: 0400000008000000
-  floatArray:
-  - 0.4
-  vector2Array:
-  - {x: -9, y: 0}
-  - {x: 0, y: 3}
-  - {x: 5, y: 0}
-  colorList:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0, a: 0}
-  - {r: 0, g: 0, b: 1, a: 1}
-  enumsArray: 010000000200000003000000
-  ipv4Array:
-  - 
-  - 
-  - 
