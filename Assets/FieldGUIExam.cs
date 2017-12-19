@@ -20,6 +20,12 @@ public class FieldGUIExam : MonoBehaviour
         this.fieldGUISync.Add(this.fieldGUI);
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Return))
+            this.boolList.Add(false);
+    }
+
     void OnGUI()
     {
         this.flexWindow.Show(() =>

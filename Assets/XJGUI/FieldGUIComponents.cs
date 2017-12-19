@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Reflection;
+using UnityEngine;
 
 namespace XJGUI
 {
@@ -8,6 +9,12 @@ namespace XJGUI
 
     public abstract class FieldGUIComponents<T> : FieldGUIComponentBase<IList<T>>
     {
+        #region Field
+
+        private int previousFrameCount;
+
+        #endregion Field
+
         #region Constructor
 
         public FieldGUIComponents(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
@@ -29,7 +36,16 @@ namespace XJGUI
         {
             this.gui.Show();
             base.updated = GetValueIsUpdated(base.gui.Value, base.previousValue);
-            base.previousValue = new List<T>(base.gui.Value);
+
+            // CAUTION:
+            // OnGUI called twice or more in same frame.
+            // To detect values count changing, we have to check frame.
+
+            if (this.previousFrameCount != Time.frameCount)
+            {
+                this.previousFrameCount = Time.frameCount;
+                base.previousValue = new List<T>(base.gui.Value);
+            }
         }
 
         // CAUTION:
