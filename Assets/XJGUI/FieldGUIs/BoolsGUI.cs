@@ -29,7 +29,13 @@ namespace XJGUI.FieldGUIs
 
         public override void SetSyncValue(int index, string value)
         {
-            ((ElementsGUI<bool>)base.gui).SetValue(index, Convert.ToBoolean(value));
+            DebugEx.Log("HERE1 : " + base.gui.Value + " / " + base.gui.Value[0]);
+
+            base.fieldInfo.SetValue(base.data, new List<bool>() { false, false, false });
+            ((ElementsGUI<bool>)base.gui).Value = new List<bool>() { false, false, false };
+            //((ElementsGUI<bool>)base.gui).SetValue(index, Convert.ToBoolean(value));
+
+            DebugEx.Log("HERE2 : " + base.gui.Value + " / " + base.gui.Value[0]);
         }
 
         public override void GetSyncValue(out int index, out string value)

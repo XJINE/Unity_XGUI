@@ -119,7 +119,7 @@ public class FieldGUISync : NetworkBehaviour
         }
     }
 
-    public void AddFieldGUI(FieldGUI fieldGUI)
+    public void Add(FieldGUI fieldGUI)
     {
         this.fieldGUIs.Add(fieldGUI);
 

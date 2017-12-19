@@ -26,6 +26,7 @@ namespace XJGUI
 
         protected override void Save()
         {
+            DebugEx.Log("HERE3 : " + this.gui.Value + " / " + ((System.Collections.Generic.IList<bool>)this.gui.Value)[0]);
             base.fieldInfo.SetValue(base.data, this.gui.Value);
         }
 

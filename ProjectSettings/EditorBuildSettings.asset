@@ -8,6 +8,9 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/FieldGUISample.unity
     guid: ca8faa1fb7d1be741a6c91a8c03753f7
-  - enabled: 1
-    path: Assets/FieldGUISyncVarSample.unity
+  - enabled: 0
+    path: Assets/FieldGUISyncSample.unity
     guid: eb91822d0aed4be4bb58ba7e21275771
+  - enabled: 1
+    path: Assets/FieldGUIExam.unity
+    guid: 5fa2358f392fea34c8638ec720459cbd
