@@ -104,6 +104,12 @@ namespace XJGUI
             return this.Value;
         }
 
+        public bool ToggleVisibility()
+        {
+            this.IsVisible = !this.IsVisible;
+            return this.IsVisible;
+        }
+
         #endregion Method
     }
 }

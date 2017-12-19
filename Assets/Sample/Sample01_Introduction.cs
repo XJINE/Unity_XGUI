@@ -45,6 +45,10 @@ public class Sample01_Introduction : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
+            // NOTE:
+            // You can use ToggleVisibility function instead of following code.
+            // this.flexibleWindow.ToggleVisibility();
+
             this.flexibleWindow.IsVisible = !this.flexibleWindow.IsVisible;
         }
     }

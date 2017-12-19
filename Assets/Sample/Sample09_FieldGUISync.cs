@@ -76,12 +76,15 @@ public class Sample09_FieldGUISync : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            this.flexibleWindow.IsVisible = !this.flexibleWindow.IsVisible;
+            this.flexibleWindow.ToggleVisibility();
         }
     }
 
     void OnGUI()
     {
+        // NOTE:
+        // FieldGUISync also works and sync values when client GUIs are not shown.
+
         this.flexibleWindow.Show(() =>
         {
             this.fieldGUI.Show();
