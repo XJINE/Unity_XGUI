@@ -25,9 +25,25 @@ public class FieldGUISync : NetworkBehaviour
 
     #region Method
 
+    // CAUTION:
+    // In Editor, NetworkBehaviour.Awake/OnEnable is called before connect network.
+    // However, in build application, Awake/OnEnable is called when connect network.
+    // (Checked in Unity 2017.02)
+
     protected void Awake()
     {
         this.syncList.Callback += OnSyncListUpdated;
+    }
+
+    protected void OnEnable()
+    {
+        for (int i = 0; i < this.fieldGUIs.Count; i++)
+        {
+            for (int j = 0; j < this.fieldGUIs[i].GUIs.Count; j++)
+            {
+                this.syncList.Add("");
+            }
+        }
     }
 
     protected void Update()
@@ -56,9 +72,9 @@ public class FieldGUISync : NetworkBehaviour
                 // NOTE:
                 // If use "isClient", Host is also ignored.
 
-                if (!base.isServer)
+                if (!this.isServer)
                 {
-                    return;
+                    continue;
                 }
 
                 // NOTE:
@@ -79,21 +95,6 @@ public class FieldGUISync : NetworkBehaviour
         }
     }
 
-    protected void OnEnable()
-    {
-        // CAUTION:
-        // In Editor, NetworkBehaviour.OnEnable is called before connect network.
-        // However, in build application, OnEnable is called when connect network.
-
-        //for (int i = 0; i < this.fieldGUIs.Count; i++)
-        //{
-        //    for (int j = 0; j < this.fieldGUIs[i].GUIs.Count; j++)
-        //    {
-        //        this.syncList.Add("");
-        //    }
-        //}
-    }
-
     protected void OnDisable()
     {
         for (int i = 0; i < this.fieldGUIs.Count; i++)
@@ -103,14 +104,16 @@ public class FieldGUISync : NetworkBehaviour
                 this.fieldGUIs[i].GUIs[j].SetTitleColor(null);
             }
         }
+
+        this.syncList.Clear();
     }
 
     public void Add(FieldGUI fieldGUI)
     {
-        //if (this.fieldGUIs.Contains(fieldGUI))
-        //{
-        //    return;
-        //}
+        if (this.fieldGUIs.Contains(fieldGUI))
+        {
+            return;
+        }
 
         this.fieldGUIs.Add(fieldGUI);
 
@@ -120,12 +123,13 @@ public class FieldGUISync : NetworkBehaviour
         // So in such case, initialize syncList in OnEnable function.
         // It called when start as Client or Server(Host).
         // 
+        // If not check this, "SyncList not Initialized" will occurs at "this.syncList.Add("")".
         // This error is not appear in Editor, only in build application.
 
-        //if (!base.isServer)
-        //{
-        //    return;
-        //}
+        if (!base.isServer)
+        {
+            return;
+        }
 
         for (int i = 0; i < fieldGUI.GUIs.Count; i++)
         {
