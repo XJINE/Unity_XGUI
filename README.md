@@ -7,7 +7,7 @@ Step by step samples are included.
 
 ## Standard Samples
 
-![](https://github.com/XJINE/Unity_XJGUI/blob/master/screenshots/screenshot01.png)
+![](https://github.com/XJINE/Unity_XJGUI/blob/master/Screenshots/01.png)
 
 XJGUI able to generate following type GUI.
 
@@ -16,7 +16,7 @@ XJGUI able to generate following type GUI.
 
 ## FlexibleWindow, Foldout & Tab Panel
 
-![](https://github.com/XJINE/Unity_XJGUI/blob/master/screenshots/screenshot02.gif)
+<img src="https://github.com/XJINE/Unity_XJGUI/blob/master/Screenshots/02.gif" width="100%" height="auto" />
 
 FlexibleWindow automatically expand its width/height when needed. And easy to hide and drag.
 
@@ -24,7 +24,7 @@ Foldout & Tab panel able to hide or group GUIs.
 
 ## FieldGUI
 
-![](https://github.com/XJINE/Unity_XJGUI/blob/master/screenshots/screenshot03.png)
+![](https://github.com/XJINE/Unity_XJGUI/blob/master/Screenshots/03.png)
 
 FieldGUI is main component in this utility.
 FieldGUI automatically generates GUI from field,
@@ -32,7 +32,7 @@ and these GUI's settings are able to control from Attribute.
 
 ## FieldGUISync
 
-![](https://github.com/XJINE/Unity_XJGUI/blob/master/screenshots/screenshot04.png)
+![](https://github.com/XJINE/Unity_XJGUI/blob/master/Screenshots/04.png)
 
 FieldGUI able to sync with clients through UNET.
 
