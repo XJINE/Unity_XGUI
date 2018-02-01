@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using XJGUI;
 
-public class Sample06_FoldoutTabPanel : MonoBehaviour
+public class Sample06_FoldoutTabScrollPanel : MonoBehaviour
 {
     private FlexibleWindow flexibleWindow;
 
     private TabPanel tabPanel;
     private FoldoutPanel foldoutPanel;
+    private ScrollPanel scrollPanel;
 
     private IntGUI intGUI;
     private FloatGUI floatGUI;
@@ -23,6 +24,8 @@ public class Sample06_FoldoutTabPanel : MonoBehaviour
     void Start()
     {
         this.flexibleWindow = new FlexibleWindow();
+        this.flexibleWindow.MaxHeight = 200;
+
         this.tabPanel = new TabPanel()
         {
             Labels = new string[] { "Basic" , "Vectors", "Others" }
@@ -31,6 +34,12 @@ public class Sample06_FoldoutTabPanel : MonoBehaviour
         this.foldoutPanel = new FoldoutPanel()
         {
             Title = "Vectors"
+        };
+
+        this.scrollPanel = new ScrollPanel()
+        {
+            MinWidth = 500,
+            MinHeight = 150,
         };
 
         this.intGUI = new IntGUI() { Title = "Int Value" };
@@ -66,9 +75,12 @@ public class Sample06_FoldoutTabPanel : MonoBehaviour
     {
         this.foldoutPanel.Show(() => 
         {
-            this.vector2GUI.Show();
-            this.vector3GUI.Show();
-            this.vector4GUI.Show();
+            this.scrollPanel.Show(() => 
+            {
+                this.vector2GUI.Show();
+                this.vector3GUI.Show();
+                this.vector4GUI.Show();
+            });
         });
     }
 
