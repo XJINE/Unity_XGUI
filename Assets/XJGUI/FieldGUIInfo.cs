@@ -33,6 +33,8 @@ namespace XJGUI
 
         public bool Toolbar { get; set; }
 
+        public string Group { get; set; }
+
         #endregion Property
 
         #region Constructor
@@ -50,6 +52,7 @@ namespace XJGUI
             this.IPv4       = XJGUILayout.DefaultIPv4;
             this.Hide       = XJGUILayout.DefaultHide;
             this.Sync       = XJGUILayout.DefaultSync;
+            this.Group      = XJGUILayout.DefaultFieldGUIGroup;
         }
 
         #endregion constructor

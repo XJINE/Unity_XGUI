@@ -14,6 +14,7 @@ public static class XJGUILayout
     public static float  DefaultWindowMaxHeight = 800;
     public static bool   DefaultWindowIsDraggable = true;
     public static bool   DefaultWindowIsVisible = true;
+    public static string DefaultFieldGUIGroup = null;
 
     #endregion FlexibleWindow Settings
 

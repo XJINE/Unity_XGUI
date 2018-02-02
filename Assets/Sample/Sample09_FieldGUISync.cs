@@ -37,14 +37,16 @@ public class Sample09_FieldGUISync : MonoBehaviour
 
     public Vector3 vector3Value = new Vector3(1, 1, 1);
 
+    [FieldGUIInfo(Group = "Values")]
     public List<string> stringValues = new List<string> { "a", "i", "u" };
 
-    [FieldGUIInfo(Decimals = 1)]
+    [FieldGUIInfo(Group = "Values", Decimals = 1)]
     public float[] floatValues = new float[] { 0, 1, 2 };
 
+    [FieldGUIInfo(Group = "Values")]
     public List<Vector3> vector3Values = new List<Vector3>() { Vector3.one, Vector3.up, Vector3.back };
 
-    [FieldGUIInfo(HSV = true)]
+    [FieldGUIInfo(Group = "Values", HSV = true)]
     public List<Color> colorValues = new List<Color>() { Color.red, Color.green, Color.blue };
 
     [FieldGUIInfo(Title = "Camera Type Enum")]

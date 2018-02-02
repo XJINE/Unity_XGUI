@@ -9,6 +9,16 @@ namespace XJGUI
 {
     public class FieldGUI : ElementGUI<object>
     {
+        #region Class
+
+        protected class FieldGUIGroup 
+        {
+            public readonly FoldoutPanel foldoutPanel = new FoldoutPanel();
+            public readonly List<FieldGUIBase> fieldGUIs = new List<FieldGUIBase>();
+        }
+
+        #endregion Class
+
         #region Enum
 
         public enum FieldGUIType
@@ -29,7 +39,9 @@ namespace XJGUI
 
         #region Field
 
-        protected readonly List<FieldGUIBase> guis = new List<FieldGUIBase>();
+        protected readonly List<FieldGUIBase> fieldGUIs = new List<FieldGUIBase>();
+
+        protected readonly List<FieldGUIGroup> fieldGUIGroups = new List<FieldGUIGroup>();
 
         protected bool hideUnsupportedGUI;
 
@@ -58,7 +70,7 @@ namespace XJGUI
             set
             {
                 GenerateGUIs(value);
-                this.GUIs = new ReadOnlyCollection<FieldGUIBase>(this.guis);
+                this.GUIs = new ReadOnlyCollection<FieldGUIBase>(this.fieldGUIs);
                 base.Value = value;
             }
         }
@@ -70,6 +82,7 @@ namespace XJGUI
         public FieldGUI() : base()
         {
             this.hideUnsupportedGUI = XJGUILayout.DefaultHideUnsupportedGUI;
+            this.fieldGUIGroups.Add(new FieldGUIGroup());
         }
 
         #endregion constructor
@@ -86,21 +99,36 @@ namespace XJGUI
             }
 
             FieldInfo fieldInfo;
-            FieldGUIInfo guiInfo;
+            FieldGUIInfo fieldGUIInfo;
 
             for (var i = 0; i < fieldInfos.Length; i++)
             {
                 fieldInfo = fieldInfos[i];
-                guiInfo = GenerateAttribute(fieldInfo);
+                fieldGUIInfo = GenerateAttribute(fieldInfo);
 
-                if (guiInfo.Hide)
+                if (fieldGUIInfo.Hide)
                 {
                     continue;
                 }
 
-                FieldGUIBase gui = GenerateGUI(data, fieldInfo, guiInfo);
+                FieldGUIBase gui = GenerateGUI(data, fieldInfo, fieldGUIInfo);
 
-                this.guis.Add(gui);
+                this.fieldGUIs.Add(gui);
+
+                FieldGUIGroup lastGroup = this.fieldGUIGroups[this.fieldGUIGroups.Count - 1];
+
+                if (lastGroup.foldoutPanel.Title == fieldGUIInfo.Group)
+                {
+                    lastGroup.fieldGUIs.Add(gui);
+                }
+                else
+                {
+                    lastGroup = new FieldGUIGroup();
+                    lastGroup.foldoutPanel.Title = fieldGUIInfo.Group;
+                    lastGroup.fieldGUIs.Add(gui);
+
+                    this.fieldGUIGroups.Add(lastGroup);
+                }
             }
         }
 
@@ -267,14 +295,31 @@ namespace XJGUI
         {
             base.ShowTitle();
 
-            for (int i = 0; i < this.guis.Count; i++)
+            for (int i = 0; i < this.fieldGUIGroups.Count; i++)
             {
-                if (this.guis[i].Unsupported && this.HideUnsupportedGUI)
-                {
-                    continue;
-                }
+                FieldGUIGroup fieldGUIGroup = this.fieldGUIGroups[i];
 
-                this.guis[i].Show();
+                Action action = () => 
+                {
+                    for (int j = 0; j < fieldGUIGroup.fieldGUIs.Count; j++)
+                    {
+                        if (fieldGUIGroup.fieldGUIs[j].Unsupported && this.HideUnsupportedGUI)
+                        {
+                            continue;
+                        }
+
+                        fieldGUIGroup.fieldGUIs[j].Show();
+                    }
+                };
+
+                if (fieldGUIGroup.foldoutPanel.Title == null)
+                {
+                    action();
+                }
+                else 
+                {
+                    fieldGUIGroup.foldoutPanel.Show(action);
+                }
             }
 
             return this.Value;

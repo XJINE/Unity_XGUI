@@ -24,23 +24,26 @@ public class Sample08_FieldGUI : MonoBehaviour
 
     public string stringValue = "Sample";
 
-    [FieldGUIInfo(Hide = true)]
+    [FieldGUIInfo(Group = "Simple Value", Hide = true)]
     public int intValueHide = 5;
 
-    [FieldGUIInfo(MinValue = 0, MaxValue = 100)]
+    [FieldGUIInfo(Group = "Simple Value", MinValue = 0, MaxValue = 100)]
     public float floatValue = 10;
 
+    [FieldGUIInfo(Group = "Simple Value")]
+    public List<int> intValues = new List<int>() { 0, 1, 2 };
+
+    [FieldGUIInfo(Group = "Simple Value", Decimals = 1)]
+    public float[] floatValues = new float[] { 0, 1, 2 };
+
+    [FieldGUIInfo(Group = "Vector Value")]
     public Vector3 vector3Value = new Vector3(1, 1, 1);
+
+    [FieldGUIInfo(Group = "Vector Value")]
+    public List<Vector3> vector3Values = new List<Vector3>() { Vector3.one, Vector3.up, Vector3.back };
 
     [FieldGUIInfo(HSV = false)]
     public Color colorValue = new Color(1, 0, 0, 0.5f);
-
-    public List<int> intValues = new List<int>() { 0, 1, 2 };
-
-    [FieldGUIInfo(Decimals = 1)]
-    public float[] floatValues = new float[] { 0, 1, 2 };
-
-    public List<Vector3> vector3Values = new List<Vector3>() { Vector3.one, Vector3.up, Vector3.back };
 
     [FieldGUIInfo(Title = "Camera Type Enum")]
     public CameraType enumValue = CameraType.Game;
