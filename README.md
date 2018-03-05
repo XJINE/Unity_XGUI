@@ -10,7 +10,7 @@ Step by step samples are included.
 If you want to import this repository as submodule in your project.
 
 ```
-git submodule add --b submodule https://github.com/XJINE/Unity_XJGUI.git Assets/Packages/XJGUI
+git submodule add -b submodule https://github.com/XJINE/Unity_XJGUI.git Assets/Packages/XJGUI
 ```
 
 ## Standard Samples
