@@ -5,6 +5,14 @@ Especially "FieldGUI" makes GUIs from your field.
 
 Step by step samples are included.
 
+## Import
+
+If you want to import this repository as submodule in your project.
+
+```
+git submodule add https://github.com/XJINE/Unity_XJGUI.git Assets/Packages/XJGUI
+```
+
 ## Standard Samples
 
 ![](https://github.com/XJINE/Unity_XJGUI/blob/master/Screenshots/01.png)
