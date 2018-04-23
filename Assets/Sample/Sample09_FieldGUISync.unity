@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -88,6 +88,7 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaDirect: 0.5
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
+    m_ShowResolutionOverlay: 1
   m_LightingDataAsset: {fileID: 0}
   m_UseShadowmask: 1
 --- !u!196 &4
@@ -185,6 +186,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 873ccd4118fd92b4ebb45373095b46dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  disableSync: 0
+  syncedEventHandler:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 566489069}
+        m_MethodName: OnSynced
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
 --- !u!1 &566489067
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,11 +234,9 @@ MonoBehaviour:
   boolValue: 1
   stringValue1: Sync
   stringValue2: No Sync
-  intValue: 0
   intValueHide: 5
   floatValue: 10
   vector3Value: {x: 1, y: 1, z: 1}
-  boolValues: 010000
   stringValues:
   - a
   - i
@@ -233,9 +249,16 @@ MonoBehaviour:
   - {x: 1, y: 1, z: 1}
   - {x: 0, y: 1, z: 0}
   - {x: 0, y: 0, z: -1}
-  colorValue: {r: 1, g: 0, b: 0, a: 1}
+  colorValues:
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
   enumValue: 1
-  ipV4Value: 0.7.7.7
+  enumValues: 0400000008000000
+  ipv4Value: 0.7.7.7
+  ipv4Values:
+  - 192.168.11.1
+  - 127.0.0.1
 --- !u!4 &566489070
 Transform:
   m_ObjectHideFlags: 0
@@ -501,6 +524,7 @@ Camera:
   m_TargetEye: 3
   m_HDR: 0
   m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10

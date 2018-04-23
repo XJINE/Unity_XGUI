@@ -182,10 +182,10 @@ namespace XJGUI
             // NOTE:
             // Use this.Property to update each FloatGUI.
 
-            this.Value = XJGUILayout.DefaultValueColor;
+            this.Value    = XJGUILayout.DefaultValueColor;
             this.MinValue = XJGUILayout.DefaultMinValueColor;
             this.MaxValue = XJGUILayout.DefaultMaxValueColor;
-            this.HSV = XJGUILayout.DefaultHSV;
+            this.HSV      = XJGUILayout.DefaultHSV;
         }
 
         #endregion Constructor

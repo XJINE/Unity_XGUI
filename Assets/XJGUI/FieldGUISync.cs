@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Networking;
 using XJGUI;
 
@@ -19,7 +20,15 @@ public class FieldGUISync : NetworkBehaviour
     #region Field
 
     protected List<FieldGUI> fieldGUIs = new List<FieldGUI>();
-    protected SyncListString syncList = new SyncListString();
+
+    protected SyncListString syncList  = new SyncListString();
+
+    // NOTE:
+    // Use to disable sync dynamically.
+
+    public bool disableSync;
+
+    public UnityEvent syncedEventHandler;
 
     #endregion Field
 
@@ -83,7 +92,7 @@ public class FieldGUISync : NetworkBehaviour
 
                 string syncValue = this.fieldGUIs[i].GUIs[j].GetSyncValue();
 
-                if (syncValue == null || this.fieldGUIs[i].GUIs[j].Unsupported)
+                if (this.disableSync || syncValue == null || this.fieldGUIs[i].GUIs[j].Unsupported)
                 {
                     continue;
                 }
@@ -139,7 +148,7 @@ public class FieldGUISync : NetworkBehaviour
 
     private void OnSyncListUpdated(SyncListString.Operation op, int syncListIndex)
     {
-        if (op != SyncListString.Operation.OP_SET)
+        if (op != SyncListString.Operation.OP_SET || this.disableSync)
         {
             return;
         }
@@ -160,20 +169,27 @@ public class FieldGUISync : NetworkBehaviour
         int fieldIndex = syncListIndex - (fieldCount - this.fieldGUIs[fieldGUIsIndex].GUIs.Count);
 
         this.fieldGUIs[fieldGUIsIndex].GUIs[fieldIndex].SetSyncValue(this.syncList[syncListIndex]);
+
+        this.syncedEventHandler.Invoke();
     }
 
     private Color? GetTitleColor()
     {
+        if (this.disableSync) 
+        {
+            return XJGUILayout.DefaultTitleColor;
+        }
+
         if (NetworkServer.active)
         {
-            return XJGUILayout.DefaultSyncColorServer;
+            return XJGUILayout.DefaultTitleColorSyncServer;
         }
         else if (NetworkClient.active && NetworkManager.singleton.IsClientConnected())
         {
-            return XJGUILayout.DefaultSyncColorClient;
+            return XJGUILayout.DefaultTitleColorSyncClient;
         }
 
-        return null;
+        return XJGUILayout.DefaultTitleColor;
     }
 
     #endregion Method

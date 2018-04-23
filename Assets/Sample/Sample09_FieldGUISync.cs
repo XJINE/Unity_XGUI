@@ -63,6 +63,8 @@ public class Sample09_FieldGUISync : MonoBehaviour
 
     #endregion Field
 
+    #region Method
+
     void Start()
     {
         this.fieldGUI = new FieldGUI();
@@ -92,4 +94,14 @@ public class Sample09_FieldGUISync : MonoBehaviour
             this.fieldGUI.Show();
         });
     }
+
+    // NOTE:
+    // Regist this function to FieldGUISync.syncedEventHandler from Inspector.
+
+    public void OnSynced() 
+    {
+        Debug.Log("SYNCED!");
+    }
+
+    #endregion Method
 }
