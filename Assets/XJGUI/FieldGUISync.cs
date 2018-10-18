@@ -19,9 +19,9 @@ public class FieldGUISync : NetworkBehaviour
 
     #region Field
 
-    protected List<FieldGUI> fieldGUIs = new List<FieldGUI>();
+    protected List<FieldGUI> fieldGUIs;
 
-    protected SyncListString syncList  = new SyncListString();
+    protected SyncListString syncList;
 
     // NOTE:
     // Use to disable sync dynamically.
@@ -41,18 +41,18 @@ public class FieldGUISync : NetworkBehaviour
 
     protected void Awake()
     {
+        this.fieldGUIs = new List<FieldGUI>();
+        this.syncList  = new SyncListString();
         this.syncList.Callback += OnSyncListUpdated;
     }
 
     protected void OnEnable()
     {
-        for (int i = 0; i < this.fieldGUIs.Count; i++)
-        {
-            for (int j = 0; j < this.fieldGUIs[i].GUIs.Count; j++)
-            {
-                this.syncList.Add("");
-            }
-        }
+        // WARNING:
+        // Sometimes InitializeSyncSetting are done before Add(FieldGUI).
+        // So it is needed to check initialized or not in Update().
+
+        InitializeSyncSetting();
     }
 
     protected void Update()
@@ -60,6 +60,11 @@ public class FieldGUISync : NetworkBehaviour
         if (this.fieldGUIs.Count == 0)
         {
             return;
+        }
+
+        if (this.syncList.Count != GetFieldGUICount()) 
+        {
+            InitializeSyncSetting();
         }
 
         int fieldGUICount = 0;
@@ -115,6 +120,29 @@ public class FieldGUISync : NetworkBehaviour
         }
 
         this.syncList.Clear();
+    }
+
+    protected int GetFieldGUICount() 
+    {
+        int fieldGUICount = 0;
+
+        for (int i = 0; i < this.fieldGUIs.Count; i++)
+        {
+            fieldGUICount += this.fieldGUIs[i].GUIs.Count;
+        }
+
+        return fieldGUICount;
+    }
+
+    protected void InitializeSyncSetting()
+    {
+        for (int i = 0; i < this.fieldGUIs.Count; i++)
+        {
+            for (int j = 0; j < this.fieldGUIs[i].GUIs.Count; j++)
+            {
+                this.syncList.Add("");
+            }
+        }
     }
 
     public void Add(FieldGUI fieldGUI)
