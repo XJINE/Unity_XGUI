@@ -5,15 +5,15 @@ Especially "FieldGUI" makes GUIs from your field.
 
 Step by step samples are included.
 
-## Import
+## Import to Your Project
 
-If you want to import this repository as submodule in your project.
+You can import this asset from UnityPackage.
 
-```
-git submodule add -b submodule https://github.com/XJINE/Unity_XJGUI.git Assets/Packages/XJGUI
-```
+- [XJGUI.unitypackage](https://github.com/XJINE/Unity_XJGUI/blob/master/XJGUI.unitypackage)
 
-## Standard Samples
+## How to Use
+
+### Standard Samples
 
 ![](https://github.com/XJINE/Unity_XJGUI/blob/master/Screenshots/01.png)
 
@@ -22,7 +22,7 @@ XJGUI able to generate following type GUI.
     int, float, string, bool, Vector2, Vector3, Vector4,
     Color, Enum, IPv4, and these array or List<>.
 
-## FlexibleWindow, Foldout & Tab Panel
+### FlexibleWindow, Foldout & Tab Panel
 
 <img src="https://github.com/XJINE/Unity_XJGUI/blob/master/Screenshots/02.gif" width="100%" height="auto" />
 
@@ -30,7 +30,7 @@ FlexibleWindow automatically expand its width/height when needed. And easy to hi
 
 Foldout & Tab panel able to hide or group GUIs.
 
-## FieldGUI
+### FieldGUI
 
 ![](https://github.com/XJINE/Unity_XJGUI/blob/master/Screenshots/03.png)
 
@@ -38,7 +38,7 @@ FieldGUI is main component in this utility.
 FieldGUI automatically generates GUI from field,
 and these GUI's settings are able to control from Attribute.
 
-## FieldGUISync
+### FieldGUISync
 
 ![](https://github.com/XJINE/Unity_XJGUI/blob/master/Screenshots/04.png)
 
