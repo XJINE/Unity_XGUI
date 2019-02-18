@@ -2,18 +2,20 @@
 
 namespace XJGUI
 {
-    public class Vector2GUI : VectorGUI<Vector2>
+    public class Vector4GUI : VectorGUI<Vector4>
     {
         #region Field
 
         private readonly FloatGUI floatGUIX;
         private readonly FloatGUI floatGUIY;
+        private readonly FloatGUI floatGUIZ;
+        private readonly FloatGUI floatGUIW;
 
         #endregion Field
 
         #region Property
 
-        public override Vector2 Value
+        public override Vector4 Value
         {
             get
             {
@@ -23,46 +25,58 @@ namespace XJGUI
             {
                 this.floatGUIX.Value = value.x;
                 this.floatGUIY.Value = value.y;
+                this.floatGUIZ.Value = value.z;
+                this.floatGUIW.Value = value.w;
 
-                base.Value = new Vector2()
+                base.Value = new Vector4()
                 {
                     x = this.floatGUIX.Value,
-                    y = this.floatGUIY.Value
+                    y = this.floatGUIY.Value,
+                    z = this.floatGUIZ.Value,
+                    w = this.floatGUIW.Value
                 };
             }
         }
 
-        public override Vector2 MinValue
+        public override Vector4 MinValue
         {
             get
             {
-                return new Vector2()
+                return new Vector4()
                 {
                     x = this.floatGUIX.MinValue,
-                    y = this.floatGUIY.MinValue
+                    y = this.floatGUIY.MinValue,
+                    z = this.floatGUIZ.MinValue,
+                    w = this.floatGUIW.MinValue
                 };
             }
             set
             {
                 this.floatGUIX.MinValue = value.x;
                 this.floatGUIY.MinValue = value.y;
+                this.floatGUIZ.MinValue = value.z;
+                this.floatGUIW.MinValue = value.w;
             }
         }
 
-        public override Vector2 MaxValue
+        public override Vector4 MaxValue
         {
             get
             {
-                return new Vector2()
+                return new Vector4()
                 {
                     x = this.floatGUIX.MaxValue,
-                    y = this.floatGUIY.MaxValue
+                    y = this.floatGUIY.MaxValue,
+                    z = this.floatGUIZ.MaxValue,
+                    w = this.floatGUIW.MaxValue
                 };
             }
             set
             {
                 this.floatGUIX.MaxValue = value.x;
                 this.floatGUIY.MaxValue = value.y;
+                this.floatGUIZ.MaxValue = value.z;
+                this.floatGUIW.MaxValue = value.w;
             }
         }
 
@@ -76,6 +90,8 @@ namespace XJGUI
             {
                 this.floatGUIX.FieldWidth = value;
                 this.floatGUIY.FieldWidth = value;
+                this.floatGUIZ.FieldWidth = value;
+                this.floatGUIW.FieldWidth = value;
             }
         }
 
@@ -90,6 +106,8 @@ namespace XJGUI
             {
                 this.floatGUIX.WithSlider = value;
                 this.floatGUIY.WithSlider = value;
+                this.floatGUIZ.WithSlider = value;
+                this.floatGUIW.WithSlider = value;
             }
         }
 
@@ -103,6 +121,8 @@ namespace XJGUI
             {
                 this.floatGUIX.Decimals = value;
                 this.floatGUIY.Decimals = value;
+                this.floatGUIZ.Decimals = value;
+                this.floatGUIW.Decimals = value;
             }
         }
 
@@ -110,17 +130,19 @@ namespace XJGUI
 
         #region Constructor
 
-        public Vector2GUI() : base()
+        public Vector4GUI() : base()
         {
             this.floatGUIX = new FloatGUI() { Title = "X" };
             this.floatGUIY = new FloatGUI() { Title = "Y" };
+            this.floatGUIZ = new FloatGUI() { Title = "Z" };
+            this.floatGUIW = new FloatGUI() { Title = "W" };
 
             // NOTE:
-            // Set min/max value first. If not, "Value" will collect with min/max value 0.
+            // Set min/max value first. If not, "Value" will collect with min/ max value 0.
 
-            this.MinValue = XJGUILayout.DefaultMinValueVector2;
-            this.MaxValue = XJGUILayout.DefaultMaxValueVector2;
-            this.Value    = XJGUILayout.DefaultValueVector2;
+            this.MinValue = XJGUILayout.DefaultMinValueVector4;
+            this.MaxValue = XJGUILayout.DefaultMaxValueVector4;
+            this.Value    = XJGUILayout.DefaultValueVector4;
         }
 
         #endregion Constructor
@@ -129,10 +151,12 @@ namespace XJGUI
 
         protected override void ShowComponentGUI()
         {
-            base.Value = new Vector2()
+            this.Value = new Vector4()
             {
                 x = this.floatGUIX.Show(),
-                y = this.floatGUIY.Show()
+                y = this.floatGUIY.Show(),
+                z = this.floatGUIZ.Show(),
+                w = this.floatGUIW.Show()
             };
         }
 

@@ -2,19 +2,18 @@
 
 namespace XJGUI
 {
-    public class Vector3GUI : VectorGUI<Vector3>
+    public class Vector2GUI : VectorGUI<Vector2>
     {
         #region Field
 
         private readonly FloatGUI floatGUIX;
         private readonly FloatGUI floatGUIY;
-        private readonly FloatGUI floatGUIZ;
 
         #endregion Field
 
         #region Property
 
-        public override Vector3 Value
+        public override Vector2 Value
         {
             get
             {
@@ -24,52 +23,46 @@ namespace XJGUI
             {
                 this.floatGUIX.Value = value.x;
                 this.floatGUIY.Value = value.y;
-                this.floatGUIZ.Value = value.z;
 
-                base.Value = new Vector3()
+                base.Value = new Vector2()
                 {
                     x = this.floatGUIX.Value,
-                    y = this.floatGUIY.Value,
-                    z = this.floatGUIZ.Value
+                    y = this.floatGUIY.Value
                 };
             }
         }
 
-        public override Vector3 MinValue
+        public override Vector2 MinValue
         {
             get
             {
-                return new Vector3()
+                return new Vector2()
                 {
                     x = this.floatGUIX.MinValue,
-                    y = this.floatGUIY.MinValue,
-                    z = this.floatGUIZ.MinValue
+                    y = this.floatGUIY.MinValue
                 };
             }
             set
             {
                 this.floatGUIX.MinValue = value.x;
                 this.floatGUIY.MinValue = value.y;
-                this.floatGUIZ.MinValue = value.z;
             }
         }
 
-        public override Vector3 MaxValue
+        public override Vector2 MaxValue
         {
             get
             {
-                return new Vector3()
+                return new Vector2()
                 {
                     x = this.floatGUIX.MaxValue,
-                    y = this.floatGUIY.MaxValue,
-                    z = this.floatGUIZ.MaxValue
+                    y = this.floatGUIY.MaxValue
                 };
             }
             set
             {
                 this.floatGUIX.MaxValue = value.x;
                 this.floatGUIY.MaxValue = value.y;
-                this.floatGUIZ.MaxValue = value.z;
             }
         }
 
@@ -83,7 +76,6 @@ namespace XJGUI
             {
                 this.floatGUIX.FieldWidth = value;
                 this.floatGUIY.FieldWidth = value;
-                this.floatGUIZ.FieldWidth = value;
             }
         }
 
@@ -98,7 +90,6 @@ namespace XJGUI
             {
                 this.floatGUIX.WithSlider = value;
                 this.floatGUIY.WithSlider = value;
-                this.floatGUIZ.WithSlider = value;
             }
         }
 
@@ -112,7 +103,6 @@ namespace XJGUI
             {
                 this.floatGUIX.Decimals = value;
                 this.floatGUIY.Decimals = value;
-                this.floatGUIZ.Decimals = value;
             }
         }
 
@@ -120,18 +110,17 @@ namespace XJGUI
 
         #region Constructor
 
-        public Vector3GUI() : base()
+        public Vector2GUI() : base()
         {
             this.floatGUIX = new FloatGUI() { Title = "X" };
             this.floatGUIY = new FloatGUI() { Title = "Y" };
-            this.floatGUIZ = new FloatGUI() { Title = "Z" };
 
             // NOTE:
-            // Set min/max value first. If not, "Value" will collect with min/ max value 0.
+            // Set min/max value first. If not, "Value" will collect with min/max value 0.
 
-            this.MinValue = XJGUILayout.DefaultMinValueVector3;
-            this.MaxValue = XJGUILayout.DefaultMaxValueVector3;
-            this.Value = XJGUILayout.DefaultValueVector3;
+            this.MinValue = XJGUILayout.DefaultMinValueVector2;
+            this.MaxValue = XJGUILayout.DefaultMaxValueVector2;
+            this.Value    = XJGUILayout.DefaultValueVector2;
         }
 
         #endregion Constructor
@@ -140,9 +129,11 @@ namespace XJGUI
 
         protected override void ShowComponentGUI()
         {
-            this.Value.x = this.floatGUIX.Show();
-            this.Value.y = this.floatGUIY.Show();
-            this.Value.z = this.floatGUIZ.Show();
+            this.Value = new Vector2()
+            {
+                x = this.floatGUIX.Show(),
+                y = this.floatGUIY.Show()
+            };
         }
 
         #endregion Method
