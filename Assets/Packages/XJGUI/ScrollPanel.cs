@@ -47,7 +47,7 @@ namespace XJGUI
 
         public override Vector2 Show(params Action[] guiActions)
         {
-            base.value = GUILayout.BeginScrollView(base.value, GUILayout.MinWidth(this.minWidth),
+            base.Value = GUILayout.BeginScrollView(base.Value, GUILayout.MinWidth(this.minWidth),
                                                                GUILayout.MinHeight(this.minHeight),
                                                                GUILayout.MaxWidth(this.maxWidth),
                                                                GUILayout.MaxHeight(this.maxHeight));
@@ -59,7 +59,7 @@ namespace XJGUI
 
             GUILayout.EndScrollView();
 
-            return base.value;
+            return base.Value;
         }
         #endregion Method
     }

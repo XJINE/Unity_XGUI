@@ -19,7 +19,7 @@ namespace XJGUI
         {
             get
             {
-                return base.value;
+                return base.Value;
             }
             set
             {
@@ -28,7 +28,7 @@ namespace XJGUI
                 this.floatGUIZ.Value = value.z;
                 this.floatGUIW.Value = value.w;
 
-                base.value = new Vector4()
+                base.Value = new Vector4()
                 {
                     x = this.floatGUIX.Value,
                     y = this.floatGUIY.Value,
@@ -151,10 +151,10 @@ namespace XJGUI
 
         protected override void ShowComponentGUI()
         {
-            this.value.x = this.floatGUIX.Show();
-            this.value.y = this.floatGUIY.Show();
-            this.value.z = this.floatGUIZ.Show();
-            this.value.w = this.floatGUIW.Show();
+            this.Value.x = this.floatGUIX.Show();
+            this.Value.y = this.floatGUIY.Show();
+            this.Value.z = this.floatGUIZ.Show();
+            this.Value.w = this.floatGUIW.Show();
         }
 
         #endregion Method

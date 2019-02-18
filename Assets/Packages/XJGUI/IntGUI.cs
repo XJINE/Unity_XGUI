@@ -10,11 +10,11 @@ namespace XJGUI
         {
             get
             {
-                return base.decimals;
+                return base.Decimals;
             }
             set
             {
-                base.decimals = 0;
+                base.Decimals = 0;
             }
         }
 
@@ -27,8 +27,8 @@ namespace XJGUI
             // NOTE:
             // Set min/max value first. If not, "Value" will collect with min/ max value 0.
 
-            base.minValue = XJGUILayout.DefaultMinValueInt;
-            base.maxValue = XJGUILayout.DefaultMaxValueInt;
+            base.MinValue = XJGUILayout.DefaultMinValueInt;
+            base.MaxValue = XJGUILayout.DefaultMaxValueInt;
             this.Value = XJGUILayout.DefaultValueInt;
         }
 
@@ -63,7 +63,7 @@ namespace XJGUI
 
                     if (int.TryParse(this.text, out textFieldValue))
                     {
-                        base.value = CorrectValue(textFieldValue);
+                        base.Value = CorrectValue(textFieldValue);
                     }
                 });
 

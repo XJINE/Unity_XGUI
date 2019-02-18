@@ -16,7 +16,7 @@
                 });
             });
 
-            return this.Value;
+            return base.Value;
         }
 
         protected abstract void ShowComponentGUI();

@@ -24,7 +24,7 @@ namespace XJGUI
 
         public StringGUI()
         {
-            base.value = XJGUILayout.DefaultValueString;
+            base.Value = XJGUILayout.DefaultValueString;
             this.fieldWidth = XJGUILayout.DefaultFieldWidth;
         }
 
@@ -34,14 +34,14 @@ namespace XJGUI
 
         public override string Show()
         {
-            XJGUILayout.HorizontalLayout(() => 
+            XJGUILayout.HorizontalLayout((System.Action)(() => 
             {
                 base.ShowTitle(this.FieldWidth > 0 && base.Title == null);
 
                 base.Value = GUILayout.TextField
-                    (base.Value, this.FieldWidth <= 0 ? GUILayout.ExpandWidth(true)
+                    ((string)base.Value, this.FieldWidth <= 0 ? GUILayout.ExpandWidth(true)
                                                       : GUILayout.Width(this.FieldWidth));
-            });
+            }));
 
             return base.Value;
         }

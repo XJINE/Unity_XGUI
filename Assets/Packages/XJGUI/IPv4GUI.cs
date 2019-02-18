@@ -19,7 +19,7 @@ namespace XJGUI
         {
             get
             {
-                return base.value;
+                return base.Value;
             }
             set
             {
@@ -30,7 +30,7 @@ namespace XJGUI
                 this.z.Value = values[2];
                 this.w.Value = values[3];
 
-                base.value = this.x.Value + "." + this.y.Value + "." + this.z.Value + "." + this.w.Value;
+                base.Value = this.x.Value + "." + this.y.Value + "." + this.z.Value + "." + this.w.Value;
             }
         }
 
@@ -74,7 +74,7 @@ namespace XJGUI
                 WithSlider = false
             };
 
-            this.value = defaultValue[0] + "."
+            this.Value = defaultValue[0] + "."
                        + defaultValue[1] + "."
                        + defaultValue[2] + "."
                        + defaultValue[3];
@@ -86,11 +86,11 @@ namespace XJGUI
 
         public override string Show()
         {
-            XJGUILayout.VerticalLayout(() => 
+            XJGUILayout.VerticalLayout((System.Action)(() => 
             {
                 base.ShowTitle();
 
-                XJGUILayout.HorizontalLayout(() => 
+                XJGUILayout.HorizontalLayout((System.Action)(() => 
                 {
                     int x = this.x.Show();
 
@@ -106,9 +106,9 @@ namespace XJGUI
 
                     int w = this.w.Show();
 
-                    base.value = x + "." + y + "." + z + "." + w;
-                });
-            });
+                    base.Value = x + "." + y + "." + z + "." + w;
+                }));
+            }));
 
             return this.Value;
         }

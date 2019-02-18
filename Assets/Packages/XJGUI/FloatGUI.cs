@@ -11,8 +11,8 @@ namespace XJGUI
             // NOTE:
             // Set min/max value first. If not, "Value" will collect with min/ max value 0.
 
-            base.minValue = XJGUILayout.DefaultMinValueFloat;
-            base.maxValue = XJGUILayout.DefaultMaxValueFloat;
+            base.MinValue = XJGUILayout.DefaultMinValueFloat;
+            base.MaxValue = XJGUILayout.DefaultMaxValueFloat;
             this.Value = XJGUILayout.DefaultValueFloat;
         }
 
@@ -47,7 +47,7 @@ namespace XJGUI
 
                     if (float.TryParse(this.text, out textFieldValue))
                     {
-                        base.value = CorrectValue(textFieldValue);
+                        base.Value = CorrectValue(textFieldValue);
                     }
                 });
 

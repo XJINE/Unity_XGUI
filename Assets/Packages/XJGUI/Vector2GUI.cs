@@ -6,8 +6,8 @@ namespace XJGUI
     {
         #region Field
 
-        private FloatGUI floatGUIX;
-        private FloatGUI floatGUIY;
+        private readonly FloatGUI floatGUIX;
+        private readonly FloatGUI floatGUIY;
 
         #endregion Field
 
@@ -17,14 +17,14 @@ namespace XJGUI
         {
             get
             {
-                return base.value;
+                return base.Value;
             }
             set
             {
                 this.floatGUIX.Value = value.x;
                 this.floatGUIY.Value = value.y;
 
-                base.value = new Vector2()
+                base.Value = new Vector2()
                 {
                     x = this.floatGUIX.Value,
                     y = this.floatGUIY.Value
@@ -116,11 +116,11 @@ namespace XJGUI
             this.floatGUIY = new FloatGUI() { Title = "Y" };
 
             // NOTE:
-            // Set min/max value first. If not, "Value" will collect with min/ max value 0.
+            // Set min/max value first. If not, "Value" will collect with min/max value 0.
 
             this.MinValue = XJGUILayout.DefaultMinValueVector2;
             this.MaxValue = XJGUILayout.DefaultMaxValueVector2;
-            this.Value = XJGUILayout.DefaultValueVector2;
+            this.Value    = XJGUILayout.DefaultValueVector2;
         }
 
         #endregion Constructor
@@ -129,8 +129,11 @@ namespace XJGUI
 
         protected override void ShowComponentGUI()
         {
-            this.value.x = this.floatGUIX.Show();
-            this.value.y = this.floatGUIY.Show();
+            base.Value = new Vector2()
+            {
+                x = this.floatGUIX.Show(),
+                y = this.floatGUIY.Show()
+            };
         }
 
         #endregion Method

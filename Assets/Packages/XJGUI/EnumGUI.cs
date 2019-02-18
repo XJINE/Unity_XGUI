@@ -41,12 +41,12 @@ namespace XJGUI
         {
             get
             {
-                return base.value;
+                return base.Value;
             }
             set
             {
                 this.selectedIndex = GetSelectedEnumIndex(value);
-                base.value = value;
+                base.Value = value;
             }
         }
 
@@ -117,14 +117,14 @@ namespace XJGUI
 
             // Other Element
 
-            XJGUILayout.HorizontalLayout(() =>
+            XJGUILayout.HorizontalLayout((Action)(() =>
             {
                 if(this.ButtonWidth > 0)
                 {
                     GUILayout.FlexibleSpace();
                 }
 
-                XJGUILayout.VerticalLayout(() =>
+                XJGUILayout.VerticalLayout((Action)(() =>
                 {
                     for (int i = 0; i < this.enumNames.Length; i++)
                     {
@@ -143,11 +143,11 @@ namespace XJGUI
                         {
                             this.selectedIndex = i;
                             this.isEditing = false;
-                            base.value = (T)Enum.Parse(this.enumType, this.enumNames[i]);
+                            base.Value = (T)Enum.Parse(this.enumType, this.enumNames[i]);
                         }
                     }
-                }, GUI.skin.box);
-            });
+                }), GUI.skin.box);
+            }));
 
             return base.Value;
         }

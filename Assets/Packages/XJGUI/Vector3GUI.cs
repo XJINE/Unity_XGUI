@@ -6,9 +6,9 @@ namespace XJGUI
     {
         #region Field
 
-        private FloatGUI floatGUIX;
-        private FloatGUI floatGUIY;
-        private FloatGUI floatGUIZ;
+        private readonly FloatGUI floatGUIX;
+        private readonly FloatGUI floatGUIY;
+        private readonly FloatGUI floatGUIZ;
 
         #endregion Field
 
@@ -18,7 +18,7 @@ namespace XJGUI
         {
             get
             {
-                return base.value;
+                return base.Value;
             }
             set
             {
@@ -26,7 +26,7 @@ namespace XJGUI
                 this.floatGUIY.Value = value.y;
                 this.floatGUIZ.Value = value.z;
 
-                base.value = new Vector3()
+                base.Value = new Vector3()
                 {
                     x = this.floatGUIX.Value,
                     y = this.floatGUIY.Value,
@@ -140,9 +140,9 @@ namespace XJGUI
 
         protected override void ShowComponentGUI()
         {
-            this.value.x = this.floatGUIX.Show();
-            this.value.y = this.floatGUIY.Show();
-            this.value.z = this.floatGUIZ.Show();
+            this.Value.x = this.floatGUIX.Show();
+            this.Value.y = this.floatGUIY.Show();
+            this.Value.z = this.floatGUIZ.Show();
         }
 
         #endregion Method

@@ -26,12 +26,12 @@ namespace XJGUI
         {
             get
             {
-                return base.value;
+                return base.Value;
             }
             set
             {
-                base.value = CorrectValue(value);
-                this.text = base.value.ToString();
+                base.Value = CorrectValue(value);
+                this.text = base.Value.ToString();
             }
         }
 
@@ -39,12 +39,12 @@ namespace XJGUI
         {
             get
             {
-                return base.minValue;
+                return base.MinValue;
             }
             set
             {
-                base.minValue = value;
-                this.Value = base.value;
+                base.MinValue = value;
+                this.Value = base.Value;
             }
         }
 
@@ -52,12 +52,12 @@ namespace XJGUI
         {
             get
             {
-                return base.maxValue;
+                return base.MaxValue;
             }
             set
             {
-                base.maxValue = value;
-                this.Value = base.value;
+                base.MaxValue = value;
+                this.Value = base.Value;
             }
         }
 
