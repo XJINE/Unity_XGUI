@@ -4,19 +4,9 @@ namespace XJGUI
 {
     public class StringGUI : ElementGUI<string>
     {
-        #region Field
-
-        protected float fieldWidth;
-
-        #endregion Field
-
         #region Property
 
-        public float FieldWidth
-        {
-            get { return this.fieldWidth; }
-            set { this.fieldWidth = value; }
-        }
+        public float FieldWidth { get; set; }
 
         #endregion Property
 
@@ -24,8 +14,8 @@ namespace XJGUI
 
         public StringGUI()
         {
-            base.Value = XJGUILayout.DefaultValueString;
-            this.fieldWidth = XJGUILayout.DefaultFieldWidth;
+            base.Value      = XJGUILayout.DefaultValueString;
+            this.FieldWidth = XJGUILayout.DefaultFieldWidth;
         }
 
         #endregion Constructor
@@ -34,14 +24,14 @@ namespace XJGUI
 
         public override string Show()
         {
-            XJGUILayout.HorizontalLayout((System.Action)(() => 
+            XJGUILayout.HorizontalLayout(() => 
             {
                 base.ShowTitle(this.FieldWidth > 0 && base.Title == null);
 
                 base.Value = GUILayout.TextField
                     ((string)base.Value, this.FieldWidth <= 0 ? GUILayout.ExpandWidth(true)
                                                       : GUILayout.Width(this.FieldWidth));
-            }));
+            });
 
             return base.Value;
         }

@@ -4,12 +4,6 @@ namespace XJGUI
 {
     public abstract class ValueGUI<T> : ElementGUI<T> where T : struct
     {
-        #region Field
-
-        protected static GUIStyle TextFieldStyle;
-
-        #endregion Field
-
         #region Property
 
         public virtual T     MinValue   { get; set; }
@@ -17,6 +11,17 @@ namespace XJGUI
         public virtual int   Decimals   { get; set; }
         public virtual float FieldWidth { get; set; }
         public virtual bool  WithSlider { get; set; }
+
+        protected virtual GUIStyle TextFieldStyle
+        {
+            get
+            {
+                return new GUIStyle(GUI.skin.textField)
+                {
+                    alignment = TextAnchor.MiddleRight
+                };
+            }
+        }
 
         #endregion Property
 
@@ -33,18 +38,5 @@ namespace XJGUI
         }
 
         #endregion Constructor
-
-        #region Method
-
-        protected static void InitializeGUIStyle()
-        {
-            if (ValueGUI<T>.TextFieldStyle == null)
-            {
-                ValueGUI<T>.TextFieldStyle = new GUIStyle(GUI.skin.textField);
-                ValueGUI<T>.TextFieldStyle.alignment = TextAnchor.MiddleRight;
-            }
-        }
-
-        #endregion Method
     }
 }
