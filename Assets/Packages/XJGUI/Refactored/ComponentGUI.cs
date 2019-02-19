@@ -15,12 +15,12 @@ namespace XJGUI
 
         #region Method
 
-        protected virtual void ShowTitle(bool dummyTitle = false)
+        protected virtual void ShowTitle(bool blank = false)
         {
             // NOTE:
             // Sometimes need to set dummy title to align another component to right.
 
-            if (dummyTitle)
+            if (blank)
             {
                 base.Title = "";
             }

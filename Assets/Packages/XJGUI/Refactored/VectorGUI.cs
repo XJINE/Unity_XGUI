@@ -12,14 +12,14 @@
 
                 XJGUILayout.HorizontalLayout(() =>
                 {
-                    ShowComponentGUI();
+                    ShowComponents();
                 });
             });
 
             return base.Value;
         }
 
-        protected abstract void ShowComponentGUI();
+        protected abstract void ShowComponents();
 
         #endregion Method
     }

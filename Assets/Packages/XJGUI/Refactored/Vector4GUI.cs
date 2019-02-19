@@ -149,7 +149,7 @@ namespace XJGUI
 
         #region Method
 
-        protected override void ShowComponentGUI()
+        protected override void ShowComponents()
         {
             this.Value = new Vector4()
             {

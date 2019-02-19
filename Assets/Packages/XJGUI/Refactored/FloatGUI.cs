@@ -2,23 +2,7 @@
 {
     public class FloatGUI : NumericGUI<float>
     {
-        #region Constructor
-
-        public FloatGUI() : base()
-        {
-            base.MinValue = XJGUILayout.DefaultMinValueFloat;
-            base.MaxValue = XJGUILayout.DefaultMaxValueFloat;
-            base.Value    = XJGUILayout.DefaultValueFloat;
-        }
-
-        #endregion Constructor
-
-        #region Method
-
-        protected override float CorrectValue(float value)
-        {
-            return (float)System.Math.Round(base.CorrectValue(value), base.Decimals);
-        }
+        #region Property
 
         protected override bool TextIsCorrect
         {
@@ -50,6 +34,26 @@
 
                 return false;
             }
+        }
+
+        #endregion Property
+
+        #region Constructor
+
+        public FloatGUI() : base()
+        {
+            base.MinValue = XJGUILayout.DefaultMinValueFloat;
+            base.MaxValue = XJGUILayout.DefaultMaxValueFloat;
+            base.Value    = XJGUILayout.DefaultValueFloat;
+        }
+
+        #endregion Constructor
+
+        #region Method
+
+        protected override float CorrectValue(float value)
+        {
+            return (float)System.Math.Round(base.CorrectValue(value), base.Decimals);
         }
 
         #endregion Method

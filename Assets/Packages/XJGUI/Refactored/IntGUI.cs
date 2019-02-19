@@ -6,14 +6,7 @@
 
         public override int Decimals
         {
-            get
-            {
-                return base.Decimals;
-            }
-            set
-            {
-                base.Decimals = 0;
-            }
+            get { return 0; }
         }
 
         protected override bool TextIsCorrect
