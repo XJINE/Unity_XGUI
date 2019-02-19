@@ -9,6 +9,8 @@ namespace XJGUI
 
         private static GUIStyle ButtonStyle;
 
+        public delegate void TabPanelFunc(string title);
+
         #endregion Field
 
         #region Property
@@ -29,14 +31,14 @@ namespace XJGUI
                     = XJGUILayout.Generate1x1Texture(Color.clear);
             }
 
-            XJGUILayout.VerticalLayout((Action)(()=> 
+            XJGUILayout.VerticalLayout(()=> 
             {
                 base.ShowTitle();
 
                 base.Value = GUILayout.Toolbar(base.Value, this.Labels, TabPanel.ButtonStyle);
 
                 guiAction[base.Value]();
-            }));
+            });
 
             return base.Value;
         }

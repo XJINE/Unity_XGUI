@@ -13,9 +13,6 @@
 
         public BaseGUI()
         {
-            // NOTE:
-            // "Value" must be initialized in inheritance class.
-
             this.Title = XJGUILayout.DefaultTitle;
         }
 

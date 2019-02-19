@@ -81,7 +81,7 @@ namespace XJGUI
                 this.previousShowTime = Time.timeSinceLevelLoad;
             }
 
-            this.Value = GUILayout.Window(this.ID,
+            base.Value = GUILayout.Window(this.ID,
                                           base.Value,
                                           windowFunction,
                                           base.Title,
@@ -90,7 +90,7 @@ namespace XJGUI
                                           GUILayout.MaxWidth (this.MaxWidth),
                                           GUILayout.MaxHeight(this.MaxHeight));
 
-            return this.Value;
+            return base.Value;
         }
 
         #endregion Method
