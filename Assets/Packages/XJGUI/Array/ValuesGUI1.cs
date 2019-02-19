@@ -1,6 +1,6 @@
 ﻿namespace XJGUI
 {
-    public abstract class ValuesGUI<T> : Element?: // lElementsGUI<T> where T : struct
+    public abstract class ValuesGUI<T> : ElementsGUI<T> where T : struct
     {
         #region Field
 
