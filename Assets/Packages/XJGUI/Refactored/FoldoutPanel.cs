@@ -7,7 +7,7 @@ namespace XJGUI
     {
         #region Method
 
-        public override bool Show(params Action[] guiActions)
+        public override bool Show(params Action[] show)
         {
             // NOTE:
             // (value = true  && button = true)  => false
@@ -25,9 +25,9 @@ namespace XJGUI
                 {
                     XJGUILayout.VerticalLayout(()=>
                     {
-                        for (int i = 0; i < guiActions.Length; i++)
+                        for (int i = 0; i < show.Length; i++)
                         {
-                            guiActions[i]();
+                            show[i]();
                         }
                     });
                 }

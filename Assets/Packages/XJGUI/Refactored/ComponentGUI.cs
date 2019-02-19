@@ -6,38 +6,12 @@ namespace XJGUI
     {
         #region Property
 
-        // CAUTION:
-        // "TitleColor" must be used for notification, not for design.
-
-        public virtual bool   BoldTitle  { get; set; }
-        public virtual Color? TitleColor { get; set; }
-
         protected virtual GUIStyle TitleStyle
         {
-            get
-            {
-                GUIStyle style = new GUIStyle(GUI.skin.label)
-                {
-                    fontStyle = this.BoldTitle ? FontStyle.Bold : FontStyle.Normal
-                };
-
-                style.normal.textColor = this.TitleColor == null ? GUI.skin.label.normal.textColor
-                                                                 : (Color)this.TitleColor;
-
-                return style;
-            }
+            get { return new GUIStyle(GUI.skin.label); }
         }
 
         #endregion Property
-
-        #region Constructor
-
-        public ComponentGUI() : base()
-        {
-            this.BoldTitle = XJGUILayout.DefaultBoldTitle;
-        }
-
-        #endregion Constructor
 
         #region Method
 
@@ -56,7 +30,7 @@ namespace XJGUI
                 return;
             }
 
-            GUILayout.Label(base.Title, this.TitleStyle);
+            GUILayout.Label(base.Title, TitleStyle);
         }
 
         #endregion Method

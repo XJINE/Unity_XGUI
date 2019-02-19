@@ -7,8 +7,6 @@ namespace XJGUI
     {
         #region Field
 
-        private static GUIStyle ButtonStyle;
-
         public delegate void TabPanelFunc(string title);
 
         #endregion Field
@@ -17,27 +15,29 @@ namespace XJGUI
 
         public string[] Labels { get; set; }
 
+        protected virtual GUIStyle TabStyle
+        {
+            get
+            {
+                GUIStyle style = new GUIStyle(GUI.skin.button);
+                style.onNormal.background = Texture2D.blackTexture;
+                return style;
+            }
+        }
+
         #endregion Property
 
         #region Method
 
-        public override int Show(params Action[] guiAction)
+        public override int Show(params Action[] show)
         {
-            if (TabPanel.ButtonStyle == null)
-            {
-                TabPanel.ButtonStyle = new GUIStyle(GUI.skin.button);
-
-                TabPanel.ButtonStyle.onNormal.background
-                    = XJGUILayout.Generate1x1Texture(Color.clear);
-            }
-
             XJGUILayout.VerticalLayout(()=> 
             {
                 base.ShowTitle();
 
-                base.Value = GUILayout.Toolbar(base.Value, this.Labels, TabPanel.ButtonStyle);
+                base.Value = GUILayout.Toolbar(base.Value, this.Labels, TabStyle);
 
-                guiAction[base.Value]();
+                show[base.Value]();
             });
 
             return base.Value;

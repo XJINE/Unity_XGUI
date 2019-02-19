@@ -132,19 +132,5 @@ public static class XJGUILayout
         GUILayout.EndVertical();
     }
 
-    internal static Texture2D Generate1x1Texture(Color color)
-    {
-        // CAUTION:
-        // Do not generate Texture2D (or any other resources) in constructor.
-        // Unity does not support such operation.
-
-        Texture2D texture = new Texture2D(1, 1);
-        texture.hideFlags = HideFlags.HideAndDontSave;
-        texture.SetPixel(0, 0, color);
-        texture.Apply();
-
-        return texture;
-    }
-
     #endregion Method
 }

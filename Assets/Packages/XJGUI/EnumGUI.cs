@@ -29,10 +29,6 @@ namespace XJGUI
 
         protected bool isEditing;
 
-        protected float buttonWidth;
-
-        private static GUIStyle ButtonStyle;
-
         #endregion Field
 
         #region Property
@@ -50,19 +46,26 @@ namespace XJGUI
             }
         }
 
-        public float ButtonWidth
-        {
-            get { return this.buttonWidth; }
-            set { this.buttonWidth = value; }
-        }
+        public float ButtonWidth { get; set; }
 
+        protected GUIStyle ButtonStyle
+        {
+            get
+            {
+                return new GUIStyle(GUI.skin.button)
+                {
+                    normal = GUI.skin.button.active
+                };
+            }
+        }
+        
         #endregion Property
 
         #region Constructor
 
         public EnumGUI() : base()
         {
-            this.buttonWidth = XJGUILayout.DefaultButtonWidth;
+            this.ButtonWidth = XJGUILayout.DefaultButtonWidth;
 
             this.enumType = typeof(T);
 
@@ -80,12 +83,6 @@ namespace XJGUI
 
         public override T Show()
         {
-            if (EnumGUI<T>.ButtonStyle == null)
-            {
-                EnumGUI<T>.ButtonStyle = new GUIStyle(GUI.skin.button);
-                EnumGUI<T>.ButtonStyle.normal = GUI.skin.button.active;
-            }
-
             // Selected Element
 
             XJGUILayout.HorizontalLayout(() =>
@@ -93,7 +90,7 @@ namespace XJGUI
                 base.ShowTitle();
 
                 string buttonContent = this.enumNames[this.selectedIndex];
-                GUIStyle buttonStyle = this.isEditing ? EnumGUI<T>.ButtonStyle : GUI.skin.button;
+                GUIStyle buttonStyle = this.isEditing ? ButtonStyle : GUI.skin.button;
 
                 if (this.ButtonWidth > 0)
                 {
@@ -112,7 +109,7 @@ namespace XJGUI
 
             if (!this.isEditing)
             {
-                return this.Value;
+                return Value;
             }
 
             // Other Element
@@ -158,7 +155,6 @@ namespace XJGUI
 
             for (int i = 0; i < this.enumNames.Length; i++)
             {
-
                 if (this.enumNames[i] == enumName)
                 {
                     return i;

@@ -17,8 +17,8 @@ namespace XJGUI
         {
             get
             {
-                return this.FieldWidth <= 0 ? GUILayout.ExpandWidth(true)
-                                            : GUILayout.Width(this.FieldWidth);
+                return FieldWidth <= 0 ? GUILayout.ExpandWidth(true)
+                                       : GUILayout.Width(FieldWidth);
             }
         }
 
@@ -28,7 +28,7 @@ namespace XJGUI
 
         protected override void ShowTitle(bool dummyTitle = false)
         {
-            base.ShowTitle(this.FieldWidth > 0 && base.Title == null);
+            base.ShowTitle(FieldWidth > 0 && base.Title == null);
         }
 
         protected virtual string ShowTextField(string text)

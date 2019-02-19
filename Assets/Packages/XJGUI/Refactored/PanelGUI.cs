@@ -4,6 +4,6 @@ namespace XJGUI
 {
     public abstract class PanelGUI<T> : ComponentGUI<T>
     {
-        public abstract T Show(params Action[] guiActions);
+        public abstract T Show(params Action[] show);
     }
 }
