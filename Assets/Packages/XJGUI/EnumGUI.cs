@@ -52,13 +52,22 @@ namespace XJGUI
         {
             get
             {
-                return new GUIStyle(GUI.skin.button)
+                GUIStyle style = GUI.skin.button;
+
+                if (this.isEditing)
                 {
-                    normal = GUI.skin.button.active
-                };
+                    style.normal = GUI.skin.button.active;
+                }
+
+                return style;
             }
         }
         
+        protected GUILayoutOption ButtonLayout
+        {
+            get { return this.ButtonWidth <= 0 ? null : GUILayout.Width(this.ButtonWidth); }
+        }
+
         #endregion Property
 
         #region Constructor
@@ -83,25 +92,18 @@ namespace XJGUI
 
         public override T Show()
         {
-            // Selected Element
-
             XJGUILayout.HorizontalLayout(() =>
             {
                 base.ShowTitle();
-
-                string buttonContent = this.enumNames[this.selectedIndex];
-                GUIStyle buttonStyle = this.isEditing ? ButtonStyle : GUI.skin.button;
 
                 if (this.ButtonWidth > 0)
                 {
                     GUILayout.FlexibleSpace();
                 }
 
-                bool buttonPressed = this.ButtonWidth <= 0 ?
-                    GUILayout.Button(buttonContent, buttonStyle) :
-                    GUILayout.Button(buttonContent, buttonStyle, GUILayout.Width(this.ButtonWidth));
-
-                if (buttonPressed)
+                if (GUILayout.Button(this.enumNames[this.selectedIndex],
+                                     this.ButtonStyle,
+                                     this.ButtonLayout))
                 {
                     this.isEditing = !this.isEditing;
                 }
@@ -112,16 +114,14 @@ namespace XJGUI
                 return Value;
             }
 
-            // Other Element
-
-            XJGUILayout.HorizontalLayout((Action)(() =>
+            XJGUILayout.HorizontalLayout(() =>
             {
                 if(this.ButtonWidth > 0)
                 {
                     GUILayout.FlexibleSpace();
                 }
 
-                XJGUILayout.VerticalLayout((Action)(() =>
+                XJGUILayout.VerticalLayout(() =>
                 {
                     for (int i = 0; i < this.enumNames.Length; i++)
                     {
@@ -130,23 +130,17 @@ namespace XJGUI
                             continue;
                         }
 
-                        string buttonContent = this.enumNames[i];
-
-                        bool buttonPressed = this.ButtonWidth <= 0 ?
-                            GUILayout.Button(buttonContent) :
-                            GUILayout.Button(buttonContent, GUILayout.Width(this.ButtonWidth));
-
-                        if (buttonPressed)
+                        if (GUILayout.Button(this.enumNames[i], ButtonLayout))
                         {
                             this.selectedIndex = i;
                             this.isEditing = false;
                             base.Value = (T)Enum.Parse(this.enumType, this.enumNames[i]);
                         }
                     }
-                }), GUI.skin.box);
-            }));
+                }, GUI.skin.box);
+            });
 
-            return base.Value;
+            return this.Value;
         }
 
         protected int GetSelectedEnumIndex(T value)

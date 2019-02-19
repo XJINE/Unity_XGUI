@@ -6,10 +6,10 @@ namespace XJGUI
     {
         #region Field
 
-        private IntGUI x;
-        private IntGUI y;
-        private IntGUI z;
-        private IntGUI w;
+        private readonly IntGUI intGUIX;
+        private readonly IntGUI intGUIY;
+        private readonly IntGUI intGUIZ;
+        private readonly IntGUI intGUIW;
 
         #endregion Field
 
@@ -25,12 +25,15 @@ namespace XJGUI
             {
                 int[] values = ParseIPv4Text(value);
 
-                this.x.Value = values[0];
-                this.y.Value = values[1];
-                this.z.Value = values[2];
-                this.w.Value = values[3];
+                this.intGUIX.Value = values[0];
+                this.intGUIY.Value = values[1];
+                this.intGUIZ.Value = values[2];
+                this.intGUIW.Value = values[3];
 
-                base.Value = this.x.Value + "." + this.y.Value + "." + this.z.Value + "." + this.w.Value;
+                base.Value = this.intGUIX.Value + "."
+                           + this.intGUIY.Value + "."
+                           + this.intGUIZ.Value + "."
+                           + this.intGUIW.Value;
             }
         }
 
@@ -45,32 +48,32 @@ namespace XJGUI
 
             int[] defaultValue = ParseIPv4Text(XJGUILayout.DefaultValueIPv4);
 
-            this.x = new IntGUI()
+            this.intGUIX = new IntGUI()
             {
-                Value = defaultValue[0],
-                MinValue = IPV4_VALUE_MIN,
-                MaxValue = IPV4_VALUE_MAX,
+                Value      = defaultValue[0],
+                MinValue   = IPV4_VALUE_MIN,
+                MaxValue   = IPV4_VALUE_MAX,
                 WithSlider = false
             };
-            this.y = new IntGUI()
+            this.intGUIY = new IntGUI()
             {
-                Value = defaultValue[1],
-                MinValue = IPV4_VALUE_MIN,
-                MaxValue = IPV4_VALUE_MAX,
+                Value      = defaultValue[1],
+                MinValue   = IPV4_VALUE_MIN,
+                MaxValue   = IPV4_VALUE_MAX,
                 WithSlider = false
             };
-            this.z = new IntGUI()
+            this.intGUIZ = new IntGUI()
             {
-                Value = defaultValue[2],
-                MinValue = IPV4_VALUE_MIN,
-                MaxValue = IPV4_VALUE_MAX,
+                Value      = defaultValue[2],
+                MinValue   = IPV4_VALUE_MIN,
+                MaxValue   = IPV4_VALUE_MAX,
                 WithSlider = false
             };
-            this.w = new IntGUI()
+            this.intGUIW = new IntGUI()
             {
-                Value = defaultValue[3],
-                MinValue = IPV4_VALUE_MIN,
-                MaxValue = IPV4_VALUE_MAX,
+                Value      = defaultValue[3],
+                MinValue   = IPV4_VALUE_MIN,
+                MaxValue   = IPV4_VALUE_MAX,
                 WithSlider = false
             };
 
@@ -86,29 +89,29 @@ namespace XJGUI
 
         public override string Show()
         {
-            XJGUILayout.VerticalLayout((System.Action)(() => 
+            XJGUILayout.VerticalLayout(() => 
             {
                 base.ShowTitle();
 
-                XJGUILayout.HorizontalLayout((System.Action)(() => 
+                XJGUILayout.HorizontalLayout(() => 
                 {
-                    int x = this.x.Show();
+                    int x = this.intGUIX.Show();
 
                     GUILayout.Label(".");
 
-                    int y = this.y.Show();
+                    int y = this.intGUIY.Show();
 
                     GUILayout.Label(".");
 
-                    int z = this.z.Show();
+                    int z = this.intGUIZ.Show();
 
                     GUILayout.Label(".");
 
-                    int w = this.w.Show();
+                    int w = this.intGUIW.Show();
 
                     base.Value = x + "." + y + "." + z + "." + w;
-                }));
-            }));
+                });
+            });
 
             return this.Value;
         }

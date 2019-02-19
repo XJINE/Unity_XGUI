@@ -7,12 +7,12 @@ public static class XJGUILayout
 
     #region FlexibleWindow Settings
 
-    public static float  DefaultWindowMinWidth    = 300;
-    public static float  DefaultWindowMinHeight   = 300;
-    public static float  DefaultWindowMaxWidth    = 1000;
-    public static float  DefaultWindowMaxHeight   = 800;
-    public static bool   DefaultWindowIsDraggable = true;
-    public static bool   DefaultWindowIsVisible   = true;
+    public static float DefaultWindowMinWidth    = 300;
+    public static float DefaultWindowMinHeight   = 300;
+    public static float DefaultWindowMaxWidth    = 1000;
+    public static float DefaultWindowMaxHeight   = 800;
+    public static bool  DefaultWindowIsDraggable = true;
+    public static bool  DefaultWindowIsVisible   = true;
 
     #endregion FlexibleWindow Settings
 
@@ -30,23 +30,19 @@ public static class XJGUILayout
 
     #endregion TextFieldGUI Settings
 
-    #region StringGUI Settings
-
-    public static string DefaultValueString = null;
-
-    #endregion StringGUI Settings
-
     #region ValueGUI Settings
 
     public static float DefaultButtonWidth       = 100;
     public static Color DefaultInvalidValueColor = new Color(1, 0, 0, 1);
 
+    public static int  DefaultDecimals   = 4;
+    public static bool DefaultWithSlider = true;
+
     #endregion ValueGUI Settings
 
-    #region ValueGUI Settings
+    #region Default Value Settings
 
-    public static int  DefaultDecimals = 4;
-    public static bool DefaultWithSlider = true;
+    public static string DefaultValueString = null;
 
     public static int DefaultValueInt    = 0;
     public static int DefaultMinValueInt = -999;
