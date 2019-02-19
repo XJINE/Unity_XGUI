@@ -2,7 +2,7 @@
 
 namespace XJGUI
 {
-    public class ColorGUI : VectorGUI<Color>
+    public class ColorGUI : VectorFloatGUI<Color>
     {
         #region Field
 

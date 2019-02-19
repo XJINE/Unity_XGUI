@@ -4,11 +4,6 @@
     {
         #region Property
 
-        public override int Decimals
-        {
-            get { return 0; }
-        }
-
         protected override bool TextIsCorrect
         {
             get

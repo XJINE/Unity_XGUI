@@ -4,6 +4,8 @@
     {
         #region Property
 
+        public virtual int Decimals { get; set; }
+
         protected override bool TextIsCorrect
         {
             get
@@ -27,7 +29,7 @@
                     return true;
                 }
 
-                if (splits[1].Length <= base.Decimals)
+                if (splits[1].Length <= this.Decimals)
                 {
                     return true;
                 }
@@ -42,6 +44,7 @@
 
         public FloatGUI() : base()
         {
+            this.Decimals = XJGUILayout.DefaultDecimals;
             base.MinValue = XJGUILayout.DefaultMinValueFloat;
             base.MaxValue = XJGUILayout.DefaultMaxValueFloat;
             base.Value    = XJGUILayout.DefaultValueFloat;
@@ -53,7 +56,7 @@
 
         protected override float CorrectValue(float value)
         {
-            return (float)System.Math.Round(base.CorrectValue(value), base.Decimals);
+            return (float)System.Math.Round(base.CorrectValue(value), this.Decimals);
         }
 
         #endregion Method

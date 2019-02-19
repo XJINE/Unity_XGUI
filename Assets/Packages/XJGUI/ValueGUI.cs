@@ -8,7 +8,6 @@ namespace XJGUI
 
         public virtual T    MinValue   { get; set; }
         public virtual T    MaxValue   { get; set; }
-        public virtual int  Decimals   { get; set; }
         public virtual bool WithSlider { get; set; }
 
         protected override GUIStyle FieldStyle
@@ -28,7 +27,6 @@ namespace XJGUI
         public ValueGUI() : base()
         {
             base.FieldWidth = XJGUILayout.DefaultFieldWidthValue;
-            this.Decimals   = XJGUILayout.DefaultDecimals;
             this.WithSlider = XJGUILayout.DefaultWithSlider;
         }
 
