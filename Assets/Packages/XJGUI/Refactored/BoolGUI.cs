@@ -23,7 +23,7 @@ namespace XJGUI
 
                 GUILayout.FlexibleSpace();
 
-                base.Value = GUILayout.Toggle((bool)base.Value, "");
+                base.Value = GUILayout.Toggle(base.Value, "");
             });
 
             return base.Value;

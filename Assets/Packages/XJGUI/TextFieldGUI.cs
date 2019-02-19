@@ -8,15 +8,12 @@ namespace XJGUI
 
         public virtual float FieldWidth { get; set; }
 
-        protected virtual string Text { get; set; }
-
-        protected virtual GUIStyle TextFieldStyle
+        protected virtual GUIStyle FieldStyle
         {
-            //alignment = TextAnchor.MiddleRight
             get { return new GUIStyle(GUI.skin.textField); }
         }
 
-        protected virtual GUILayoutOption TextFieldLayout
+        protected virtual GUILayoutOption FieldLayout
         {
             get
             {
@@ -34,9 +31,9 @@ namespace XJGUI
             base.ShowTitle(this.FieldWidth > 0 && base.Title == null);
         }
 
-        protected virtual void ShowTextField()
+        protected virtual string ShowTextField(string text)
         {
-            this.Text = GUILayout.TextField(this.Text, this.TextFieldStyle, this.TextFieldLayout);
+            return GUILayout.TextField(text, this.FieldStyle, this.FieldLayout);
         }
 
         #endregion Method

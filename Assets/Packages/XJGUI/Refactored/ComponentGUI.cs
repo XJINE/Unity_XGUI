@@ -12,6 +12,22 @@ namespace XJGUI
         public virtual bool   BoldTitle  { get; set; }
         public virtual Color? TitleColor { get; set; }
 
+        protected virtual GUIStyle TitleStyle
+        {
+            get
+            {
+                GUIStyle style = new GUIStyle(GUI.skin.label)
+                {
+                    fontStyle = this.BoldTitle ? FontStyle.Bold : FontStyle.Normal
+                };
+
+                style.normal.textColor = this.TitleColor == null ? GUI.skin.label.normal.textColor
+                                                                 : (Color)this.TitleColor;
+
+                return style;
+            }
+        }
+
         #endregion Property
 
         #region Constructor
@@ -40,20 +56,7 @@ namespace XJGUI
                 return;
             }
 
-            GUILayout.Label(base.Title, GetTitleStyle());
-        }
-
-        protected GUIStyle GetTitleStyle()
-        {
-            GUIStyle style = new GUIStyle(GUI.skin.label)
-            {
-                fontStyle = this.BoldTitle ? FontStyle.Bold : FontStyle.Normal
-            };
-
-            style.normal.textColor = this.TitleColor == null ? GUI.skin.label.normal.textColor
-                                                             : (Color)this.TitleColor;
-
-            return style;
+            GUILayout.Label(base.Title, this.TitleStyle);
         }
 
         #endregion Method

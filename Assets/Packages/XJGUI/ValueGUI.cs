@@ -2,24 +2,22 @@
 
 namespace XJGUI
 {
-    public abstract class ValueGUI<T> : ElementGUI<T> where T : struct
+    public abstract class ValueGUI<T> : TextFieldGUI<T> where T : struct
     {
         #region Property
 
         public virtual T     MinValue   { get; set; }
         public virtual T     MaxValue   { get; set; }
         public virtual int   Decimals   { get; set; }
-        public virtual float FieldWidth { get; set; }
         public virtual bool  WithSlider { get; set; }
 
-        protected virtual GUIStyle TextFieldStyle
+        protected override GUIStyle FieldStyle
         {
             get
             {
-                return new GUIStyle(GUI.skin.textField)
-                {
-                    alignment = TextAnchor.MiddleRight
-                };
+                GUIStyle style = base.FieldStyle;
+                style.alignment = TextAnchor.MiddleRight;
+                return style;
             }
         }
 
@@ -29,11 +27,8 @@ namespace XJGUI
 
         public ValueGUI() : base()
         {
-            // NOTE:
-            // "MinValue" & "MaxValue" must be initialized in inheritance class.
-
+            base.FieldWidth = XJGUILayout.DefaultFieldWidthValue;
             this.Decimals   = XJGUILayout.DefaultDecimals;
-            this.FieldWidth = XJGUILayout.DefaultFieldWidth;
             this.WithSlider = XJGUILayout.DefaultWithSlider;
         }
 

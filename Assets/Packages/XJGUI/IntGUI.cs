@@ -16,6 +16,26 @@
             }
         }
 
+        protected override bool TextIsCorrect
+        {
+            get
+            {
+                int value;
+
+                if (!int.TryParse(this.text, out value))
+                {
+                    return false;
+                }
+
+                if (value < base.MinValue || base.MaxValue < value)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+        }
+
         #endregion Property
 
         #region Constructor
@@ -24,35 +44,9 @@
         {
             base.MinValue = XJGUILayout.DefaultMinValueInt;
             base.MaxValue = XJGUILayout.DefaultMaxValueInt;
-            this.Value    = XJGUILayout.DefaultValueInt;
+            base.Value    = XJGUILayout.DefaultValueInt;
         }
 
         #endregion Constructor
-
-        #region Method
-
-        protected override bool TextIsCorrect()
-        {
-            int value;
-
-            if (!int.TryParse(this.text, out value))
-            {
-                return false;
-            }
-
-            if (value < base.MinValue)
-            {
-                return false;
-            }
-
-            if (value > base.MaxValue)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        #endregion Method
     }
 }

@@ -10,11 +10,6 @@ namespace XJGUI
     {
         #region Field
 
-        // NOTE:
-        // "text" must be initialized in inheritance class.
-        // It is same as "value" initialize.
-        // In most cases, initialize with "Value" property.
-
         protected string text;
 
         #endregion Field
@@ -60,16 +55,13 @@ namespace XJGUI
             }
         }
 
-        protected override GUIStyle TextFieldStyle
+        protected override GUIStyle FieldStyle
         {
             get
             {
-                GUIStyle style = new GUIStyle(GUI.skin.textField)
-                {
-                    alignment = TextAnchor.MiddleRight
-                };
+                GUIStyle style = base.FieldStyle;
 
-                bool textIsCorrect = TextIsCorrect();
+                bool textIsCorrect = TextIsCorrect;
 
                 style.normal.textColor
                 = textIsCorrect ? GUI.skin.textField.normal.textColor
@@ -87,6 +79,8 @@ namespace XJGUI
             }
         }
 
+        protected abstract bool TextIsCorrect { get; }
+
         #endregion Property
 
         #region Method
@@ -97,21 +91,19 @@ namespace XJGUI
             {
                 XJGUILayout.HorizontalLayout(() =>
                 {
-                    base.ShowTitle(base.FieldWidth > 0 && base.Title == null);
+                    base.ShowTitle();
 
-                    this.text = GUILayout.TextField(this.text, base.TextFieldStyle,
-                                base.FieldWidth <= 0 ? GUILayout.ExpandWidth(true)
-                                                     : GUILayout.Width(base.FieldWidth));
+                    this.text = base.ShowTextField(this.text);
 
                     // NOTE:
                     // float.TryParse("0.") return true.
                     // But need to keep user input text, because the user may input "0.x~".
 
-                    float textFieldValue;
+                    float textValue;
 
-                    if (float.TryParse(this.text, out textFieldValue))
+                    if (float.TryParse(this.text, out textValue))
                     {
-                        base.Value = (T)(object)textFieldValue;
+                        base.Value = (T)(object)textValue;
                     }
                 });
 
@@ -129,7 +121,7 @@ namespace XJGUI
 
                 if (!sliderValue.Equals(base.Value))
                 {
-                    base.Value = sliderValue;
+                    this.Value = sliderValue;
                 }
             });
 
@@ -150,8 +142,6 @@ namespace XJGUI
 
             return value;
         }
-
-        protected abstract bool TextIsCorrect();
 
         #endregion Method
     }

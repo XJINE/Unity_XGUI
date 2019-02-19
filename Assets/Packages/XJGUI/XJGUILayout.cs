@@ -13,7 +13,6 @@ public static class XJGUILayout
     public static float  DefaultWindowMaxHeight   = 800;
     public static bool   DefaultWindowIsDraggable = true;
     public static bool   DefaultWindowIsVisible   = true;
-    public static string DefaultFieldGUIGroup     = null;
 
     #endregion FlexibleWindow Settings
 
@@ -24,29 +23,40 @@ public static class XJGUILayout
 
     #endregion ComponentGUI Settings
 
-    #region ElementGUI/ValueGUI Settings
+    #region TextFieldGUI Settings
 
-    public static int   DefaultDecimals          = 4;
-    public static float DefaultButtonWidth       = 100;
-    public static float DefaultFieldWidth        = 100;
-    public static bool  DefaultWithSlider        = true;
-    public static Color DefaultInvalidValueColor = new Color(1, 0, 0, 1);
+    public static int DefaultFieldWidthString = 100;
+    public static int DefaultFieldWidthValue  = 100;
 
-    #endregion ElementGUI/ValueGUI Settings
+    #endregion TextFieldGUI Settings
 
-    #region Value Settings
-
-    public static int DefaultValueInt    = 0;
-    public static int DefaultMinValueInt = -50;
-    public static int DefaultMaxValueInt = 50;
-
-    public static float DefaultValueFloat    = 0;
-    public static float DefaultMinValueFloat = -50;
-    public static float DefaultMaxValueFloat = 50;
-
-    public static bool   DefaultValueBool   = false;
+    #region StringGUI Settings
 
     public static string DefaultValueString = null;
+
+    #endregion StringGUI Settings
+
+    #region ValueGUI Settings
+
+    public static float DefaultButtonWidth       = 100;
+    public static Color DefaultInvalidValueColor = new Color(1, 0, 0, 1);
+
+    #endregion ValueGUI Settings
+
+    #region ValueGUI Settings
+
+    public static int  DefaultDecimals = 4;
+    public static bool DefaultWithSlider = true;
+
+    public static int DefaultValueInt    = 0;
+    public static int DefaultMinValueInt = -999;
+    public static int DefaultMaxValueInt = 999;
+
+    public static float DefaultValueFloat    = 0;
+    public static float DefaultMinValueFloat = -999;
+    public static float DefaultMaxValueFloat = 999;
+
+    public static bool DefaultValueBool   = false;
 
     public static Vector2 DefaultValueVector2    = new Vector2(0, 0);
     public static Vector2 DefaultMinValueVector2 = new Vector2(-50, -50);

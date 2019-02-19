@@ -20,38 +20,36 @@
             return (float)System.Math.Round(base.CorrectValue(value), base.Decimals);
         }
 
-        protected override bool TextIsCorrect()
+        protected override bool TextIsCorrect
         {
-            float value;
-
-            if (!float.TryParse(this.text, out value))
+            get
             {
+                float value;
+
+                if (!float.TryParse(this.text, out value))
+                {
+                    return false;
+                }
+
+                if (value < base.MinValue || base.MaxValue < value)
+                {
+                    return false;
+                }
+
+                string[] splits = this.text.Split('.');
+
+                if (splits.Length == 1)
+                {
+                    return true;
+                }
+
+                if (splits[1].Length <= base.Decimals)
+                {
+                    return true;
+                }
+
                 return false;
             }
-
-            if (value < base.MinValue)
-            {
-                return false;
-            }
-
-            if (value > base.MaxValue)
-            {
-                return false;
-            }
-
-            string[] splits = this.text.Split('.');
-
-            if (splits.Length == 1)
-            {
-                return true;
-            }
-
-            if (splits[1].Length <= base.Decimals)
-            {
-                return true;
-            }
-
-            return false;
         }
 
         #endregion Method

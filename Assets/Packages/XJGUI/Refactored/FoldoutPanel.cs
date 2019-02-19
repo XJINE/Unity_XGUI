@@ -19,7 +19,7 @@ namespace XJGUI
             {
                 string buttonContent = (base.Value ? "\u25BC " : "\u25BA ") + base.Title;
 
-                base.Value = !(base.Value == GUILayout.Button(buttonContent, base.GetTitleStyle()));
+                base.Value = !(base.Value == GUILayout.Button(buttonContent, base.TitleStyle));
 
                 if (base.Value)
                 {
