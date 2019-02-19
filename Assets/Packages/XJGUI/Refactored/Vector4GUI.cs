@@ -80,6 +80,21 @@ namespace XJGUI
             }
         }
 
+        public override int Decimals
+        {
+            get
+            {
+                return this.floatGUIX.Decimals;
+            }
+            set
+            {
+                this.floatGUIX.Decimals = value;
+                this.floatGUIY.Decimals = value;
+                this.floatGUIZ.Decimals = value;
+                this.floatGUIW.Decimals = value;
+            }
+        }
+
         public override float FieldWidth
         {
             get
@@ -111,21 +126,6 @@ namespace XJGUI
             }
         }
 
-        public override int Decimals
-        {
-            get
-            {
-                return this.floatGUIX.Decimals;
-            }
-            set
-            {
-                this.floatGUIX.Decimals = value;
-                this.floatGUIY.Decimals = value;
-                this.floatGUIZ.Decimals = value;
-                this.floatGUIW.Decimals = value;
-            }
-        }
-
         #endregion Property
 
         #region Constructor
@@ -136,9 +136,6 @@ namespace XJGUI
             this.floatGUIY = new FloatGUI() { Title = "Y" };
             this.floatGUIZ = new FloatGUI() { Title = "Z" };
             this.floatGUIW = new FloatGUI() { Title = "W" };
-
-            // NOTE:
-            // Set min/max value first. If not, "Value" will collect with min/ max value 0.
 
             this.MinValue = XJGUILayout.DefaultMinValueVector4;
             this.MaxValue = XJGUILayout.DefaultMaxValueVector4;

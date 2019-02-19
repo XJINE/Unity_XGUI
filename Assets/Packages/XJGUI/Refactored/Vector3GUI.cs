@@ -73,6 +73,20 @@ namespace XJGUI
             }
         }
 
+        public override int Decimals
+        {
+            get
+            {
+                return this.floatGUIX.Decimals;
+            }
+            set
+            {
+                this.floatGUIX.Decimals = value;
+                this.floatGUIY.Decimals = value;
+                this.floatGUIZ.Decimals = value;
+            }
+        }
+
         public override float FieldWidth
         {
             get
@@ -99,20 +113,6 @@ namespace XJGUI
                 this.floatGUIX.WithSlider = value;
                 this.floatGUIY.WithSlider = value;
                 this.floatGUIZ.WithSlider = value;
-            }
-        }
-
-        public override int Decimals
-        {
-            get
-            {
-                return this.floatGUIX.Decimals;
-            }
-            set
-            {
-                this.floatGUIX.Decimals = value;
-                this.floatGUIY.Decimals = value;
-                this.floatGUIZ.Decimals = value;
             }
         }
 
