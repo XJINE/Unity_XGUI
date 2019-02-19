@@ -16,32 +16,21 @@ public static class XJGUILayout
 
     #endregion FlexibleWindow Settings
 
-    #region ComponentGUI Settings
+    #region Default GUI Settings
 
-    public static string DefaultTitle     = null;
-    public static bool   DefaultBoldTitle = false;
+    public static string DefaultTitle             = null;
+    public static int    DefaultFieldWidthString  = 100;
+    public static int    DefaultFieldWidthValue   = 100;
+    public static float  DefaultButtonWidth       = 100;
+    public static int    DefaultDecimals          = 4;
+    public static bool   DefaultWithSlider        = true;
+    public static Color  DefaultInvalidValueColor = new Color(1, 0, 0, 1);
 
-    #endregion ComponentGUI Settings
-
-    #region TextFieldGUI Settings
-
-    public static int DefaultFieldWidthString = 100;
-    public static int DefaultFieldWidthValue  = 100;
-
-    #endregion TextFieldGUI Settings
-
-    #region ValueGUI Settings
-
-    public static float DefaultButtonWidth       = 100;
-    public static Color DefaultInvalidValueColor = new Color(1, 0, 0, 1);
-
-    public static int  DefaultDecimals   = 4;
-    public static bool DefaultWithSlider = true;
-
-    #endregion ValueGUI Settings
+    #endregion Default GUI Settings
 
     #region Default Value Settings
 
+    public static bool   DefaultValueBool   = false;
     public static string DefaultValueString = null;
 
     public static int DefaultValueInt    = 0;
@@ -51,8 +40,6 @@ public static class XJGUILayout
     public static float DefaultValueFloat    = 0;
     public static float DefaultMinValueFloat = -999;
     public static float DefaultMaxValueFloat = 999;
-
-    public static bool DefaultValueBool   = false;
 
     public static Vector2 DefaultValueVector2    = new Vector2(0, 0);
     public static Vector2 DefaultMinValueVector2 = new Vector2(-50, -50);
@@ -66,7 +53,6 @@ public static class XJGUILayout
     public static Vector4 DefaultMinValueVector4 = new Vector4(-50, -50, -50, -50);
     public static Vector4 DefaultMaxValueVector4 = new Vector4(50, 50, 50, 50);
 
-    public static bool  DefaultHSV           = false;
     public static Color DefaultValueColor    = new Color(0, 0, 0, 1);
     public static Color DefaultMinValueColor = new Color(0, 0, 0, 0);
     public static Color DefaultMaxValueColor = new Color(1, 1, 1, 1);

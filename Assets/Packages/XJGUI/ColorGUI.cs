@@ -6,15 +6,10 @@ namespace XJGUI
     {
         #region Field
 
-        private static GUIStyle ColorStyle;
-        private Texture2D backgroundTexture;
-
         private readonly FloatGUI floatGUIR;
         private readonly FloatGUI floatGUIG;
         private readonly FloatGUI floatGUIB;
         private readonly FloatGUI floatGUIA;
-
-        protected bool hsv;
 
         #endregion Field
 
@@ -85,6 +80,21 @@ namespace XJGUI
             }
         }
 
+        public override int Decimals
+        {
+            get
+            {
+                return this.floatGUIR.Decimals;
+            }
+            set
+            {
+                this.floatGUIR.Decimals = value;
+                this.floatGUIG.Decimals = value;
+                this.floatGUIB.Decimals = value;
+                this.floatGUIA.Decimals = value;
+            }
+        }
+
         public override float FieldWidth
         {
             get
@@ -116,58 +126,6 @@ namespace XJGUI
             }
         }
 
-        public override int Decimals
-        {
-            get
-            {
-                return this.floatGUIR.Decimals;
-            }
-            set
-            {
-                this.floatGUIR.Decimals = value;
-                this.floatGUIG.Decimals = value;
-                this.floatGUIB.Decimals = value;
-                this.floatGUIA.Decimals = value;
-            }
-        }
-
-        public virtual bool HSV
-        {
-            get
-            {
-                return this.hsv;
-            }
-            set
-            {
-                bool hsvPrev = this.hsv;
-                this.hsv = value;
-
-                if (this.hsv && !hsvPrev)
-                {
-                    this.floatGUIR.Title = "H";
-                    this.floatGUIG.Title = "S";
-                    this.floatGUIB.Title = "V";
-                    this.floatGUIA.Title = "A";
-
-                    float h, s, v;
-                    float a = this.Value.a;
-                    Color.RGBToHSV(this.Value, out h, out s, out v);
-                    this.Value = new Color(h, s, v, a);
-                }
-                else if(!this.hsv && hsvPrev)
-                {
-                    this.floatGUIR.Title = "R";
-                    this.floatGUIG.Title = "G";
-                    this.floatGUIB.Title = "B";
-                    this.floatGUIA.Title = "A";
-
-                    Color color = Color.HSVToRGB(this.Value.r, this.Value.g, this.Value.b);
-                    color.a = this.Value.a;
-                    this.Value = color;
-                }
-            }
-        }
-
         #endregion Property
 
         #region Constructor
@@ -179,13 +137,9 @@ namespace XJGUI
             this.floatGUIB = new FloatGUI() { Title = "B" };
             this.floatGUIA = new FloatGUI() { Title = "A" };
 
-            // NOTE:
-            // Use this.Property to update each FloatGUI.
-
-            this.Value    = XJGUILayout.DefaultValueColor;
             this.MinValue = XJGUILayout.DefaultMinValueColor;
             this.MaxValue = XJGUILayout.DefaultMaxValueColor;
-            this.HSV      = XJGUILayout.DefaultHSV;
+            this.Value    = XJGUILayout.DefaultValueColor;
         }
 
         #endregion Constructor
@@ -194,53 +148,13 @@ namespace XJGUI
 
         protected override void ShowComponents()
         {
-            if (ColorGUI.ColorStyle == null)
+            this.Value = new Color()
             {
-                ColorGUI.ColorStyle = new GUIStyle(GUI.skin.label);
-                ColorGUI.ColorStyle.margin = new RectOffset(ColorGUI.ColorStyle.margin.left   + 5,
-                                                            ColorGUI.ColorStyle.margin.right  + 5,
-                                                            ColorGUI.ColorStyle.margin.top    + 5,
-                                                            ColorGUI.ColorStyle.margin.bottom + 5);
-            }
-
-            Color backgroundColor = this.hsv ? Color.HSVToRGB(base.Value.r, base.Value.g, base.Value.b) : base.Value;
-            backgroundColor.a = base.Value.a;
-
-            this.backgroundTexture = UpdateBackgrondTexture(backgroundColor, this.backgroundTexture);
-            ColorGUI.ColorStyle.normal.background = this.backgroundTexture;
-
-            GUILayout.Label("     ", ColorGUI.ColorStyle);
-
-            base.Value.r = this.floatGUIR.Show();
-            base.Value.g = this.floatGUIG.Show();
-            this.Value.b = this.floatGUIB.Show();
-            this.Value.a = this.floatGUIA.Show();
-        }
-
-        private static Texture2D UpdateBackgrondTexture(Color color, Texture2D backgroundTexture = null)
-        {
-            float a = color.a;
-            color = new Color(color.r, color.g, color.b, 1);
-
-            Color[] pixels = new Color[9]
-            {
-                color, color, new Color(a, a, a, 1),
-                color, color, color,
-                color, color, color,
+                r = this.floatGUIR.Show(),
+                g = this.floatGUIG.Show(),
+                b = this.floatGUIB.Show(),
+                a = this.floatGUIA.Show()
             };
-
-            if (backgroundTexture == null)
-            {
-                backgroundTexture = new Texture2D(3, 3);
-                backgroundTexture.hideFlags = HideFlags.HideAndDontSave;
-                backgroundTexture.wrapMode = TextureWrapMode.Clamp;
-                backgroundTexture.filterMode = FilterMode.Point;
-            }
-
-            backgroundTexture.SetPixels(pixels);
-            backgroundTexture.Apply();
-
-            return backgroundTexture;
         }
 
         #endregion Method
