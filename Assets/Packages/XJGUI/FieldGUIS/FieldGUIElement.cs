@@ -1,21 +1,18 @@
 ﻿using System.Reflection;
-using UnityEngine;
 
 namespace XJGUI
 {
-    public abstract class FieldGUIComponentBase<T> : FieldGUIBase
+    public abstract class FieldGUIElement<T> : FieldGUIBase
     {
         #region Field
 
         protected Element<T> gui;
 
-        protected T previousValue;
-
         #endregion Field
 
         #region Constructor
 
-        public FieldGUIComponentBase(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
+        public FieldGUIElement(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             :base(data, fieldInfo, guiInfo)
         {
         }
@@ -26,17 +23,17 @@ namespace XJGUI
 
         protected override void Save()
         {
-            base.fieldInfo.SetValue(base.data, this.gui.Value);
+            base.FieldInfo.SetValue(base.Data, this.gui.Value);
         }
 
         protected override void Load()
         {
-            this.gui.Value = (T)base.fieldInfo.GetValue(base.data);
+            this.gui.Value = (T)base.FieldInfo.GetValue(base.Data);
         }
 
-        public override void SetTitleColor(Color? color)
+        protected override void ShowGUI()
         {
-            //this.gui.SetTitleColor(color);
+            this.gui.Show();
         }
 
         #endregion Method

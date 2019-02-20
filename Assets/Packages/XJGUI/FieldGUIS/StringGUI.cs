@@ -2,39 +2,20 @@
 
 namespace XJGUI.FieldGUIs
 {
-    public class StringGUI : FieldGUIComponent<string>
+    public class StringGUI : FieldGUIElement<string>
     {
         #region Constructor
 
         public StringGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
-        }
-
-        #endregion Constructor
-
-        #region Method
-
-        protected override void InitializeGUI()
-        {
             base.gui = new XJGUI.StringGUI()
             {
-                Value     = (string)base.fieldInfo.GetValue(base.data),
-                Title     = base.guiInfo.Title,
-                FieldWidth = base.guiInfo.FieldWidth,
+                Title = base.GUIInfo.Title,
+                FieldWidth = base.GUIInfo.FieldWidth,
             };
         }
 
-        protected override void SetSyncValueToGUI(string value)
-        {
-            base.gui.Value = value;
-        }
-
-        public override string GetSyncValue()
-        {
-            return base.updated ? base.gui.Value : null;
-        }
-
-        #endregion Method
+        #endregion Constructor
     }
 }

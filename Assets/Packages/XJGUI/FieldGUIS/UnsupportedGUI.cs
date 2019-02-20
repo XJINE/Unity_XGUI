@@ -16,12 +16,7 @@ namespace XJGUI.FieldGUIs
         #endregion Constructor
 
         #region Method
-
-        protected override void InitializeGUI()
-        {
-            // Nothing to do.
-        }
-
+        
         protected override void Save()
         {
             // Nothing to do.
@@ -34,22 +29,7 @@ namespace XJGUI.FieldGUIs
 
         protected override void ShowGUI()
         {
-            GUILayout.Label("Unsupported Field : " + base.fieldInfo.Name);
-        }
-
-        public override void SetTitleColor(Color? color)
-        {
-            // Nothing to do.
-        }
-
-        protected override void SetSyncValueToGUI(string value)
-        {
-            // Nothing to do.
-        }
-
-        public override string GetSyncValue()
-        {
-            return null;
+            GUILayout.Label("Unsupported Field : " + base.FieldInfo.Name);
         }
 
         #endregion Method

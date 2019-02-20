@@ -1,20 +1,14 @@
 ﻿using System.Reflection;
-using UnityEngine;
 
 namespace XJGUI
 {
     public abstract class FieldGUIBase
     {
-        #region Filed
-
-        protected object       data;
-        protected FieldInfo    fieldInfo;
-        protected FieldGUIInfo guiInfo;
-        protected bool updated;
-
-        #endregion Field
-
         #region Property
+
+        protected object       Data      { get; private set; }
+        protected FieldInfo    FieldInfo { get; private set; }
+        protected FieldGUIInfo GUIInfo   { get; private set; }
 
         public bool Unsupported { get; protected set; }
 
@@ -24,11 +18,12 @@ namespace XJGUI
 
         public FieldGUIBase(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
         {
-            this.data      = data;
-            this.fieldInfo = fieldInfo;
-            this.guiInfo   = guiInfo;
+            this.Data      = data;
+            this.FieldInfo = fieldInfo;
+            this.GUIInfo   = guiInfo;
+            
+            this.Unsupported = XJGUILayout.DefaultHideUnsupportedGUI;
 
-            InitializeGUI();
             Load();
         }
 
@@ -36,21 +31,17 @@ namespace XJGUI
 
         #region Method
 
-        protected abstract void InitializeGUI();
+        public void Show()
+        {
+            ShowGUI();
+            Save();
+        }
 
         protected abstract void ShowGUI();
 
         protected abstract void Save();
 
         protected abstract void Load();
-
-        public abstract void SetTitleColor(Color? color);
-
-        public void Show()
-        {
-            ShowGUI();
-            Save();
-        }
 
         #endregion Method
     }

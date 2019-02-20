@@ -8,19 +8,9 @@ namespace XJGUI
 {
     public class FieldGUI : Element<object>
     {
-        #region Class
-
-        protected class FieldGUIGroup 
-        {
-            public readonly FoldoutPanel foldoutPanel = new FoldoutPanel();
-            public readonly List<FieldGUIBase> fieldGUIs = new List<FieldGUIBase>();
-        }
-
-        #endregion Class
-
         #region Enum
 
-        public enum FieldGUIType
+        protected enum FieldGUIType
         {
             Bool,
             Int,
@@ -39,8 +29,6 @@ namespace XJGUI
         #region Field
 
         protected readonly List<FieldGUIBase> fieldGUIs = new List<FieldGUIBase>();
-
-        protected readonly List<FieldGUIGroup> fieldGUIGroups = new List<FieldGUIGroup>();
 
         #endregion Field
 
@@ -75,7 +63,6 @@ namespace XJGUI
         public FieldGUI() : base()
         {
             this.HideUnsupportedGUI = XJGUILayout.DefaultHideUnsupportedGUI;
-            this.fieldGUIGroups.Add(new FieldGUIGroup());
         }
 
         #endregion constructor
@@ -92,67 +79,47 @@ namespace XJGUI
             }
 
             FieldInfo fieldInfo;
-            FieldGUIInfo fieldGUIInfo;
+            FieldGUIInfo guiInfo;
 
             for (var i = 0; i < fieldInfos.Length; i++)
             {
-                fieldInfo    = fieldInfos[i];
-                fieldGUIInfo = GenerateAttribute(fieldInfo);
+                fieldInfo = fieldInfos[i];
+                guiInfo = GetFieldGUIInfo(fieldInfo);
 
-                if (fieldGUIInfo.Hide)
+                if (guiInfo.Hide)
                 {
                     continue;
                 }
 
-                FieldGUIBase gui = GenerateGUI(data, fieldInfo, fieldGUIInfo);
+                FieldGUIBase gui = GenerateGUI(data, fieldInfo, guiInfo);
 
                 this.fieldGUIs.Add(gui);
-
-                FieldGUIGroup lastGroup = this.fieldGUIGroups[this.fieldGUIGroups.Count - 1];
-
-                if (lastGroup.foldoutPanel.Title == fieldGUIInfo.Group)
-                {
-                    lastGroup.fieldGUIs.Add(gui);
-                }
-                else
-                {
-                    lastGroup = new FieldGUIGroup();
-                    lastGroup.foldoutPanel.Title = fieldGUIInfo.Group;
-                    lastGroup.fieldGUIs.Add(gui);
-
-                    this.fieldGUIGroups.Add(lastGroup);
-                }
             }
         }
 
-        private FieldGUIInfo GenerateAttribute(FieldInfo fieldInfo)
+        private FieldGUIInfo GetFieldGUIInfo(FieldInfo fieldInfo)
         {
-            FieldGUIInfo attribute = Attribute.GetCustomAttribute(fieldInfo, typeof(FieldGUIInfo)) as FieldGUIInfo;
+            FieldGUIInfo guiInfo = Attribute.GetCustomAttribute(fieldInfo, typeof(FieldGUIInfo)) as FieldGUIInfo;
 
-            if (attribute == null)
+            if (guiInfo == null)
             {
-                attribute = new FieldGUIInfo();
-                attribute.Title = FieldGUI.GetTitleCase(fieldInfo.Name);
+                guiInfo = new FieldGUIInfo();
+                guiInfo.Title = FieldGUI.GetTitleCase(fieldInfo.Name);
 
-                return attribute;
+                return guiInfo;
             }
 
-            if (attribute.Title == null)
+            if (guiInfo.Title == null)
             {
-                attribute.Title = FieldGUI.GetTitleCase(fieldInfo.Name);
+                guiInfo.Title = FieldGUI.GetTitleCase(fieldInfo.Name);
             }
 
-            return attribute;
+            return guiInfo;
         }
 
         private FieldGUIBase GenerateGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
         {
-            Type guiType;
-            Type genericType;
-
-            FieldGUIType fieldGUIType = GetFieldGUIType(data, fieldInfo);
-
-            switch (fieldGUIType)
+            switch (GetFieldGUIType(data, fieldInfo))
             {
                 case FieldGUIType.Bool:     return new FieldGUIs.BoolGUI    (data, fieldInfo, guiInfo);
                 case FieldGUIType.Int:      return new FieldGUIs.IntGUI     (data, fieldInfo, guiInfo);
@@ -161,13 +128,14 @@ namespace XJGUI
                 case FieldGUIType.Vector3:  return new FieldGUIs.Vector3GUI (data, fieldInfo, guiInfo);
                 case FieldGUIType.Vector4:  return new FieldGUIs.Vector4GUI (data, fieldInfo, guiInfo);
                 case FieldGUIType.Color:    return new FieldGUIs.ColorGUI   (data, fieldInfo, guiInfo);
+
                 case FieldGUIType.String:
                     if (guiInfo.IPv4)       return new FieldGUIs.IPv4GUI    (data, fieldInfo, guiInfo);
                     else                    return new FieldGUIs.StringGUI  (data, fieldInfo, guiInfo);
+                
                 case FieldGUIType.Enum:
-                    guiType = typeof(FieldGUIs.EnumGUI<>);
-                    genericType = guiType.MakeGenericType(fieldInfo.FieldType);
-                    return (FieldGUIBase)Activator.CreateInstance(genericType, data, fieldInfo, guiInfo);
+                    return (FieldGUIBase)Activator.CreateInstance
+                    (typeof(FieldGUIs.EnumGUI<>).MakeGenericType(fieldInfo.FieldType), data,fieldInfo, guiInfo);
 
                 default: return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiInfo);
             }
@@ -279,31 +247,14 @@ namespace XJGUI
         {
             base.ShowTitle();
 
-            for (int i = 0; i < this.fieldGUIGroups.Count; i++)
+            for (int i = 0; i < this.fieldGUIs.Count; i++)
             {
-                FieldGUIGroup fieldGUIGroup = this.fieldGUIGroups[i];
-
-                Action action = () => 
+                if (this.fieldGUIs[i].Unsupported && this.HideUnsupportedGUI)
                 {
-                    for (int j = 0; j < fieldGUIGroup.fieldGUIs.Count; j++)
-                    {
-                        if (fieldGUIGroup.fieldGUIs[j].Unsupported && this.HideUnsupportedGUI)
-                        {
-                            continue;
-                        }
-
-                        fieldGUIGroup.fieldGUIs[j].Show();
-                    }
-                };
-
-                if (fieldGUIGroup.foldoutPanel.Title == null)
-                {
-                    action();
+                    continue;
                 }
-                else 
-                {
-                    fieldGUIGroup.foldoutPanel.Show(action);
-                }
+
+                this.fieldGUIs[i].Show();
             }
 
             return this.Value;
