@@ -16,7 +16,7 @@
 
         public override string Show()
         {
-            XJGUILayout.HorizontalLayout(() => 
+            XJGUILayout.HorizontalLayout(() =>
             {
                 base.ShowTitle();
                 base.Value = base.ShowTextField(base.Value);

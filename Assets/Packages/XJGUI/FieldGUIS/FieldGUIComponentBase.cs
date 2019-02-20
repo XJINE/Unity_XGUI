@@ -36,10 +36,8 @@ namespace XJGUI
 
         public override void SetTitleColor(Color? color)
         {
-            this.gui.SetTitleColor(color);
+            //this.gui.SetTitleColor(color);
         }
-
-        protected abstract bool GetValueIsUpdated(T value1, T value2);
 
         #endregion Method
     }
