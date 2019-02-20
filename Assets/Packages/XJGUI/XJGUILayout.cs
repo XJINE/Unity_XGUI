@@ -64,19 +64,9 @@ public static class XJGUILayout
 
     #region FieldGUI Settings
 
-    public static bool DefaultHide               = false;
     public static bool DefaultHideUnsupportedGUI = true;
 
     #endregion FieldGUI Settings
-
-    #region Sync Settings
-
-    public static bool  DefaultSync                 = true;
-    public static Color DefaultTitleColor           = new Color(1, 1, 1);
-    public static Color DefaultTitleColorSyncServer = new Color(0, 1f, 0f);
-    public static Color DefaultTitleColorSyncClient = new Color(1f, 1f, 0f);
-
-    #endregion Sync Settings
 
     #endregion Field
 
