@@ -2,7 +2,7 @@
 
 namespace XJGUI
 {
-    public abstract class TextFieldGUI<T> : ElementGUI<T>
+    public abstract class TextFieldGUI<T> : Element<T>
     {
         #region Property
 

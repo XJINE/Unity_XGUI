@@ -2,7 +2,7 @@
 
 namespace XJGUI
 {
-    public abstract class ElementGUI<T> : ComponentGUI<T>
+    public abstract class Element<T> : Component<T>
     {
         #region Property
 

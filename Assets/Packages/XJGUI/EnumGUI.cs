@@ -17,7 +17,7 @@ namespace XJGUI
     // Even if the string value shows "EnumA", Enum.Parse returns EnumB.
     // I try to use Reflection, but the result was not good.
 
-    public class EnumGUI<T> : ElementGUI<T> where T : IComparable, IFormattable, IConvertible
+    public class EnumGUI<T> : Element<T> where T : IComparable, IFormattable, IConvertible
     {
         #region Field
 

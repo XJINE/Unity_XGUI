@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reflection;
@@ -7,7 +6,7 @@ using UnityEngine;
 
 namespace XJGUI
 {
-    public class FieldGUI : ElementGUI<object>
+    public class FieldGUI : Element<object>
     {
         #region Class
 

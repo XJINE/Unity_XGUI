@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace XJGUI
 {
-    public class FoldoutPanel : PanelGUI<bool>
+    public class FoldoutPanel : Panel<bool>
     {
         #region Method
 

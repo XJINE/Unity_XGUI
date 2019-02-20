@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace XJGUI
 {
-    public class TabPanel : PanelGUI<int>
+    public class TabPanel : Panel<int>
     {
         #region Field
 

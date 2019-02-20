@@ -7,7 +7,7 @@ namespace XJGUI
     {
         #region Field
 
-        protected ElementGUI<T> gui;
+        protected Element<T> gui;
 
         protected T previousValue;
 
