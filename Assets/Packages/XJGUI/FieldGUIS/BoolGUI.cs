@@ -11,7 +11,7 @@ namespace XJGUI.FieldGUIs
         {
             base.gui = new XJGUI.BoolGUI()
             {
-                Title = base.GUIInfo.Title,
+                Title = guiInfo.Title,
             };
         }
 

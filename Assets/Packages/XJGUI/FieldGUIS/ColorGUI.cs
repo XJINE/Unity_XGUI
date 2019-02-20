@@ -12,10 +12,16 @@ namespace XJGUI.FieldGUIs
         {
             base.gui = new XJGUI.ColorGUI()
             {
-                Title    = base.GUIInfo.Title,
-                MinValue = base.GUIInfo.MinColor,
-                MaxValue = base.GUIInfo.MaxColor,
-                Decimals = base.GUIInfo.Decimals,
+                Title = guiInfo.Title,
+
+                MinValue = guiInfo.MinValue == null ?
+                           XJGUILayout.DefaultMinValueColor : (Color)guiInfo.MinValue,
+
+                MaxValue = guiInfo.MaxValue == null ?
+                           XJGUILayout.DefaultMaxValueColor : (Color)guiInfo.MaxValue,
+
+                Decimals = guiInfo.Decimals == null ?
+                           XJGUILayout.DefaultDecimals : (int)guiInfo.Decimals,
             };
         }
 
