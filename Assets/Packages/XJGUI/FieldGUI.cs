@@ -250,10 +250,10 @@ namespace XJGUI
 
             for (int i = 0; i < this.fieldGUIs.Count; i++)
             {
-                //if (this.fieldGUIs[i].Unsupported && this.HideUnsupportedGUI)
-                //{
-                //    continue;
-                //}
+                if (this.fieldGUIs[i].Unsupported && this.HideUnsupportedGUI)
+                {
+                    continue;
+                }
 
                 this.fieldGUIs[i].Show();
             }

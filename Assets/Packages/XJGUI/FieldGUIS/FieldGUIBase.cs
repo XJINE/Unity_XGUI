@@ -21,8 +21,6 @@ namespace XJGUI
             this.Data      = data;
             this.FieldInfo = fieldInfo;
             this.GUIInfo   = guiInfo;
-            
-            this.Unsupported = XJGUILayout.DefaultHideUnsupportedGUI;
         }
 
         #endregion Constrcutor
