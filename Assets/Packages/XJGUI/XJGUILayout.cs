@@ -53,6 +53,14 @@ public static class XJGUILayout
     public static Vector4 DefaultMinValueVector4 = new Vector4(-50, -50, -50, -50);
     public static Vector4 DefaultMaxValueVector4 = new Vector4(50, 50, 50, 50);
 
+    public static Vector2Int DefaultValueVector2Int    = new Vector2Int(0, 0);
+    public static Vector2Int DefaultMinValueVector2Int = new Vector2Int(-50, -50);
+    public static Vector2Int DefaultMaxValueVector2Int = new Vector2Int(50, 50);
+
+    public static Vector3Int DefaultValueVector3Int    = new Vector3Int(0, 0, 0);
+    public static Vector3Int DefaultMinValueVector3Int = new Vector3Int(-50, -50, -50);
+    public static Vector3Int DefaultMaxValueVector3Int = new Vector3Int(50, 50, 50);
+
     public static Color DefaultValueColor    = new Color(0, 0, 0, 1);
     public static Color DefaultMinValueColor = new Color(0, 0, 0, 0);
     public static Color DefaultMaxValueColor = new Color(1, 1, 1, 1);

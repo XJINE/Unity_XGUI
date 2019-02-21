@@ -8,7 +8,7 @@ public class FieldGUISample : MonoBehaviour
     {
         public bool boolValue;
 
-        //[FieldGUIInfo(FieldWidth = 200)]
+        [FieldGUIInfo(FieldWidth = 200)]
         public string stringValue;
 
         public int intValue;
