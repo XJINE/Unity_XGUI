@@ -16,6 +16,11 @@
             this.Title = XJGUILayout.DefaultTitle;
         }
 
+        public BaseGUI(string title)
+        {
+            this.Title = title;
+        }
+
         #endregion Constructor
     }
 }

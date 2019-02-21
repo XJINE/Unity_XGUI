@@ -26,25 +26,22 @@ public class BasicSample : MonoBehaviour
     {
         this.window = new FlexibleWindow() { Title = "Basic Sample" };
 
-        this.tabPanel = new TabPanel()
-        {
-            //Labels = new string[] { "Standard", "Vector", "Others" }
-        };
+        this.tabPanel = new TabPanel();
 
         this.foldOutPanel = new FoldoutPanel()
         {
             Title = "Click to Open/Close"
         };
 
-        this.boolGUI = new BoolGUI() { Title = "Bool" };
-        this.stringGUI = new StringGUI() { Title = "String" };
-        this.intGUI = new IntGUI() { Title = "Int" };
-        this.floatGUI = new FloatGUI() { Title = "Float" };
+        this.boolGUI    = new BoolGUI()    { Title = "Bool" };
+        this.stringGUI  = new StringGUI()  { Title = "String" };
+        this.intGUI     = new IntGUI()     { Title = "Int" };
+        this.floatGUI   = new FloatGUI()   { Title = "Float" };
         this.vector2GUI = new Vector2GUI() { Title = "Vector2", Decimals = 1 };
         this.vector3GUI = new Vector3GUI() { Title = "Vector3", MinValue = Vector3.zero };
         this.vector4GUI = new Vector4GUI() { Title = "Vector4", WithSlider = false };
-        this.colorGUI = new ColorGUI() { Title = "Color" };
-        this.ipv4GUI = new IPv4GUI() { Title = "IPv4" };
+        this.colorGUI   = new ColorGUI()   { Title = "Color" };
+        this.ipv4GUI    = new IPv4GUI()    { Title = "IPv4" };
     }
 
     private void Update()
@@ -63,30 +60,28 @@ public class BasicSample : MonoBehaviour
 
         this.window.Show(() =>
         {
-            this.tabPanel.Show();
-
-            //this.tabPanel.Show
-            //(() =>
-            //{
-            //    bool boolValue = this.boolGUI.Show();
-            //    string stringValue = this.stringGUI.Show();
-            //    int intValue = this.intGUI.Show();
-            //    float floatValue = this.floatGUI.Show();
-            //},
-            //()=>
-            //{
-            //    this.foldOutPanel.Show(() =>
-            //    {
-            //        Vector2 vector2Value = this.vector2GUI.Show();
-            //        Vector3 vector3Value = this.vector3GUI.Show();
-            //        Vector4 vector4Value = this.vector4GUI.Show();
-            //    });
-            //},
-            //()=>
-            //{
-            //    Color colorValue = this.colorGUI.Show();
-            //    string ipv4Value = this.ipv4GUI.Show();
-            //});
+            this.tabPanel.Show
+            (new TabPanel.Func("Basic", () =>
+            {
+                bool   boolValue   = this.boolGUI.Show();
+                string stringValue = this.stringGUI.Show();
+                int    intValue    = this.intGUI.Show();
+                float  floatValue  = this.floatGUI.Show();
+            }),
+            new TabPanel.Func("Basic", () =>
+            {
+                this.foldOutPanel.Show(() =>
+                {
+                    Vector2 vector2Value = this.vector2GUI.Show();
+                    Vector3 vector3Value = this.vector3GUI.Show();
+                    Vector4 vector4Value = this.vector4GUI.Show();
+                });
+            }),
+            new TabPanel.Func("Basic", () =>
+            {
+                Color colorValue = this.colorGUI.Show();
+                string ipv4Value = this.ipv4GUI.Show();
+            }));
         });
 
         #pragma warning restore 0219

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace XJGUI
@@ -22,26 +21,39 @@ namespace XJGUI
 
         #region Method
 
-        public virtual int Show(params Action[] show)
+        public class Func
         {
-            //this.labels.Clear();
-            //foreach (TabPanelFunc tabPanelFunc in show)
-            //{
-            //    this.labels.Add(tabPanelFunc.Method.GetParameters()[0].RawDefaultValue)
-            //}
+            public string label;
+            public Action show;
 
-            //XJGUILayout.VerticalLayout(()=> 
-            //{
-            //    base.ShowTitle();
+            public Func(string label, Action show)
+            {
+                this.label = label;
+                this.show  = show;
+            }
+        }
 
-            //    base.Value = GUILayout.Toolbar(base.Value, this.Labels, TabStyle);
+        public virtual int Show(params Func[] show)
+        {
+            var labels = new string[show.Length];
 
-            //    show[base.Value]();
-            //});
+            for (int i = 0; i < labels.Length; i++)
+            {
+                labels[i] = show[i].label;
+            }
+
+            XJGUILayout.VerticalLayout(() =>
+            {
+                base.ShowTitle();
+
+                base.Value = GUILayout.Toolbar(base.Value, labels, TabStyle);
+
+                show[base.Value].show();
+            });
 
             return base.Value;
         }
-
+        
         #endregion Method
     }
 }
