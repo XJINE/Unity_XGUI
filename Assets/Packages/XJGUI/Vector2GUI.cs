@@ -6,8 +6,8 @@ namespace XJGUI
     {
         #region Field
 
-        private readonly FloatGUI floatGUIX;
-        private readonly FloatGUI floatGUIY;
+        private readonly FloatGUI floatGUIX = new FloatGUI() { Title = "X" };
+        private readonly FloatGUI floatGUIY = new FloatGUI() { Title = "Y" };
 
         #endregion Field
 
@@ -112,9 +112,6 @@ namespace XJGUI
 
         public Vector2GUI() : base()
         {
-            this.floatGUIX = new FloatGUI() { Title = "X" };
-            this.floatGUIY = new FloatGUI() { Title = "Y" };
-
             this.MinValue = XJGUILayout.DefaultMinValueVector2;
             this.MaxValue = XJGUILayout.DefaultMaxValueVector2;
             this.Value    = XJGUILayout.DefaultValueVector2;

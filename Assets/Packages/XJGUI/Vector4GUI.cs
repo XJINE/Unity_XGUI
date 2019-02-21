@@ -6,10 +6,10 @@ namespace XJGUI
     {
         #region Field
 
-        private readonly FloatGUI floatGUIX;
-        private readonly FloatGUI floatGUIY;
-        private readonly FloatGUI floatGUIZ;
-        private readonly FloatGUI floatGUIW;
+        private readonly FloatGUI floatGUIX = new FloatGUI() { Title = "X" };
+        private readonly FloatGUI floatGUIY = new FloatGUI() { Title = "Y" };
+        private readonly FloatGUI floatGUIZ = new FloatGUI() { Title = "Z" };
+        private readonly FloatGUI floatGUIW = new FloatGUI() { Title = "W" };
 
         #endregion Field
 
@@ -132,11 +132,6 @@ namespace XJGUI
 
         public Vector4GUI() : base()
         {
-            this.floatGUIX = new FloatGUI() { Title = "X" };
-            this.floatGUIY = new FloatGUI() { Title = "Y" };
-            this.floatGUIZ = new FloatGUI() { Title = "Z" };
-            this.floatGUIW = new FloatGUI() { Title = "W" };
-
             this.MinValue = XJGUILayout.DefaultMinValueVector4;
             this.MaxValue = XJGUILayout.DefaultMaxValueVector4;
             this.Value    = XJGUILayout.DefaultValueVector4;

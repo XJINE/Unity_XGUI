@@ -6,10 +6,10 @@ namespace XJGUI
     {
         #region Field
 
-        private readonly FloatGUI floatGUIR;
-        private readonly FloatGUI floatGUIG;
-        private readonly FloatGUI floatGUIB;
-        private readonly FloatGUI floatGUIA;
+        private readonly FloatGUI floatGUIR = new FloatGUI() { Title = "R" };
+        private readonly FloatGUI floatGUIG = new FloatGUI() { Title = "G" };
+        private readonly FloatGUI floatGUIB = new FloatGUI() { Title = "B" };
+        private readonly FloatGUI floatGUIA = new FloatGUI() { Title = "A" };
 
         #endregion Field
 
@@ -132,11 +132,6 @@ namespace XJGUI
 
         public ColorGUI() : base()
         {
-            this.floatGUIR = new FloatGUI() { Title = "R" };
-            this.floatGUIG = new FloatGUI() { Title = "G" };
-            this.floatGUIB = new FloatGUI() { Title = "B" };
-            this.floatGUIA = new FloatGUI() { Title = "A" };
-
             this.MinValue = XJGUILayout.DefaultMinValueColor;
             this.MaxValue = XJGUILayout.DefaultMaxValueColor;
             this.Value    = XJGUILayout.DefaultValueColor;

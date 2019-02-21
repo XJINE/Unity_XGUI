@@ -6,9 +6,9 @@ namespace XJGUI
     {
         #region Field
 
-        private readonly FloatGUI floatGUIX;
-        private readonly FloatGUI floatGUIY;
-        private readonly FloatGUI floatGUIZ;
+        private readonly FloatGUI floatGUIX = new FloatGUI() { Title = "X" };
+        private readonly FloatGUI floatGUIY = new FloatGUI() { Title = "Y" };
+        private readonly FloatGUI floatGUIZ = new FloatGUI() { Title = "Z" };
 
         #endregion Field
 
@@ -122,13 +122,6 @@ namespace XJGUI
 
         public Vector3GUI() : base()
         {
-            this.floatGUIX = new FloatGUI() { Title = "X" };
-            this.floatGUIY = new FloatGUI() { Title = "Y" };
-            this.floatGUIZ = new FloatGUI() { Title = "Z" };
-
-            // NOTE:
-            // Set min/max value first. If not, "Value" will collect with min/ max value 0.
-
             this.MinValue = XJGUILayout.DefaultMinValueVector3;
             this.MaxValue = XJGUILayout.DefaultMaxValueVector3;
             this.Value    = XJGUILayout.DefaultValueVector3;

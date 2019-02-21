@@ -28,7 +28,7 @@ public class BasicSample : MonoBehaviour
 
         this.tabPanel = new TabPanel()
         {
-            Labels = new string[] { "Standard", "Vector", "Others" }
+            //Labels = new string[] { "Standard", "Vector", "Others" }
         };
 
         this.foldOutPanel = new FoldoutPanel()
@@ -57,36 +57,38 @@ public class BasicSample : MonoBehaviour
 
     private void OnGUI()
     {
-        #pragma warning disable CS0219
+        #pragma warning disable 0219
 
         GUILayout.Label("Press [Return] to show/hide window.");
 
         this.window.Show(() =>
         {
-            this.tabPanel.Show
-            (() =>
-            {
-                bool boolValue = this.boolGUI.Show();
-                string stringValue = this.stringGUI.Show();
-                int intValue = this.intGUI.Show();
-                float floatValue = this.floatGUI.Show();
-            },
-            ()=>
-            {
-                this.foldOutPanel.Show(() =>
-                {
-                    Vector2 vector2Value = this.vector2GUI.Show();
-                    Vector3 vector3Value = this.vector3GUI.Show();
-                    Vector4 vector4Value = this.vector4GUI.Show();
-                });
-            },
-            ()=>
-            {
-                Color colorValue = this.colorGUI.Show();
-                string ipv4Value = this.ipv4GUI.Show();
-            });
+            this.tabPanel.Show();
+
+            //this.tabPanel.Show
+            //(() =>
+            //{
+            //    bool boolValue = this.boolGUI.Show();
+            //    string stringValue = this.stringGUI.Show();
+            //    int intValue = this.intGUI.Show();
+            //    float floatValue = this.floatGUI.Show();
+            //},
+            //()=>
+            //{
+            //    this.foldOutPanel.Show(() =>
+            //    {
+            //        Vector2 vector2Value = this.vector2GUI.Show();
+            //        Vector3 vector3Value = this.vector3GUI.Show();
+            //        Vector4 vector4Value = this.vector4GUI.Show();
+            //    });
+            //},
+            //()=>
+            //{
+            //    Color colorValue = this.colorGUI.Show();
+            //    string ipv4Value = this.ipv4GUI.Show();
+            //});
         });
 
-        #pragma warning restore CS0219
+        #pragma warning restore 0219
     }
 }

@@ -4,6 +4,7 @@ namespace XJGUI
 {
     public abstract class Panel<T> : Component<T>
     {
-        public abstract T Show(params Action[] show);
+        // NOTE:
+        // There is no common member in each panel now.
     }
 }

@@ -1,19 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace XJGUI
 {
     public class TabPanel : Panel<int>
     {
-        #region Field
-
-        public delegate void TabPanelFunc(string title);
-
-        #endregion Field
-
         #region Property
-
-        public string[] Labels { get; set; }
 
         protected virtual GUIStyle TabStyle
         {
@@ -29,16 +22,22 @@ namespace XJGUI
 
         #region Method
 
-        public override int Show(params Action[] show)
+        public virtual int Show(params Action[] show)
         {
-            XJGUILayout.VerticalLayout(()=> 
-            {
-                base.ShowTitle();
+            //this.labels.Clear();
+            //foreach (TabPanelFunc tabPanelFunc in show)
+            //{
+            //    this.labels.Add(tabPanelFunc.Method.GetParameters()[0].RawDefaultValue)
+            //}
 
-                base.Value = GUILayout.Toolbar(base.Value, this.Labels, TabStyle);
+            //XJGUILayout.VerticalLayout(()=> 
+            //{
+            //    base.ShowTitle();
 
-                show[base.Value]();
-            });
+            //    base.Value = GUILayout.Toolbar(base.Value, this.Labels, TabStyle);
+
+            //    show[base.Value]();
+            //});
 
             return base.Value;
         }

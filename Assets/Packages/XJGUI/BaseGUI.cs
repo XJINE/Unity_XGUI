@@ -1,6 +1,6 @@
 ﻿namespace XJGUI
 {
-    public class BaseGUI<T>
+    public abstract class BaseGUI<T>
     {
         #region Property
 

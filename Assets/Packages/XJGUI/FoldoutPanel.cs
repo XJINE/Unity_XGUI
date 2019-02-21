@@ -7,7 +7,7 @@ namespace XJGUI
     {
         #region Method
 
-        public override bool Show(params Action[] show)
+        public virtual bool Show(params Action[] show)
         {
             // NOTE:
             // (value = true  && button = true)  => false
