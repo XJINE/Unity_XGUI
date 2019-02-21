@@ -5,20 +5,30 @@ public class BasicSample : MonoBehaviour
 {
     #region Field
 
-    FlexibleWindow window;
+    public bool    boolValue;
+    public string  stringValue;
+    public int     intValue;
+    public float   floatValue;
+    public Vector2 vector2Value;
+    public Vector3 vector3Value;
+    public Vector4 vector4Value;
+    public Color   colorValue;
+    public string  ipv4Value;
 
-    TabPanel     tabPanel;
-    FoldoutPanel foldOutPanel;
+    private FlexibleWindow window;
 
-    BoolGUI    boolGUI;
-    StringGUI  stringGUI;
-    IntGUI     intGUI;
-    FloatGUI   floatGUI;
-    Vector2GUI vector2GUI;
-    Vector3GUI vector3GUI;
-    Vector4GUI vector4GUI;
-    ColorGUI   colorGUI;
-    IPv4GUI    ipv4GUI;
+    private TabPanel     tabPanel;
+    private FoldoutPanel foldOutPanel;
+
+    private BoolGUI    boolGUI;
+    private StringGUI  stringGUI;
+    private IntGUI     intGUI;
+    private FloatGUI   floatGUI;
+    private Vector2GUI vector2GUI;
+    private Vector3GUI vector3GUI;
+    private Vector4GUI vector4GUI;
+    private ColorGUI   colorGUI;
+    private IPv4GUI    ipv4GUI;
 
     #endregion Field
 
@@ -33,15 +43,15 @@ public class BasicSample : MonoBehaviour
             Title = "Click to Open/Close"
         };
 
-        this.boolGUI    = new BoolGUI()    { Title = "Bool" };
+        this.boolGUI    = new BoolGUI()    { Title = "Bool"   };
         this.stringGUI  = new StringGUI()  { Title = "String" };
-        this.intGUI     = new IntGUI()     { Title = "Int" };
-        this.floatGUI   = new FloatGUI()   { Title = "Float" };
+        this.intGUI     = new IntGUI()     { Title = "Int"    };
+        this.floatGUI   = new FloatGUI()   { Title = "Float"  };
         this.vector2GUI = new Vector2GUI() { Title = "Vector2", Decimals = 1 };
         this.vector3GUI = new Vector3GUI() { Title = "Vector3", MinValue = Vector3.zero };
         this.vector4GUI = new Vector4GUI() { Title = "Vector4", WithSlider = false };
         this.colorGUI   = new ColorGUI()   { Title = "Color" };
-        this.ipv4GUI    = new IPv4GUI()    { Title = "IPv4" };
+        this.ipv4GUI    = new IPv4GUI()    { Title = "IPv4"  };
     }
 
     private void Update()
@@ -63,24 +73,24 @@ public class BasicSample : MonoBehaviour
             this.tabPanel.Show
             (new TabPanel.Func("Basic", () =>
             {
-                bool   boolValue   = this.boolGUI.Show();
-                string stringValue = this.stringGUI.Show();
-                int    intValue    = this.intGUI.Show();
-                float  floatValue  = this.floatGUI.Show();
+                this.boolValue   = this.boolGUI.Show();
+                this.stringValue = this.stringGUI.Show();
+                this.intValue    = this.intGUI.Show();
+                this.floatValue  = this.floatGUI.Show();
             }),
-            new TabPanel.Func("Basic", () =>
+            new TabPanel.Func("Vector", () =>
             {
                 this.foldOutPanel.Show(() =>
                 {
-                    Vector2 vector2Value = this.vector2GUI.Show();
-                    Vector3 vector3Value = this.vector3GUI.Show();
-                    Vector4 vector4Value = this.vector4GUI.Show();
+                    this.vector2Value = this.vector2GUI.Show();
+                    this.vector3Value = this.vector3GUI.Show();
+                    this.vector4Value = this.vector4GUI.Show();
                 });
             }),
-            new TabPanel.Func("Basic", () =>
+            new TabPanel.Func("Advance", () =>
             {
-                Color colorValue = this.colorGUI.Show();
-                string ipv4Value = this.ipv4GUI.Show();
+                this.colorValue = this.colorGUI.Show();
+                this.ipv4Value  = this.ipv4GUI.Show();
             }));
         });
 

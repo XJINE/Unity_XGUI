@@ -103,7 +103,7 @@ namespace XJGUI
 
                     if (float.TryParse(this.text, out textValue))
                     {
-                        base.Value = (T)(object)textValue;
+                        base.Value = (T)Convert.ChangeType(textValue, typeof(T));
                     }
                 });
 
@@ -115,13 +115,17 @@ namespace XJGUI
                 // NOTE:
                 // Need to update text when the value is updated with Slider.
 
-                T sliderValue = (T)(object)GUILayout.HorizontalSlider((float)(object)base.Value,
-                                                                      (float)(object)base.MinValue,
-                                                                      (float)(object)base.MaxValue);
+                float value    = (float)Convert.ChangeType(base.Value,    typeof(float));
+                float minValue = (float)Convert.ChangeType(base.MinValue, typeof(float));
+                float maxValue = (float)Convert.ChangeType(base.MaxValue, typeof(float));
 
-                if (!sliderValue.Equals(base.Value))
+                float sliderValue = GUILayout.HorizontalSlider(value, minValue, maxValue);
+
+                T sliderValueT = (T)Convert.ChangeType(sliderValue, typeof(T));
+
+                if (!sliderValueT.Equals(base.Value))
                 {
-                    this.Value = sliderValue;
+                    this.Value = sliderValueT;
                 }
             });
 
