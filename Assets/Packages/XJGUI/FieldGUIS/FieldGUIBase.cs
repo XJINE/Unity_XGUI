@@ -23,8 +23,6 @@ namespace XJGUI
             this.GUIInfo   = guiInfo;
             
             this.Unsupported = XJGUILayout.DefaultHideUnsupportedGUI;
-
-            Load();
         }
 
         #endregion Constrcutor
@@ -33,6 +31,7 @@ namespace XJGUI
 
         public void Show()
         {
+            Load();
             ShowGUI();
             Save();
         }

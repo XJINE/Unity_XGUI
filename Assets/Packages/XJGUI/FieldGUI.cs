@@ -97,7 +97,7 @@ namespace XJGUI
             }
         }
 
-        private FieldGUIInfo GetFieldGUIInfo(FieldInfo fieldInfo)
+        private static FieldGUIInfo GetFieldGUIInfo(FieldInfo fieldInfo)
         {
             FieldGUIInfo guiInfo = Attribute.GetCustomAttribute(fieldInfo, typeof(FieldGUIInfo)) as FieldGUIInfo;
 
@@ -117,7 +117,7 @@ namespace XJGUI
             return guiInfo;
         }
 
-        private FieldGUIBase GenerateGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
+        private static FieldGUIBase GenerateGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
         {
             switch (GetFieldGUIType(data, fieldInfo))
             {
@@ -245,14 +245,15 @@ namespace XJGUI
 
         public override object Show()
         {
+            this.Title = "TEST";
             base.ShowTitle();
 
             for (int i = 0; i < this.fieldGUIs.Count; i++)
             {
-                if (this.fieldGUIs[i].Unsupported && this.HideUnsupportedGUI)
-                {
-                    continue;
-                }
+                //if (this.fieldGUIs[i].Unsupported && this.HideUnsupportedGUI)
+                //{
+                //    continue;
+                //}
 
                 this.fieldGUIs[i].Show();
             }
