@@ -11,16 +11,10 @@ namespace XJGUI.FieldGUIs
         {
             base.gui = new XJGUI.IntGUI()
             {
-                Title = base.GUIInfo.Title,
-
-                FieldWidth = guiInfo.FieldWidth == null ?
-                             XJGUILayout.DefaultFieldWidthValue : (float)guiInfo.FieldWidth,
-
-                MinValue = guiInfo.MinValue == null ?
-                           XJGUILayout.DefaultMinValueInt : (int)guiInfo.MinValue,
-
-                MaxValue = guiInfo.MaxValue == null ?
-                           XJGUILayout.DefaultMaxValueInt : (int)guiInfo.MaxValue,
+                Title      = guiInfo.Title,
+                FieldWidth = guiInfo.FieldWidthIsSet ? guiInfo.FieldWidth : XJGUILayout.DefaultFieldWidthValue,
+                MinValue   = guiInfo.MinValueIsSet ? (int)guiInfo.MinValue : XJGUILayout.DefaultMinValueInt,
+                MaxValue   = guiInfo.MaxValueIsSet ? (int)guiInfo.MaxValue : XJGUILayout.DefaultMaxValueInt,
             };
         }
 

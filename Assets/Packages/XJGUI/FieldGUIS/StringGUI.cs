@@ -11,10 +11,8 @@ namespace XJGUI.FieldGUIs
         {
             base.gui = new XJGUI.StringGUI()
             {
-                Title = base.GUIInfo.Title,
-
-                FieldWidth = guiInfo.FieldWidth == null ?
-                             XJGUILayout.DefaultFieldWidthString : (float)guiInfo.FieldWidth,
+                Title      = guiInfo.Title,
+                FieldWidth = guiInfo.FieldWidthIsSet ? guiInfo.FieldWidth : XJGUILayout.DefaultFieldWidthString,
             };
         }
 

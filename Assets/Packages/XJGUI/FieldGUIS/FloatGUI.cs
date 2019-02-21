@@ -11,19 +11,11 @@ namespace XJGUI.FieldGUIs
         {
             base.gui = new XJGUI.FloatGUI()
             {
-                Title = base.GUIInfo.Title,
-
-                FieldWidth = guiInfo.FieldWidth == null ?
-                             XJGUILayout.DefaultFieldWidthValue : (float)guiInfo.FieldWidth,
-
-                MinValue = guiInfo.MinValue == null ?
-                           XJGUILayout.DefaultMinValueFloat : (float)guiInfo.MinValue,
-
-                MaxValue = guiInfo.MaxValue == null ?
-                           XJGUILayout.DefaultMaxValueFloat : (float)guiInfo.MaxValue,
-
-                Decimals = guiInfo.Decimals == null ?
-                           XJGUILayout.DefaultDecimals : (int)guiInfo.Decimals,
+                Title      = guiInfo.Title,
+                FieldWidth = guiInfo.FieldWidthIsSet ? guiInfo.FieldWidth : XJGUILayout.DefaultFieldWidthValue,
+                MinValue   = guiInfo.MinValueIsSet ? (float)guiInfo.MinValue : XJGUILayout.DefaultMinValueFloat,
+                MaxValue   = guiInfo.MaxValueIsSet ? (float)guiInfo.MaxValue : XJGUILayout.DefaultMaxValueFloat,
+                Decimals   = guiInfo.DecimalsIsSet ? guiInfo.Decimals : XJGUILayout.DefaultDecimals
             };
         }
 

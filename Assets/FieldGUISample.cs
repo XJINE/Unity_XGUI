@@ -6,14 +6,26 @@ public class FieldGUISample : MonoBehaviour
     [System.Serializable]
     public class SampleClass
     {
-        public bool     boolValue;
-        public string   stringValue;
-        public int      intValue;
-        public float   floatValue;
+        public bool boolValue;
+
+        //[FieldGUIInfo(FieldWidth = 200)]
+        public string stringValue;
+
+        public int intValue;
+
+        [FieldGUIInfo(MaxValue = 0.5f)]
+        public float floatValue;
+
+        [FieldGUIInfo(Title = "V2")]
         public Vector2 vector2Value;
+
+        [FieldGUIInfo(Decimals = 3)]
         public Vector3 vector3Value;
+
         public Vector4 vector4Value;
-        public Color   colorValue;
+
+        public Color colorValue;
+
         [FieldGUIInfo(IPv4 = true)]
         public string  ipv4Value;
     }

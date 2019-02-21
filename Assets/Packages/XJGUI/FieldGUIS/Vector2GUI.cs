@@ -12,19 +12,11 @@ namespace XJGUI.FieldGUIs
         {
             base.gui = new XJGUI.Vector2GUI()
             {
-                Title = base.GUIInfo.Title,
-
-                FieldWidth = guiInfo.FieldWidth == null ?
-                             XJGUILayout.DefaultFieldWidthValue : (float)guiInfo.FieldWidth,
-
-                MinValue = guiInfo.MinValue == null ?
-                           XJGUILayout.DefaultMinValueVector2 : (Vector2)guiInfo.MinValue,
-
-                MaxValue = guiInfo.MaxValue == null ?
-                           XJGUILayout.DefaultMaxValueVector2 : (Vector2)guiInfo.MaxValue,
-
-                Decimals = guiInfo.Decimals == null ?
-                           XJGUILayout.DefaultDecimals : (int)guiInfo.Decimals,
+                Title      = guiInfo.Title,
+                FieldWidth = guiInfo.FieldWidthIsSet ? guiInfo.FieldWidth : XJGUILayout.DefaultFieldWidthValue,
+                MinValue   = guiInfo.MinValueIsSet ? (Vector2)guiInfo.MinValue : XJGUILayout.DefaultMinValueVector2,
+                MaxValue   = guiInfo.MaxValueIsSet ? (Vector2)guiInfo.MaxValue : XJGUILayout.DefaultMaxValueVector2,
+                Decimals   = guiInfo.DecimalsIsSet ? guiInfo.Decimals : XJGUILayout.DefaultDecimals
             };
         }
 

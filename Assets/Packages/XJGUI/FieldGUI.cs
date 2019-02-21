@@ -245,7 +245,6 @@ namespace XJGUI
 
         public override object Show()
         {
-            this.Title = "TEST";
             base.ShowTitle();
 
             for (int i = 0; i < this.fieldGUIs.Count; i++)
