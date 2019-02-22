@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Reflection;
 using UnityEngine;
 
@@ -32,16 +31,18 @@ namespace XJGUI
 
         protected readonly List<FieldGUIBase> fieldGUIs = new List<FieldGUIBase>();
 
+        protected readonly FoldoutPanel foldoutPanel;
+
         #endregion Field
 
         #region Property
 
         public bool HideUnsupportedGUI { get; set; }
 
-        public ReadOnlyCollection<FieldGUIBase> GUIs
+        public bool Foldout
         {
-            get;
-            private set;
+            get { return this.foldoutPanel.Value; }
+            set { this.foldoutPanel.Value = value; }
         }
 
         public override object Value
@@ -53,7 +54,6 @@ namespace XJGUI
             set
             {
                 GenerateGUIs(value);
-                this.GUIs = new ReadOnlyCollection<FieldGUIBase>(this.fieldGUIs);
                 base.Value = value;
             }
         }
@@ -65,6 +65,7 @@ namespace XJGUI
         public FieldGUI() : base()
         {
             this.HideUnsupportedGUI = XJGUILayout.DefaultHideUnsupportedGUI;
+            this.foldoutPanel = new FoldoutPanel();
         }
 
         #endregion constructor
@@ -251,17 +252,19 @@ namespace XJGUI
 
         public override object Show()
         {
-            base.ShowTitle();
-
-            for (int i = 0; i < this.fieldGUIs.Count; i++)
+            this.foldoutPanel.Title = base.Title ?? base.Value.GetType().Name;
+            this.foldoutPanel.Show(() =>
             {
-                if (this.fieldGUIs[i].Unsupported && this.HideUnsupportedGUI)
+                for (int i = 0; i < this.fieldGUIs.Count; i++)
                 {
-                    continue;
-                }
+                    if (this.fieldGUIs[i].Unsupported && this.HideUnsupportedGUI)
+                    {
+                        continue;
+                    }
 
-                this.fieldGUIs[i].Show();
-            }
+                    this.fieldGUIs[i].Show();
+                }
+            });
 
             return this.Value;
         }

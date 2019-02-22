@@ -49,7 +49,8 @@ namespace XJGUI
                 base.Value = GUILayout.Toolbar(base.Value, labels, TabStyle);
 
                 show[base.Value].show();
-            });
+
+            }, GUI.skin.box);
 
             return base.Value;
         }

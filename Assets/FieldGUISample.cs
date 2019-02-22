@@ -50,7 +50,13 @@ public class FieldGUISample : MonoBehaviour
     void Start()
     {
         this.window = new FlexibleWindow() { Title = "FieldGUISample", MinWidth = 300 };
-        this.fieldGUI = new FieldGUI() { Value = this.sampleClass, HideUnsupportedGUI = false };
+
+        this.fieldGUI = new FieldGUI()
+        {
+            Value = this.sampleClass,
+            HideUnsupportedGUI = false,
+            Foldout = true
+        };
     }
 
     void OnGUI()
