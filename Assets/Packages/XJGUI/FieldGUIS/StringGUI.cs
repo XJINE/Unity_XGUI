@@ -6,7 +6,7 @@ namespace XJGUI.FieldGUIs
     {
         #region Constructor
 
-        public StringGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
+        public StringGUI(object data, FieldInfo fieldInfo, FieldGUIInfoAttribute guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
             base.gui = new XJGUI.StringGUI()

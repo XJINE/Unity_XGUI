@@ -6,7 +6,7 @@ namespace XJGUI.FieldGUIs
     {
         #region Constructor
 
-        public IPv4GUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
+        public IPv4GUI(object data, FieldInfo fieldInfo, FieldGUIInfoAttribute guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
             base.gui = new XJGUI.IPv4GUI()

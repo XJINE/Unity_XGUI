@@ -7,27 +7,19 @@ namespace XJGUI
 {
     public class FieldGUI : Element<object>
     {
-        #region Enum
+        #region Class
 
-        protected enum FieldGUIType
+        private class FielGUIGroup
         {
-            Bool,
-            Int,
-            Float,
-            Vector2,
-            Vector3,
-            Vector4,
-            Color,
-            Vector2Int,
-            Vector3Int,
-            String,
-            Enum,
-            Unsupported
+            FoldoutPanel panel = new FoldoutPanel();
+            List<FieldGUIBase> guis = new List<FieldGUIBase>();
         }
 
-        #endregion Enum
+        #endregion Class
 
         #region Field
+
+        //protected readonly FieldGUI
 
         protected readonly List<FieldGUIBase> fieldGUIs = new List<FieldGUIBase>();
 
@@ -82,7 +74,7 @@ namespace XJGUI
             }
 
             FieldInfo fieldInfo;
-            FieldGUIInfo guiInfo;
+            FieldGUIInfoAttribute guiInfo;
 
             for (var i = 0; i < fieldInfos.Length; i++)
             {
@@ -100,13 +92,14 @@ namespace XJGUI
             }
         }
 
-        private static FieldGUIInfo GetFieldGUIInfo(FieldInfo fieldInfo)
+        private static FieldGUIInfoAttribute GetFieldGUIInfo(FieldInfo fieldInfo)
         {
-            FieldGUIInfo guiInfo = Attribute.GetCustomAttribute(fieldInfo, typeof(FieldGUIInfo)) as FieldGUIInfo;
+            FieldGUIInfoAttribute guiInfo = Attribute.GetCustomAttribute
+                (fieldInfo, typeof(FieldGUIInfoAttribute)) as FieldGUIInfoAttribute;
 
             if (guiInfo == null)
             {
-                guiInfo = new FieldGUIInfo();
+                guiInfo = new FieldGUIInfoAttribute();
                 guiInfo.Title = FieldGUI.GetTitleCase(fieldInfo.Name);
 
                 return guiInfo;
@@ -120,7 +113,15 @@ namespace XJGUI
             return guiInfo;
         }
 
-        private static FieldGUIBase GenerateGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
+        private static string GetHeaderInfo(FieldInfo fieldInfo)
+        {
+            HeaderAttribute header = Attribute.GetCustomAttribute
+                (fieldInfo, typeof(HeaderAttribute)) as HeaderAttribute;
+
+            return header.header ?? null;
+        }
+
+        private static FieldGUIBase GenerateGUI(object data, FieldInfo fieldInfo, FieldGUIInfoAttribute guiInfo)
         {
             FieldGUI.GetFieldGUIType(data, fieldInfo, out Type type, out bool typeIsIList);
 

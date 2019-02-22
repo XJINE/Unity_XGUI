@@ -7,7 +7,7 @@ namespace XJGUI.FieldGUIs
     {
         #region Constructor
 
-        public UnSupportedGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
+        public UnSupportedGUI(object data, FieldInfo fieldInfo, FieldGUIInfoAttribute guiInfo)
             :base(data, fieldInfo, guiInfo)
         {
             base.Unsupported = true;
