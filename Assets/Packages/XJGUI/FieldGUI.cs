@@ -31,7 +31,7 @@ namespace XJGUI
 
         protected readonly List<FieldGUIBase> fieldGUIs = new List<FieldGUIBase>();
 
-        protected readonly FoldoutPanel foldoutPanel;
+        protected readonly FoldoutPanel foldoutPanel = new FoldoutPanel();
 
         #endregion Field
 
@@ -65,7 +65,7 @@ namespace XJGUI
         public FieldGUI() : base()
         {
             this.HideUnsupportedGUI = XJGUILayout.DefaultHideUnsupportedGUI;
-            this.foldoutPanel = new FoldoutPanel();
+            this.Foldout = XJGUILayout.DefaultFieldGUIFoldout;
         }
 
         #endregion constructor

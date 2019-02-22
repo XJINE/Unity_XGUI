@@ -73,6 +73,7 @@ public static class XJGUILayout
     #region FieldGUI Settings
 
     public static bool DefaultHideUnsupportedGUI = true;
+    public static bool DefaultFieldGUIFoldout = false;
 
     #endregion FieldGUI Settings
 
