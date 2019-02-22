@@ -16,11 +16,11 @@ public class BasicSample : MonoBehaviour
     public Vector3Int vector3IntValue;
     public Color      colorValue;
     public string     ipv4Value;
+    public CameraType enumValue;
 
     private FlexibleWindow window;
-
-    private TabPanel     tabPanel;
-    private FoldoutPanel foldOutPanel;
+    private TabPanel       tabPanel;
+    private FoldoutPanel   foldoutPanel;
 
     private BoolGUI       boolGUI;
     private StringGUI     stringGUI;
@@ -33,6 +33,7 @@ public class BasicSample : MonoBehaviour
     private Vector3IntGUI vector3IntGUI;
     private ColorGUI      colorGUI;
     private IPv4GUI       ipv4GUI;
+    private EnumGUI<CameraType> enumGUI;
 
     #endregion Field
 
@@ -42,7 +43,7 @@ public class BasicSample : MonoBehaviour
 
         this.tabPanel = new TabPanel();
 
-        this.foldOutPanel = new FoldoutPanel()
+        this.foldoutPanel = new FoldoutPanel()
         {
             Title = "Click to Open/Close"
         };
@@ -58,6 +59,7 @@ public class BasicSample : MonoBehaviour
         this.vector3IntGUI = new Vector3IntGUI() { Title = "Vector3Int" };
         this.colorGUI      = new ColorGUI()      { Title = "Color" };
         this.ipv4GUI       = new IPv4GUI()       { Title = "IPv4"  };
+        this.enumGUI = new EnumGUI<CameraType>() { Title = "Enum" };
     }
 
     private void Update()
@@ -86,7 +88,7 @@ public class BasicSample : MonoBehaviour
             }),
             new TabPanel.Func("Vector", () =>
             {
-                this.foldOutPanel.Show(() =>
+                this.foldoutPanel.Show(() =>
                 {
                     this.vector2Value = this.vector2GUI.Show();
                     this.vector3Value = this.vector3GUI.Show();
@@ -100,6 +102,7 @@ public class BasicSample : MonoBehaviour
             {
                 this.colorValue = this.colorGUI.Show();
                 this.ipv4Value  = this.ipv4GUI.Show();
+                this.enumValue  = this.enumGUI.Show();
             }));
         });
 

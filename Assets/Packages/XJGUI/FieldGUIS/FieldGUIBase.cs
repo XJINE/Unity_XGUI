@@ -8,7 +8,7 @@ namespace XJGUI
 
         protected object       Data      { get; private set; }
         protected FieldInfo    FieldInfo { get; private set; }
-        protected FieldGUIInfoAttribute GUIInfo   { get; private set; }
+        protected FieldGUIInfo GUIInfo   { get; private set; }
 
         public bool Unsupported { get; protected set; }
 
@@ -16,7 +16,7 @@ namespace XJGUI
 
         #region Constructor
 
-        public FieldGUIBase(object data, FieldInfo fieldInfo, FieldGUIInfoAttribute guiInfo)
+        public FieldGUIBase(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
         {
             this.Data      = data;
             this.FieldInfo = fieldInfo;

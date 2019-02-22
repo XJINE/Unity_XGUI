@@ -8,20 +8,20 @@ public class FieldGUISample : MonoBehaviour
     {
         public bool boolValue;
 
-        [FieldGUIInfoAttribute(FieldWidth = 200)]
+        [FieldGUIInfo(FieldWidth = 200)]
         public string stringValue;
 
         public int intValue;
 
-        [FieldGUIInfoAttribute(MaxValue = 0.5f)]
+        [FieldGUIInfo(MaxValue = 0.5f)]
         public float floatValue;
 
         [Header("Vectors")]
 
-        [FieldGUIInfoAttribute(Title = "V2")]
+        [FieldGUIInfo(Title = "V2")]
         public Vector2 vector2Value;
 
-        [FieldGUIInfoAttribute(Decimals = 3)]
+        [FieldGUIInfo(Decimals = 3)]
         public Vector3 vector3Value;
 
         public Vector4 vector4Value;
@@ -34,8 +34,10 @@ public class FieldGUISample : MonoBehaviour
 
         public Color colorValue;
 
-        [FieldGUIInfoAttribute(IPv4 = true)]
+        [FieldGUIInfo(IPv4 = true)]
         public string  ipv4Value;
+
+        public CameraType enumValue;
 
         public object unsupportedValue;
     }
@@ -53,7 +55,10 @@ public class FieldGUISample : MonoBehaviour
 
     void Start()
     {
-        this.window = new FlexibleWindow() { Title = "FieldGUISample", MinWidth = 300 };
+        this.window = new FlexibleWindow()
+        {
+            Title = "FieldGUI Sample",
+        };
 
         this.fieldGUI = new FieldGUI()
         {

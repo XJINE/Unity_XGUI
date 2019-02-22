@@ -52,7 +52,7 @@ namespace XJGUI
         public FieldGUI() : base()
         {
             this.HideUnsupportedGUI = XJGUILayout.DefaultHideUnsupportedGUI;
-            this.Foldout = XJGUILayout.DefaultFieldGUIFoldout;
+            this.Foldout            = XJGUILayout.DefaultFieldGUIFoldout;
         }
 
         #endregion constructor
@@ -70,9 +70,9 @@ namespace XJGUI
 
             for (var i = 0; i < fieldInfos.Length; i++)
             {
-                FieldInfo             fieldInfo  = fieldInfos[i];
-                FieldGUIInfoAttribute guiInfo    = GetFieldGUIInfo(fieldInfo);
-                string                headerInfo = GetFieldHeaderInfo(fieldInfo);
+                FieldInfo    fieldInfo  = fieldInfos[i];
+                FieldGUIInfo guiInfo    = GetFieldGUIInfo(fieldInfo);
+                string       headerInfo = GetFieldHeaderInfo(fieldInfo);
 
                 if (guiInfo.Hide)
                 {
@@ -91,14 +91,14 @@ namespace XJGUI
             }
         }
 
-        private static FieldGUIInfoAttribute GetFieldGUIInfo(FieldInfo fieldInfo)
+        private static FieldGUIInfo GetFieldGUIInfo(FieldInfo fieldInfo)
         {
-            FieldGUIInfoAttribute guiInfo = Attribute.GetCustomAttribute
-                (fieldInfo, typeof(FieldGUIInfoAttribute)) as FieldGUIInfoAttribute;
+            FieldGUIInfo guiInfo = Attribute.GetCustomAttribute
+                (fieldInfo, typeof(FieldGUIInfo)) as FieldGUIInfo;
 
             if (guiInfo == null)
             {
-                guiInfo = new FieldGUIInfoAttribute();
+                guiInfo = new FieldGUIInfo();
                 guiInfo.Title = FieldGUI.GetTitleCase(fieldInfo.Name);
 
                 return guiInfo;
@@ -120,7 +120,7 @@ namespace XJGUI
             return header?.header;
         }
 
-        private static FieldGUIBase GenerateGUI(object data, FieldInfo fieldInfo, FieldGUIInfoAttribute guiInfo)
+        private static FieldGUIBase GenerateGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
         {
             FieldGUI.GetFieldGUIType(data, fieldInfo, out Type type, out bool typeIsIList);
 
@@ -218,22 +218,34 @@ namespace XJGUI
         public override object Show()
         {
             this.fieldGUIGroups[0].Panel.Title = base.Title ?? base.Value.GetType().Name;
-
-            foreach (FieldGUIGroup group in this.fieldGUIGroups)
+            this.fieldGUIGroups[0].Panel.Show(() =>
             {
-                group.Panel.Show(() =>
+                foreach (FieldGUIBase gui in this.fieldGUIGroups[0].GUIs)
                 {
-                    foreach (FieldGUIBase gui in group.GUIs)
+                    if (gui.Unsupported && this.HideUnsupportedGUI)
                     {
-                        if (gui.Unsupported && this.HideUnsupportedGUI)
-                        {
-                            continue;
-                        }
-
-                        gui.Show();
+                        continue;
                     }
-                });
-            }
+
+                    gui.Show();
+                }
+
+                for(int i = 1; i < this.fieldGUIGroups.Count; i++)
+                {
+                    this.fieldGUIGroups[i].Panel.Show(() =>
+                    {
+                        foreach (FieldGUIBase gui in this.fieldGUIGroups[i].GUIs)
+                        {
+                            if (gui.Unsupported && this.HideUnsupportedGUI)
+                            {
+                                continue;
+                            }
+
+                            gui.Show();
+                        }
+                    });
+                }
+            });
 
             return this.Value;
         }

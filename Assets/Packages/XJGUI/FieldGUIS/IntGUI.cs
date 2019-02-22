@@ -6,7 +6,7 @@ namespace XJGUI.FieldGUIs
     {
         #region Constructor
 
-        public IntGUI(object data, FieldInfo fieldInfo, FieldGUIInfoAttribute guiInfo)
+        public IntGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
             base.gui = new XJGUI.IntGUI()

@@ -7,7 +7,7 @@ public static class XJGUILayout
 
     #region FlexibleWindow Settings
 
-    public static float DefaultWindowMinWidth    = 300;
+    public static float DefaultWindowMinWidth    = 500;
     public static float DefaultWindowMinHeight   = 300;
     public static float DefaultWindowMaxWidth    = 1000;
     public static float DefaultWindowMaxHeight   = 800;

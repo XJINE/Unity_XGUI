@@ -7,7 +7,7 @@ namespace XJGUI.FieldGUIs
     {
         #region Constructor
 
-        public ColorGUI(object data, FieldInfo fieldInfo, FieldGUIInfoAttribute guiInfo)
+        public ColorGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
             base.gui = new XJGUI.ColorGUI()

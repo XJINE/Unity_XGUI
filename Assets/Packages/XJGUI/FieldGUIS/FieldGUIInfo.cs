@@ -3,7 +3,7 @@
 namespace XJGUI
 {
     [AttributeUsage(AttributeTargets.Field, AllowMultiple = true)]
-    public class FieldGUIInfoAttribute : Attribute
+    public class FieldGUIInfo : Attribute
     {
         #region Property
 

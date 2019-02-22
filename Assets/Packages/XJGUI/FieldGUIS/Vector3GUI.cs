@@ -7,7 +7,7 @@ namespace XJGUI.FieldGUIs
     {
         #region Constructor
 
-        public Vector3GUI(object data, FieldInfo fieldInfo, FieldGUIInfoAttribute guiInfo)
+        public Vector3GUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
             base.gui = new XJGUI.Vector3GUI()
