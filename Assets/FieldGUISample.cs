@@ -16,6 +16,8 @@ public class FieldGUISample : MonoBehaviour
         [FieldGUIInfoAttribute(MaxValue = 0.5f)]
         public float floatValue;
 
+        [Header("Vectors")]
+
         [FieldGUIInfoAttribute(Title = "V2")]
         public Vector2 vector2Value;
 
@@ -27,6 +29,8 @@ public class FieldGUISample : MonoBehaviour
         public Vector2Int vector2IntValue;
 
         public Vector3Int vector3IntValue;
+
+        [Header("Others")]
 
         public Color colorValue;
 

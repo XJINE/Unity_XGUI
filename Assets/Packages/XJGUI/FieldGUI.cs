@@ -7,23 +7,18 @@ namespace XJGUI
 {
     public class FieldGUI : Element<object>
     {
-        #region Class
-
-        private class FielGUIGroup
-        {
-            FoldoutPanel panel = new FoldoutPanel();
-            List<FieldGUIBase> guis = new List<FieldGUIBase>();
-        }
-
-        #endregion Class
-
         #region Field
 
-        //protected readonly FieldGUI
+        protected class FieldGUIGroup
+        {
+            public FoldoutPanel Panel { get; private set; } = new FoldoutPanel();
+            public List<FieldGUIBase> GUIs { get; private set; } = new List<FieldGUIBase>();
+        }
 
-        protected readonly List<FieldGUIBase> fieldGUIs = new List<FieldGUIBase>();
-
-        protected readonly FoldoutPanel foldoutPanel = new FoldoutPanel();
+        protected readonly List<FieldGUIGroup> fieldGUIGroups = new List<FieldGUIGroup>()
+        {
+            new FieldGUIGroup()
+        };
 
         #endregion Field
 
@@ -33,8 +28,8 @@ namespace XJGUI
 
         public bool Foldout
         {
-            get { return this.foldoutPanel.Value;  }
-            set { this.foldoutPanel.Value = value; }
+            get { return this.fieldGUIGroups[0].Panel.Value;  }
+            set { this.fieldGUIGroups[0].Panel.Value = value; }
         }
 
         public override object Value
@@ -73,22 +68,26 @@ namespace XJGUI
                 return;
             }
 
-            FieldInfo fieldInfo;
-            FieldGUIInfoAttribute guiInfo;
-
             for (var i = 0; i < fieldInfos.Length; i++)
             {
-                fieldInfo = fieldInfos[i];
-                guiInfo = GetFieldGUIInfo(fieldInfo);
+                FieldInfo             fieldInfo  = fieldInfos[i];
+                FieldGUIInfoAttribute guiInfo    = GetFieldGUIInfo(fieldInfo);
+                string                headerInfo = GetFieldHeaderInfo(fieldInfo);
 
                 if (guiInfo.Hide)
                 {
                     continue;
                 }
 
-                FieldGUIBase gui = GenerateGUI(data, fieldInfo, guiInfo);
+                if (headerInfo != null)
+                {
+                    FieldGUIGroup fieldGUIGroup = new FieldGUIGroup();
+                    fieldGUIGroup.Panel.Title = headerInfo;
+                    this.fieldGUIGroups.Add(fieldGUIGroup);
+                }
 
-                this.fieldGUIs.Add(gui);
+                this.fieldGUIGroups[this.fieldGUIGroups.Count - 1].GUIs
+                    .Add(GenerateGUI(data, fieldInfo, guiInfo));
             }
         }
 
@@ -113,12 +112,12 @@ namespace XJGUI
             return guiInfo;
         }
 
-        private static string GetHeaderInfo(FieldInfo fieldInfo)
+        private static string GetFieldHeaderInfo(FieldInfo fieldInfo)
         {
             HeaderAttribute header = Attribute.GetCustomAttribute
                 (fieldInfo, typeof(HeaderAttribute)) as HeaderAttribute;
 
-            return header.header ?? null;
+            return header?.header;
         }
 
         private static FieldGUIBase GenerateGUI(object data, FieldInfo fieldInfo, FieldGUIInfoAttribute guiInfo)
@@ -218,19 +217,23 @@ namespace XJGUI
 
         public override object Show()
         {
-            this.foldoutPanel.Title = base.Title ?? base.Value.GetType().Name;
-            this.foldoutPanel.Show(() =>
-            {
-                for (int i = 0; i < this.fieldGUIs.Count; i++)
-                {
-                    if (this.fieldGUIs[i].Unsupported && this.HideUnsupportedGUI)
-                    {
-                        continue;
-                    }
+            this.fieldGUIGroups[0].Panel.Title = base.Title ?? base.Value.GetType().Name;
 
-                    this.fieldGUIs[i].Show();
-                }
-            });
+            foreach (FieldGUIGroup group in this.fieldGUIGroups)
+            {
+                group.Panel.Show(() =>
+                {
+                    foreach (FieldGUIBase gui in group.GUIs)
+                    {
+                        if (gui.Unsupported && this.HideUnsupportedGUI)
+                        {
+                            continue;
+                        }
+
+                        gui.Show();
+                    }
+                });
+            }
 
             return this.Value;
         }

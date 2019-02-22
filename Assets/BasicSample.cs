@@ -96,7 +96,7 @@ public class BasicSample : MonoBehaviour
                 this.vector2IntValue = this.vector2IntGUI.Show();
                 this.vector3IntValue = this.vector3IntGUI.Show();
             }),
-            new TabPanel.Func("Advance", () =>
+            new TabPanel.Func("Others", () =>
             {
                 this.colorValue = this.colorGUI.Show();
                 this.ipv4Value  = this.ipv4GUI.Show();
