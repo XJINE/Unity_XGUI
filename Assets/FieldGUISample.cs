@@ -32,17 +32,25 @@ public class FieldGUISample : MonoBehaviour
 
         [FieldGUIInfo(IPv4 = true)]
         public string  ipv4Value;
+
+        public object unsupportedValue;
     }
+
+    #region Field
 
     public SampleClass sampleClass = new SampleClass();
 
     private FlexibleWindow window;
     private FieldGUI fieldGUI;
 
+    #endregion Field
+
+    #region Method
+
     void Start()
     {
         this.window = new FlexibleWindow() { Title = "FieldGUISample", MinWidth = 300 };
-        this.fieldGUI = new FieldGUI() { Value = this.sampleClass };
+        this.fieldGUI = new FieldGUI() { Value = this.sampleClass, HideUnsupportedGUI = false };
     }
 
     void OnGUI()
@@ -52,4 +60,6 @@ public class FieldGUISample : MonoBehaviour
             this.fieldGUI.Show();
         });
     }
+
+    #endregion Method
 }

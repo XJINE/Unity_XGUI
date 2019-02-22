@@ -29,7 +29,7 @@ namespace XJGUI.FieldGUIs
 
         protected override void ShowGUI()
         {
-            GUILayout.Label("Unsupported Field : " + base.FieldInfo.Name);
+            GUILayout.Label(base.GUIInfo.Title + " is Unsupported");
         }
 
         #endregion Method

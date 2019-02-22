@@ -116,7 +116,6 @@ namespace XJGUI
             {
                 return this.floatGUIX.WithSlider;
             }
-
             set
             {
                 this.floatGUIX.WithSlider = value;
