@@ -41,7 +41,7 @@ namespace XJGUI
 
         public bool Foldout
         {
-            get { return this.foldoutPanel.Value; }
+            get { return this.foldoutPanel.Value;  }
             set { this.foldoutPanel.Value = value; }
         }
 
@@ -122,94 +122,59 @@ namespace XJGUI
 
         private static FieldGUIBase GenerateGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
         {
-            switch (GetFieldGUIType(data, fieldInfo))
+            FieldGUI.GetFieldGUIType(data, fieldInfo, out Type type, out bool typeIsIList);
+
+            if (typeIsIList) { return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiInfo); }
+
+            if (type == typeof(bool))       { return new FieldGUIs.BoolGUI      (data, fieldInfo, guiInfo); }
+            if (type == typeof(int))        { return new FieldGUIs.IntGUI       (data, fieldInfo, guiInfo); }
+            if (type == typeof(float))      { return new FieldGUIs.FloatGUI     (data, fieldInfo, guiInfo); }
+            if (type == typeof(Vector2))    { return new FieldGUIs.Vector2GUI   (data, fieldInfo, guiInfo); }
+            if (type == typeof(Vector3))    { return new FieldGUIs.Vector3GUI   (data, fieldInfo, guiInfo); }
+            if (type == typeof(Vector4))    { return new FieldGUIs.Vector4GUI   (data, fieldInfo, guiInfo); }
+            if (type == typeof(Vector2Int)) { return new FieldGUIs.Vector2IntGUI(data, fieldInfo, guiInfo); }
+            if (type == typeof(Vector3Int)) { return new FieldGUIs.Vector3IntGUI(data, fieldInfo, guiInfo); }
+            if (type == typeof(Color))      { return new FieldGUIs.ColorGUI     (data, fieldInfo, guiInfo); }
+            if (type == typeof(bool))       { return new FieldGUIs.BoolGUI      (data, fieldInfo, guiInfo); }
+            if (type == typeof(string))
             {
-                case FieldGUIType.Bool:       return new FieldGUIs.BoolGUI      (data, fieldInfo, guiInfo);
-                case FieldGUIType.Int:        return new FieldGUIs.IntGUI       (data, fieldInfo, guiInfo);
-                case FieldGUIType.Float:      return new FieldGUIs.FloatGUI     (data, fieldInfo, guiInfo);
-                case FieldGUIType.Vector2:    return new FieldGUIs.Vector2GUI   (data, fieldInfo, guiInfo);
-                case FieldGUIType.Vector3:    return new FieldGUIs.Vector3GUI   (data, fieldInfo, guiInfo);
-                case FieldGUIType.Vector4:    return new FieldGUIs.Vector4GUI   (data, fieldInfo, guiInfo);
-                case FieldGUIType.Color:      return new FieldGUIs.ColorGUI     (data, fieldInfo, guiInfo);
-                case FieldGUIType.Vector2Int: return new FieldGUIs.Vector2IntGUI(data, fieldInfo, guiInfo);
-                case FieldGUIType.Vector3Int: return new FieldGUIs.Vector3IntGUI(data, fieldInfo, guiInfo);
-
-                case FieldGUIType.String:
-                    if (guiInfo.IPv4)       return new FieldGUIs.IPv4GUI    (data, fieldInfo, guiInfo);
-                    else                    return new FieldGUIs.StringGUI  (data, fieldInfo, guiInfo);
-                
-                case FieldGUIType.Enum:
-                    return (FieldGUIBase)Activator.CreateInstance
-                    (typeof(FieldGUIs.EnumGUI<>).MakeGenericType(fieldInfo.FieldType), data,fieldInfo, guiInfo);
-
-                default: return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiInfo);
+                if (guiInfo.IPv4) { return new FieldGUIs.IPv4GUI  (data, fieldInfo, guiInfo); }
+                else              { return new FieldGUIs.StringGUI(data, fieldInfo, guiInfo); }
             }
+            if (type.IsEnum)
+            {
+                return (FieldGUIBase)Activator.CreateInstance
+                (typeof(FieldGUIs.EnumGUI<>).MakeGenericType(fieldInfo.FieldType), data, fieldInfo, guiInfo);
+            }
+
+            return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiInfo);
         }
 
-        protected static FieldGUIType GetFieldGUIType(object data, FieldInfo fieldInfo)
+        protected static void GetFieldGUIType(object data, FieldInfo fieldInfo, out Type type, out bool typeIsIList)
         {
-            Type fieldType = fieldInfo.FieldType;
+            type = fieldInfo.FieldType;
+            typeIsIList = false;
 
-            if (fieldType.IsPrimitive)
+            if (!(fieldInfo.GetValue(data) is System.Collections.IList))
             {
-                if (fieldType == typeof(bool))  { return FieldGUIType.Bool;  }
-                if (fieldType == typeof(int))   { return FieldGUIType.Int;   }
-                if (fieldType == typeof(float)) { return FieldGUIType.Float; }
+                return;
             }
 
-            if (fieldType.IsValueType)
+            if (type.IsArray)
             {
-                if (fieldType == typeof(Vector2))    { return FieldGUIType.Vector2; }
-                if (fieldType == typeof(Vector3))    { return FieldGUIType.Vector3; }
-                if (fieldType == typeof(Vector4))    { return FieldGUIType.Vector4; }
-                if (fieldType == typeof(Color))      { return FieldGUIType.Color;   }
-                if (fieldType == typeof(Vector2Int)) { return FieldGUIType.Vector2Int; }
-                if (fieldType == typeof(Vector3Int)) { return FieldGUIType.Vector3Int; }
+                type = type.GetElementType();
+                typeIsIList = true;
             }
+            else
+            {
+                Type[] types = type.GetGenericArguments();
 
-            if (fieldType == typeof(string)) { return FieldGUIType.String; }
-            if (fieldType.IsEnum)            { return FieldGUIType.Enum;   }
-
-            return FieldGUIType.Unsupported;
-
-            // NOTE:
-            // Future work.
-            // 
-            //if (!(fieldInfo.GetValue(data) is IList)) { return FieldGUIType.Unsupported; }
-            //
-            //if (fieldType.IsArray)
-            //{
-            //    fieldType = fieldType.GetElementType();
-            //}
-            //else
-            //{
-            //    Type[] types = fieldType.GetGenericArguments();
-            //
-            //    if (types.Length == 1)
-            //    {
-            //        fieldType = types[0];
-            //    }
-            //}
-            //
-            //if (fieldType.IsPrimitive)
-            //{
-            //    if (fieldType == typeof(int))   { return FieldGUIType.Ints;   }
-            //    if (fieldType == typeof(float)) { return FieldGUIType.Floats; }
-            //    if (fieldType == typeof(bool))  { return FieldGUIType.Bools;  }
-            //}
-            //
-            //if (fieldType.IsValueType)
-            //{
-            //    if (fieldType == typeof(Vector2)) { return FieldGUIType.Vector2s; }
-            //    if (fieldType == typeof(Vector3)) { return FieldGUIType.Vector3s; }
-            //    if (fieldType == typeof(Vector4)) { return FieldGUIType.Vector4s; }
-            //    if (fieldType == typeof(Color))   { return FieldGUIType.Colors;   }
-            //}
-            //
-            //if (fieldType == typeof(string)) { return FieldGUIType.Strings; }
-            //if (fieldType.IsEnum)            { return FieldGUIType.Enums;   }
-            //
-            //return FieldGUIType.Unsupported;
+                if (types.Length == 1)
+                {
+                    type = types[0];
+                    typeIsIList = true;
+                }
+            }
         }
 
         protected static string GetTitleCase(string title)
