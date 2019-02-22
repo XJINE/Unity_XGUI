@@ -24,6 +24,10 @@ public class FieldGUISample : MonoBehaviour
 
         public Vector4 vector4Value;
 
+        public Vector2Int vector2IntValue;
+
+        public Vector3Int vector3IntValue;
+
         public Color colorValue;
 
         [FieldGUIInfo(IPv4 = true)]

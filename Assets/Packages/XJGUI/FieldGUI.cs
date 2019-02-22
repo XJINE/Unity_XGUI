@@ -19,6 +19,8 @@ namespace XJGUI
             Vector3,
             Vector4,
             Color,
+            Vector2Int,
+            Vector3Int,
             String,
             Enum,
             Unsupported
@@ -121,13 +123,15 @@ namespace XJGUI
         {
             switch (GetFieldGUIType(data, fieldInfo))
             {
-                case FieldGUIType.Bool:     return new FieldGUIs.BoolGUI    (data, fieldInfo, guiInfo);
-                case FieldGUIType.Int:      return new FieldGUIs.IntGUI     (data, fieldInfo, guiInfo);
-                case FieldGUIType.Float:    return new FieldGUIs.FloatGUI   (data, fieldInfo, guiInfo);
-                case FieldGUIType.Vector2:  return new FieldGUIs.Vector2GUI (data, fieldInfo, guiInfo);
-                case FieldGUIType.Vector3:  return new FieldGUIs.Vector3GUI (data, fieldInfo, guiInfo);
-                case FieldGUIType.Vector4:  return new FieldGUIs.Vector4GUI (data, fieldInfo, guiInfo);
-                case FieldGUIType.Color:    return new FieldGUIs.ColorGUI   (data, fieldInfo, guiInfo);
+                case FieldGUIType.Bool:       return new FieldGUIs.BoolGUI      (data, fieldInfo, guiInfo);
+                case FieldGUIType.Int:        return new FieldGUIs.IntGUI       (data, fieldInfo, guiInfo);
+                case FieldGUIType.Float:      return new FieldGUIs.FloatGUI     (data, fieldInfo, guiInfo);
+                case FieldGUIType.Vector2:    return new FieldGUIs.Vector2GUI   (data, fieldInfo, guiInfo);
+                case FieldGUIType.Vector3:    return new FieldGUIs.Vector3GUI   (data, fieldInfo, guiInfo);
+                case FieldGUIType.Vector4:    return new FieldGUIs.Vector4GUI   (data, fieldInfo, guiInfo);
+                case FieldGUIType.Color:      return new FieldGUIs.ColorGUI     (data, fieldInfo, guiInfo);
+                case FieldGUIType.Vector2Int: return new FieldGUIs.Vector2IntGUI(data, fieldInfo, guiInfo);
+                case FieldGUIType.Vector3Int: return new FieldGUIs.Vector3IntGUI(data, fieldInfo, guiInfo);
 
                 case FieldGUIType.String:
                     if (guiInfo.IPv4)       return new FieldGUIs.IPv4GUI    (data, fieldInfo, guiInfo);
@@ -154,10 +158,12 @@ namespace XJGUI
 
             if (fieldType.IsValueType)
             {
-                if (fieldType == typeof(Vector2)) { return FieldGUIType.Vector2; }
-                if (fieldType == typeof(Vector3)) { return FieldGUIType.Vector3; }
-                if (fieldType == typeof(Vector4)) { return FieldGUIType.Vector4; }
-                if (fieldType == typeof(Color))   { return FieldGUIType.Color;   }
+                if (fieldType == typeof(Vector2))    { return FieldGUIType.Vector2; }
+                if (fieldType == typeof(Vector3))    { return FieldGUIType.Vector3; }
+                if (fieldType == typeof(Vector4))    { return FieldGUIType.Vector4; }
+                if (fieldType == typeof(Color))      { return FieldGUIType.Color;   }
+                if (fieldType == typeof(Vector2Int)) { return FieldGUIType.Vector2Int; }
+                if (fieldType == typeof(Vector3Int)) { return FieldGUIType.Vector3Int; }
             }
 
             if (fieldType == typeof(string)) { return FieldGUIType.String; }
