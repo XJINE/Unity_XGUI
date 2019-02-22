@@ -10,9 +10,9 @@ namespace XJGUI
     // Enum.GetValues return wrong pattern in sometimes.
     // If some of the Enum components has a same value, the values has same Enum components.
     // Ex. When Enum is defined like this {EnumA = 0, EnumB = 0},
-    // Enum.GetValues will return 2 EnumB and EnumA is not included there.
-    // So we should Name based implement. However, still have another problem.
+    // Enum.GetValues will return 2 EnumB, and the EnumA is not included there.
     // 
+    // So we should Name based implement. However, still have another problem.
     // When try to Enum.Parse in same case, it returns EnumB only.
     // Even if the string value shows "EnumA", Enum.Parse returns EnumB.
     // I try to use Reflection, but the result was not good.
@@ -52,7 +52,7 @@ namespace XJGUI
         {
             get
             {
-                GUIStyle style = GUI.skin.button;
+                GUIStyle style = new GUIStyle(GUI.skin.button);
 
                 if (this.isEditing)
                 {
@@ -137,6 +137,7 @@ namespace XJGUI
                             base.Value = (T)Enum.Parse(this.enumType, this.enumNames[i]);
                         }
                     }
+
                 }, GUI.skin.box);
             });
 
