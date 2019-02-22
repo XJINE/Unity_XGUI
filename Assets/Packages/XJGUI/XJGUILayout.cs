@@ -82,13 +82,18 @@ public static class XJGUILayout
     #region Method
 
     [Flags]
-    public enum LabelOption { Bold, NoWrap }
-
-    public static void Label(GUIContent content, LabelOption option)
+    public enum LabelOption
     {
-        GUILayout.Label(content, new GUIStyle(GUI.skin.label)
+        Default = 0x0,
+        Bold    = 0x1,
+        NoWrap  = 0x2,
+    }
+
+    public static void Label(string text, LabelOption option = LabelOption.Default)
+    {
+        GUILayout.Label(text, new GUIStyle(GUI.skin.label)
         {
-            wordWrap = !option.HasFlag(LabelOption.NoWrap),
+            wordWrap  = !option.HasFlag(LabelOption.NoWrap),
             fontStyle = option.HasFlag(LabelOption.Bold) ? FontStyle.Bold : FontStyle.Normal
         });
     }

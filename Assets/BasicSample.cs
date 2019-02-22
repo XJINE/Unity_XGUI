@@ -44,7 +44,7 @@ public class BasicSample : MonoBehaviour
 
         this.tabPanel     = new TabPanel();
         this.foldoutPanel = new FoldoutPanel() { Title = "Click to Open/Close" };
-        this.scrollPanel  = new ScrollPanel()  { };
+        this.scrollPanel  = new ScrollPanel()  { MinHeight = 100 };
 
         this.boolGUI       = new BoolGUI()       { Title = "Bool"   };
         this.stringGUI     = new StringGUI()     { Title = "String" };
@@ -60,7 +60,7 @@ public class BasicSample : MonoBehaviour
         this.enumGUI = new EnumGUI<CameraType>() { Title = "Enum"  };
     }
 
-    private void Update()
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
@@ -68,7 +68,7 @@ public class BasicSample : MonoBehaviour
         }
     }
 
-    private void OnGUI()
+    void OnGUI()
     {
         #pragma warning disable 0219
 
@@ -76,11 +76,6 @@ public class BasicSample : MonoBehaviour
 
         this.window.Show(() =>
         {
-            this.scrollPanel.Show(() =>
-            {
-                ここに長いラベルを入れる。
-            });
-
             this.tabPanel.Show
             (new TabPanel.Func("Basic", () =>
             {
@@ -106,6 +101,16 @@ public class BasicSample : MonoBehaviour
                 this.colorValue = this.colorGUI.Show();
                 this.ipv4Value  = this.ipv4GUI.Show();
                 this.enumValue  = this.enumGUI.Show();
+
+                this.scrollPanel.Show(() =>
+                {
+                    GUILayout.Box("BOX", GUILayout.Width(300), GUILayout.Height(300));
+
+                    XJGUILayout.Label("Long Text, Long Text, Long Text, Long Text, Long Text, Long Text"
+                                    + "Long Text, Long Text, Long Text, Long Text, Long Text, Long Text"
+                                    + "Long Text, Long Text, Long Text, Long Text, Long Text, Long Text",
+                                    XJGUILayout.LabelOption.NoWrap | XJGUILayout.LabelOption.Bold);
+                });
             }));
         });
 
