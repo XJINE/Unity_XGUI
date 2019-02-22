@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace XJGUI
+﻿namespace XJGUI
 {
     public abstract class Panel<T> : Component<T>
     {

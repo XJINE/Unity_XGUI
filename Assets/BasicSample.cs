@@ -21,6 +21,7 @@ public class BasicSample : MonoBehaviour
     private FlexibleWindow window;
     private TabPanel       tabPanel;
     private FoldoutPanel   foldoutPanel;
+    private ScrollPanel    scrollPanel;
 
     private BoolGUI       boolGUI;
     private StringGUI     stringGUI;
@@ -41,12 +42,9 @@ public class BasicSample : MonoBehaviour
     {
         this.window = new FlexibleWindow() { Title = "Basic Sample" };
 
-        this.tabPanel = new TabPanel();
-
-        this.foldoutPanel = new FoldoutPanel()
-        {
-            Title = "Click to Open/Close"
-        };
+        this.tabPanel     = new TabPanel();
+        this.foldoutPanel = new FoldoutPanel() { Title = "Click to Open/Close" };
+        this.scrollPanel  = new ScrollPanel()  { };
 
         this.boolGUI       = new BoolGUI()       { Title = "Bool"   };
         this.stringGUI     = new StringGUI()     { Title = "String" };
@@ -59,7 +57,7 @@ public class BasicSample : MonoBehaviour
         this.vector3IntGUI = new Vector3IntGUI() { Title = "Vector3Int" };
         this.colorGUI      = new ColorGUI()      { Title = "Color" };
         this.ipv4GUI       = new IPv4GUI()       { Title = "IPv4"  };
-        this.enumGUI = new EnumGUI<CameraType>() { Title = "Enum" };
+        this.enumGUI = new EnumGUI<CameraType>() { Title = "Enum"  };
     }
 
     private void Update()
@@ -78,6 +76,11 @@ public class BasicSample : MonoBehaviour
 
         this.window.Show(() =>
         {
+            this.scrollPanel.Show(() =>
+            {
+                ここに長いラベルを入れる。
+            });
+
             this.tabPanel.Show
             (new TabPanel.Func("Basic", () =>
             {

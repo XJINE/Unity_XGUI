@@ -81,6 +81,18 @@ public static class XJGUILayout
 
     #region Method
 
+    [Flags]
+    public enum LabelOption { Bold, NoWrap }
+
+    public static void Label(GUIContent content, LabelOption option)
+    {
+        GUILayout.Label(content, new GUIStyle(GUI.skin.label)
+        {
+            wordWrap = !option.HasFlag(LabelOption.NoWrap),
+            fontStyle = option.HasFlag(LabelOption.Bold) ? FontStyle.Bold : FontStyle.Normal
+        });
+    }
+
     public static void HorizontalLayout(Action guiAction, GUIStyle style = null)
     {
         if (style == null)
