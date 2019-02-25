@@ -30,9 +30,14 @@ public class FieldGUISample : MonoBehaviour
 
         public Vector3Int vector3IntValue;
 
+        public Matrix4x4 matrix4x4Value;
+
         [Header("Others")]
 
         public Color colorValue;
+
+        [FieldGUIInfo(Hide = true)]
+        public Color hideValue;
 
         [FieldGUIInfo(IPv4 = true)]
         public string  ipv4Value;

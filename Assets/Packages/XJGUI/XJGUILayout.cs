@@ -65,6 +65,16 @@ public static class XJGUILayout
     public static Color DefaultMinValueColor = new Color(0, 0, 0, 0);
     public static Color DefaultMaxValueColor = new Color(1, 1, 1, 1);
 
+    public static Matrix4x4 DefaultValueMatrix4x4    = new Matrix4x4();
+    public static Matrix4x4 DefaultMinValueMatrix4x4 = new Matrix4x4(new Vector4(-999, -999, -999, -999),
+                                                                     new Vector4(-999, -999, -999, -999),
+                                                                     new Vector4(-999, -999, -999, -999),
+                                                                     new Vector4(-999, -999, -999, -999));
+    public static Matrix4x4 DefaultMaxValueMatrix4x4 = new Matrix4x4(new Vector4(999, 999, 999, 999),
+                                                                     new Vector4(999, 999, 999, 999),
+                                                                     new Vector4(999, 999, 999, 999),
+                                                                     new Vector4(999, 999, 999, 999));
+
     public static bool   DefaultIPv4      = false;
     public static string DefaultValueIPv4 = "0.0.0.0";
 

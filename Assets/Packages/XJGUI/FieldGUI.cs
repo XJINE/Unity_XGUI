@@ -11,8 +11,8 @@ namespace XJGUI
 
         protected class FieldGUIGroup
         {
-            public FoldoutPanel Panel { get; private set; } = new FoldoutPanel();
-            public List<FieldGUIBase> GUIs { get; private set; } = new List<FieldGUIBase>();
+            public FoldoutPanel       Panel { get; private set; } = new FoldoutPanel();
+            public List<FieldGUIBase> GUIs  { get; private set; } = new List<FieldGUIBase>();
         }
 
         protected readonly List<FieldGUIGroup> fieldGUIGroups = new List<FieldGUIGroup>()
@@ -135,6 +135,7 @@ namespace XJGUI
             if (type == typeof(Vector2Int)) { return new FieldGUIs.Vector2IntGUI(data, fieldInfo, guiInfo); }
             if (type == typeof(Vector3Int)) { return new FieldGUIs.Vector3IntGUI(data, fieldInfo, guiInfo); }
             if (type == typeof(Color))      { return new FieldGUIs.ColorGUI     (data, fieldInfo, guiInfo); }
+            if (type == typeof(Matrix4x4))  { return new FieldGUIs.Matrix4x4GUI (data, fieldInfo, guiInfo); }
             if (type == typeof(bool))       { return new FieldGUIs.BoolGUI      (data, fieldInfo, guiInfo); }
             if (type == typeof(string))
             {

@@ -15,6 +15,7 @@ public class BasicSample : MonoBehaviour
     public Vector2Int vector2IntValue;
     public Vector3Int vector3IntValue;
     public Color      colorValue;
+    public Matrix4x4  matrixValue;
     public string     ipv4Value;
     public CameraType enumValue;
 
@@ -33,6 +34,7 @@ public class BasicSample : MonoBehaviour
     private Vector2IntGUI vector2IntGUI;
     private Vector3IntGUI vector3IntGUI;
     private ColorGUI      colorGUI;
+    private Matrix4x4GUI  matrixGUI;
     private IPv4GUI       ipv4GUI;
     private EnumGUI<CameraType> enumGUI;
 
@@ -59,6 +61,7 @@ public class BasicSample : MonoBehaviour
         this.vector2IntGUI = new Vector2IntGUI("Vector2Int", this.vector2IntValue);
         this.vector3IntGUI = new Vector3IntGUI("Vector3Int", this.vector3IntValue, Vector3Int.zero, Vector3Int.one);
         this.colorGUI      = new ColorGUI     ("Color",      this.colorValue);
+        this.matrixGUI     = new Matrix4x4GUI ("Matrix4x4",  this.matrixValue);
         this.ipv4GUI       = new IPv4GUI      ("IPv4",       this.ipv4Value);
         this.enumGUI = new EnumGUI<CameraType>("Enum",       this.enumValue);
     }
@@ -87,7 +90,7 @@ public class BasicSample : MonoBehaviour
                 this.intValue    = this.intGUI.Show();
                 this.floatValue  = this.floatGUI.Show();
             }),
-            new TabPanel.Func("Vector", () =>
+            new TabPanel.Func("Vector & Matrix", () =>
             {
                 this.foldoutPanel.Show(() =>
                 {
@@ -98,6 +101,8 @@ public class BasicSample : MonoBehaviour
 
                 this.vector2IntValue = this.vector2IntGUI.Show();
                 this.vector3IntValue = this.vector3IntGUI.Show();
+
+                this.matrixValue = this.matrixGUI.Show();
             }),
             new TabPanel.Func("Others", () =>
             {

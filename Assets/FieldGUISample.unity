@@ -307,6 +307,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sampleClass:
-    boolValue: 0
-    stringValue: 
-    intValue: 0
+    boolValue: 1
+    stringValue: abcdefg
+    intValue: 777
+    floatValue: -777
+    vector2Value: {x: 1, y: 2}
+    vector3Value: {x: 1, y: 2, z: 3}
+    vector4Value: {x: 1, y: 2, z: 3, w: 4}
+    vector2IntValue: {x: 1, y: 2}
+    vector3IntValue: {x: 1, y: 2, z: 3}
+    matrix4x4Value:
+      e00: 0
+      e01: 1
+      e02: 2
+      e03: 3
+      e10: 4
+      e11: 5
+      e12: 6
+      e13: 7
+      e20: 8
+      e21: 9
+      e22: 10
+      e23: 11
+      e30: 12
+      e31: 13
+      e32: 14
+      e33: 15
+    colorValue: {r: 1, g: 0, b: 0, a: 0}
+    hideValue: {r: 0, g: 0, b: 1, a: 0}
+    ipv4Value: 127.0.0.1
+    enumValue: 4
