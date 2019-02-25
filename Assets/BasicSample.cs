@@ -40,6 +40,9 @@ public class BasicSample : MonoBehaviour
 
     void Awake()
     {
+        XJGUILayout.DefaultMinValueVector2Int = new Vector2Int(-999, -999);
+        XJGUILayout.DefaultMaxValueVector2Int = new Vector2Int(999, 999);
+
         this.window = new FlexibleWindow("Basic Sample");
 
         this.tabPanel     = new TabPanel    ();
@@ -54,7 +57,7 @@ public class BasicSample : MonoBehaviour
         this.vector3GUI    = new Vector3GUI   ("Vector3",    this.vector3Value) { MinValue = Vector3.zero };
         this.vector4GUI    = new Vector4GUI   ("Vector4",    this.vector4Value) { WithSlider = false };
         this.vector2IntGUI = new Vector2IntGUI("Vector2Int", this.vector2IntValue);
-        this.vector3IntGUI = new Vector3IntGUI("Vector3Int", this.vector3IntValue);
+        this.vector3IntGUI = new Vector3IntGUI("Vector3Int", this.vector3IntValue, Vector3Int.zero, Vector3Int.one);
         this.colorGUI      = new ColorGUI     ("Color",      this.colorValue);
         this.ipv4GUI       = new IPv4GUI      ("IPv4",       this.ipv4Value);
         this.enumGUI = new EnumGUI<CameraType>("Enum",       this.enumValue);
