@@ -28,13 +28,26 @@
 
         #region Constructor
 
-        public IntGUI() : base()
+        public IntGUI() : base() { }
+
+        public IntGUI(string title) : base(title) { }
+ 
+        public IntGUI(string title, int value) : base(title, value) { }
+
+        public IntGUI(string title, int value, int min, int max) : base(title, value, min, max) { }
+
+        #endregion Constructor
+
+        #region Method
+
+        protected override void Initialize()
         {
+            base.Initialize();
             base.MinValue = XJGUILayout.DefaultMinValueInt;
             base.MaxValue = XJGUILayout.DefaultMaxValueInt;
             base.Value    = XJGUILayout.DefaultValueInt;
         }
 
-        #endregion Constructor
+        #endregion Method
     }
 }

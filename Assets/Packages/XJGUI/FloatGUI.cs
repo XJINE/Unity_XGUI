@@ -42,17 +42,27 @@
 
         #region Constructor
 
-        public FloatGUI() : base()
+        public FloatGUI() : base() { }
+
+        public FloatGUI(string title) : base(title) { }
+
+        public FloatGUI(string title, float value) : base(title, value) { }
+
+        public FloatGUI(string title, float value, float min, float max) : base(title, value, min , max) { }
+
+        #endregion Constructor
+
+        #region Method
+
+        protected override void Initialize()
         {
+            base.Initialize();
+
             this.Decimals = XJGUILayout.DefaultDecimals;
             base.MinValue = XJGUILayout.DefaultMinValueFloat;
             base.MaxValue = XJGUILayout.DefaultMaxValueFloat;
             base.Value    = XJGUILayout.DefaultValueFloat;
         }
-
-        #endregion Constructor
-
-        #region Method
 
         protected override float CorrectValue(float value)
         {

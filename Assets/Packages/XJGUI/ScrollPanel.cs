@@ -16,6 +16,16 @@ namespace XJGUI
 
         #endregion Property
 
+        #region Constructor
+
+        public ScrollPanel() : base() { }
+
+        public ScrollPanel(string title) : base(title) { }
+
+        public ScrollPanel(string title, Vector2 value) : base(title, value) { }
+
+        #endregion Constructor
+
         #region Method
 
         public virtual Vector2 Show(params Action[] show)
@@ -44,6 +54,7 @@ namespace XJGUI
 
             return base.Value;
         }
+
         #endregion Method
     }
 }

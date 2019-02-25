@@ -83,6 +83,18 @@ namespace XJGUI
 
         #endregion Property
 
+        #region Constructor
+
+        public NumericGUI() : base() { }
+
+        public NumericGUI(string title) : base(title) { }
+
+        public NumericGUI(string title, T value) : base(title, value) { }
+
+        public NumericGUI(string title, T value, T min, T max) : base(title, value, min, max) { }
+
+        #endregion Constructor
+
         #region Method
 
         public override T Show()

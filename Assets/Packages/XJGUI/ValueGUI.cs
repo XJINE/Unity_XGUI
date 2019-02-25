@@ -24,12 +24,30 @@ namespace XJGUI
 
         #region Constructor
 
-        public ValueGUI() : base()
+        public ValueGUI() : base() { }
+
+        public ValueGUI(string title) : base(title) { }
+
+        public ValueGUI(string title, T value) : base(title, value) { }
+
+        public ValueGUI(string title, T value, T min, T max) : base(title, value)
         {
+            this.MinValue = min;
+            this.MaxValue = max;
+        }
+
+        #endregion Constructor
+
+        #region Method
+
+        protected override void Initialize()
+        {
+            base.Initialize();
+
             base.FieldWidth = XJGUILayout.DefaultFieldWidthValue;
             this.WithSlider = XJGUILayout.DefaultWithSlider;
         }
 
-        #endregion Constructor
+        #endregion Method
     }
 }

@@ -141,17 +141,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63eb82ceba8ae3c499dd2bdd04c66c6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boolValue: 0
-  stringValue: 
-  intValue: 0
-  floatValue: 0
-  vector2Value: {x: 0, y: 0}
-  vector3Value: {x: 0, y: 0, z: 0}
-  vector4Value: {x: 0, y: 0, z: 0, w: 0}
-  vector2IntValue: {x: 0, y: 0}
-  vector3IntValue: {x: 0, y: 0, z: 0}
+  boolValue: 1
+  stringValue: aiueo
+  intValue: 777
+  floatValue: 3
+  vector2Value: {x: 1, y: 2}
+  vector3Value: {x: 1, y: 2, z: 3}
+  vector4Value: {x: 1, y: 2, z: 3, w: 4}
+  vector2IntValue: {x: 1, y: 2}
+  vector3IntValue: {x: 1, y: 2, z: 3}
   colorValue: {r: 0, g: 0, b: 0, a: 0}
-  ipv4Value: 
+  ipv4Value: 127.0.0.1
   enumValue: 1
 --- !u!4 &810585867
 Transform:

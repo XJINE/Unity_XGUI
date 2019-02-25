@@ -6,10 +6,10 @@ namespace XJGUI
     {
         #region Field
 
-        private readonly IntGUI intGUIX;
-        private readonly IntGUI intGUIY;
-        private readonly IntGUI intGUIZ;
-        private readonly IntGUI intGUIW;
+        private IntGUI intGUIX;
+        private IntGUI intGUIY;
+        private IntGUI intGUIZ;
+        private IntGUI intGUIW;
 
         #endregion Field
 
@@ -41,9 +41,21 @@ namespace XJGUI
 
         #region Constructor
 
-        public IPv4GUI()
+        public IPv4GUI() { }
+
+        public IPv4GUI(string title) : base(title) { }
+
+        public IPv4GUI(string title, string value) : base(title, value) { }
+
+        #endregion Constructor
+
+        #region Method
+
+        protected override void Initialize()
         {
-            const int IPV4_VALUE_MIN = 0;
+            base.Initialize();
+
+                        const int IPV4_VALUE_MIN = 0;
             const int IPV4_VALUE_MAX = 255;
 
             int[] defaultValue = ParseIPv4Text(XJGUILayout.DefaultValueIPv4);
@@ -82,10 +94,6 @@ namespace XJGUI
                        + defaultValue[2] + "."
                        + defaultValue[3];
         }
-
-        #endregion Constructor
-
-        #region Method
 
         public override string Show()
         {

@@ -40,24 +40,24 @@ public class BasicSample : MonoBehaviour
 
     void Awake()
     {
-        this.window = new FlexibleWindow() { Title = "Basic Sample" };
+        this.window = new FlexibleWindow("Basic Sample");
 
-        this.tabPanel     = new TabPanel();
-        this.foldoutPanel = new FoldoutPanel() { Title = "Click to Open/Close" };
-        this.scrollPanel  = new ScrollPanel()  { MinHeight = 100 };
+        this.tabPanel     = new TabPanel    ();
+        this.foldoutPanel = new FoldoutPanel("Click to Open/Close");
+        this.scrollPanel  = new ScrollPanel () { MinHeight = 100 };
 
-        this.boolGUI       = new BoolGUI()       { Title = "Bool"   };
-        this.stringGUI     = new StringGUI()     { Title = "String" };
-        this.intGUI        = new IntGUI()        { Title = "Int"    };
-        this.floatGUI      = new FloatGUI()      { Title = "Float"  };
-        this.vector2GUI    = new Vector2GUI()    { Title = "Vector2", Decimals = 1 };
-        this.vector3GUI    = new Vector3GUI()    { Title = "Vector3", MinValue = Vector3.zero };
-        this.vector4GUI    = new Vector4GUI()    { Title = "Vector4", WithSlider = false };
-        this.vector2IntGUI = new Vector2IntGUI() { Title = "Vector2Int" };
-        this.vector3IntGUI = new Vector3IntGUI() { Title = "Vector3Int" };
-        this.colorGUI      = new ColorGUI()      { Title = "Color" };
-        this.ipv4GUI       = new IPv4GUI()       { Title = "IPv4"  };
-        this.enumGUI = new EnumGUI<CameraType>() { Title = "Enum"  };
+        this.boolGUI       = new BoolGUI      ("Bool",       this.boolValue);
+        this.stringGUI     = new StringGUI    ("String",     this.stringValue) { FieldWidth = 250 };
+        this.intGUI        = new IntGUI       ("Int",        this.intValue);
+        this.floatGUI      = new FloatGUI     ("Float",      this.floatValue, -1, 1);
+        this.vector2GUI    = new Vector2GUI   ("Vector2",    this.vector2Value) { Decimals = 1 };
+        this.vector3GUI    = new Vector3GUI   ("Vector3",    this.vector3Value) { MinValue = Vector3.zero };
+        this.vector4GUI    = new Vector4GUI   ("Vector4",    this.vector4Value) { WithSlider = false };
+        this.vector2IntGUI = new Vector2IntGUI("Vector2Int", this.vector2IntValue);
+        this.vector3IntGUI = new Vector3IntGUI("Vector3Int", this.vector3IntValue);
+        this.colorGUI      = new ColorGUI     ("Color",      this.colorValue);
+        this.ipv4GUI       = new IPv4GUI      ("IPv4",       this.ipv4Value);
+        this.enumGUI = new EnumGUI<CameraType>("Enum",       this.enumValue);
     }
 
     void Update()

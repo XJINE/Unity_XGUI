@@ -130,16 +130,26 @@ namespace XJGUI
 
         #region Constructor
 
-        public ColorGUI() : base()
-        {
-            this.MinValue = XJGUILayout.DefaultMinValueColor;
-            this.MaxValue = XJGUILayout.DefaultMaxValueColor;
-            this.Value    = XJGUILayout.DefaultValueColor;
-        }
+        public ColorGUI() : base() { }
+
+        public ColorGUI(string title) : base(title) { }
+
+        public ColorGUI(string title, Color value) : base(title, value) { }
+
+        public ColorGUI(string title, Color value, Color min, Color max) : base(title, value, min, max) { }
 
         #endregion Constructor
 
         #region Method
+
+        protected override void Initialize()
+        {
+            base.Initialize();
+
+            this.MinValue = XJGUILayout.DefaultMinValueColor;
+            this.MaxValue = XJGUILayout.DefaultMaxValueColor;
+            this.Value    = XJGUILayout.DefaultValueColor;
+        }
 
         protected override void ShowComponents()
         {

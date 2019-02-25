@@ -25,8 +25,20 @@ namespace XJGUI
 
         #region Constructor
 
-        public FlexibleWindow() :base()
+        public FlexibleWindow() :base() { }
+
+        public FlexibleWindow(string title) { }
+
+        public FlexibleWindow(string title, Rect value) : base(title, value) { }
+
+        #endregion Constructor
+
+        #region Method
+
+        protected override void Initialize()
         {
+            base.Initialize();
+
             // NOTE:
             // Guid.NewGuid().GetHashCode get collision at sometimes but its very rare case.
             // It is enough to use it as WindowID.
@@ -40,10 +52,6 @@ namespace XJGUI
             this.IsDraggable = XJGUILayout.DefaultWindowIsDraggable;
             this.IsVisible   = XJGUILayout.DefaultWindowIsVisible;
         }
-
-        #endregion Constructor
-
-        #region Method
 
         public Rect Show(params Action[] guiAction)
         {

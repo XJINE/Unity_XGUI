@@ -119,16 +119,26 @@ namespace XJGUI
 
         #region Constructor
 
-        public Vector3GUI() : base()
-        {
-            this.MinValue = XJGUILayout.DefaultMinValueVector3;
-            this.MaxValue = XJGUILayout.DefaultMaxValueVector3;
-            this.Value    = XJGUILayout.DefaultValueVector3;
-        }
+        public Vector3GUI() : base() { }
+
+        public Vector3GUI(string title) : base(title) { }
+
+        public Vector3GUI(string title, Vector3 value) : base(title, value) { }
+
+        public Vector3GUI(string title, Vector3 value, Vector3 min, Vector3 max) : base(title, value, min, max) { }
 
         #endregion Constructor
 
         #region Method
+
+        protected override void Initialize()
+        {
+            base.Initialize();
+
+            this.MinValue = XJGUILayout.DefaultMinValueVector3;
+            this.MaxValue = XJGUILayout.DefaultMaxValueVector3;
+            this.Value    = XJGUILayout.DefaultValueVector3;
+        }
 
         protected override void ShowComponents()
         {

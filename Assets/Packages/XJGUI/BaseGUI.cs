@@ -13,14 +13,29 @@
 
         public BaseGUI()
         {
-            this.Title = XJGUILayout.DefaultTitle;
+            Initialize();
+            Title = XJGUILayout.DefaultTitle;
         }
 
         public BaseGUI(string title)
         {
-            this.Title = title;
+            Initialize();
+            Title = title;
+        }
+
+        public BaseGUI(string title, T value)
+        {
+            Initialize();
+            Title = title;
+            Value = value;
         }
 
         #endregion Constructor
+
+        #region Method
+
+        protected virtual void Initialize() { }
+
+        #endregion Method
     }
 }

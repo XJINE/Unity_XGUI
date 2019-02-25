@@ -5,6 +5,16 @@ namespace XJGUI
 {
     public class FoldoutPanel : Panel<bool>
     {
+        #region Constructor
+
+        public FoldoutPanel() : base() { }
+
+        public FoldoutPanel(string title) : base(title) { }
+
+        public FoldoutPanel(string title, bool value) : base(title, value) { }
+
+        #endregion Constructor
+
         #region Method
 
         public virtual bool Show(params Action[] show)

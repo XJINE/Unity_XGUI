@@ -24,6 +24,16 @@ namespace XJGUI
 
         #endregion Property
 
+        #region Constructor
+
+        public TextFieldGUI() : base() { }
+
+        public TextFieldGUI(string title) : base(title) { }
+
+        public TextFieldGUI(string title, T value) : base(title, value) { }
+
+        #endregion Constructor
+
         #region Method
 
         protected override void ShowTitle(bool dummyTitle = false)

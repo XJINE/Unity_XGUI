@@ -72,8 +72,20 @@ namespace XJGUI
 
         #region Constructor
 
-        public EnumGUI() : base()
+        public EnumGUI() : base() { }
+
+        public EnumGUI(string title) : base(title) { }
+
+        public EnumGUI(string title, T value) : base(title, value) { }
+
+        #endregion Constructor
+
+        #region Method
+
+        protected override void Initialize()
         {
+            base.Initialize();
+
             this.ButtonWidth = XJGUILayout.DefaultButtonWidth;
 
             this.enumType = typeof(T);
@@ -85,10 +97,6 @@ namespace XJGUI
 
             this.enumNames = Enum.GetNames(this.enumType);
         }
-
-        #endregion Constructor
-
-        #region Method
 
         public override T Show()
         {

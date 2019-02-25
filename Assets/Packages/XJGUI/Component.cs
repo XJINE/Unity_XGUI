@@ -13,6 +13,16 @@ namespace XJGUI
 
         #endregion Property
 
+        #region Constructor
+
+        public Component() : base() { }
+
+        public Component(string title) : base(title) { }
+
+        public Component(string title, T value) : base(title, value) { }
+
+        #endregion Constructor
+
         #region Method
 
         protected virtual void ShowTitle(bool blank = false)

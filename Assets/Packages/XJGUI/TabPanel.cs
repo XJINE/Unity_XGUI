@@ -19,6 +19,16 @@ namespace XJGUI
 
         #endregion Property
 
+        #region Constructor
+
+        public TabPanel() : base() { }
+
+        public TabPanel(string title) { }
+
+        public TabPanel(string title, int value) : base(title, value) { }
+
+        #endregion Constructor
+
         #region Method
 
         public class Func
