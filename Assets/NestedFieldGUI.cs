@@ -3,7 +3,7 @@
 namespace XJGUI
 {
     [System.Serializable]
-    public class Parent
+    public class ParentClass
     {
         public int value = 0;
         public ChildA childA;
@@ -20,7 +20,8 @@ namespace XJGUI
     [System.Serializable]
     public struct ChildB
     {
-        public int value;
+        public int valueA;
+        public int valueB;
     }
 
     [System.Serializable]
@@ -29,24 +30,55 @@ namespace XJGUI
         public int value = 3;
     }
 
+    [System.Serializable]
+    public struct ParentStruct
+    {
+        public int value;
+        public ChildStruct child;
+    }
+
+    [System.Serializable]
+    public struct ChildStruct
+    {
+        public int value;
+        public GrandsonStruct grandson;
+    }
+
+    [System.Serializable]
+    public struct GrandsonStruct
+    {
+        public int value;
+    }
+
     public class NestedFieldGUI : MonoBehaviour
     {
         public FlexibleWindow window;
-        public FieldGUI fieldGUI;
-        public Parent parent;
+        public FieldGUI fieldGUIParentClass;
+        public FieldGUI fieldGUIParentStruct;
+        public FieldGUI fieldGUIGrandsonStruct;
+
+        public ParentClass parentClass;
+        public ParentStruct parentStruct;
+        public GrandsonStruct grandsonStruct;
 
         void Start()
         {
             XJGUILayout.DefaultFieldGUIFoldout = true;
-            this.window   = new FlexibleWindow();
-            this.fieldGUI = new FieldGUI(this.parent);
+
+            this.window = new FlexibleWindow();
+
+            this.fieldGUIParentClass = new FieldGUI(this.parentClass);
+            this.fieldGUIParentStruct = new FieldGUI(this.parentStruct);
+            this.fieldGUIGrandsonStruct = new FieldGUI(this.grandsonStruct);
         }
 
         private void OnGUI()
         {
             this.window.Show(() =>
             {
-                this.fieldGUI.Show();
+                this.fieldGUIParentClass.Show();
+                this.parentStruct = (ParentStruct)this.fieldGUIParentStruct.Show();
+                this.grandsonStruct = (GrandsonStruct)this.fieldGUIGrandsonStruct.Show();
             });
         }
     }

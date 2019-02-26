@@ -23,14 +23,30 @@ namespace XJGUI.FieldGUIs
 
         #region Method
 
-        protected override void GetValueFromInstance()
-        {
-            // Nothing to do.
-        }
+        //protected override void GetValueFromInstance()
+        //{
+        //    // Nothing to do.
+        //}
+
+        //protected override void SetValueToInstance()
+        //{
+        //    // Nothing to do.
+        //}
 
         protected override void SetValueToInstance()
         {
-            // Nothing to do.
+            if (base.Data.GetType().IsValueType)
+            {
+                base.SetValueToInstance();
+            }
+        }
+
+        protected override void GetValueFromInstance()
+        {
+            if (base.Data.GetType().IsValueType)
+            {
+                base.GetValueFromInstance();
+            }
         }
 
         #endregion Method

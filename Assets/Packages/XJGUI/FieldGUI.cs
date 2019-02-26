@@ -143,7 +143,7 @@ namespace XJGUI
         {
             FieldGUI.GetFieldGUIType(data, fieldInfo, out Type type, out bool typeIsIList);
 
-            if (typeIsIList) { return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiInfo); }
+            if (data == null || typeIsIList) { return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiInfo); }
 
             if (type == typeof(bool))       { return new FieldGUIs.BoolGUI      (data, fieldInfo, guiInfo); }
             if (type == typeof(int))        { return new FieldGUIs.IntGUI       (data, fieldInfo, guiInfo); }
@@ -176,6 +176,13 @@ namespace XJGUI
 
         protected static void GetFieldGUIType(object data, FieldInfo fieldInfo, out Type type, out bool typeIsIList)
         {
+            if (data == null)
+            {
+                type = null;
+                typeIsIList = false;
+                return;
+            }
+
             type = fieldInfo.FieldType;
             typeIsIList = false;
 

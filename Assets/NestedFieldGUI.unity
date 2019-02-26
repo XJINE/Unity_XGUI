@@ -211,14 +211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b586fb63e9982b64a8f72b392e624005, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parent:
-    value: 0
-    childA:
-      value: 1
-      grandson:
-        value: 3
-    childB:
-      value: 2
+  grandsonStruct:
+    value: 10
 --- !u!20 &989416634
 Camera:
   m_ObjectHideFlags: 0
