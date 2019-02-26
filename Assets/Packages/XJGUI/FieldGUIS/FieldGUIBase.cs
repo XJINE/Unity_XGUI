@@ -29,16 +29,16 @@ namespace XJGUI
 
         public void Show()
         {
-            Load();
+            GetValueFromInstance();
             ShowGUI();
-            Save();
+            SetValueToInstance();
         }
 
         protected abstract void ShowGUI();
 
-        protected abstract void Save();
+        protected abstract void SetValueToInstance();
 
-        protected abstract void Load();
+        protected abstract void GetValueFromInstance();
 
         #endregion Method
     }

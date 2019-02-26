@@ -49,18 +49,31 @@ namespace XJGUI
 
         #region Constructor
 
-        public FieldGUI() : base()
+        public FieldGUI() : base() { }
+
+        public FieldGUI(string title) : base(title) { }
+
+        public FieldGUI(string title, object value) : base(title, value) { }
+
+        #endregion Constructor
+
+        #region Method
+
+        protected override void Initialize()
         {
+            base.Initialize();
+
             this.HideUnsupportedGUI = XJGUILayout.DefaultHideUnsupportedGUI;
             this.Foldout            = XJGUILayout.DefaultFieldGUIFoldout;
         }
 
-        #endregion constructor
-
-        #region Method
-
         private void GenerateGUIs(object data)
         {
+            // NOTE:
+            // Must be reset.
+            //this.fieldGUIGroups.Clear();
+            //this.fieldGUIGroups.Add(new FieldGUIGroup());
+
             FieldInfo[] fieldInfos = data.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
 
             if (fieldInfos.Length == 0)
@@ -147,6 +160,11 @@ namespace XJGUI
                 return (FieldGUIBase)Activator.CreateInstance
                 (typeof(FieldGUIs.EnumGUI<>).MakeGenericType(fieldInfo.FieldType), data, fieldInfo, guiInfo);
             }
+            //else
+            //if (type == typeof(object))
+            //{
+            //    return new FieldGUIs.FieldGUI(data, fieldInfo, guiInfo);
+            //}
 
             return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiInfo);
         }
@@ -231,7 +249,7 @@ namespace XJGUI
                     gui.Show();
                 }
 
-                for(int i = 1; i < this.fieldGUIGroups.Count; i++)
+                for (int i = 1; i < this.fieldGUIGroups.Count; i++)
                 {
                     this.fieldGUIGroups[i].Panel.Show(() =>
                     {

@@ -17,12 +17,12 @@ namespace XJGUI.FieldGUIs
 
         #region Method
         
-        protected override void Save()
+        protected override void SetValueToInstance()
         {
             // Nothing to do.
         }
 
-        protected override void Load()
+        protected override void GetValueFromInstance()
         {
             // Nothing to do.
         }

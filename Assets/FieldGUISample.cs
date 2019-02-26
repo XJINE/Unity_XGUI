@@ -60,6 +60,8 @@ public class FieldGUISample : MonoBehaviour
 
     void Start()
     {
+        XJGUILayout.DefaultFieldGUIFoldout = false;
+
         this.window = new FlexibleWindow()
         {
             Title = "FieldGUI Sample",

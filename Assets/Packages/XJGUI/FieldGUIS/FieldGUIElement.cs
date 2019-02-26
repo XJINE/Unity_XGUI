@@ -21,12 +21,12 @@ namespace XJGUI
 
         #region Method
 
-        protected override void Save()
+        protected override void SetValueToInstance()
         {
             base.FieldInfo.SetValue(base.Data, this.gui.Value);
         }
 
-        protected override void Load()
+        protected override void GetValueFromInstance()
         {
             this.gui.Value = (T)base.FieldInfo.GetValue(base.Data);
         }
