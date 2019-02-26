@@ -5,23 +5,28 @@ namespace XJGUI
     [System.Serializable]
     public class Parent
     {
-        public float data1 = 111;
-        public Child child;
+        public int value = 0;
+        public ChildA childA;
+        public ChildB childB;
     }
 
     [System.Serializable]
-    public class Child
+    public class ChildA
     {
-        public float data2 = 222;
-        public float data3 = 333;
+        public int value = 1;
         public Grandson grandson;
+    }
+
+    [System.Serializable]
+    public struct ChildB
+    {
+        public int value;
     }
 
     [System.Serializable]
     public class Grandson
     {
-        public float data4 = 444;
-        public float data5 = 555;
+        public int value = 3;
     }
 
     public class NestedFieldGUI : MonoBehaviour
@@ -32,6 +37,7 @@ namespace XJGUI
 
         void Start()
         {
+            XJGUILayout.DefaultFieldGUIFoldout = true;
             this.window   = new FlexibleWindow();
             this.fieldGUI = new FieldGUI(this.parent);
         }

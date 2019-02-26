@@ -74,10 +74,11 @@ namespace XJGUI
             // NOTE:
             // Must be reset first.
 
-            bool foldOut = this.Foldout;
-            this.fieldGUIGroups.Clear();
-            this.fieldGUIGroups.Add(new FieldGUIGroup());
-            this.Foldout = foldOut;
+            if (this.fieldGUIGroups.Count > 1)
+            {
+                this.fieldGUIGroups.RemoveRange(1, this.fieldGUIGroups.Count);
+            }
+            this.fieldGUIGroups[0].GUIs.Clear();
 
             FieldInfo[] fieldInfos = data.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
 
@@ -166,12 +167,11 @@ namespace XJGUI
                 (typeof(FieldGUIs.EnumGUI<>).MakeGenericType(fieldInfo.FieldType), data, fieldInfo, guiInfo);
             }
             else
-            //if (type == typeof(object))
             {
                 return new FieldGUIs.FieldGUI(data, fieldInfo, guiInfo);
             }
 
-            return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiInfo);
+            //return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiInfo);
         }
 
         protected static void GetFieldGUIType(object data, FieldInfo fieldInfo, out Type type, out bool typeIsIList)
