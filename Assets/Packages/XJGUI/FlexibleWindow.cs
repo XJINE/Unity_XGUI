@@ -25,9 +25,9 @@ namespace XJGUI
 
         #region Constructor
 
-        public FlexibleWindow() :base() { }
+        public FlexibleWindow() : base() { }
 
-        public FlexibleWindow(string title) { }
+        public FlexibleWindow(string title) : base(title) { }
 
         public FlexibleWindow(string title, Rect value) : base(title, value) { }
 

@@ -53,6 +53,8 @@ namespace XJGUI
 
         public FieldGUI(string title) : base(title) { }
 
+        public FieldGUI(object value) : base(null, value) { }
+
         public FieldGUI(string title, object value) : base(title, value) { }
 
         #endregion Constructor
@@ -70,9 +72,12 @@ namespace XJGUI
         private void GenerateGUIs(object data)
         {
             // NOTE:
-            // Must be reset.
-            //this.fieldGUIGroups.Clear();
-            //this.fieldGUIGroups.Add(new FieldGUIGroup());
+            // Must be reset first.
+
+            bool foldOut = this.Foldout;
+            this.fieldGUIGroups.Clear();
+            this.fieldGUIGroups.Add(new FieldGUIGroup());
+            this.Foldout = foldOut;
 
             FieldInfo[] fieldInfos = data.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
 
@@ -160,11 +165,11 @@ namespace XJGUI
                 return (FieldGUIBase)Activator.CreateInstance
                 (typeof(FieldGUIs.EnumGUI<>).MakeGenericType(fieldInfo.FieldType), data, fieldInfo, guiInfo);
             }
-            //else
+            else
             //if (type == typeof(object))
-            //{
-            //    return new FieldGUIs.FieldGUI(data, fieldInfo, guiInfo);
-            //}
+            {
+                return new FieldGUIs.FieldGUI(data, fieldInfo, guiInfo);
+            }
 
             return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiInfo);
         }
