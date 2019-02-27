@@ -151,6 +151,23 @@ MonoBehaviour:
   vector2IntValue: {x: 1, y: 2}
   vector3IntValue: {x: 1, y: 2, z: 3}
   colorValue: {r: 0, g: 0, b: 0, a: 0}
+  matrixValue:
+    e00: 0
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 0
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 0
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 0
   ipv4Value: 127.0.0.1
   enumValue: 1
 --- !u!4 &810585867
@@ -178,6 +195,7 @@ GameObject:
   - component: {fileID: 1390282239}
   - component: {fileID: 1390282238}
   - component: {fileID: 1390282237}
+  - component: {fileID: 1390282240}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -249,6 +267,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1390282240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1390282236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b8d19e2a6b96ab48b9fb497ccb6e530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  test:
+    e00: 0
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 0
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 0
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 0
 --- !u!1 &2085716213
 GameObject:
   m_ObjectHideFlags: 0
