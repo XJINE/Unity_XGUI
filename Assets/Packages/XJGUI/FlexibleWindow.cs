@@ -66,7 +66,7 @@ namespace XJGUI
                 {
                     guiAction[i]();
                 }
-                
+
                 if (this.IsDraggable)
                 {
                     GUI.DragWindow();
