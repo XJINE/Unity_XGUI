@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using XJGUI;
 
-public class FieldGUISample : MonoBehaviour
+public class FieldGUISample1 : MonoBehaviour
 {
     [System.Serializable]
     public class SampleClass
@@ -44,7 +44,15 @@ public class FieldGUISample : MonoBehaviour
 
         public CameraType enumValue;
 
-        public object unsupportedValue;
+        // NOTE:
+        // IList is unsupported now.
+
+        public int[] arrayValue;
+
+        // NOTE:
+        // This causes an error.
+
+        // public object errorValue
     }
 
     #region Field
@@ -60,16 +68,10 @@ public class FieldGUISample : MonoBehaviour
 
     void Start()
     {
-        XJGUILayout.DefaultFieldGUIFoldout = false;
+        this.window = new FlexibleWindow("FieldGUI Sample 1");
 
-        this.window = new FlexibleWindow()
+        this.fieldGUI = new FieldGUI(this.sampleClass)
         {
-            Title = "FieldGUI Sample",
-        };
-
-        this.fieldGUI = new FieldGUI()
-        {
-            Value = this.sampleClass,
             HideUnsupportedGUI = false,
             Foldout = true
         };

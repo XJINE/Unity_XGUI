@@ -13,10 +13,7 @@ namespace XJGUI.FieldGUIs
         public FieldGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
-            base.GUI = new XJGUI.FieldGUI()
-            {
-                Value = base.FieldInfo.GetValue(base.Data)
-            };
+            base.GUI = new XJGUI.FieldGUI(base.GUIInfo.Title, base.FieldInfo.GetValue(base.Data));
         }
 
         #endregion Constructor
