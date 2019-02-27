@@ -10,7 +10,7 @@ namespace XJGUI.FieldGUIs
         public Vector4GUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
-            base.gui = new XJGUI.Vector4GUI()
+            base.GUI = new XJGUI.Vector4GUI()
             {
                 Title      = guiInfo.Title,
                 FieldWidth = guiInfo.FieldWidthIsSet ? guiInfo.FieldWidth : XJGUILayout.DefaultFieldWidthValue,

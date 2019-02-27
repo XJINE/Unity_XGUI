@@ -9,7 +9,7 @@ namespace XJGUI.FieldGUIs
         public StringGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
-            base.gui = new XJGUI.StringGUI()
+            base.GUI = new XJGUI.StringGUI()
             {
                 Title      = guiInfo.Title,
                 FieldWidth = guiInfo.FieldWidthIsSet ? guiInfo.FieldWidth : XJGUILayout.DefaultFieldWidthString,

@@ -6,9 +6,13 @@ namespace XJGUI
     {
         #region Property
 
-        protected object       Data      { get; private set; }
-        protected FieldInfo    FieldInfo { get; private set; }
-        protected FieldGUIInfo GUIInfo   { get; private set; }
+        // NOTE:
+        // Data must be able to set from inheritance,
+        // because it gets struct type in sometimes.
+
+        public object       Data      { get; protected set; }
+        public FieldInfo    FieldInfo { get; private   set; }
+        public FieldGUIInfo GUIInfo   { get; private   set; }
 
         public bool Unsupported { get; protected set; }
 

@@ -9,7 +9,7 @@ namespace XJGUI.FieldGUIs
         public IPv4GUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
-            base.gui = new XJGUI.IPv4GUI()
+            base.GUI = new XJGUI.IPv4GUI()
             {
                 Title = base.GUIInfo.Title,
             };

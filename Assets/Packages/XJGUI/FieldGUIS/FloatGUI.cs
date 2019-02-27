@@ -9,7 +9,7 @@ namespace XJGUI.FieldGUIs
         public FloatGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
-            base.gui = new XJGUI.FloatGUI()
+            base.GUI = new XJGUI.FloatGUI()
             {
                 Title      = guiInfo.Title,
                 FieldWidth = guiInfo.FieldWidthIsSet ? guiInfo.FieldWidth : XJGUILayout.DefaultFieldWidthValue,

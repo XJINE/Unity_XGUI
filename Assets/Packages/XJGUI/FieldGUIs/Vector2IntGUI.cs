@@ -10,7 +10,7 @@ namespace XJGUI.FieldGUIs
         public Vector2IntGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
-            base.gui = new XJGUI.Vector2IntGUI()
+            base.GUI = new XJGUI.Vector2IntGUI()
             {
                 Title      = guiInfo.Title,
                 FieldWidth = guiInfo.FieldWidthIsSet ? guiInfo.FieldWidth : XJGUILayout.DefaultFieldWidthValue,

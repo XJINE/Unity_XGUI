@@ -9,7 +9,7 @@ namespace XJGUI.FieldGUIs
         public BoolGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
-            base.gui = new XJGUI.BoolGUI()
+            base.GUI = new XJGUI.BoolGUI()
             {
                 Title = guiInfo.Title,
             };

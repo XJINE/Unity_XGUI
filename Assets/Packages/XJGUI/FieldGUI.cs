@@ -166,12 +166,12 @@ namespace XJGUI
                 return (FieldGUIBase)Activator.CreateInstance
                 (typeof(FieldGUIs.EnumGUI<>).MakeGenericType(fieldInfo.FieldType), data, fieldInfo, guiInfo);
             }
-            else
-            {
-                return new FieldGUIs.FieldGUI(data, fieldInfo, guiInfo);
-            }
+            //if (type.IsValueType) // Means any other struct.
+            //{
+            //    return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiInfo);
+            //}
 
-            //return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiInfo);
+            return new FieldGUIs.FieldGUI(data, fieldInfo, guiInfo);
         }
 
         protected static void GetFieldGUIType(object data, FieldInfo fieldInfo, out Type type, out bool typeIsIList)

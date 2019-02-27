@@ -13,7 +13,7 @@ namespace XJGUI.FieldGUIs
         public FieldGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
-            base.gui = new XJGUI.FieldGUI()
+            base.GUI = new XJGUI.FieldGUI()
             {
                 Value = base.FieldInfo.GetValue(base.Data)
             };
@@ -23,30 +23,17 @@ namespace XJGUI.FieldGUIs
 
         #region Method
 
-        //protected override void GetValueFromInstance()
-        //{
-        //    // Nothing to do.
-        //}
-
-        //protected override void SetValueToInstance()
-        //{
-        //    // Nothing to do.
-        //}
-
         protected override void SetValueToInstance()
         {
-            if (base.Data.GetType().IsValueType)
+            if (base.FieldInfo.FieldType.IsValueType)
             {
-                base.SetValueToInstance();
+                base.FieldInfo.SetValue(base.Data, base.GUI.Value);
             }
         }
 
         protected override void GetValueFromInstance()
         {
-            if (base.Data.GetType().IsValueType)
-            {
-                base.GetValueFromInstance();
-            }
+            // Nothing to do.
         }
 
         #endregion Method

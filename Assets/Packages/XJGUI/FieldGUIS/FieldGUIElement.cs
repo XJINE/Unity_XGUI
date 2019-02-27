@@ -4,11 +4,11 @@ namespace XJGUI
 {
     public abstract class FieldGUIElement<T> : FieldGUIBase
     {
-        #region Field
+        #region Property
 
-        protected Element<T> gui;
+        public virtual Element<T> GUI { get; protected set; }
 
-        #endregion Field
+        #endregion Property
 
         #region Constructor
 
@@ -23,17 +23,17 @@ namespace XJGUI
 
         protected override void SetValueToInstance()
         {
-            base.FieldInfo.SetValue(base.Data, this.gui.Value);
+            base.FieldInfo.SetValue(base.Data, this.GUI.Value);
         }
 
         protected override void GetValueFromInstance()
         {
-            this.gui.Value = (T)base.FieldInfo.GetValue(base.Data);
+            this.GUI.Value = (T)base.FieldInfo.GetValue(base.Data);
         }
 
         protected override void ShowGUI()
         {
-            this.gui.Show();
+            this.GUI.Show();
         }
 
         #endregion Method

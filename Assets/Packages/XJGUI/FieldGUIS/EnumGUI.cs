@@ -10,7 +10,7 @@ namespace XJGUI.FieldGUIs
         public EnumGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
-            base.gui = new XJGUI.EnumGUI<T>()
+            base.GUI = new XJGUI.EnumGUI<T>()
             {
                 Title = base.GUIInfo.Title,
             };

@@ -6,26 +6,25 @@ namespace XJGUI
     public class ParentClass
     {
         public int value = 0;
-        public ChildA childA;
-        public ChildB childB;
+        public ChildClassA childClassA;
+        public ChildStructB childCStructB;
     }
 
     [System.Serializable]
-    public class ChildA
+    public class ChildClassA
     {
         public int value = 1;
-        public Grandson grandson;
+        public GrandsonClass grandsonClass;
     }
 
     [System.Serializable]
-    public struct ChildB
+    public struct ChildStructB
     {
-        public int valueA;
-        public int valueB;
+        public int value;
     }
 
     [System.Serializable]
-    public class Grandson
+    public class GrandsonClass
     {
         public int value = 3;
     }
@@ -54,12 +53,12 @@ namespace XJGUI
     {
         public FlexibleWindow window;
         public FieldGUI fieldGUIParentClass;
-        public FieldGUI fieldGUIParentStruct;
-        public FieldGUI fieldGUIGrandsonStruct;
+        //public FieldGUI fieldGUIParentStruct;
+        //public FieldGUI fieldGUIGrandsonStruct;
 
         public ParentClass parentClass;
-        public ParentStruct parentStruct;
-        public GrandsonStruct grandsonStruct;
+        //public ParentStruct parentStruct;
+        //public GrandsonStruct grandsonStruct;
 
         void Start()
         {
@@ -68,8 +67,8 @@ namespace XJGUI
             this.window = new FlexibleWindow();
 
             this.fieldGUIParentClass = new FieldGUI(this.parentClass);
-            this.fieldGUIParentStruct = new FieldGUI(this.parentStruct);
-            this.fieldGUIGrandsonStruct = new FieldGUI(this.grandsonStruct);
+            //this.fieldGUIParentStruct = new FieldGUI(this.parentStruct);
+            //this.fieldGUIGrandsonStruct = new FieldGUI(this.grandsonStruct);
         }
 
         private void OnGUI()
@@ -77,8 +76,10 @@ namespace XJGUI
             this.window.Show(() =>
             {
                 this.fieldGUIParentClass.Show();
-                this.parentStruct = (ParentStruct)this.fieldGUIParentStruct.Show();
-                this.grandsonStruct = (GrandsonStruct)this.fieldGUIGrandsonStruct.Show();
+
+                // 最初から構造体の場合には、代入してやる必要がある。
+                //this.grandsonStruct = (GrandsonStruct)this.fieldGUIGrandsonStruct.Show();
+                //this.parentStruct = (ParentStruct)this.fieldGUIParentStruct.Show();
             });
         }
     }

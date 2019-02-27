@@ -10,7 +10,7 @@ namespace XJGUI.FieldGUIs
         public Matrix4x4GUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
-            base.gui = new XJGUI.Matrix4x4GUI()
+            base.GUI = new XJGUI.Matrix4x4GUI()
             {
                 Title      = guiInfo.Title,
                 FieldWidth = guiInfo.FieldWidthIsSet ? guiInfo.FieldWidth : XJGUILayout.DefaultFieldWidthValue,

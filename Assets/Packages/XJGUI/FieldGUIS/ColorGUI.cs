@@ -10,7 +10,7 @@ namespace XJGUI.FieldGUIs
         public ColorGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
             : base(data, fieldInfo, guiInfo)
         {
-            base.gui = new XJGUI.ColorGUI()
+            base.GUI = new XJGUI.ColorGUI()
             {
                 Title    = guiInfo.Title,
                 MinValue = guiInfo.MinValueIsSet ? (Color)guiInfo.MinValue : XJGUILayout.DefaultMinValueColor,
