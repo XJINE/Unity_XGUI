@@ -11,7 +11,7 @@ You can import this asset from UnityPackage.
 
 ## BasicSample
 
-<img src="https://github.com/XJINE/Unity_XJGUI/blob/master/screenshot.png" width="100%" height="auto" />
+<img src="https://github.com/XJINE/Unity_XJGUI/blob/master/screenshot01.png" width="100%" height="auto" />
 
 BasicSample shows simply how to use.
 
@@ -31,12 +31,12 @@ And it is able to hide and drag without any settings.
 
 ## FieldGUI
 
-<img src="https://github.com/XJINE/Unity_XJGUI/blob/master/screenshot.png" width="100%" height="auto" />
+<img src="https://github.com/XJINE/Unity_XJGUI/blob/master/screenshot02.png" width="100%" height="auto" />
 
-FieldGUI is main component in this utility.
-FieldGUI automatically generates GUI from field,
-and these GUI's settings are able to control from Attribute.
+``FieldGUI`` is main component in this utility.
+``FieldGUI`` automatically generates GUI from field,
+and these GUI's settings are able to control from the Attribute.
 
 ## NOTE
 
-Previous version which includes IListGUI & SyncFunction are included in "Old" branch.
+Previous version which includes IListGUI & SyncFunction are included in "old" branch now.
