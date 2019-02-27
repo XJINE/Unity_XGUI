@@ -220,7 +220,7 @@ Camera:
   m_GameObject: {fileID: 1390282236}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_SensorSize: {x: 36, y: 24}
@@ -279,23 +279,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b8d19e2a6b96ab48b9fb497ccb6e530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test:
-    e00: 0
-    e01: 0
-    e02: 0
-    e03: 0
-    e10: 0
-    e11: 0
-    e12: 0
-    e13: 0
-    e20: 0
-    e21: 0
-    e22: 0
-    e23: 0
-    e30: 0
-    e31: 0
-    e32: 0
-    e33: 0
 --- !u!1 &2085716213
 GameObject:
   m_ObjectHideFlags: 0
