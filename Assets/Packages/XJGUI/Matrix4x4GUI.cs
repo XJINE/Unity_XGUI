@@ -322,15 +322,27 @@ namespace XJGUI
                 });
             });
 
-            // CAUTION:
-            // Matrix4x4 constructor regards Vector4 as column.
-
             base.Value = new Matrix4x4()
             {
-                m00 = this.floatGUIM00.Value, m10 = this.floatGUIM10.Value, m20 = this.floatGUIM20.Value, m30 = this.floatGUIM30.Value,
-                m01 = this.floatGUIM01.Value, m11 = this.floatGUIM11.Value, m21 = this.floatGUIM21.Value, m31 = this.floatGUIM31.Value,
-                m02 = this.floatGUIM02.Value, m12 = this.floatGUIM12.Value, m22 = this.floatGUIM22.Value, m32 = this.floatGUIM32.Value,
-                m03 = this.floatGUIM03.Value, m13 = this.floatGUIM13.Value, m23 = this.floatGUIM23.Value, m33 = this.floatGUIM33.Value,
+                m00 = this.floatGUIM00.Value,
+                m10 = this.floatGUIM10.Value,
+                m20 = this.floatGUIM20.Value,
+                m30 = this.floatGUIM30.Value,
+                
+                m01 = this.floatGUIM01.Value,
+                m11 = this.floatGUIM11.Value,
+                m21 = this.floatGUIM21.Value,
+                m31 = this.floatGUIM31.Value,
+
+                m02 = this.floatGUIM02.Value,
+                m12 = this.floatGUIM12.Value,
+                m22 = this.floatGUIM22.Value,
+                m32 = this.floatGUIM32.Value,
+                
+                m03 = this.floatGUIM03.Value,
+                m13 = this.floatGUIM13.Value,
+                m23 = this.floatGUIM23.Value,
+                m33 = this.floatGUIM33.Value,
             };
 
             return base.Value;
