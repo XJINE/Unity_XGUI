@@ -37,6 +37,19 @@ And it is able to hide and drag without any settings.
 ``FieldGUI`` automatically generates GUI from field,
 and these GUI's settings are able to control from the Attribute.
 
+It needs only a few steps like this.
+
+```csharp
+public SampleClass sampleClass = new SampleClass();
+private FieldGUI fieldGUI;
+
+fieldGUI = new FieldGUI(this.sampleClass);
+
+void OnGUI()
+{
+    this.fieldGUI.Show();
+}
+```
 ## NOTE
 
 Previous version which includes IListGUI & SyncFunction are included in "old" branch now.
