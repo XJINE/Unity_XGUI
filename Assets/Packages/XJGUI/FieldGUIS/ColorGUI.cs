@@ -13,8 +13,8 @@ namespace XJGUI.FieldGUIs
             base.GUI = new XJGUI.ColorGUI()
             {
                 Title    = guiInfo.Title,
-                MinValue = guiInfo.MinValueIsSet ? (Color)guiInfo.MinValue : XJGUILayout.DefaultMinValueColor,
-                MaxValue = guiInfo.MaxValueIsSet ? (Color)guiInfo.MaxValue : XJGUILayout.DefaultMaxValueColor,
+                MinValue = guiInfo.MinValueIsSet ? new Color(guiInfo.MinValue, guiInfo.MinValue, guiInfo.MinValue, guiInfo.MinValue) : XJGUILayout.DefaultMinValueColor,
+                MaxValue = guiInfo.MaxValueIsSet ? new Color(guiInfo.MaxValue, guiInfo.MaxValue, guiInfo.MaxValue, guiInfo.MaxValue) : XJGUILayout.DefaultMaxValueColor,
                 Decimals = guiInfo.DecimalsIsSet ? guiInfo.Decimals : XJGUILayout.DefaultDecimals
             };
         }

@@ -14,8 +14,8 @@ namespace XJGUI.FieldGUIs
             {
                 Title      = guiInfo.Title,
                 FieldWidth = guiInfo.FieldWidthIsSet ? guiInfo.FieldWidth : XJGUILayout.DefaultFieldWidthValue,
-                MinValue   = guiInfo.MinValueIsSet ? (Vector3Int)guiInfo.MinValue : XJGUILayout.DefaultMinValueVector3Int,
-                MaxValue   = guiInfo.MaxValueIsSet ? (Vector3Int)guiInfo.MaxValue : XJGUILayout.DefaultMaxValueVector3Int,
+                MinValue   = guiInfo.MinValueIsSet ? new Vector3Int((int)guiInfo.MinValue, (int)guiInfo.MinValue, (int)guiInfo.MinValue) : XJGUILayout.DefaultMinValueVector3Int,
+                MaxValue   = guiInfo.MaxValueIsSet ? new Vector3Int((int)guiInfo.MaxValue, (int)guiInfo.MaxValue, (int)guiInfo.MaxValue) : XJGUILayout.DefaultMaxValueVector3Int,
             };
         }
 

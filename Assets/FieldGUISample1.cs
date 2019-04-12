@@ -24,6 +24,7 @@ public class FieldGUISample1 : MonoBehaviour
         [FieldGUIInfo(Decimals = 3)]
         public Vector3 vector3Value;
 
+        [FieldGUIInfo(MinValue = 0.5f)]
         public Vector4 vector4Value;
 
         public Vector2Int vector2IntValue;
