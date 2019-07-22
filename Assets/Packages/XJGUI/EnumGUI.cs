@@ -98,7 +98,7 @@ namespace XJGUI
             this.enumNames = Enum.GetNames(this.enumType);
         }
 
-        public override T Show()
+        public override T Show(T value)
         {
             XJGUILayout.HorizontalLayout(() =>
             {

@@ -22,7 +22,7 @@ namespace XJGUI
             base.Value = XJGUILayout.DefaultValueBool;
         }
 
-        public override bool Show()
+        public override bool Show(bool value)
         {
             XJGUILayout.HorizontalLayout(()=>
             {
@@ -30,7 +30,7 @@ namespace XJGUI
 
                 GUILayout.FlexibleSpace();
 
-                base.Value = GUILayout.Toggle(base.Value, "");
+                base.Value = GUILayout.Toggle(value, "");
             });
 
             return base.Value;

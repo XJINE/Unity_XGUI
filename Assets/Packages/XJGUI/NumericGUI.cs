@@ -97,7 +97,7 @@ namespace XJGUI
 
         #region Method
 
-        public override T Show()
+        public override T Show(T value)
         {
             XJGUILayout.VerticalLayout(() =>
             {

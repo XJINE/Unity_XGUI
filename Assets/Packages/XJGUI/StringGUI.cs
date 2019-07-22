@@ -22,12 +22,12 @@
             this.FieldWidth = XJGUILayout.DefaultFieldWidthString;
         }
 
-        public override string Show()
+        public override string Show(string value)
         {
             XJGUILayout.HorizontalLayout(() =>
             {
                 base.ShowTitle();
-                base.Value = base.ShowTextField(base.Value);
+                base.Value = base.ShowTextField(value);
             });
 
             return base.Value;
