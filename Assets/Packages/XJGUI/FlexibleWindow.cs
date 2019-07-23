@@ -3,6 +3,10 @@ using UnityEngine;
 
 namespace XJGUI
 {
+    // NOTE:
+    // FlexibleWindow is not an inheritance of Component class
+    // because it doesn't need ShowTitle().
+
     public class FlexibleWindow : BaseGUI<Rect>
     {
         #region Field

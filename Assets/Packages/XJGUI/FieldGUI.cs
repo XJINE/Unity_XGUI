@@ -12,7 +12,7 @@ namespace XJGUI
         protected class FieldGUIGroup
         {
             public FoldoutPanel Panel { get; private set; } = new FoldoutPanel();
-            public List<Element> GUIs { get; private set; } = new List<Element>();
+            public List<Element<object>> GUIs { get; private set; } = new List<Element<object>>();
         }
 
         protected readonly List<FieldGUIGroup> fieldGUIGroups = new List<FieldGUIGroup>()
@@ -135,7 +135,7 @@ namespace XJGUI
             return header?.header;
         }
 
-        private static Element GenerateGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
+        private static Element<object> GenerateGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
         {
             FieldGUI.GetFieldGUIType(data, fieldInfo, out Type type, out bool typeIsIList);
 
