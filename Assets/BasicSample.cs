@@ -76,52 +76,52 @@ public class BasicSample : MonoBehaviour
 
     void OnGUI()
     {
+        Debug.Log(this.floatValue);
         #pragma warning disable 0219
 
         GUILayout.Label("Press [Return] to show/hide window.");
 
         this.window.Show(() =>
         {
-            this.floatValue = this.floatGUI.Show(this.floatValue);
-            //this.tabPanel.Show
-            //(new TabPanel.Func("Basic", () =>
-            //{
-            //    this.boolValue   = this.boolGUI.Show(this.boolValue);
-            //    this.stringValue = this.stringGUI.Show(this.stringValue);
-            //    this.intValue    = this.intGUI.Show(this.intValue);
-            //    this.floatValue  = this.floatGUI.Show(this.floatValue);
-            //}),
-            //new TabPanel.Func("Vector & Matrix", () =>
-            //{
-            //    this.foldoutPanel.Show(() =>
-            //    {
-            //        this.vector2Value = this.vector2GUI.Show(this.vector2Value);
-            //        this.vector3Value = this.vector3GUI.Show(this.vector3Value);
-            //        this.vector4Value = this.vector4GUI.Show(this.vector4Value);
-            //    });
+            this.tabPanel.Show
+            (new TabPanel.Func("Basic", () =>
+            {
+                this.boolValue = this.boolGUI.Show(this.boolValue);
+                this.stringValue = this.stringGUI.Show(this.stringValue);
+                this.intValue = this.intGUI.Show(this.intValue);
+                this.floatValue = this.floatGUI.Show(this.floatValue);
+            }),
+            new TabPanel.Func("Vector & Matrix", () =>
+            {
+                this.foldoutPanel.Show(() =>
+                {
+                    this.vector2Value = this.vector2GUI.Show(this.vector2Value);
+                    this.vector3Value = this.vector3GUI.Show(this.vector3Value);
+                    this.vector4Value = this.vector4GUI.Show(this.vector4Value);
+                });
 
-            //    this.vector2IntValue = this.vector2IntGUI.Show(this.vector2IntValue);
-            //    this.vector3IntValue = this.vector3IntGUI.Show(this.vector3IntValue);
+                this.vector2IntValue = this.vector2IntGUI.Show(this.vector2IntValue);
+                this.vector3IntValue = this.vector3IntGUI.Show(this.vector3IntValue);
 
-            //    this.matrixValue = this.matrixGUI.Show(this.matrixValue);
-            //}),
-            //new TabPanel.Func("Others", () =>
-            //{
-            //    this.colorValue = this.colorGUI.Show(this.colorValue);
-            //    this.ipv4Value  = this.ipv4GUI.Show(this.ipv4Value);
-            //    this.enumValue  = this.enumGUI.Show(this.enumValue);
+                this.matrixValue = this.matrixGUI.Show(this.matrixValue);
+            }),
+            new TabPanel.Func("Others", () =>
+            {
+                this.colorValue = this.colorGUI.Show(this.colorValue);
+                this.ipv4Value = this.ipv4GUI.Show(this.ipv4Value);
+                this.enumValue = this.enumGUI.Show(this.enumValue);
 
-            //    this.scrollPanel.Show(() =>
-            //    {
-            //        GUILayout.Box("BOX", GUILayout.Width(300), GUILayout.Height(300));
+                this.scrollPanel.Show(() =>
+                {
+                    GUILayout.Box("BOX", GUILayout.Width(300), GUILayout.Height(300));
 
-            //        XJGUILayout.Label("Long Text, Long Text, Long Text, Long Text, Long Text, Long Text"
-            //                        + "Long Text, Long Text, Long Text, Long Text, Long Text, Long Text"
-            //                        + "Long Text, Long Text, Long Text, Long Text, Long Text, Long Text",
-            //                           XJGUILayout.LabelOption.NoWrap
-            //                         | XJGUILayout.LabelOption.Bold);
-            //    });
-            //}));
+                    XJGUILayout.Label("Long Text, Long Text, Long Text, Long Text, Long Text, Long Text"
+                                    + "Long Text, Long Text, Long Text, Long Text, Long Text, Long Text"
+                                    + "Long Text, Long Text, Long Text, Long Text, Long Text, Long Text",
+                                       XJGUILayout.LabelOption.NoWrap
+                                     | XJGUILayout.LabelOption.Bold);
+                });
+            }));
         });
 
         #pragma warning restore 0219

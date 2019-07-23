@@ -21,20 +21,11 @@ namespace XJGUI
             get
             {
                 GUIStyle style = base.FieldStyle;
-
-                bool textIsCorrect = TextIsCorrect;
-
-                style.normal.textColor
-                = textIsCorrect ? GUI.skin.textField.normal.textColor
-                                : XJGUILayout.DefaultInvalidValueColor;
-
-                style.active.textColor
-                = textIsCorrect ? GUI.skin.textField.active.textColor
-                                : XJGUILayout.DefaultInvalidValueColor;
-
-                style.focused.textColor
-                = textIsCorrect ? GUI.skin.textField.focused.textColor
-                                : XJGUILayout.DefaultInvalidValueColor;
+                Color textColor = TextIsCorrect ? GUI.skin.textField.normal.textColor
+                                                : XJGUILayout.DefaultInvalidValueColor;
+                style.normal.textColor  = textColor;
+                style.active.textColor  = textColor;
+                style.focused.textColor = textColor;
 
                 return style;
             }
@@ -94,11 +85,12 @@ namespace XJGUI
 
                 float sliderValue = GUILayout.HorizontalSlider(floatValue, minValue, maxValue);
 
-                T sliderValueT = (T)Convert.ChangeType(sliderValue, typeof(T));
+                T sliderValueT = CorrectValue((T)Convert.ChangeType(sliderValue, typeof(T)));
 
                 if (!sliderValueT.Equals(valueT))
                 {
                     valueT = sliderValueT;
+                    this.text = valueT.ToString();
                 }
             });
 
