@@ -76,7 +76,6 @@ public class BasicSample : MonoBehaviour
 
     void OnGUI()
     {
-        Debug.Log(this.floatValue);
         #pragma warning disable 0219
 
         GUILayout.Label("Press [Return] to show/hide window.");

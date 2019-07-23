@@ -10,6 +10,8 @@ namespace XJGUI
     {
         #region Field
 
+        protected T previousValue;
+
         protected string text;
 
         #endregion Field
@@ -51,7 +53,9 @@ namespace XJGUI
         {
             T valueT = value;
 
-            this.text = this.text ?? value.ToString();
+            this.text = this.text ?? valueT.ToString();
+            this.text = this.previousValue.Equals(valueT) ?
+                        this.text : valueT.ToString();
 
             XJGUILayout.VerticalLayout(() =>
             {
@@ -93,6 +97,8 @@ namespace XJGUI
                     this.text = valueT.ToString();
                 }
             });
+
+            this.previousValue = valueT;
 
             return valueT;
         }
