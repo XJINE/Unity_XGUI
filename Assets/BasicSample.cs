@@ -48,22 +48,22 @@ public class BasicSample : MonoBehaviour
         this.window = new FlexibleWindow("Basic Sample");
 
         this.tabPanel     = new TabPanel    ();
-        this.foldoutPanel = new FoldoutPanel("Click to Open/Close");
+        this.foldoutPanel = new FoldoutPanel("Click to Open / Close");
         this.scrollPanel  = new ScrollPanel () { MinHeight = 100 };
 
-        this.boolGUI       = new BoolGUI      ("Bool",       this.boolValue);
-        this.stringGUI     = new StringGUI    ("String",     this.stringValue) { FieldWidth = 250 };
-        this.intGUI        = new IntGUI       ("Int",        this.intValue);
-        this.floatGUI      = new FloatGUI     ("Float",      this.floatValue, -1, 1);
-        this.vector2GUI    = new Vector2GUI   ("Vector2",    this.vector2Value) { Decimals = 1 };
-        this.vector3GUI    = new Vector3GUI   ("Vector3",    this.vector3Value) { MinValue = Vector3.zero };
-        this.vector4GUI    = new Vector4GUI   ("Vector4",    this.vector4Value) { WithSlider = false };
-        this.vector2IntGUI = new Vector2IntGUI("Vector2Int", this.vector2IntValue);
-        this.vector3IntGUI = new Vector3IntGUI("Vector3Int", this.vector3IntValue, Vector3Int.zero, Vector3Int.one);
-        this.colorGUI      = new ColorGUI     ("Color",      this.colorValue);
-        this.matrixGUI     = new Matrix4x4GUI ("Matrix4x4",  this.matrixValue);
-        this.ipv4GUI       = new IPv4GUI      ("IPv4",       this.ipv4Value);
-        this.enumGUI = new EnumGUI<CameraType>("Enum",       this.enumValue);
+        this.boolGUI       = new BoolGUI      ("Bool"        );
+        this.stringGUI     = new StringGUI    ("String"      ) { FieldWidth = 250 };
+        this.intGUI        = new IntGUI       ("Int"         );
+        this.floatGUI      = new FloatGUI     ("Float", -1, 1);
+        this.vector2GUI    = new Vector2GUI   ("Vector2"     ) { Decimals = 1 };
+        this.vector3GUI    = new Vector3GUI   ("Vector3"     ) { MinValue = Vector3.zero };
+        this.vector4GUI    = new Vector4GUI   ("Vector4"     ) { WithSlider = false };
+        this.vector2IntGUI = new Vector2IntGUI("Vector2Int"  );
+        this.vector3IntGUI = new Vector3IntGUI("Vector3Int", Vector3Int.zero, Vector3Int.one);
+        this.colorGUI      = new ColorGUI     ("Color"       );
+        this.matrixGUI     = new Matrix4x4GUI ("Matrix4x4"   );
+        this.ipv4GUI       = new IPv4GUI      ("IPv4"        );
+        this.enumGUI = new EnumGUI<CameraType>("Enum"        );
     }
 
     void Update()
@@ -82,44 +82,46 @@ public class BasicSample : MonoBehaviour
 
         this.window.Show(() =>
         {
-            this.tabPanel.Show
-            (new TabPanel.Func("Basic", () =>
-            {
-                this.boolValue   = this.boolGUI.Show();
-                this.stringValue = this.stringGUI.Show();
-                this.intValue    = this.intGUI.Show();
-                this.floatValue  = this.floatGUI.Show();
-            }),
-            new TabPanel.Func("Vector & Matrix", () =>
-            {
-                this.foldoutPanel.Show(() =>
-                {
-                    this.vector2Value = this.vector2GUI.Show();
-                    this.vector3Value = this.vector3GUI.Show();
-                    this.vector4Value = this.vector4GUI.Show();
-                });
+            this.floatValue = this.floatGUI.Show(this.floatValue);
+            //this.tabPanel.Show
+            //(new TabPanel.Func("Basic", () =>
+            //{
+            //    this.boolValue   = this.boolGUI.Show(this.boolValue);
+            //    this.stringValue = this.stringGUI.Show(this.stringValue);
+            //    this.intValue    = this.intGUI.Show(this.intValue);
+            //    this.floatValue  = this.floatGUI.Show(this.floatValue);
+            //}),
+            //new TabPanel.Func("Vector & Matrix", () =>
+            //{
+            //    this.foldoutPanel.Show(() =>
+            //    {
+            //        this.vector2Value = this.vector2GUI.Show(this.vector2Value);
+            //        this.vector3Value = this.vector3GUI.Show(this.vector3Value);
+            //        this.vector4Value = this.vector4GUI.Show(this.vector4Value);
+            //    });
 
-                this.vector2IntValue = this.vector2IntGUI.Show();
-                this.vector3IntValue = this.vector3IntGUI.Show();
+            //    this.vector2IntValue = this.vector2IntGUI.Show(this.vector2IntValue);
+            //    this.vector3IntValue = this.vector3IntGUI.Show(this.vector3IntValue);
 
-                this.matrixValue = this.matrixGUI.Show();
-            }),
-            new TabPanel.Func("Others", () =>
-            {
-                this.colorValue = this.colorGUI.Show();
-                this.ipv4Value  = this.ipv4GUI.Show();
-                this.enumValue  = this.enumGUI.Show();
+            //    this.matrixValue = this.matrixGUI.Show(this.matrixValue);
+            //}),
+            //new TabPanel.Func("Others", () =>
+            //{
+            //    this.colorValue = this.colorGUI.Show(this.colorValue);
+            //    this.ipv4Value  = this.ipv4GUI.Show(this.ipv4Value);
+            //    this.enumValue  = this.enumGUI.Show(this.enumValue);
 
-                this.scrollPanel.Show(() =>
-                {
-                    GUILayout.Box("BOX", GUILayout.Width(300), GUILayout.Height(300));
+            //    this.scrollPanel.Show(() =>
+            //    {
+            //        GUILayout.Box("BOX", GUILayout.Width(300), GUILayout.Height(300));
 
-                    XJGUILayout.Label("Long Text, Long Text, Long Text, Long Text, Long Text, Long Text"
-                                    + "Long Text, Long Text, Long Text, Long Text, Long Text, Long Text"
-                                    + "Long Text, Long Text, Long Text, Long Text, Long Text, Long Text",
-                                    XJGUILayout.LabelOption.NoWrap | XJGUILayout.LabelOption.Bold);
-                });
-            }));
+            //        XJGUILayout.Label("Long Text, Long Text, Long Text, Long Text, Long Text, Long Text"
+            //                        + "Long Text, Long Text, Long Text, Long Text, Long Text, Long Text"
+            //                        + "Long Text, Long Text, Long Text, Long Text, Long Text, Long Text",
+            //                           XJGUILayout.LabelOption.NoWrap
+            //                         | XJGUILayout.LabelOption.Bold);
+            //    });
+            //}));
         });
 
         #pragma warning restore 0219

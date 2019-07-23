@@ -4,8 +4,7 @@
     {
         #region Property
 
-        protected virtual T      Value { get; set; }
-        public    virtual string Title { get; set; }
+        public virtual string Title { get; set; }
 
         #endregion Property
 

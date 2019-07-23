@@ -15,29 +15,6 @@ namespace XJGUI
 
         #region Property
 
-        public override Color Value
-        {
-            get
-            {
-                return base.Value;
-            }
-            set
-            {
-                this.floatGUIR.Value = value.r;
-                this.floatGUIG.Value = value.g;
-                this.floatGUIB.Value = value.b;
-                this.floatGUIA.Value = value.a;
-
-                base.Value = new Color()
-                {
-                    r = this.floatGUIR.Value,
-                    g = this.floatGUIG.Value,
-                    b = this.floatGUIB.Value,
-                    a = this.floatGUIA.Value
-                };
-            }
-        }
-
         public override Color MinValue
         {
             get
@@ -134,9 +111,7 @@ namespace XJGUI
 
         public ColorGUI(string title) : base(title) { }
 
-        public ColorGUI(string title, Color value) : base(title, value) { }
-
-        public ColorGUI(string title, Color value, Color min, Color max) : base(title, value, min, max) { }
+        public ColorGUI(string title, Color min, Color max) : base(title, min, max) { }
 
         #endregion Constructor
 
@@ -148,17 +123,16 @@ namespace XJGUI
 
             this.MinValue = XJGUILayout.DefaultMinValueColor;
             this.MaxValue = XJGUILayout.DefaultMaxValueColor;
-            this.Value    = XJGUILayout.DefaultValueColor;
         }
 
-        protected override void ShowComponents()
+        protected override Color ShowComponents(Color value)
         {
-            this.Value = new Color()
+            return new Color()
             {
-                r = this.floatGUIR.Show(),
-                g = this.floatGUIG.Show(),
-                b = this.floatGUIB.Show(),
-                a = this.floatGUIA.Show()
+                r = this.floatGUIR.Show(value.r),
+                g = this.floatGUIG.Show(value.g),
+                b = this.floatGUIB.Show(value.b),
+                a = this.floatGUIA.Show(value.a)
             };
         }
 

@@ -14,9 +14,7 @@
 
         public VectorFloatGUI(string title) : base(title) { }
 
-        public VectorFloatGUI(string title, T value) : base(title, value) { }
-
-        public VectorFloatGUI(string title, T value, T min, T max) : base(title, value, min, max) { }
+        public VectorFloatGUI(string title, T min, T max) : base(title, min, max) { }
 
         #endregion Constructor
     }

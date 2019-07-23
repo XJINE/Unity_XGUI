@@ -8,8 +8,6 @@
 
         public Element(string title) : base(title) { }
 
-        public Element(string title, T value) : base(title, value) { }
-
         #endregion Constructor
 
         #region Method

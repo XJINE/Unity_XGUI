@@ -30,8 +30,6 @@ namespace XJGUI
 
         public TextFieldGUI(string title) : base(title) { }
 
-        public TextFieldGUI(string title, T value) : base(title, value) { }
-
         #endregion Constructor
 
         #region Method

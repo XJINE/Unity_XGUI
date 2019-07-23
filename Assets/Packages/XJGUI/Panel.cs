@@ -11,8 +11,6 @@
 
         public Panel(string title) : base(title) { }
 
-        public Panel(string title, T value) : base(title, value) { }
-
         #endregion Constructor
     }
 }

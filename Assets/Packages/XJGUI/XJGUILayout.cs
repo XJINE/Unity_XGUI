@@ -28,44 +28,32 @@ public static class XJGUILayout
 
     #endregion Default GUI Settings
 
-    #region Default Value Settings
+    #region Default Settings
 
-    public static bool   DefaultValueBool   = false;
-    public static string DefaultValueString = null;
-
-    public static int DefaultValueInt    = 0;
     public static int DefaultMinValueInt = -999;
     public static int DefaultMaxValueInt = 999;
 
-    public static float DefaultValueFloat    = 0;
     public static float DefaultMinValueFloat = -999;
     public static float DefaultMaxValueFloat = 999;
 
-    public static Vector2 DefaultValueVector2    = new Vector2(0, 0);
     public static Vector2 DefaultMinValueVector2 = new Vector2(-50, -50);
     public static Vector2 DefaultMaxValueVector2 = new Vector2(50, 50);
 
-    public static Vector3 DefaultValueVector3    = new Vector3(0, 0, 0);
     public static Vector3 DefaultMinValueVector3 = new Vector3(-50, -50, -50);
     public static Vector3 DefaultMaxValueVector3 = new Vector3(50, 50, 50);
 
-    public static Vector4 DefaultValueVector4    = new Vector4(0, 0, 0, 0);
     public static Vector4 DefaultMinValueVector4 = new Vector4(-50, -50, -50, -50);
     public static Vector4 DefaultMaxValueVector4 = new Vector4(50, 50, 50, 50);
 
-    public static Vector2Int DefaultValueVector2Int    = new Vector2Int(0, 0);
     public static Vector2Int DefaultMinValueVector2Int = new Vector2Int(-50, -50);
     public static Vector2Int DefaultMaxValueVector2Int = new Vector2Int(50, 50);
 
-    public static Vector3Int DefaultValueVector3Int    = new Vector3Int(0, 0, 0);
     public static Vector3Int DefaultMinValueVector3Int = new Vector3Int(-50, -50, -50);
     public static Vector3Int DefaultMaxValueVector3Int = new Vector3Int(50, 50, 50);
 
-    public static Color DefaultValueColor    = new Color(0, 0, 0, 1);
     public static Color DefaultMinValueColor = new Color(0, 0, 0, 0);
     public static Color DefaultMaxValueColor = new Color(1, 1, 1, 1);
 
-    public static Matrix4x4 DefaultValueMatrix4x4    = new Matrix4x4();
     public static Matrix4x4 DefaultMinValueMatrix4x4 = new Matrix4x4(new Vector4(-999, -999, -999, -999),
                                                                      new Vector4(-999, -999, -999, -999),
                                                                      new Vector4(-999, -999, -999, -999),
@@ -75,17 +63,12 @@ public static class XJGUILayout
                                                                      new Vector4(999, 999, 999, 999),
                                                                      new Vector4(999, 999, 999, 999));
 
-    public static bool   DefaultIPv4      = false;
-    public static string DefaultValueIPv4 = "0.0.0.0";
-
-    #endregion Value Settings
-
-    #region FieldGUI Settings
+    public static bool DefaultIPv4 = false;
 
     public static bool DefaultHideUnsupportedGUI = true;
-    public static bool DefaultFieldGUIFoldout = false;
+    public static bool DefaultFieldGUIFoldout    = false;
 
-    #endregion FieldGUI Settings
+    #endregion Value Settings
 
     #endregion Field
 

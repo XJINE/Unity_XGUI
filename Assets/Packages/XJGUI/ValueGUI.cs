@@ -28,9 +28,7 @@ namespace XJGUI
 
         public ValueGUI(string title) : base(title) { }
 
-        public ValueGUI(string title, T value) : base(title, value) { }
-
-        public ValueGUI(string title, T value, T min, T max) : base(title, value)
+        public ValueGUI(string title, T min, T max) : base(title)
         {
             this.MinValue = min;
             this.MaxValue = max;

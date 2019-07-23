@@ -14,27 +14,6 @@ namespace XJGUI
 
         #region Property
 
-        public override Vector3Int Value
-        {
-            get
-            {
-                return base.Value;
-            }
-            set
-            {
-                this.intGUIX.Value = value.x;
-                this.intGUIY.Value = value.y;
-                this.intGUIZ.Value = value.z;
-
-                base.Value = new Vector3Int()
-                {
-                    x = this.intGUIX.Value,
-                    y = this.intGUIY.Value,
-                    z = this.intGUIZ.Value
-                };
-            }
-        }
-
         public override Vector3Int MinValue
         {
             get
@@ -109,9 +88,7 @@ namespace XJGUI
 
         public Vector3IntGUI(string title) : base(title) { }
 
-        public Vector3IntGUI(string title, Vector3Int value) : base(title, value) { }
-
-        public Vector3IntGUI(string title, Vector3Int value, Vector3Int min, Vector3Int max) : base(title, value, min, max) { }
+        public Vector3IntGUI(string title, Vector3Int min, Vector3Int max) : base(title, min, max) { }
 
         #endregion Constructor
 
@@ -123,16 +100,15 @@ namespace XJGUI
 
             this.MinValue = XJGUILayout.DefaultMinValueVector3Int;
             this.MaxValue = XJGUILayout.DefaultMaxValueVector3Int;
-            this.Value    = XJGUILayout.DefaultValueVector3Int;
         }
 
-        protected override void ShowComponents()
+        protected override Vector3Int ShowComponents(Vector3Int value)
         {
-            this.Value = new Vector3Int()
+            return new Vector3Int()
             {
-                x = this.intGUIX.Show(),
-                y = this.intGUIY.Show(),
-                z = this.intGUIZ.Show()
+                x = this.intGUIX.Show(value.x),
+                y = this.intGUIY.Show(value.y),
+                z = this.intGUIZ.Show(value.z)
             };
         }
 

@@ -15,29 +15,6 @@ namespace XJGUI
 
         #region Property
 
-        public override Vector4 Value
-        {
-            get
-            {
-                return base.Value;
-            }
-            set
-            {
-                this.floatGUIX.Value = value.x;
-                this.floatGUIY.Value = value.y;
-                this.floatGUIZ.Value = value.z;
-                this.floatGUIW.Value = value.w;
-
-                base.Value = new Vector4()
-                {
-                    x = this.floatGUIX.Value,
-                    y = this.floatGUIY.Value,
-                    z = this.floatGUIZ.Value,
-                    w = this.floatGUIW.Value
-                };
-            }
-        }
-
         public override Vector4 MinValue
         {
             get
@@ -133,9 +110,7 @@ namespace XJGUI
 
         public Vector4GUI(string title) : base(title) { }
 
-        public Vector4GUI(string title, Vector4 value) : base(title, value) { }
-
-        public Vector4GUI(string title, Vector4 value, Vector4 min, Vector4 max) : base(title, value, min, max) { }
+        public Vector4GUI(string title, Vector4 min, Vector4 max) : base(title, min, max) { }
 
         #endregion Constructor
 
@@ -147,17 +122,16 @@ namespace XJGUI
 
             this.MinValue = XJGUILayout.DefaultMinValueVector4;
             this.MaxValue = XJGUILayout.DefaultMaxValueVector4;
-            this.Value    = XJGUILayout.DefaultValueVector4;
         }
 
-        protected override void ShowComponents()
+        protected override Vector4 ShowComponents(Vector4 value)
         {
-            this.Value = new Vector4()
+            return new Vector4()
             {
-                x = this.floatGUIX.Show(),
-                y = this.floatGUIY.Show(),
-                z = this.floatGUIZ.Show(),
-                w = this.floatGUIW.Show()
+                x = this.floatGUIX.Show(value.x),
+                y = this.floatGUIY.Show(value.y),
+                z = this.floatGUIZ.Show(value.z),
+                w = this.floatGUIW.Show(value.w)
             };
         }
 

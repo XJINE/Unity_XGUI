@@ -13,39 +13,11 @@ namespace XJGUI
 
         #endregion Field
 
-        #region Property
-
-        public override string Value
-        {
-            get
-            {
-                return base.Value;
-            }
-            set
-            {
-                int[] values = ParseIPv4Text(value);
-
-                this.intGUIX.Value = values[0];
-                this.intGUIY.Value = values[1];
-                this.intGUIZ.Value = values[2];
-                this.intGUIW.Value = values[3];
-
-                base.Value = this.intGUIX.Value + "."
-                           + this.intGUIY.Value + "."
-                           + this.intGUIZ.Value + "."
-                           + this.intGUIW.Value;
-            }
-        }
-
-        #endregion Property
-
         #region Constructor
 
         public IPv4GUI() { }
 
         public IPv4GUI(string title) : base(title) { }
-
-        public IPv4GUI(string title, string value) : base(title, value) { }
 
         #endregion Constructor
 
@@ -55,73 +27,66 @@ namespace XJGUI
         {
             base.Initialize();
 
-                        const int IPV4_VALUE_MIN = 0;
+            const int IPV4_VALUE_MIN = 0;
             const int IPV4_VALUE_MAX = 255;
-
-            int[] defaultValue = ParseIPv4Text(XJGUILayout.DefaultValueIPv4);
 
             this.intGUIX = new IntGUI()
             {
-                Value      = defaultValue[0],
                 MinValue   = IPV4_VALUE_MIN,
                 MaxValue   = IPV4_VALUE_MAX,
                 WithSlider = false
             };
             this.intGUIY = new IntGUI()
             {
-                Value      = defaultValue[1],
                 MinValue   = IPV4_VALUE_MIN,
                 MaxValue   = IPV4_VALUE_MAX,
                 WithSlider = false
             };
             this.intGUIZ = new IntGUI()
             {
-                Value      = defaultValue[2],
                 MinValue   = IPV4_VALUE_MIN,
                 MaxValue   = IPV4_VALUE_MAX,
                 WithSlider = false
             };
             this.intGUIW = new IntGUI()
             {
-                Value      = defaultValue[3],
                 MinValue   = IPV4_VALUE_MIN,
                 MaxValue   = IPV4_VALUE_MAX,
                 WithSlider = false
             };
-
-            this.Value = defaultValue[0] + "."
-                       + defaultValue[1] + "."
-                       + defaultValue[2] + "."
-                       + defaultValue[3];
         }
 
-        public override string Show()
+        public override string Show(string value)
         {
+            int[] values = ParseIPv4Text(value);
+
             XJGUILayout.VerticalLayout(() => 
             {
                 base.ShowTitle();
 
                 XJGUILayout.HorizontalLayout(() => 
                 {
-                    int x = this.intGUIX.Show();
+                    value = this.intGUIX.Show(values[0]).ToString();
+                    value += ".";
 
                     GUILayout.Label(".");
 
-                    int y = this.intGUIY.Show();
+                    value += this.intGUIY.Show(values[1]);
+                    value += ".";
 
                     GUILayout.Label(".");
 
-                    int z = this.intGUIZ.Show();
+                    value += this.intGUIZ.Show(values[2]);
+                    value += ".";
 
                     GUILayout.Label(".");
 
-                    int w = this.intGUIW.Show();
-
-                    base.Value = x + "." + y + "." + z + "." + w;
+                    value += this.intGUIW.Show(values[3]);
+                    value += ".";
                 });
             });
 
-            return this.Value;
+            return value;
         }
 
         protected virtual int[] ParseIPv4Text(string ipv4Text)

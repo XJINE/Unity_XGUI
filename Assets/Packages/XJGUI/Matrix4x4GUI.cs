@@ -38,36 +38,6 @@ namespace XJGUI
             set { this.foldoutPanel.Title = value; }
         }
 
-        public override Matrix4x4 Value
-        {
-            get
-            {
-                return base.Value;
-            }
-            set
-            {
-                this.floatGUIM00.Value = value.m00;
-                this.floatGUIM10.Value = value.m10;
-                this.floatGUIM20.Value = value.m20;
-                this.floatGUIM30.Value = value.m30;
-
-                this.floatGUIM01.Value = value.m01;
-                this.floatGUIM11.Value = value.m11;
-                this.floatGUIM21.Value = value.m21;
-                this.floatGUIM31.Value = value.m31;
-
-                this.floatGUIM02.Value = value.m02;
-                this.floatGUIM12.Value = value.m12;
-                this.floatGUIM22.Value = value.m22;
-                this.floatGUIM32.Value = value.m32;
-
-                this.floatGUIM03.Value = value.m03;
-                this.floatGUIM13.Value = value.m13;
-                this.floatGUIM23.Value = value.m23;
-                this.floatGUIM33.Value = value.m33;
-            }
-        }
-
         public override Matrix4x4 MinValue
         {
             get
@@ -268,9 +238,7 @@ namespace XJGUI
 
         public Matrix4x4GUI(string title) : base(title) { }
 
-        public Matrix4x4GUI(string title, Matrix4x4 value) : base(title, value) { }
-
-        public Matrix4x4GUI(string title, Matrix4x4 value, Matrix4x4 min, Matrix4x4 max) : base(title, value, min, max) { }
+        public Matrix4x4GUI(string title, Matrix4x4 min, Matrix4x4 max) : base(title, min, max) { }
 
         #endregion Constructor
 
@@ -282,70 +250,46 @@ namespace XJGUI
 
             this.MinValue = XJGUILayout.DefaultMinValueMatrix4x4;
             this.MaxValue = XJGUILayout.DefaultMaxValueMatrix4x4;
-            this.Value    = XJGUILayout.DefaultValueMatrix4x4;
         }
 
-        public override Matrix4x4 Show()
+        public override Matrix4x4 Show(Matrix4x4 value)
         {
             this.foldoutPanel.Show(() =>
             {
                 XJGUILayout.HorizontalLayout(() =>
                 {
-                    this.floatGUIM00.Show();
-                    this.floatGUIM10.Show();
-                    this.floatGUIM20.Show();
-                    this.floatGUIM30.Show();
+                    value.m00 = this.floatGUIM00.Show(value.m00);
+                    value.m10 = this.floatGUIM10.Show(value.m10);
+                    value.m20 = this.floatGUIM20.Show(value.m20);
+                    value.m30 = this.floatGUIM30.Show(value.m30);
                 });
 
                 XJGUILayout.HorizontalLayout(() =>
                 {
-                    this.floatGUIM01.Show();
-                    this.floatGUIM11.Show();
-                    this.floatGUIM21.Show();
-                    this.floatGUIM31.Show();
+                    value.m01 = this.floatGUIM01.Show(value.m01);
+                    value.m11 = this.floatGUIM11.Show(value.m11);
+                    value.m21 = this.floatGUIM21.Show(value.m21);
+                    value.m31 = this.floatGUIM31.Show(value.m31);
                 });
 
                 XJGUILayout.HorizontalLayout(() =>
                 {
-                    this.floatGUIM02.Show();
-                    this.floatGUIM12.Show();
-                    this.floatGUIM22.Show();
-                    this.floatGUIM32.Show();
+                    value.m02 = this.floatGUIM02.Show(value.m02);
+                    value.m12 = this.floatGUIM12.Show(value.m12);
+                    value.m22 = this.floatGUIM22.Show(value.m22);
+                    value.m32 = this.floatGUIM32.Show(value.m32);
                 });
 
                 XJGUILayout.HorizontalLayout(() =>
                 {
-                    this.floatGUIM03.Show();
-                    this.floatGUIM13.Show();
-                    this.floatGUIM23.Show();
-                    this.floatGUIM33.Show();
+                    value.m03 = this.floatGUIM03.Show(value.m03);
+                    value.m13 = this.floatGUIM13.Show(value.m13);
+                    value.m23 = this.floatGUIM23.Show(value.m23);
+                    value.m33 = this.floatGUIM33.Show(value.m33);
                 });
             });
-
-            base.Value = new Matrix4x4()
-            {
-                m00 = this.floatGUIM00.Value,
-                m10 = this.floatGUIM10.Value,
-                m20 = this.floatGUIM20.Value,
-                m30 = this.floatGUIM30.Value,
-                
-                m01 = this.floatGUIM01.Value,
-                m11 = this.floatGUIM11.Value,
-                m21 = this.floatGUIM21.Value,
-                m31 = this.floatGUIM31.Value,
-
-                m02 = this.floatGUIM02.Value,
-                m12 = this.floatGUIM12.Value,
-                m22 = this.floatGUIM22.Value,
-                m32 = this.floatGUIM32.Value,
-                
-                m03 = this.floatGUIM03.Value,
-                m13 = this.floatGUIM13.Value,
-                m23 = this.floatGUIM23.Value,
-                m33 = this.floatGUIM33.Value,
-            };
-
-            return base.Value;
+            
+            return value;
         }
 
         #endregion Method

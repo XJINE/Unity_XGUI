@@ -5,13 +5,17 @@ namespace XJGUI
 {
     public class FoldoutPanel : Panel<bool>
     {
+        #region Filed
+
+        protected bool value;
+
+        #endregion Field
+
         #region Constructor
 
         public FoldoutPanel() : base() { }
 
         public FoldoutPanel(string title) : base(title) { }
-
-        public FoldoutPanel(string title, bool value) : base(title, value) { }
 
         #endregion Constructor
 
@@ -27,11 +31,11 @@ namespace XJGUI
 
             XJGUILayout.VerticalLayout(() =>
             {
-                string buttonContent = (base.Value ? "\u25BC " : "\u25BA ") + base.Title;
+                string buttonContent = (this.value ? "\u25BC " : "\u25BA ") + base.Title;
 
-                base.Value = !(base.Value == GUILayout.Button(buttonContent, base.TitleStyle));
+                this.value = !(this.value == GUILayout.Button(buttonContent, base.TitleStyle));
 
-                if (base.Value)
+                if (this.value)
                 {
                     XJGUILayout.VerticalLayout(()=>
                     {
@@ -41,9 +45,9 @@ namespace XJGUI
                         }
                     });
                 }
-            }, base.Value ? GUI.skin.box : null);
+            }, this.value ? GUI.skin.box : null);
 
-            return base.Value;
+            return this.value;
         }
 
         #endregion Method

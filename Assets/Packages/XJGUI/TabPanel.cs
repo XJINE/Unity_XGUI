@@ -5,6 +5,12 @@ namespace XJGUI
 {
     public class TabPanel : Panel<int>
     {
+        #region Field
+
+        protected int value = 0;
+
+        #endregion Field
+
         #region Property
 
         protected virtual GUIStyle TabStyle
@@ -24,8 +30,6 @@ namespace XJGUI
         public TabPanel() : base() { }
 
         public TabPanel(string title) { }
-
-        public TabPanel(string title, int value) : base(title, value) { }
 
         #endregion Constructor
 
@@ -56,13 +60,13 @@ namespace XJGUI
             {
                 base.ShowTitle();
 
-                base.Value = GUILayout.Toolbar(base.Value, labels, TabStyle);
+                this.value = GUILayout.Toolbar(this.value, labels, TabStyle);
 
-                show[base.Value].show();
+                show[this.value].show();
 
             }, GUI.skin.box);
 
-            return base.Value;
+            return this.value;
         }
         
         #endregion Method

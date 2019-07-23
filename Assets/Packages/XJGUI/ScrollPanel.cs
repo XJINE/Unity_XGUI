@@ -5,6 +5,12 @@ namespace XJGUI
 {
     public class ScrollPanel : Panel<Vector2>
     {
+        #region Field
+
+        protected Vector2 value;
+
+        #endregion Field
+
         #region Property
 
         public float Width     { get; set; }
@@ -22,8 +28,6 @@ namespace XJGUI
 
         public ScrollPanel(string title) : base(title) { }
 
-        public ScrollPanel(string title, Vector2 value) : base(title, value) { }
-
         #endregion Constructor
 
         #region Method
@@ -39,7 +43,7 @@ namespace XJGUI
                                     GUILayout.MinHeight(height),
                                     GUILayout.MaxHeight(height));
 
-            base.Value = GUILayout.BeginScrollView(base.Value, GUILayout.Width   (width),
+            this.value = GUILayout.BeginScrollView(this.value, GUILayout.Width   (width),
                                                                GUILayout.MinWidth(width),
                                                                GUILayout.MaxWidth(width),
                                                                GUILayout.Height(height));
@@ -52,7 +56,7 @@ namespace XJGUI
             GUILayout.EndScrollView();
             GUILayout.EndVertical();
 
-            return base.Value;
+            return this.value;
         }
 
         #endregion Method

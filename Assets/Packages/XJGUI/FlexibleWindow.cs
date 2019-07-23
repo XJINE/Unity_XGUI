@@ -7,6 +7,8 @@ namespace XJGUI
     {
         #region Field
 
+        protected Rect value;
+
         private float previousShowTime;
 
         #endregion Field
@@ -28,8 +30,6 @@ namespace XJGUI
         public FlexibleWindow() : base() { }
 
         public FlexibleWindow(string title) : base(title) { }
-
-        public FlexibleWindow(string title, Rect value) : base(title, value) { }
 
         #endregion Constructor
 
@@ -57,7 +57,7 @@ namespace XJGUI
         {
             if (!this.IsVisible)
             {
-                return new Rect(base.Value.position.x, base.Value.position.y, 0, 0);
+                return new Rect(this.value.position.x, this.value.position.y, 0, 0);
             }
 
             GUI.WindowFunction windowFunction = (int windowID) =>
@@ -85,12 +85,12 @@ namespace XJGUI
 
             if (this.previousShowTime != Time.timeSinceLevelLoad)
             {
-                base.Value = new Rect(base.Value.x, base.Value.y, 0, 0);
+                this.value = new Rect(this.value.x, this.value.y, 0, 0);
                 this.previousShowTime = Time.timeSinceLevelLoad;
             }
 
-            base.Value = GUILayout.Window(this.ID,
-                                          base.Value,
+            this.value = GUILayout.Window(this.ID,
+                                          this.value,
                                           windowFunction,
                                           base.Title,
                                           GUILayout.MinWidth (this.MinWidth),
@@ -98,7 +98,7 @@ namespace XJGUI
                                           GUILayout.MaxWidth (this.MaxWidth),
                                           GUILayout.MaxHeight(this.MaxHeight));
 
-            return base.Value;
+            return this.value;
         }
 
         #endregion Method

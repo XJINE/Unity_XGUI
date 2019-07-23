@@ -8,15 +8,13 @@
 
         public VectorGUI(string title) : base(title) { }
 
-        public VectorGUI(string title, T value) : base(title, value) { }
-
-        public VectorGUI(string title, T value, T min, T max) : base(title, value, min, max) { }
+        public VectorGUI(string title, T min, T max) : base(title, min, max) { }
 
         #endregion Constructor
 
         #region Method
 
-        public override T Show()
+        public override T Show(T value)
         {
             XJGUILayout.VerticalLayout(() =>
             {
@@ -24,14 +22,14 @@
 
                 XJGUILayout.HorizontalLayout(() =>
                 {
-                    ShowComponents();
+                    value = ShowComponents(value);
                 });
             });
 
-            return base.Value;
+            return value;
         }
 
-        protected abstract void ShowComponents();
+        protected abstract T ShowComponents(T value);
 
         #endregion Method
     }

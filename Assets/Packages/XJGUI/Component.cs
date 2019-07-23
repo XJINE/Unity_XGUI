@@ -19,8 +19,6 @@ namespace XJGUI
 
         public Component(string title) : base(title) { }
 
-        public Component(string title, T value) : base(title, value) { }
-
         #endregion Constructor
 
         #region Method

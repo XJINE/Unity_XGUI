@@ -46,9 +46,7 @@
 
         public FloatGUI(string title) : base(title) { }
 
-        public FloatGUI(string title, float value) : base(title, value) { }
-
-        public FloatGUI(string title, float value, float min, float max) : base(title, value, min , max) { }
+        public FloatGUI(string title, float min, float max) : base(title, min , max) { }
 
         #endregion Constructor
 
@@ -61,7 +59,6 @@
             this.Decimals = XJGUILayout.DefaultDecimals;
             base.MinValue = XJGUILayout.DefaultMinValueFloat;
             base.MaxValue = XJGUILayout.DefaultMaxValueFloat;
-            base.Value    = XJGUILayout.DefaultValueFloat;
         }
 
         protected override float CorrectValue(float value)

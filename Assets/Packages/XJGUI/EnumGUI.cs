@@ -33,19 +33,6 @@ namespace XJGUI
 
         #region Property
 
-        public override T Value
-        {
-            get
-            {
-                return base.Value;
-            }
-            set
-            {
-                this.selectedIndex = GetSelectedEnumIndex(value);
-                base.Value = value;
-            }
-        }
-
         public float ButtonWidth { get; set; }
 
         protected GUIStyle ButtonStyle
@@ -75,8 +62,6 @@ namespace XJGUI
         public EnumGUI() : base() { }
 
         public EnumGUI(string title) : base(title) { }
-
-        public EnumGUI(string title, T value) : base(title, value) { }
 
         #endregion Constructor
 
@@ -119,7 +104,7 @@ namespace XJGUI
 
             if (!this.isEditing)
             {
-                return Value;
+                return value;
             }
 
             XJGUILayout.HorizontalLayout(() =>
@@ -142,14 +127,14 @@ namespace XJGUI
                         {
                             this.selectedIndex = i;
                             this.isEditing = false;
-                            base.Value = (T)Enum.Parse(this.enumType, this.enumNames[i]);
+                            value = (T)Enum.Parse(this.enumType, this.enumNames[i]);
                         }
                     }
 
                 }, GUI.skin.box);
             });
 
-            return this.Value;
+            return value;
         }
 
         protected int GetSelectedEnumIndex(T value)
