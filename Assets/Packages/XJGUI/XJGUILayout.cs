@@ -64,9 +64,7 @@ public static class XJGUILayout
                                                                      new Vector4(999, 999, 999, 999));
 
     public static bool DefaultIPv4 = false;
-
     public static bool DefaultHideUnsupportedGUI = true;
-    public static bool DefaultFieldGUIFoldout    = false;
 
     #endregion Value Settings
 

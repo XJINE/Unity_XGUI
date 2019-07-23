@@ -12,14 +12,14 @@
 
         public BaseGUI()
         {
+            this.Title = XJGUILayout.DefaultTitle;
             Initialize();
-            Title = XJGUILayout.DefaultTitle;
         }
 
         public BaseGUI(string title)
         {
+            this.Title = title;
             Initialize();
-            Title = title;
         }
 
         #endregion Constructor
