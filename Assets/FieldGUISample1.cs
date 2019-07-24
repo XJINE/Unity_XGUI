@@ -14,6 +14,8 @@ public class FieldGUISample1 : MonoBehaviour
     public Vector2    vector2Value;
     public Vector3    vector3Value;
     public Vector4    vector4Value;
+
+    [GUIInfo(Title = "V2I")]
     public Vector2Int vector2IntValue;
     public Vector3Int vector3IntValue;
 

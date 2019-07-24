@@ -82,7 +82,7 @@ namespace XJGUI
                     fieldInfo = fieldInfo,
                     typeInfo  = typeInfo,
                     guiInfo   = guiInfo,
-                    gui       = GenerateGUI(typeInfo, guiInfo)
+                    gui       = GenerateGUI(fieldInfo, typeInfo, guiInfo)
                 });
             }
         }
@@ -131,25 +131,27 @@ namespace XJGUI
             return header?.header;
         }
 
-        private static object GenerateGUI(TypeInfo typeInfo, GUIInfo guiInfo)
+        private static object GenerateGUI(FieldInfo fieldInfo, TypeInfo typeInfo, GUIInfo guiInfo)
         {
-            if (typeInfo == null) { return new UnSupportedGUI(); }
-            if (typeInfo.isIList) { return new UnSupportedGUI(); }
+            string title = guiInfo.Title ?? fieldInfo.Name;
 
-            if (typeInfo.type == typeof(bool))       { return new BoolGUI      (); }
-            if (typeInfo.type == typeof(int))        { return new IntGUI       (); }
-            if (typeInfo.type == typeof(float))      { return new FloatGUI     (); }
-            if (typeInfo.type == typeof(Vector2))    { return new Vector2GUI   (); }
-            if (typeInfo.type == typeof(Vector3))    { return new Vector3GUI   (); }
-            if (typeInfo.type == typeof(Vector4))    { return new Vector4GUI   (); }
-            if (typeInfo.type == typeof(Vector2Int)) { return new Vector2IntGUI(); }
-            if (typeInfo.type == typeof(Vector3Int)) { return new Vector3IntGUI(); }
-            if (typeInfo.type == typeof(Color))      { return new ColorGUI     (); }
-            if (typeInfo.type == typeof(Matrix4x4))  { return new Matrix4x4GUI (); }
+            if (typeInfo == null) { return new UnSupportedGUI() { Title = title }; }
+            if (typeInfo.isIList) { return new UnSupportedGUI() { Title = title }; }
+
+            if (typeInfo.type == typeof(bool))       { return new BoolGUI      () { Title = title }; }
+            if (typeInfo.type == typeof(int))        { return new IntGUI       () { Title = title }; }
+            if (typeInfo.type == typeof(float))      { return new FloatGUI     () { Title = title }; }
+            if (typeInfo.type == typeof(Vector2))    { return new Vector2GUI   () { Title = title }; }
+            if (typeInfo.type == typeof(Vector3))    { return new Vector3GUI   () { Title = title }; }
+            if (typeInfo.type == typeof(Vector4))    { return new Vector4GUI   () { Title = title }; }
+            if (typeInfo.type == typeof(Vector2Int)) { return new Vector2IntGUI() { Title = title }; }
+            if (typeInfo.type == typeof(Vector3Int)) { return new Vector3IntGUI() { Title = title }; }
+            if (typeInfo.type == typeof(Color))      { return new ColorGUI     () { Title = title }; }
+            if (typeInfo.type == typeof(Matrix4x4))  { return new Matrix4x4GUI () { Title = title }; }
             if (typeInfo.type == typeof(string))
             {
-                if (guiInfo.IPv4) { return new IPv4GUI   (); }
-                else              { return new StringGUI (); }
+                if (guiInfo.IPv4) { return new IPv4GUI   () { Title = title }; }
+                else              { return new StringGUI () { Title = title }; }
             }
             if (typeInfo.type.IsEnum)
             {
