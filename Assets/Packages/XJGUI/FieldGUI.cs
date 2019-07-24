@@ -5,40 +5,35 @@ using UnityEngine;
 
 namespace XJGUI
 {
-    public class FieldGUI : Element<object>
+    public class FieldGUI<T> : Element<T>
     {
-        #region Field
+        #region Class
 
-        protected class FieldGUIGroup
+        private class TypeInfo
         {
-            public FoldoutPanel Panel { get; private set; } = new FoldoutPanel();
-            public List<Element<object>> GUIs { get; private set; } = new List<Element<object>>();
+            public Type type;
+            public bool isIList;
         }
 
-        protected readonly List<FieldGUIGroup> fieldGUIGroups = new List<FieldGUIGroup>()
+        private class FieldGUIInfo
         {
-            new FieldGUIGroup()
-        };
+            public FieldInfo fieldInfo;
+            public TypeInfo  typeInfo;
+            public GUIInfo   guiInfo;
+            public object    gui;
+        }
+
+        #endregion Class
+
+        #region Field
+
+        List<FieldGUIInfo> fieldGUIInfos = new List<FieldGUIInfo>();
 
         #endregion Field
 
         #region Property
 
         public bool HideUnsupportedGUI { get; set; }
-
-        protected object value;
-        public object Value
-        {
-            get
-            {
-                return this.value;
-            }
-            set
-            {
-                GenerateGUIs(value);
-                this.value = value;
-            }
-        }
 
         #endregion Property
 
@@ -48,13 +43,6 @@ namespace XJGUI
 
         public FieldGUI(string title) : base(title) { }
 
-        public FieldGUI(object value) : this(null, value) { }
-
-        public FieldGUI(string title, object value) : base(title)
-        {
-            this.Value = value;
-        }
-
         #endregion Constructor
 
         #region Method
@@ -62,21 +50,15 @@ namespace XJGUI
         protected override void Initialize()
         {
             base.Initialize();
+
             this.HideUnsupportedGUI = XJGUILayout.DefaultHideUnsupportedGUI;
+
+            GenerateGUIs(typeof(T));
         }
 
-        private void GenerateGUIs(object data)
+        private void GenerateGUIs(Type type)
         {
-            // NOTE:
-            // Must be reset first.
-
-            if (this.fieldGUIGroups.Count > 1)
-            {
-                this.fieldGUIGroups.RemoveRange(1, this.fieldGUIGroups.Count);
-            }
-            this.fieldGUIGroups[0].GUIs.Clear();
-
-            FieldInfo[] fieldInfos = data.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
+            FieldInfo[] fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
 
             if (fieldInfos.Length == 0)
             {
@@ -85,49 +67,63 @@ namespace XJGUI
 
             for (var i = 0; i < fieldInfos.Length; i++)
             {
-                FieldInfo fieldInfo = fieldInfos[i];
-                FieldGUIInfo guiInfo = GetFieldGUIInfo(fieldInfo);
-                string headerInfo = GetFieldHeaderInfo(fieldInfo);
+                var fieldInfo  = fieldInfos[i];
+                var typeInfo   = GetTypeInfo(fieldInfo);
+                var guiInfo    = GetGUIInfo(fieldInfo);
+                var headerInfo = GetHeaderInfo(fieldInfo);
 
                 if (guiInfo.Hide)
                 {
                     continue;
                 }
 
-                if (headerInfo != null)
+                this.fieldGUIInfos.Add(new FieldGUIInfo()
                 {
-                    FieldGUIGroup fieldGUIGroup = new FieldGUIGroup();
-                    fieldGUIGroup.Panel.Title = headerInfo;
-                    this.fieldGUIGroups.Add(fieldGUIGroup);
-                }
-
-                this.fieldGUIGroups[this.fieldGUIGroups.Count - 1].GUIs
-                    .Add(GenerateGUI(data, fieldInfo, guiInfo));
+                    fieldInfo = fieldInfo,
+                    typeInfo  = typeInfo,
+                    guiInfo   = guiInfo,
+                    gui       = GenerateGUI(typeInfo, guiInfo)
+                });
             }
         }
 
-        private static FieldGUIInfo GetFieldGUIInfo(FieldInfo fieldInfo)
+        private static TypeInfo GetTypeInfo(FieldInfo fieldInfo)
         {
-            FieldGUIInfo guiInfo = Attribute.GetCustomAttribute
-                (fieldInfo, typeof(FieldGUIInfo)) as FieldGUIInfo;
-
-            if (guiInfo == null)
+            TypeInfo typeInfo = new TypeInfo()
             {
-                guiInfo = new FieldGUIInfo();
-                guiInfo.Title = FieldGUI.GetTitleCase(fieldInfo.Name);
+                type = fieldInfo.FieldType,
+                isIList = false
+            };
 
-                return guiInfo;
+            if (typeInfo.type.IsArray)
+            {
+                typeInfo.type = typeInfo.type.GetElementType();
+                typeInfo.isIList = true;
+            }
+            else if(typeInfo.type.IsGenericType && (typeInfo.type.GetGenericTypeDefinition() == typeof(IList<>)))
+            {
+                Type[] types = typeInfo.type.GetGenericArguments();
+
+                if (types.Length == 1)
+                {
+                    typeInfo.type = types[0];
+                    typeInfo.isIList = true;
+                }
             }
 
-            if (guiInfo.Title == null)
-            {
-                guiInfo.Title = FieldGUI.GetTitleCase(fieldInfo.Name);
-            }
+            return typeInfo;
+        }
+
+        private static GUIInfo GetGUIInfo(FieldInfo fieldInfo)
+        {
+            GUIInfo guiInfo = Attribute.GetCustomAttribute(fieldInfo, typeof(GUIInfo)) as GUIInfo;
+                    guiInfo = guiInfo ?? new GUIInfo();
+                    guiInfo.Title = guiInfo.Title ?? GetTitleCase(fieldInfo.Name);
 
             return guiInfo;
         }
 
-        private static string GetFieldHeaderInfo(FieldInfo fieldInfo)
+        private static string GetHeaderInfo(FieldInfo fieldInfo)
         {
             HeaderAttribute header = Attribute.GetCustomAttribute
                 (fieldInfo, typeof(HeaderAttribute)) as HeaderAttribute;
@@ -135,75 +131,35 @@ namespace XJGUI
             return header?.header;
         }
 
-        private static Element<object> GenerateGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
+        private static object GenerateGUI(TypeInfo typeInfo, GUIInfo guiInfo)
         {
-            FieldGUI.GetFieldGUIType(data, fieldInfo, out Type type, out bool typeIsIList);
+            if (typeInfo == null) { return new UnSupportedGUI(); }
+            if (typeInfo.isIList) { return new UnSupportedGUI(); }
 
-            if (data == null || typeIsIList) { return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiInfo); }
-
-            if (type == typeof(bool))       { return new BoolGUI      (fieldInfo, guiInfo); }
-            if (type == typeof(int))        { return new IntGUI       (fieldInfo, guiInfo); }
-            if (type == typeof(float))      { return new FloatGUI     (fieldInfo, guiInfo); }
-            if (type == typeof(Vector2))    { return new Vector2GUI   (fieldInfo, guiInfo); }
-            if (type == typeof(Vector3))    { return new Vector3GUI   (fieldInfo, guiInfo); }
-            if (type == typeof(Vector4))    { return new Vector4GUI   (fieldInfo, guiInfo); }
-            if (type == typeof(Vector2Int)) { return new Vector2IntGUI(fieldInfo, guiInfo); }
-            if (type == typeof(Vector3Int)) { return new Vector3IntGUI(fieldInfo, guiInfo); }
-            if (type == typeof(Color))      { return new ColorGUI     (fieldInfo, guiInfo); }
-            if (type == typeof(Matrix4x4))  { return new Matrix4x4GUI (fieldInfo, guiInfo); }
-            if (type == typeof(bool))       { return new BoolGUI      (fieldInfo, guiInfo); }
-            if (type == typeof(string))
+            if (typeInfo.type == typeof(bool))       { return new BoolGUI      (); }
+            if (typeInfo.type == typeof(int))        { return new IntGUI       (); }
+            if (typeInfo.type == typeof(float))      { return new FloatGUI     (); }
+            if (typeInfo.type == typeof(Vector2))    { return new Vector2GUI   (); }
+            if (typeInfo.type == typeof(Vector3))    { return new Vector3GUI   (); }
+            if (typeInfo.type == typeof(Vector4))    { return new Vector4GUI   (); }
+            if (typeInfo.type == typeof(Vector2Int)) { return new Vector2IntGUI(); }
+            if (typeInfo.type == typeof(Vector3Int)) { return new Vector3IntGUI(); }
+            if (typeInfo.type == typeof(Color))      { return new ColorGUI     (); }
+            if (typeInfo.type == typeof(Matrix4x4))  { return new Matrix4x4GUI (); }
+            if (typeInfo.type == typeof(string))
             {
-                if (guiInfo.IPv4)           { return new IPv4GUI      (fieldInfo, guiInfo); }
-                else                        { return new StringGUI    (fieldInfo, guiInfo); }
+                if (guiInfo.IPv4) { return new IPv4GUI   (); }
+                else              { return new StringGUI (); }
             }
-            if (type.IsEnum)
+            if (typeInfo.type.IsEnum)
             {
                 return Activator.CreateInstance
-                (typeof(EnumGUI<>).MakeGenericType(fieldInfo.FieldType), data, fieldInfo, guiInfo);
+                (typeof(EnumGUI<>).MakeGenericType(typeInfo.type));
             }
-            //if (type.IsValueType) // Means any other struct.
-            //{
-            //    return new FieldGUIs.UnSupportedGUI(data, fieldInfo, guiInfo);
-            //}
 
-            // 再帰
+            // 構造体, クラス, リストを考慮しない。
+
             return null;
-            //return new FieldGUIs.FieldGUI(data, fieldInfo, guiInfo);
-        }
-
-        protected static void GetFieldGUIType(object data, FieldInfo fieldInfo, out Type type, out bool typeIsIList)
-        {
-            if (data == null)
-            {
-                type = null;
-                typeIsIList = false;
-                return;
-            }
-
-            type = fieldInfo.FieldType;
-            typeIsIList = false;
-
-            if (!(fieldInfo.GetValue(data) is System.Collections.IList))
-            {
-                return;
-            }
-
-            if (type.IsArray)
-            {
-                type = type.GetElementType();
-                typeIsIList = true;
-            }
-            else
-            {
-                Type[] types = type.GetGenericArguments();
-
-                if (types.Length == 1)
-                {
-                    type = types[0];
-                    typeIsIList = true;
-                }
-            }
         }
 
         protected static string GetTitleCase(string title)
@@ -244,40 +200,67 @@ namespace XJGUI
             // return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(text);
         }
 
-        public override object Show()
+        public override T Show(T value)
         {
-            this.fieldGUIGroups[0].Panel.Title = base.Title ?? base.Value.GetType().Name;
-            this.fieldGUIGroups[0].Panel.Show(() =>
+            foreach (var info in this.fieldGUIInfos)
             {
-                foreach (FieldGUIBase gui in this.fieldGUIGroups[0].GUIs)
-                {
-                    if (gui.Unsupported && this.HideUnsupportedGUI)
-                    {
-                        continue;
-                    }
+                info.fieldInfo.SetValue(value, ShowGUI[info.typeInfo.type](value, info));
+            }
 
-                    gui.Show();
-                }
+            return value;
 
-                for (int i = 1; i < this.fieldGUIGroups.Count; i++)
-                {
-                    this.fieldGUIGroups[i].Panel.Show(() =>
-                    {
-                        foreach (FieldGUIBase gui in this.fieldGUIGroups[i].GUIs)
-                        {
-                            if (gui.Unsupported && this.HideUnsupportedGUI)
-                            {
-                                continue;
-                            }
+            //this.fieldGUIGroups[0].Panel.Title = base.Title ?? base.Value.GetType().Name;
+            //this.fieldGUIGroups[0].Panel.Show(() =>
+            //{
+            //    foreach (FieldGUIBase gui in this.fieldGUIGroups[0].GUI)
+            //    {
+            //        if (gui.Unsupported && this.HideUnsupportedGUI)
+            //        {
+            //            continue;
+            //        }
 
-                            gui.Show();
-                        }
-                    });
-                }
-            });
+            //        gui.Show();
+            //    }
 
-            return this.Value;
+            //    for (int i = 1; i < this.fieldGUIGroups.Count; i++)
+            //    {
+            //        this.fieldGUIGroups[i].Panel.Show(() =>
+            //        {
+            //            foreach (FieldGUIBase gui in this.fieldGUIGroups[i].GUI)
+            //            {
+            //                if (gui.Unsupported && this.HideUnsupportedGUI)
+            //                {
+            //                    continue;
+            //                }
+
+            //                gui.Show();
+            //            }
+            //        });
+            //    }
+            //});
+
+            //return this.Value;
         }
+
+        private static readonly Dictionary<Type, Func<object, FieldGUIInfo, object>> ShowGUI
+        = new Dictionary<Type, Func<object, FieldGUIInfo, object>>()
+        {
+            { typeof(bool),       (value, info) => { return ((BoolGUI)       info.gui).Show((bool)       info.fieldInfo.GetValue(value)); } },
+            { typeof(int),        (value, info) => { return ((IntGUI)        info.gui).Show((int)        info.fieldInfo.GetValue(value)); } },
+            { typeof(float),      (value, info) => { return ((FloatGUI)      info.gui).Show((float)      info.fieldInfo.GetValue(value)); } },
+            { typeof(Vector2),    (value, info) => { return ((Vector2GUI)    info.gui).Show((Vector2)    info.fieldInfo.GetValue(value)); } },
+            { typeof(Vector3),    (value, info) => { return ((Vector3GUI)    info.gui).Show((Vector3)    info.fieldInfo.GetValue(value)); } },
+            { typeof(Vector4),    (value, info) => { return ((Vector4GUI)    info.gui).Show((Vector4)    info.fieldInfo.GetValue(value)); } },
+            { typeof(Vector2Int), (value, info) => { return ((Vector2IntGUI) info.gui).Show((Vector2Int) info.fieldInfo.GetValue(value)); } },
+            { typeof(Vector3Int), (value, info) => { return ((Vector3IntGUI) info.gui).Show((Vector3Int) info.fieldInfo.GetValue(value)); } },
+            { typeof(Color),      (value, info) => { return ((ColorGUI)      info.gui).Show((Color)      info.fieldInfo.GetValue(value)); } },
+            { typeof(Matrix4x4),  (value, info) => { return ((Matrix4x4GUI)  info.gui).Show((Matrix4x4)  info.fieldInfo.GetValue(value)); } },
+            { typeof(string),     (value, info) =>
+            {
+                if(info.guiInfo.IPv4) return ((IPv4GUI)   info.gui).Show((string) info.fieldInfo.GetValue(value));
+                else                  return ((StringGUI) info.gui).Show((string) info.fieldInfo.GetValue(value));
+            }},
+        };
 
         #endregion Method
     }

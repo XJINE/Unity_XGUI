@@ -1,37 +1,23 @@
-﻿//using System.Reflection;
-//using UnityEngine;
+﻿namespace XJGUI
+{
+    public class UnSupportedGUI : Element<int>
+    {
+        #region Constructor
 
-//namespace XJGUI.FieldGUIs
-//{
-//    public class UnSupportedGUI : FieldGUIBase
-//    {
-//        #region Constructor
+        public UnSupportedGUI() : base() { }
 
-//        public UnSupportedGUI(object data, FieldInfo fieldInfo, FieldGUIInfo guiInfo)
-//            :base(data, fieldInfo, guiInfo)
-//        {
-//            base.Unsupported = true;
-//        }
+        public UnSupportedGUI(string title) : base(title) { }
 
-//        #endregion Constructor
+        #endregion Constructor
 
-//        #region Method
-        
-//        protected override void SetValueToInstance()
-//        {
-//            // Nothing to do.
-//        }
+        #region Method
 
-//        protected override void GetValueFromInstance()
-//        {
-//            // Nothing to do.
-//        }
+        public override int Show(int value)
+        {
+            XJGUILayout.Label("UnSupported : " + base.Title);
+            return -1;
+        }
 
-//        protected override void ShowGUI()
-//        {
-//            GUILayout.Label(base.GUIInfo.Title + " is Unsupported");
-//        }
-
-//        #endregion Method
-//    }
-//}
+        #endregion Method
+    }
+}

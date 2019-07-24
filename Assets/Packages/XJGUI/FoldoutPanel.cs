@@ -33,7 +33,7 @@ namespace XJGUI
             {
                 string buttonContent = (this.value ? "\u25BC " : "\u25BA ") + base.Title;
 
-                this.value = !(this.value == GUILayout.Button(buttonContent, base.TitleStyle));
+                this.value = !(this.value == GUILayout.Button(buttonContent, TitleStyle));
 
                 if (this.value)
                 {

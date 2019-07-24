@@ -82,7 +82,6 @@ namespace XJGUI
                     GUILayout.Label(".");
 
                     value += this.intGUIW.Show(values[3]);
-                    value += ".";
                 });
             });
 
@@ -91,6 +90,8 @@ namespace XJGUI
 
         protected virtual int[] ParseIPv4Text(string ipv4Text)
         {
+            ipv4Text = ipv4Text ?? "";
+
             string[] values = ipv4Text.Split('.');
 
             int[] intValues = new int[4];
