@@ -19,7 +19,7 @@ public class BasicSample : MonoBehaviour
     public string     ipv4Value;
     public CameraType enumValue;
 
-    private FlexibleWindow window;
+    private FlexWindow window;
     private TabPanel       tabPanel;
     private FoldoutPanel   foldoutPanel;
     private ScrollPanel    scrollPanel;
@@ -45,7 +45,7 @@ public class BasicSample : MonoBehaviour
         XJGUILayout.DefaultMinValueVector2Int = new Vector2Int(-999, -999);
         XJGUILayout.DefaultMaxValueVector2Int = new Vector2Int(999, 999);
 
-        this.window = new FlexibleWindow("Basic Sample");
+        this.window = new FlexWindow("Basic Sample");
 
         this.tabPanel     = new TabPanel    ();
         this.foldoutPanel = new FoldoutPanel("Click to Open / Close");

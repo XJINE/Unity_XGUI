@@ -27,7 +27,7 @@ public class FieldGUISample1 : MonoBehaviour
     [GUIInfo(IPv4 = true)]
     public string ipV4Value;
 
-    private FlexibleWindow window;
+    private FlexWindow window;
     private FieldGUI<FieldGUISample1> fieldGUI;
 
     #endregion Field
@@ -36,7 +36,7 @@ public class FieldGUISample1 : MonoBehaviour
 
     private void Start()
     {
-        this.window = new FlexibleWindow();
+        this.window = new FlexWindow();
         this.fieldGUI = new FieldGUI<FieldGUISample1>();
     }
 

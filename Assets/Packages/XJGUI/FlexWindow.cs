@@ -7,7 +7,7 @@ namespace XJGUI
     // FlexibleWindow is not an inheritance of Component class
     // because it doesn't need ShowTitle().
 
-    public class FlexibleWindow : BaseGUI<Rect>
+    public class FlexWindow : BaseGUI<Rect>
     {
         #region Field
 
@@ -31,9 +31,9 @@ namespace XJGUI
 
         #region Constructor
 
-        public FlexibleWindow() : base() { }
+        public FlexWindow() : base() { }
 
-        public FlexibleWindow(string title) : base(title) { }
+        public FlexWindow(string title) : base(title) { }
 
         #endregion Constructor
 
