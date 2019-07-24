@@ -87,19 +87,19 @@ namespace XJGUI
             }
         }
 
-        public override bool WithSlider
+        public override bool Slider
         {
             get
             {
-                return this.floatGUIR.WithSlider;
+                return this.floatGUIR.Slider;
             }
 
             set
             {
-                this.floatGUIR.WithSlider = value;
-                this.floatGUIG.WithSlider = value;
-                this.floatGUIB.WithSlider = value;
-                this.floatGUIA.WithSlider = value;
+                this.floatGUIR.Slider = value;
+                this.floatGUIG.Slider = value;
+                this.floatGUIB.Slider = value;
+                this.floatGUIA.Slider = value;
             }
         }
 

@@ -200,33 +200,33 @@ namespace XJGUI
             }
         }
 
-        public override bool WithSlider
+        public override bool Slider
         {
             get
             {
-                return this.floatGUIM00.WithSlider;
+                return this.floatGUIM00.Slider;
             }
             set
             {
-                this.floatGUIM00.WithSlider = value;
-                this.floatGUIM10.WithSlider = value;
-                this.floatGUIM20.WithSlider = value;
-                this.floatGUIM30.WithSlider = value;
+                this.floatGUIM00.Slider = value;
+                this.floatGUIM10.Slider = value;
+                this.floatGUIM20.Slider = value;
+                this.floatGUIM30.Slider = value;
 
-                this.floatGUIM01.WithSlider = value;
-                this.floatGUIM11.WithSlider = value;
-                this.floatGUIM21.WithSlider = value;
-                this.floatGUIM31.WithSlider = value;
+                this.floatGUIM01.Slider = value;
+                this.floatGUIM11.Slider = value;
+                this.floatGUIM21.Slider = value;
+                this.floatGUIM31.Slider = value;
 
-                this.floatGUIM02.WithSlider = value;
-                this.floatGUIM12.WithSlider = value;
-                this.floatGUIM22.WithSlider = value;
-                this.floatGUIM32.WithSlider = value;
+                this.floatGUIM02.Slider = value;
+                this.floatGUIM12.Slider = value;
+                this.floatGUIM22.Slider = value;
+                this.floatGUIM32.Slider = value;
 
-                this.floatGUIM03.WithSlider = value;
-                this.floatGUIM13.WithSlider = value;
-                this.floatGUIM23.WithSlider = value;
-                this.floatGUIM33.WithSlider = value;
+                this.floatGUIM03.Slider = value;
+                this.floatGUIM13.Slider = value;
+                this.floatGUIM23.Slider = value;
+                this.floatGUIM33.Slider = value;
             }
         }
 

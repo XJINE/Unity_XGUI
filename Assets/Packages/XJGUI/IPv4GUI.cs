@@ -34,25 +34,25 @@ namespace XJGUI
             {
                 MinValue   = IPV4_VALUE_MIN,
                 MaxValue   = IPV4_VALUE_MAX,
-                WithSlider = false
+                Slider = false
             };
             this.intGUIY = new IntGUI()
             {
                 MinValue   = IPV4_VALUE_MIN,
                 MaxValue   = IPV4_VALUE_MAX,
-                WithSlider = false
+                Slider = false
             };
             this.intGUIZ = new IntGUI()
             {
                 MinValue   = IPV4_VALUE_MIN,
                 MaxValue   = IPV4_VALUE_MAX,
-                WithSlider = false
+                Slider = false
             };
             this.intGUIW = new IntGUI()
             {
                 MinValue   = IPV4_VALUE_MIN,
                 MaxValue   = IPV4_VALUE_MAX,
-                WithSlider = false
+                Slider = false
             };
         }
 

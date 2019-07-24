@@ -6,9 +6,9 @@ namespace XJGUI
     {
         #region Property
 
-        public virtual T    MinValue   { get; set; }
-        public virtual T    MaxValue   { get; set; }
-        public virtual bool WithSlider { get; set; }
+        public virtual T    MinValue { get; set; }
+        public virtual T    MaxValue { get; set; }
+        public virtual bool Slider   { get; set; }
 
         protected override GUIStyle FieldStyle
         {
@@ -43,7 +43,7 @@ namespace XJGUI
             base.Initialize();
 
             base.FieldWidth = XJGUILayout.DefaultFieldWidthValue;
-            this.WithSlider = XJGUILayout.DefaultWithSlider;
+            this.Slider     = XJGUILayout.DefaultSlider;
         }
 
         #endregion Method

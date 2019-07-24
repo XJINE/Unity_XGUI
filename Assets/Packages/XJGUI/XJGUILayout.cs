@@ -23,7 +23,7 @@ public static class XJGUILayout
     public static int    DefaultFieldWidthValue   = 100;
     public static float  DefaultButtonWidth       = 100;
     public static int    DefaultDecimals          = 4;
-    public static bool   DefaultWithSlider        = true;
+    public static bool   DefaultSlider        = true;
     public static Color  DefaultInvalidValueColor = new Color(1, 0, 0, 1);
 
     #endregion Default GUI Settings

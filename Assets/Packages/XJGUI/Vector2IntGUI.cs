@@ -60,16 +60,16 @@ namespace XJGUI
             }
         }
 
-        public override bool WithSlider
+        public override bool Slider
         {
             get
             {
-                return this.intGUIX.WithSlider;
+                return this.intGUIX.Slider;
             }
             set
             {
-                this.intGUIX.WithSlider = value;
-                this.intGUIY.WithSlider = value;
+                this.intGUIX.Slider = value;
+                this.intGUIY.Slider = value;
             }
         }
 

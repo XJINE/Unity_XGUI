@@ -27,7 +27,7 @@ namespace XJGUI
 
         #region Field
 
-        List<FieldGUIInfo> fieldGUIInfos = new List<FieldGUIInfo>();
+        private readonly List<FieldGUIInfo> infos = new List<FieldGUIInfo>();
 
         #endregion Field
 
@@ -72,12 +72,7 @@ namespace XJGUI
                 var guiInfo    = GetGUIInfo(fieldInfo);
                 var headerInfo = GetHeaderInfo(fieldInfo);
 
-                if (guiInfo.Hide)
-                {
-                    continue;
-                }
-
-                this.fieldGUIInfos.Add(new FieldGUIInfo()
+                this.infos.Add(new FieldGUIInfo()
                 {
                     fieldInfo = fieldInfo,
                     typeInfo  = typeInfo,
@@ -123,47 +118,6 @@ namespace XJGUI
             return guiInfo;
         }
 
-        private static string GetHeaderInfo(FieldInfo fieldInfo)
-        {
-            HeaderAttribute header = Attribute.GetCustomAttribute
-                (fieldInfo, typeof(HeaderAttribute)) as HeaderAttribute;
-
-            return header?.header;
-        }
-
-        private static object GenerateGUI(FieldInfo fieldInfo, TypeInfo typeInfo, GUIInfo guiInfo)
-        {
-            string title = guiInfo.Title ?? fieldInfo.Name;
-
-            if (typeInfo == null) { return new UnSupportedGUI() { Title = title }; }
-            if (typeInfo.isIList) { return new UnSupportedGUI() { Title = title }; }
-
-            if (typeInfo.type == typeof(bool))       { return new BoolGUI      () { Title = title }; }
-            if (typeInfo.type == typeof(int))        { return new IntGUI       () { Title = title }; }
-            if (typeInfo.type == typeof(float))      { return new FloatGUI     () { Title = title }; }
-            if (typeInfo.type == typeof(Vector2))    { return new Vector2GUI   () { Title = title }; }
-            if (typeInfo.type == typeof(Vector3))    { return new Vector3GUI   () { Title = title }; }
-            if (typeInfo.type == typeof(Vector4))    { return new Vector4GUI   () { Title = title }; }
-            if (typeInfo.type == typeof(Vector2Int)) { return new Vector2IntGUI() { Title = title }; }
-            if (typeInfo.type == typeof(Vector3Int)) { return new Vector3IntGUI() { Title = title }; }
-            if (typeInfo.type == typeof(Color))      { return new ColorGUI     () { Title = title }; }
-            if (typeInfo.type == typeof(Matrix4x4))  { return new Matrix4x4GUI () { Title = title }; }
-            if (typeInfo.type == typeof(string))
-            {
-                if (guiInfo.IPv4) { return new IPv4GUI   () { Title = title }; }
-                else              { return new StringGUI () { Title = title }; }
-            }
-            if (typeInfo.type.IsEnum)
-            {
-                return Activator.CreateInstance
-                (typeof(EnumGUI<>).MakeGenericType(typeInfo.type));
-            }
-
-            // 構造体, クラス, リストを考慮しない。
-
-            return null;
-        }
-
         protected static string GetTitleCase(string title)
         {
             if (title == null)
@@ -202,10 +156,56 @@ namespace XJGUI
             // return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(text);
         }
 
+        private static string GetHeaderInfo(FieldInfo fieldInfo)
+        {
+            HeaderAttribute header = Attribute.GetCustomAttribute
+                (fieldInfo, typeof(HeaderAttribute)) as HeaderAttribute;
+
+            return header?.header;
+        }
+
+        private static object GenerateGUI(FieldInfo fieldInfo, TypeInfo typeInfo, GUIInfo guiInfo)
+        {
+            Type   type  = typeInfo.type;
+            string title = guiInfo.Title ?? fieldInfo.Name;
+            float  min   = guiInfo.Min;
+            float  max   = guiInfo.Max;
+
+            if (typeInfo == null) { return new UnSupportedGUI() { Title = title }; }
+            if (typeInfo.isIList) { return new UnSupportedGUI() { Title = title }; }
+
+            if (type == typeof(bool))       { return new BoolGUI      () { Title = title }; }
+            if (type == typeof(int))        { return new IntGUI       () { Title = title, MinValue = (int)min, MaxValue = (int)max }; }
+            if (type == typeof(float))      { return new FloatGUI     () { Title = title, MinValue =      min, MaxValue =      max }; }
+            if (type == typeof(Vector2))    { return new Vector2GUI   () { Title = title, MinValue = new Vector2(min, min),                        MaxValue = new Vector2(max, max) }; }
+            if (type == typeof(Vector3))    { return new Vector3GUI   () { Title = title, MinValue = new Vector3(min, min, min),                   MaxValue = new Vector3(max, max, max) }; }
+            if (type == typeof(Vector4))    { return new Vector4GUI   () { Title = title, MinValue = new Vector4(min, min, min, min),              MaxValue = new Vector4(max, max, max, max) }; }
+            if (type == typeof(Vector2Int)) { return new Vector2IntGUI() { Title = title, MinValue = new Vector2Int((int)min, (int)min),           MaxValue = new Vector2Int((int)max, (int)max) }; }
+            if (type == typeof(Vector3Int)) { return new Vector3IntGUI() { Title = title, MinValue = new Vector3Int((int)min, (int)min, (int)min), MaxValue = new Vector3Int((int)max, (int)max, (int)max) }; }
+            if (type == typeof(Color))      { return new ColorGUI     () { Title = title }; }
+            if (type == typeof(Matrix4x4))  { return new Matrix4x4GUI () { Title = title }; }
+            if (type == typeof(string))
+            {
+                if (guiInfo.IPv4) { return new IPv4GUI   () { Title = title }; }
+                else              { return new StringGUI () { Title = title }; }
+            }
+            if (typeInfo.type.IsEnum)
+            {
+                return Activator.CreateInstance
+                (typeof(EnumGUI<>).MakeGenericType(type));
+            }
+
+            // 構造体, クラス, リストを考慮しない。
+
+            return null;
+        }
+
         public override T Show(T value)
         {
-            foreach (var info in this.fieldGUIInfos)
+            foreach (var info in this.infos)
             {
+                if (info.guiInfo.Hide) { continue; }
+
                 info.fieldInfo.SetValue(value, ShowGUI[info.typeInfo.type](value, info));
             }
 
@@ -247,20 +247,20 @@ namespace XJGUI
         private static readonly Dictionary<Type, Func<object, FieldGUIInfo, object>> ShowGUI
         = new Dictionary<Type, Func<object, FieldGUIInfo, object>>()
         {
-            { typeof(bool),       (value, info) => { return ((BoolGUI)       info.gui).Show((bool)       info.fieldInfo.GetValue(value)); } },
-            { typeof(int),        (value, info) => { return ((IntGUI)        info.gui).Show((int)        info.fieldInfo.GetValue(value)); } },
-            { typeof(float),      (value, info) => { return ((FloatGUI)      info.gui).Show((float)      info.fieldInfo.GetValue(value)); } },
-            { typeof(Vector2),    (value, info) => { return ((Vector2GUI)    info.gui).Show((Vector2)    info.fieldInfo.GetValue(value)); } },
-            { typeof(Vector3),    (value, info) => { return ((Vector3GUI)    info.gui).Show((Vector3)    info.fieldInfo.GetValue(value)); } },
-            { typeof(Vector4),    (value, info) => { return ((Vector4GUI)    info.gui).Show((Vector4)    info.fieldInfo.GetValue(value)); } },
-            { typeof(Vector2Int), (value, info) => { return ((Vector2IntGUI) info.gui).Show((Vector2Int) info.fieldInfo.GetValue(value)); } },
-            { typeof(Vector3Int), (value, info) => { return ((Vector3IntGUI) info.gui).Show((Vector3Int) info.fieldInfo.GetValue(value)); } },
-            { typeof(Color),      (value, info) => { return ((ColorGUI)      info.gui).Show((Color)      info.fieldInfo.GetValue(value)); } },
-            { typeof(Matrix4x4),  (value, info) => { return ((Matrix4x4GUI)  info.gui).Show((Matrix4x4)  info.fieldInfo.GetValue(value)); } },
-            { typeof(string),     (value, info) =>
+            { typeof(bool),       (v, i) => { return ((BoolGUI)       i.gui).Show((bool)       i.fieldInfo.GetValue(v)); } },
+            { typeof(int),        (v, i) => { return ((IntGUI)        i.gui).Show((int)        i.fieldInfo.GetValue(v)); } },
+            { typeof(float),      (v, i) => { return ((FloatGUI)      i.gui).Show((float)      i.fieldInfo.GetValue(v)); } },
+            { typeof(Vector2),    (v, i) => { return ((Vector2GUI)    i.gui).Show((Vector2)    i.fieldInfo.GetValue(v)); } },
+            { typeof(Vector3),    (v, i) => { return ((Vector3GUI)    i.gui).Show((Vector3)    i.fieldInfo.GetValue(v)); } },
+            { typeof(Vector4),    (v, i) => { return ((Vector4GUI)    i.gui).Show((Vector4)    i.fieldInfo.GetValue(v)); } },
+            { typeof(Vector2Int), (v, i) => { return ((Vector2IntGUI) i.gui).Show((Vector2Int) i.fieldInfo.GetValue(v)); } },
+            { typeof(Vector3Int), (v, i) => { return ((Vector3IntGUI) i.gui).Show((Vector3Int) i.fieldInfo.GetValue(v)); } },
+            { typeof(Color),      (v, i) => { return ((ColorGUI)      i.gui).Show((Color)      i.fieldInfo.GetValue(v)); } },
+            { typeof(Matrix4x4),  (v, i) => { return ((Matrix4x4GUI)  i.gui).Show((Matrix4x4)  i.fieldInfo.GetValue(v)); } },
+            { typeof(string),     (v, i) =>
             {
-                if(info.guiInfo.IPv4) return ((IPv4GUI)   info.gui).Show((string) info.fieldInfo.GetValue(value));
-                else                  return ((StringGUI) info.gui).Show((string) info.fieldInfo.GetValue(value));
+                if(i.guiInfo.IPv4) return ((IPv4GUI)   i.gui).Show((string) i.fieldInfo.GetValue(v));
+                else               return ((StringGUI) i.gui).Show((string) i.fieldInfo.GetValue(v));
             }},
         };
 

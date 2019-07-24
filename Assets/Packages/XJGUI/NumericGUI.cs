@@ -75,7 +75,7 @@ namespace XJGUI
                     }
                 });
 
-                if (!base.WithSlider)
+                if (!base.Slider)
                 {
                     return;
                 }
