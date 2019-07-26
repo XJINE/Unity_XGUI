@@ -175,13 +175,13 @@ namespace XJGUI
             if (typeInfo.isIList) { return new UnSupportedGUI() { Title = title }; }
 
             if (type == typeof(bool))       { return new BoolGUI      () { Title = title }; }
-            if (type == typeof(int))        { return new IntGUI       () { Title = title, MinValue = (int)min, MaxValue = (int)max }; }
-            if (type == typeof(float))      { return new FloatGUI     () { Title = title, MinValue =      min, MaxValue =      max }; }
-            if (type == typeof(Vector2))    { return new Vector2GUI   () { Title = title, MinValue = new Vector2(min, min),                        MaxValue = new Vector2(max, max) }; }
-            if (type == typeof(Vector3))    { return new Vector3GUI   () { Title = title, MinValue = new Vector3(min, min, min),                   MaxValue = new Vector3(max, max, max) }; }
-            if (type == typeof(Vector4))    { return new Vector4GUI   () { Title = title, MinValue = new Vector4(min, min, min, min),              MaxValue = new Vector4(max, max, max, max) }; }
-            if (type == typeof(Vector2Int)) { return new Vector2IntGUI() { Title = title, MinValue = new Vector2Int((int)min, (int)min),           MaxValue = new Vector2Int((int)max, (int)max) }; }
-            if (type == typeof(Vector3Int)) { return new Vector3IntGUI() { Title = title, MinValue = new Vector3Int((int)min, (int)min, (int)min), MaxValue = new Vector3Int((int)max, (int)max, (int)max) }; }
+            if (type == typeof(int))        { return new IntGUI       () { Title = title }; }
+            if (type == typeof(float))      { return new FloatGUI     () { Title = title }; }
+            if (type == typeof(Vector2))    { return new Vector2GUI   () { Title = title }; }
+            if (type == typeof(Vector3))    { return new Vector3GUI   () { Title = title }; }
+            if (type == typeof(Vector4))    { return new Vector4GUI   () { Title = title }; }
+            if (type == typeof(Vector2Int)) { return new Vector2IntGUI() { Title = title }; }
+            if (type == typeof(Vector3Int)) { return new Vector3IntGUI() { Title = title }; }
             if (type == typeof(Color))      { return new ColorGUI     () { Title = title }; }
             if (type == typeof(Matrix4x4))  { return new Matrix4x4GUI () { Title = title }; }
             if (type == typeof(string))
@@ -191,8 +191,7 @@ namespace XJGUI
             }
             if (typeInfo.type.IsEnum)
             {
-                return Activator.CreateInstance
-                (typeof(EnumGUI<>).MakeGenericType(type));
+                return new EnumGUI() { Title = title };
             }
 
             // 構造体, クラス, リストを考慮しない。
@@ -206,7 +205,9 @@ namespace XJGUI
             {
                 if (info.guiInfo.Hide) { continue; }
 
-                info.fieldInfo.SetValue(value, ShowGUI[info.typeInfo.type](value, info));
+                Type type = info.typeInfo.type.IsEnum ? typeof(Enum) : info.typeInfo.type;
+
+                info.fieldInfo.SetValue(value, ShowGUI[type](value, info));
             }
 
             return value;
@@ -257,6 +258,7 @@ namespace XJGUI
             { typeof(Vector3Int), (v, i) => { return ((Vector3IntGUI) i.gui).Show((Vector3Int) i.fieldInfo.GetValue(v)); } },
             { typeof(Color),      (v, i) => { return ((ColorGUI)      i.gui).Show((Color)      i.fieldInfo.GetValue(v)); } },
             { typeof(Matrix4x4),  (v, i) => { return ((Matrix4x4GUI)  i.gui).Show((Matrix4x4)  i.fieldInfo.GetValue(v)); } },
+            { typeof(Enum),       (v, i) => { return ((EnumGUI)       i.gui).Show((Enum)       i.fieldInfo.GetValue(v)); } },
             { typeof(string),     (v, i) =>
             {
                 if(i.guiInfo.IPv4) return ((IPv4GUI)   i.gui).Show((string) i.fieldInfo.GetValue(v));

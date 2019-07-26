@@ -17,15 +17,9 @@ namespace XJGUI
     // Even if the string value shows "EnumA", Enum.Parse returns EnumB.
     // I try to use Reflection, but the result was not good.
 
-    public class EnumGUI<T> : Element<T> where T : IComparable, IFormattable, IConvertible
+    public class EnumGUI : Element<Enum>
     {
         #region Field
-
-        protected Type enumType;
-
-        protected string[] enumNames;
-
-        protected int selectedIndex;
 
         protected bool isEditing;
 
@@ -70,21 +64,15 @@ namespace XJGUI
         protected override void Initialize()
         {
             base.Initialize();
-
             this.ButtonWidth = XJGUILayout.DefaultButtonWidth;
-
-            this.enumType = typeof(T);
-
-            if (!this.enumType.IsEnum)
-            {
-                // Exception.
-            }
-
-            this.enumNames = Enum.GetNames(this.enumType);
         }
 
-        public override T Show(T value)
+        public override Enum Show(Enum value)
         {
+            Type     enumType  = value.GetType();
+            string[] enumNames = Enum.GetNames(enumType);
+            int selectedIndex  = GetSelectedIndex(value, enumNames);
+
             XJGUILayout.HorizontalLayout(() =>
             {
                 base.ShowTitle();
@@ -94,7 +82,7 @@ namespace XJGUI
                     GUILayout.FlexibleSpace();
                 }
 
-                if (GUILayout.Button(this.enumNames[this.selectedIndex],
+                if (GUILayout.Button(enumNames[selectedIndex],
                                      this.ButtonStyle,
                                      this.ButtonLayout))
                 {
@@ -116,18 +104,17 @@ namespace XJGUI
 
                 XJGUILayout.VerticalLayout(() =>
                 {
-                    for (int i = 0; i < this.enumNames.Length; i++)
+                    for (int i = 0; i < enumNames.Length; i++)
                     {
-                        if (i == this.selectedIndex)
+                        if (i == selectedIndex)
                         {
                             continue;
                         }
 
-                        if (GUILayout.Button(this.enumNames[i], ButtonLayout))
+                        if (GUILayout.Button(enumNames[i], ButtonLayout))
                         {
-                            this.selectedIndex = i;
                             this.isEditing = false;
-                            value = (T)Enum.Parse(this.enumType, this.enumNames[i]);
+                            value = (Enum)Enum.Parse(enumType, enumNames[i]);
                         }
                     }
 
@@ -137,13 +124,13 @@ namespace XJGUI
             return value;
         }
 
-        protected int GetSelectedEnumIndex(T value)
+        protected int GetSelectedIndex(Enum value, string[] enumNames)
         {
             string enumName = value.ToString();
 
-            for (int i = 0; i < this.enumNames.Length; i++)
+            for (int i = 0; i < enumNames.Length; i++)
             {
-                if (this.enumNames[i] == enumName)
+                if (enumNames[i] == enumName)
                 {
                     return i;
                 }

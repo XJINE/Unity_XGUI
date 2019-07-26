@@ -36,7 +36,7 @@ public class BasicSample : MonoBehaviour
     private ColorGUI      colorGUI;
     private Matrix4x4GUI  matrixGUI;
     private IPv4GUI       ipv4GUI;
-    private EnumGUI<CameraType> enumGUI;
+    private EnumGUI       enumGUI;
 
     #endregion Field
 
@@ -63,7 +63,7 @@ public class BasicSample : MonoBehaviour
         this.colorGUI      = new ColorGUI     ("Color"       );
         this.matrixGUI     = new Matrix4x4GUI ("Matrix4x4"   );
         this.ipv4GUI       = new IPv4GUI      ("IPv4"        );
-        this.enumGUI = new EnumGUI<CameraType>("Enum"        );
+        this.enumGUI       = new EnumGUI      ("Enum"        );
     }
 
     void Update()
@@ -108,7 +108,7 @@ public class BasicSample : MonoBehaviour
             {
                 this.colorValue = this.colorGUI.Show(this.colorValue);
                 this.ipv4Value = this.ipv4GUI.Show(this.ipv4Value);
-                this.enumValue = this.enumGUI.Show(this.enumValue);
+                this.enumValue = (CameraType)this.enumGUI.Show(this.enumValue);
 
                 this.scrollPanel.Show(() =>
                 {

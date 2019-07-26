@@ -11,18 +11,18 @@ public class FieldGUISample1 : MonoBehaviour
 
     [Header("Vector")]
 
-    public Vector2    vector2Value;
-    public Vector3    vector3Value;
-    public Vector4    vector4Value;
+    public Vector2 vector2Value;
+    public Vector3 vector3Value;
+    public Vector4 vector4Value;
 
     [GUIInfo(Title = "V2I")]
     public Vector2Int vector2IntValue;
     public Vector3Int vector3IntValue;
 
     [Header("Others")]
-
-    public Color     colorValue;
-    public Matrix4x4 matrixValue;
+    public Color      colorValue;
+    public Matrix4x4  matrixValue;
+    public CameraType cameraType;
 
     [GUIInfo(IPv4 = true)]
     public string ipV4Value;

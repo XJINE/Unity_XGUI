@@ -175,6 +175,7 @@ MonoBehaviour:
     e31: 821.828
     e32: 0
     e33: 0
+  cameraType: 0
   ipV4Value: 127.0.0.1
 --- !u!4 &810585867
 Transform:
