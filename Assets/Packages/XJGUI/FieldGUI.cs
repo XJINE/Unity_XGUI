@@ -23,11 +23,20 @@ namespace XJGUI
             public object    gui;
         }
 
+        private class GUIGroup
+        {
+            public FoldoutPanel       panel = new FoldoutPanel();
+            public List<FieldGUIInfo> infos = new List<FieldGUIInfo>();
+        }
+
         #endregion Class
 
         #region Field
 
-        private readonly List<FieldGUIInfo> infos = new List<FieldGUIInfo>();
+        private readonly List<GUIGroup> guiGroups = new List<GUIGroup>()
+        {
+            new GUIGroup()
+        };
 
         #endregion Field
 
@@ -72,7 +81,16 @@ namespace XJGUI
                 var guiInfo    = GetGUIInfo(fieldInfo);
                 var headerInfo = GetHeaderInfo(fieldInfo);
 
-                this.infos.Add(new FieldGUIInfo()
+                if (headerInfo != null)
+                {
+                    var newGroup = new GUIGroup();
+                    newGroup.panel.Title = headerInfo;
+
+                    this.guiGroups.Add(newGroup);
+                }
+
+                this.guiGroups[this.guiGroups.Count - 1].infos.Add
+                (new FieldGUIInfo()
                 {
                     fieldInfo = fieldInfo,
                     typeInfo  = typeInfo,
@@ -158,91 +176,209 @@ namespace XJGUI
 
         private static string GetHeaderInfo(FieldInfo fieldInfo)
         {
-            HeaderAttribute header = Attribute.GetCustomAttribute
+            HeaderAttribute headerAttribute = Attribute.GetCustomAttribute
                 (fieldInfo, typeof(HeaderAttribute)) as HeaderAttribute;
 
-            return header?.header;
+            return headerAttribute?.header;
         }
 
         private static object GenerateGUI(FieldInfo fieldInfo, TypeInfo typeInfo, GUIInfo guiInfo)
         {
-            Type   type  = typeInfo.type;
-            string title = guiInfo.Title ?? fieldInfo.Name;
-            float  min   = guiInfo.Min;
-            float  max   = guiInfo.Max;
+            Type   type       = typeInfo.type;
+            string title      = guiInfo.Title ?? fieldInfo.Name;
+            float  min        = guiInfo.Min;
+            float  max        = guiInfo.Max;
+            float  width      = guiInfo.Width;
+            bool   minIsNaN   = float.IsNaN(min);
+            bool   maxIsNaN   = float.IsNaN(max);
+            bool   widthIsNaN = float.IsNaN(width);
 
             if (typeInfo == null) { return new UnSupportedGUI() { Title = title }; }
             if (typeInfo.isIList) { return new UnSupportedGUI() { Title = title }; }
 
-            if (type == typeof(bool))       { return new BoolGUI      () { Title = title }; }
-            if (type == typeof(int))        { return new IntGUI       () { Title = title }; }
-            if (type == typeof(float))      { return new FloatGUI     () { Title = title }; }
-            if (type == typeof(Vector2))    { return new Vector2GUI   () { Title = title }; }
-            if (type == typeof(Vector3))    { return new Vector3GUI   () { Title = title }; }
-            if (type == typeof(Vector4))    { return new Vector4GUI   () { Title = title }; }
-            if (type == typeof(Vector2Int)) { return new Vector2IntGUI() { Title = title }; }
-            if (type == typeof(Vector3Int)) { return new Vector3IntGUI() { Title = title }; }
-            if (type == typeof(Color))      { return new ColorGUI     () { Title = title }; }
-            if (type == typeof(Matrix4x4))  { return new Matrix4x4GUI () { Title = title }; }
+            if (type == typeof(bool))
+            {
+                return new BoolGUI()
+                {
+                    Title = title
+                };
+            }
+            if (type == typeof(int))
+            {
+                return new IntGUI()
+                {
+                    Title      = title,
+                    FieldWidth = widthIsNaN ? XJGUILayout.DefaultFieldWidthValue : width,
+                    MinValue   = minIsNaN   ? XJGUILayout.DefaultMinValueInt : (int)min,
+                    MaxValue   = maxIsNaN   ? XJGUILayout.DefaultMaxValueInt : (int)max
+                };
+            }
+            if (type == typeof(float))
+            {
+                return new FloatGUI()
+                {
+                    Title      = title,
+                    FieldWidth = widthIsNaN ? XJGUILayout.DefaultFieldWidthValue : width,
+                    MinValue   = minIsNaN   ? XJGUILayout.DefaultMinValueFloat : min,
+                    MaxValue   = maxIsNaN   ? XJGUILayout.DefaultMaxValueFloat : max
+                };
+            }
+            if (type == typeof(Vector2))
+            {
+                return new Vector2GUI()
+                {
+                    Title      = title,
+                    FieldWidth = widthIsNaN ? XJGUILayout.DefaultFieldWidthValue : width,
+                    MinValue   = minIsNaN   ? XJGUILayout.DefaultMinValueVector2
+                                            : new Vector2(min, min),
+                    MaxValue   = maxIsNaN   ? XJGUILayout.DefaultMaxValueVector2
+                                            : new Vector2(max, max)
+                };
+            }
+            if (type == typeof(Vector3))
+            {
+                return new Vector3GUI()
+                {
+                    Title      = title,
+                    FieldWidth = widthIsNaN ? XJGUILayout.DefaultFieldWidthValue : width,
+                    MinValue   = minIsNaN   ? XJGUILayout.DefaultMinValueVector3
+                                            : new Vector3(min, min, min),
+                    MaxValue   = maxIsNaN   ? XJGUILayout.DefaultMaxValueVector3
+                                            : new Vector3(max, max, max)
+                };
+            }
+            if (type == typeof(Vector4))
+            {
+                return new Vector4GUI()
+                {
+                    Title      = title,
+                    FieldWidth = widthIsNaN ? XJGUILayout.DefaultFieldWidthValue : width,
+                    MinValue   = minIsNaN   ? XJGUILayout.DefaultMinValueVector4
+                                            : new Vector4(min, min, min, min),
+                    MaxValue   = maxIsNaN   ? XJGUILayout.DefaultMaxValueVector4
+                                            : new Vector4(max, max, max, max)
+                };
+            }
+            if (type == typeof(Vector2Int))
+            {
+                return new Vector2IntGUI()
+                {
+                    Title      = title,
+                    FieldWidth = widthIsNaN ? XJGUILayout.DefaultFieldWidthValue : width,
+                    MinValue   = minIsNaN   ? XJGUILayout.DefaultMinValueVector2Int
+                                            : new Vector2Int((int)min, (int)min),
+                    MaxValue   = maxIsNaN   ? XJGUILayout.DefaultMaxValueVector2Int
+                                            : new Vector2Int((int)max, (int)max)
+                };
+            }
+            if (type == typeof(Vector3Int))
+            {
+                return new Vector3IntGUI()
+                {
+                    Title      = title,
+                    FieldWidth = widthIsNaN ? XJGUILayout.DefaultFieldWidthValue : width,
+                    MinValue   = minIsNaN   ? XJGUILayout.DefaultMinValueVector3Int
+                                            : new Vector3Int((int)min, (int)min, (int)min),
+                    MaxValue   = maxIsNaN   ? XJGUILayout.DefaultMaxValueVector3Int
+                                            : new Vector3Int((int)max, (int)max, (int)max)
+                };
+            }
+            if (type == typeof(Color))
+            {
+                return new ColorGUI ()
+                {
+                    Title      = title,
+                    FieldWidth = widthIsNaN ? XJGUILayout.DefaultFieldWidthValue : width,
+                    MinValue   = minIsNaN   ? XJGUILayout.DefaultMinValueColor
+                                            : new Color(min, min, min, min),
+                    MaxValue   = maxIsNaN   ? XJGUILayout.DefaultMaxValueColor
+                                            : new Color(max, max, max, max)
+                };
+            }
+            if (type == typeof(Matrix4x4))
+            {
+                return new Matrix4x4GUI
+                {
+                    Title      = title,
+                    FieldWidth = widthIsNaN ? XJGUILayout.DefaultFieldWidthValue : width,
+                    MinValue   = minIsNaN   ? XJGUILayout.DefaultMinValueMatrix4x4 
+                                            : new Matrix4x4(new Vector4(min, min, min, min),
+                                                            new Vector4(min, min, min, min),
+                                                            new Vector4(min, min, min, min),
+                                                            new Vector4(min, min, min, min)),
+                    MaxValue   = maxIsNaN   ? XJGUILayout.DefaultMaxValueMatrix4x4
+                                            : new Matrix4x4(new Vector4(max, max, max, max),
+                                                            new Vector4(max, max, max, max),
+                                                            new Vector4(max, max, max, max),
+                                                            new Vector4(max, max, max, max)),
+                };
+            }
             if (type == typeof(string))
             {
-                if (guiInfo.IPv4) { return new IPv4GUI   () { Title = title }; }
-                else              { return new StringGUI () { Title = title }; }
+                if (guiInfo.IPv4)
+                {
+                    return new IPv4GUI()
+                    {
+                        Title = title
+                    };
+                }
+
+                return new StringGUI()
+                {
+                    Title      = title,
+                    FieldWidth = widthIsNaN ? XJGUILayout.DefaultFieldWidthString : width,
+                };
             }
             if (typeInfo.type.IsEnum)
             {
-                return new EnumGUI() { Title = title };
+                return new EnumGUI()
+                {
+                    Title = title,
+                    ButtonWidth = widthIsNaN ? XJGUILayout.DefaultButtonWidth : width,
+                };
             }
 
-            // 構造体, クラス, リストを考慮しない。
+            return new FieldGUI<object>() { Title = title };
 
-            return null;
+            //return Activator.CreateInstance(typeof(FieldGUI<>).MakeGenericType(fieldInfo.FieldType), title);
+
+            //return new UnSupportedGUI() { Title = title };
+
+            // 構造体, クラス, リストを考慮しない。
         }
 
         public override T Show(T value)
         {
-            foreach (var info in this.infos)
+            this.guiGroups[0].panel.Title = base.Title ?? typeof(T).ToString();
+            this.guiGroups[0].panel.Show(() =>
+            {
+                ShowGUIs(value, guiGroups[0].infos);
+
+                for (int i = 1; i < this.guiGroups.Count; i++)
+                {
+                    this.guiGroups[i].panel.Show(() =>
+                    {
+                        ShowGUIs(value, guiGroups[i].infos);
+                    });
+                }
+            });
+
+            return value;
+        }
+
+        private void ShowGUIs(T value, List<FieldGUIInfo> infos)
+        {
+            foreach (var info in infos)
             {
                 if (info.guiInfo.Hide) { continue; }
 
                 Type type = info.typeInfo.type.IsEnum ? typeof(Enum) : info.typeInfo.type;
 
-                info.fieldInfo.SetValue(value, ShowGUI[type](value, info));
+                if (ShowGUI.ContainsKey(type))
+                {
+                    info.fieldInfo.SetValue(value, ShowGUI[type](value, info));
+                }
             }
-
-            return value;
-
-            //this.fieldGUIGroups[0].Panel.Title = base.Title ?? base.Value.GetType().Name;
-            //this.fieldGUIGroups[0].Panel.Show(() =>
-            //{
-            //    foreach (FieldGUIBase gui in this.fieldGUIGroups[0].GUI)
-            //    {
-            //        if (gui.Unsupported && this.HideUnsupportedGUI)
-            //        {
-            //            continue;
-            //        }
-
-            //        gui.Show();
-            //    }
-
-            //    for (int i = 1; i < this.fieldGUIGroups.Count; i++)
-            //    {
-            //        this.fieldGUIGroups[i].Panel.Show(() =>
-            //        {
-            //            foreach (FieldGUIBase gui in this.fieldGUIGroups[i].GUI)
-            //            {
-            //                if (gui.Unsupported && this.HideUnsupportedGUI)
-            //                {
-            //                    continue;
-            //                }
-
-            //                gui.Show();
-            //            }
-            //        });
-            //    }
-            //});
-
-            //return this.Value;
         }
 
         private static readonly Dictionary<Type, Func<object, FieldGUIInfo, object>> ShowGUI
