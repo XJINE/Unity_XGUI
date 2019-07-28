@@ -339,11 +339,14 @@ namespace XJGUI
             }
             if (typeInfo.type.IsEnum)
             {
-                return new EnumGUI()
-                {
-                    Title = title,
-                    ButtonWidth = float.IsNaN(width) ? XJGUILayout.DefaultButtonWidth : width,
-                };
+                object enumGUI = Activator.CreateInstance(typeof(EnumGUI<>).MakeGenericType(fieldInfo.FieldType), title);
+                float buttonWidth = float.IsNaN(width) ? XJGUILayout.DefaultButtonWidth : width;
+
+                Type enumGUIType = enumGUI.GetType();
+                enumGUIType.GetProperty("Title").SetValue(enumGUI, title);
+                enumGUIType.GetProperty("ButtonWidth").SetValue(enumGUI, buttonWidth);
+
+                return enumGUI;
             }
 
             return Activator.CreateInstance(typeof(FieldGUI<>).MakeGenericType(fieldInfo.FieldType), title);
@@ -353,6 +356,9 @@ namespace XJGUI
 
         public override T Show(T value)
         {
+            // CAUTION:
+            // Because struct couldn't set a value directly, the value needs to be boxed.
+
             object boxedValue = value;
 
             this.guiGroups[0].panel.Title = base.Title ?? typeof(T).ToString();
@@ -378,16 +384,15 @@ namespace XJGUI
             {
                 if (info.guiInfo.Hide) { continue; }
 
-                Type type = info.typeInfo.type.IsEnum ? typeof(Enum) : info.typeInfo.type;
-
-                if (ShowGUI.ContainsKey(type))
+                if (ShowGUI.ContainsKey(info.typeInfo.type))
                 {
-                    info.fieldInfo.SetValue(value, ShowGUI[type](value, info));
+                    info.fieldInfo.SetValue(value, ShowGUI[info.typeInfo.type](value, info));
                 }
-                else
+                else // if User struct or class
                 {
-                    info.fieldInfo.SetValue(value, info.gui.GetType().GetMethod("Show")
-                    .Invoke(info.gui, new object[] { info.fieldInfo.GetValue(value) }));
+                    info.fieldInfo.SetValue(value,
+                    info.gui.GetType().GetMethod("Show").Invoke
+                    (info.gui, new object[] { info.fieldInfo.GetValue(value) }));
                 }
             }
         }
@@ -405,7 +410,6 @@ namespace XJGUI
             { typeof(Vector3Int), (v, i) => { return ((Vector3IntGUI) i.gui).Show((Vector3Int) i.fieldInfo.GetValue(v)); } },
             { typeof(Color),      (v, i) => { return ((ColorGUI)      i.gui).Show((Color)      i.fieldInfo.GetValue(v)); } },
             { typeof(Matrix4x4),  (v, i) => { return ((Matrix4x4GUI)  i.gui).Show((Matrix4x4)  i.fieldInfo.GetValue(v)); } },
-            { typeof(Enum),       (v, i) => { return ((EnumGUI)       i.gui).Show((Enum)       i.fieldInfo.GetValue(v)); } },
             { typeof(string),     (v, i) =>
             {
                 if(i.guiInfo.IPv4) return ((IPv4GUI)   i.gui).Show((string) i.fieldInfo.GetValue(v));

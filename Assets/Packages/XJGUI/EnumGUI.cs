@@ -17,7 +17,7 @@ namespace XJGUI
     // Even if the string value shows "EnumA", Enum.Parse returns EnumB.
     // I try to use Reflection, but the result was not good.
 
-    public class EnumGUI : Element<Enum>
+    public class EnumGUI<T> : Element<T> where T : Enum
     {
         #region Field
 
@@ -67,7 +67,7 @@ namespace XJGUI
             this.ButtonWidth = XJGUILayout.DefaultButtonWidth;
         }
 
-        public override Enum Show(Enum value)
+        public override T Show(T value)
         {
             Type     enumType  = value.GetType();
             string[] enumNames = Enum.GetNames(enumType);
@@ -114,7 +114,7 @@ namespace XJGUI
                         if (GUILayout.Button(enumNames[i], ButtonLayout))
                         {
                             this.isEditing = false;
-                            value = (Enum)Enum.Parse(enumType, enumNames[i]);
+                            value = (T)Enum.Parse(enumType, enumNames[i]);
                         }
                     }
 
