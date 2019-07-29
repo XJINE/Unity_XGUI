@@ -1,13 +1,6 @@
 ﻿using UnityEngine;
 using XJGUI;
 
-[System.Serializable]
-public struct UserStruct
-{
-    public Vector3 vector3Value;
-    public int     intValue;
-}
-
 public class FieldGUISample1 : MonoBehaviour
 {
     #region Field

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using XJGUI;
 
 public class BasicSample : MonoBehaviour
@@ -19,6 +20,8 @@ public class BasicSample : MonoBehaviour
     public string     ipv4Value;
     public CameraType enumValue;
     public int[]      intValues;
+    public List<UserStruct> structValues;
+    public List<List<UserStruct>> structsValues = new List<List<UserStruct>>() { new List<UserStruct>() { new UserStruct() } };
 
     private FlexWindow   window;
     private TabPanel     tabPanel;
@@ -38,7 +41,10 @@ public class BasicSample : MonoBehaviour
     private Matrix4x4GUI  matrixGUI;
     private IPv4GUI       ipv4GUI;
     private EnumGUI<CameraType> enumGUI;
+
     private IListGUI<int[]> intArrayGUI;
+    private IListGUI<List<UserStruct>> structListGUI;
+    private IListGUI<List<List<UserStruct>>> structListsGUI;
 
     #endregion Field
 
@@ -66,7 +72,9 @@ public class BasicSample : MonoBehaviour
         this.matrixGUI     = new Matrix4x4GUI ("Matrix4x4"   );
         this.ipv4GUI       = new IPv4GUI      ("IPv4"        );
         this.enumGUI       = new EnumGUI<CameraType> ("Enum" );
-        this.intArrayGUI   = new IListGUI<int[]>("Int[]");
+        //this.intArrayGUI   = new IListGUI<int[]>("Int[]");
+        //this.structListGUI = new IListGUI<List<UserStruct>>("List<UserStruct>");
+        this.structListsGUI = new IListGUI<List<List<UserStruct>>>("List<List<UserStruct>>");
     }
 
     void Update()
@@ -126,7 +134,9 @@ public class BasicSample : MonoBehaviour
             }),
             new TabPanel.Func("Array", () =>
             {
-                this.intArrayGUI.Show(this.intValues);
+                //this.intArrayGUI.Show(this.intValues);
+                //this.structListGUI.Show(this.structValues);
+                this.structListsGUI.Show(this.structsValues);
             })
             );
         });

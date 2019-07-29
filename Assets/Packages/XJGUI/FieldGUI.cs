@@ -9,12 +9,6 @@ namespace XJGUI
     {
         #region Class
 
-        private class TypeInfo
-        {
-            public Type type;
-            public bool isIList;
-        }
-
         private class FieldGUIInfo
         {
             public FieldInfo    fieldInfo;
@@ -77,7 +71,7 @@ namespace XJGUI
             for (var i = 0; i < fieldInfos.Length; i++)
             {
                 FieldInfo    fieldInfo  = fieldInfos[i];
-                TypeInfo     typeInfo   = GetTypeInfo(fieldInfo);
+                TypeInfo     typeInfo   = TypeInfo.GetTypeInfo(fieldInfo.FieldType);
                 GUIAttribute guiInfo    = GetGUIInfo(fieldInfo);
                 string       headerInfo = GetHeaderInfo(fieldInfo);
                 Vector2      rangeInfo  = GetRangeInfo(fieldInfo);
@@ -100,33 +94,6 @@ namespace XJGUI
                     gui       = gui
                 });
             }
-        }
-
-        private static TypeInfo GetTypeInfo(FieldInfo fieldInfo)
-        {
-            TypeInfo typeInfo = new TypeInfo()
-            {
-                type = fieldInfo.FieldType,
-                isIList = false
-            };
-
-            if (typeInfo.type.IsArray)
-            {
-                typeInfo.type = typeInfo.type.GetElementType();
-                typeInfo.isIList = true;
-            }
-            else if(typeInfo.type.IsGenericType && (typeInfo.type.GetGenericTypeDefinition() == typeof(IList<>)))
-            {
-                Type[] types = typeInfo.type.GetGenericArguments();
-
-                if (types.Length == 1)
-                {
-                    typeInfo.type = types[0];
-                    typeInfo.isIList = true;
-                }
-            }
-
-            return typeInfo;
         }
 
         private static GUIAttribute GetGUIInfo(FieldInfo fieldInfo)

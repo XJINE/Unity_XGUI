@@ -16,7 +16,7 @@ namespace XJGUI
 
         #region Property
 
-        protected Type ElementType { get; private set; }
+        protected TypeInfo ElementType { get; private set; }
 
         public override string Title
         {
@@ -38,8 +38,14 @@ namespace XJGUI
 
         protected override void Initialize()
         {
+            // NOTE:
+            // T must be IList<>.
+
             base.Initialize();
-            this.ElementType = GetElementType();
+            this.ElementType = TypeInfo.GetTypeInfo(typeof(T));
+            this.ElementType = this.ElementType.isIList
+                             ? TypeInfo.GetTypeInfo(this.ElementType.type)
+                             : this.ElementType;
         }
 
         public override T Show(T value)
@@ -65,7 +71,6 @@ namespace XJGUI
                 {
                     for (int i = 0; i < -countDiff; i++)
                     {
-                        var gui = GenerateGUI();
                         this.guis.Add(GenerateGUI());
                     }
                 }
@@ -82,42 +87,28 @@ namespace XJGUI
 
         protected virtual object GenerateGUI()
         {
-                 if(this.ElementType == typeof(bool))       { return new BoolGUI();       }
-            else if(this.ElementType == typeof(int))        { return new IntGUI();        }
-            else if(this.ElementType == typeof(float))      { return new FloatGUI();      }
-            else if(this.ElementType == typeof(Vector2))    { return new Vector2GUI();    }
-            else if(this.ElementType == typeof(Vector3))    { return new Vector3GUI();    }
-            else if(this.ElementType == typeof(Vector4))    { return new Vector4GUI();    }
-            else if(this.ElementType == typeof(Vector2Int)) { return new Vector2IntGUI(); }
-            else if(this.ElementType == typeof(Vector3Int)) { return new Vector3IntGUI(); }
-            else if(this.ElementType == typeof(Color))      { return new ColorGUI();      }
-            else if(this.ElementType == typeof(Matrix4x4))  { return new Matrix4x4GUI();  }
-            else if(this.ElementType == typeof(string))     { return new StringGUI();     }
+            if (this.ElementType.isIList)
+            {
+                return Activator.CreateInstance(typeof(IListGUI<>).MakeGenericType(this.ElementType.type));
+            }
             else
             {
-                return Activator.CreateInstance(typeof(FieldGUI<>).MakeGenericType(this.ElementType));
-            }
-        }
-
-        private static Type GetElementType()
-        {
-            Type type = typeof(T);
-
-            if (type.IsArray)
-            {
-                type = type.GetElementType();
-            }
-            else if (type.IsGenericType && (type.GetGenericTypeDefinition() == typeof(IList<>)))
-            {
-                Type[] types = type.GetGenericArguments();
-
-                if (types.Length == 1)
+                     if(this.ElementType.type == typeof(bool))       { return new BoolGUI();       }
+                else if(this.ElementType.type == typeof(int))        { return new IntGUI();        }
+                else if(this.ElementType.type == typeof(float))      { return new FloatGUI();      }
+                else if(this.ElementType.type == typeof(Vector2))    { return new Vector2GUI();    }
+                else if(this.ElementType.type == typeof(Vector3))    { return new Vector3GUI();    }
+                else if(this.ElementType.type == typeof(Vector4))    { return new Vector4GUI();    }
+                else if(this.ElementType.type == typeof(Vector2Int)) { return new Vector2IntGUI(); }
+                else if(this.ElementType.type == typeof(Vector3Int)) { return new Vector3IntGUI(); }
+                else if(this.ElementType.type == typeof(Color))      { return new ColorGUI();      }
+                else if(this.ElementType.type == typeof(Matrix4x4))  { return new Matrix4x4GUI();  }
+                else if(this.ElementType.type == typeof(string))     { return new StringGUI();     }
+                else
                 {
-                    type = types[0];
+                    return Activator.CreateInstance(typeof(FieldGUI<>).MakeGenericType(this.ElementType.type));
                 }
             }
-
-            return type;
         }
 
         #endregion Method
