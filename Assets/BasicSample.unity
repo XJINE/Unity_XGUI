@@ -178,6 +178,7 @@ MonoBehaviour:
     e33: 0
   ipv4Value: 127.0.0.1
   enumValue: 4
+  intValues: 030000000300000005000000
 --- !u!4 &810585867
 Transform:
   m_ObjectHideFlags: 0

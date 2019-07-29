@@ -18,6 +18,7 @@ public class BasicSample : MonoBehaviour
     public Matrix4x4  matrixValue;
     public string     ipv4Value;
     public CameraType enumValue;
+    public int[]      intValues;
 
     private FlexWindow   window;
     private TabPanel     tabPanel;
@@ -37,6 +38,7 @@ public class BasicSample : MonoBehaviour
     private Matrix4x4GUI  matrixGUI;
     private IPv4GUI       ipv4GUI;
     private EnumGUI<CameraType> enumGUI;
+    private IListGUI<int[]> intArrayGUI;
 
     #endregion Field
 
@@ -64,6 +66,7 @@ public class BasicSample : MonoBehaviour
         this.matrixGUI     = new Matrix4x4GUI ("Matrix4x4"   );
         this.ipv4GUI       = new IPv4GUI      ("IPv4"        );
         this.enumGUI       = new EnumGUI<CameraType> ("Enum" );
+        this.intArrayGUI   = new IListGUI<int[]>("Int[]");
     }
 
     void Update()
@@ -82,8 +85,8 @@ public class BasicSample : MonoBehaviour
 
         this.window.Show(() =>
         {
-            this.tabPanel.Show
-            (new TabPanel.Func("Basic", () =>
+            this.tabPanel.Show(
+            new TabPanel.Func("Basic", () =>
             {
                 this.boolValue = this.boolGUI.Show(this.boolValue);
                 this.stringValue = this.stringGUI.Show(this.stringValue);
@@ -120,7 +123,12 @@ public class BasicSample : MonoBehaviour
                                        XJGUILayout.LabelOption.NoWrap
                                      | XJGUILayout.LabelOption.Bold);
                 });
-            }));
+            }),
+            new TabPanel.Func("Array", () =>
+            {
+                this.intArrayGUI.Show(this.intValues);
+            })
+            );
         });
 
         #pragma warning restore 0219
