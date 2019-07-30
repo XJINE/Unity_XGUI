@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using XJGUI;
 
 public class FieldGUISample1 : MonoBehaviour
@@ -29,6 +30,10 @@ public class FieldGUISample1 : MonoBehaviour
     public CameraType cameraTypeA;
     public CameraType cameraTypeB;
     public UserStruct userStructValue;
+
+    [Header("Array")]
+    public int[] intArrayValue;
+    public List<UserStruct> structListValue;
 
     private FlexWindow window;
     private FieldGUI<FieldGUISample1> fieldGUI;

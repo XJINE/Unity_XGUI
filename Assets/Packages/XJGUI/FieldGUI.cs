@@ -172,7 +172,9 @@ namespace XJGUI
 
             if (typeInfo.isIList)
             {
-                return Activator.CreateInstance(typeof(IListGUI<>).MakeGenericType(typeInfo.type), title);
+                // CAUTION:
+                // Must use filedInfo.FieldType not TypeInfo.type.
+                return Activator.CreateInstance(typeof(IListGUI<>).MakeGenericType(fieldInfo.FieldType), title);
             }
             else if (type == typeof(bool))
             {
@@ -344,15 +346,19 @@ namespace XJGUI
             {
                 if (info.guiInfo.Hide) { continue; }
 
-                if (ShowGUI.ContainsKey(info.typeInfo.type))
+                if (info.typeInfo.isIList)
+                {
+                    info.fieldInfo.SetValue(value, info.gui.GetType().GetMethod("Show")
+                    .Invoke(info.gui, new object[] { info.fieldInfo.GetValue(value) }));
+                }
+                else if (ShowGUI.ContainsKey(info.typeInfo.type))
                 {
                     info.fieldInfo.SetValue(value, ShowGUI[info.typeInfo.type](value, info));
                 }
                 else // if User struct or class
                 {
-                    info.fieldInfo.SetValue(value,
-                    info.gui.GetType().GetMethod("Show").Invoke
-                    (info.gui, new object[] { info.fieldInfo.GetValue(value) }));
+                    info.fieldInfo.SetValue(value,info.gui.GetType().GetMethod("Show")
+                    .Invoke(info.gui, new object[] { info.fieldInfo.GetValue(value) }));
                 }
             }
         }
