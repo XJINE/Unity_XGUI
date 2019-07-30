@@ -152,38 +152,38 @@ MonoBehaviour:
   boolValue: 1
   stringValue: aiueo
   intValue: 777
-  floatValue: 3
-  vector2Value: {x: 1, y: 2}
-  vector3Value: {x: 1, y: 2, z: 3}
+  floatValue: 0.7346
+  vector2Value: {x: -1753475, y: 1031462}
+  vector3Value: {x: 7428581, y: 3285470, z: 2002010}
   vector4Value: {x: 1, y: 2, z: 3, w: 4}
-  vector2IntValue: {x: 1, y: 2}
-  vector3IntValue: {x: 1, y: 2, z: 3}
-  colorValue: {r: 0, g: 0, b: 0, a: 0}
+  vector2IntValue: {x: 143, y: 229}
+  vector3IntValue: {x: 1, y: 1, z: 1}
+  colorValue: {r: 0.5438, g: 0.4729, b: 0.6769, a: 1}
   matrixValue:
-    e00: 0
+    e00: 4400364
     e01: 0
     e02: 0
     e03: 0
     e10: 0
-    e11: 0
-    e12: 0
+    e11: 4187544
+    e12: 4586578
     e13: 0
     e20: 0
     e21: 0
     e22: 0
-    e23: 0
-    e30: 0
-    e31: 0
-    e32: 0
+    e23: -7569423
+    e30: 5950708
+    e31: 4848737
+    e32: 3746745
     e33: 0
   ipv4Value: 127.0.0.1
-  enumValue: 4
-  intArrayValue: 000000000000000000000000
+  enumValue: 8
+  intArrayValue: b38f24006548eaffa6d50700
   structListValue:
-  - vector3Value: {x: 0, y: 0, z: 0}
-    intValue: 0
-  - vector3Value: {x: 0, y: 0, z: 0}
-    intValue: 0
+  - vector3Value: {x: 6300738, y: 2667705, z: 188219.9}
+    intValue: -926205
+  - vector3Value: {x: 2937295, y: 1494866, z: 1881709}
+    intValue: -348467
 --- !u!4 &810585867
 Transform:
   m_ObjectHideFlags: 0

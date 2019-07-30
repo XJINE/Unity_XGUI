@@ -31,8 +31,8 @@ public class FieldGUISample : MonoBehaviour
     public UserStruct userStructValue;
 
     [Header("Array")]
-    public int[] intArrayValue;
-    public List<UserStruct> structListValue;
+    //public int[] intArrayValue;
+    //public List<UserStruct> structListValue;
 
     private FlexWindow window;
     private FieldGUI<FieldGUISample> fieldGUI;
