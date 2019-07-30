@@ -50,7 +50,6 @@ public class BasicSample : MonoBehaviour
     private Vector3IntGUI vector3IntGUI;
     private ColorGUI      colorGUI;
     private Matrix4x4GUI  matrixGUI;
-    private IPv4GUI       ipv4GUI;
     private EnumGUI<CameraType> enumGUI;
 
     private IListGUI<int[]>                  intArrayGUI;
@@ -59,6 +58,8 @@ public class BasicSample : MonoBehaviour
     private IListGUI<List<CameraType>[]>     enumListArrayGUI;
 
     #endregion Field
+
+    #region Method
 
     void Awake()
     {
@@ -82,7 +83,6 @@ public class BasicSample : MonoBehaviour
         this.vector3IntGUI = new Vector3IntGUI("Vector3Int", Vector3Int.zero, Vector3Int.one);
         this.colorGUI      = new ColorGUI     ("Color"       );
         this.matrixGUI     = new Matrix4x4GUI ("Matrix4x4"   );
-        this.ipv4GUI       = new IPv4GUI      ("IPv4"        );
         this.enumGUI       = new EnumGUI<CameraType> ("Enum" );
 
         this.intArrayGUI       = new IListGUI<int[]>("Int[]");
@@ -132,7 +132,6 @@ public class BasicSample : MonoBehaviour
             new TabPanel.Func("Others", () =>
             {
                 this.colorValue = this.colorGUI.Show(this.colorValue);
-                this.ipv4Value = this.ipv4GUI.Show(this.ipv4Value);
                 this.enumValue = this.enumGUI.Show(this.enumValue);
 
                 this.scrollPanel.Show(() =>
@@ -158,4 +157,6 @@ public class BasicSample : MonoBehaviour
 
         #pragma warning restore 0219
     }
+
+    #endregion Method
 }

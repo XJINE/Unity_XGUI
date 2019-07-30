@@ -5,8 +5,8 @@ public class FieldGUISample1 : MonoBehaviour
 {
     #region Field
 
-    public bool boolValue;
-    public int intValue;
+    public bool   boolValue;
+    public int    intValue;
     public string stringValue;
     [GUI(Hide = true)]
     public string hideValue;
@@ -23,13 +23,11 @@ public class FieldGUISample1 : MonoBehaviour
 
     [Header("Others")]
 
-    public Color colorValue;
+    public Color     colorValue;
     public Matrix4x4 matrixValue;
     [GUI(Width = 300)]
     public CameraType cameraTypeA;
     public CameraType cameraTypeB;
-    [GUI(IPv4 = true)]
-    public string ipV4Value;
     public UserStruct userStructValue;
 
     private FlexWindow window;

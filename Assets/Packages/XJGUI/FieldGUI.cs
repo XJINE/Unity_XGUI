@@ -170,18 +170,18 @@ namespace XJGUI
 
             if (typeInfo == null) { return new UnSupportedGUI() { Title = title }; }
 
-            NEED TO IMPLEMENT
-
-            if (typeInfo.isIList) { return new UnSupportedGUI() { Title = title }; }
-
-            if (type == typeof(bool))
+            if (typeInfo.isIList)
+            {
+                return Activator.CreateInstance(typeof(IListGUI<>).MakeGenericType(typeInfo.type), title);
+            }
+            else if (type == typeof(bool))
             {
                 return new BoolGUI()
                 {
                     Title = title
                 };
             }
-            if (type == typeof(int))
+            else if (type == typeof(int))
             {
                 return new IntGUI()
                 {
@@ -191,7 +191,7 @@ namespace XJGUI
                     MaxValue   = float.IsNaN(max)   ? XJGUILayout.DefaultMaxValueInt : (int)max
                 };
             }
-            if (type == typeof(float))
+            else if (type == typeof(float))
             {
                 return new FloatGUI()
                 {
@@ -201,7 +201,7 @@ namespace XJGUI
                     MaxValue   = float.IsNaN(max)   ? XJGUILayout.DefaultMaxValueFloat : max
                 };
             }
-            if (type == typeof(Vector2))
+            else if (type == typeof(Vector2))
             {
                 return new Vector2GUI()
                 {
@@ -213,7 +213,7 @@ namespace XJGUI
                                                     : new Vector2(max, max)
                 };
             }
-            if (type == typeof(Vector3))
+            else if (type == typeof(Vector3))
             {
                 return new Vector3GUI()
                 {
@@ -225,7 +225,7 @@ namespace XJGUI
                                                     : new Vector3(max, max, max)
                 };
             }
-            if (type == typeof(Vector4))
+            else if (type == typeof(Vector4))
             {
                 return new Vector4GUI()
                 {
@@ -237,7 +237,7 @@ namespace XJGUI
                                                     : new Vector4(max, max, max, max)
                 };
             }
-            if (type == typeof(Vector2Int))
+            else if (type == typeof(Vector2Int))
             {
                 return new Vector2IntGUI()
                 {
@@ -249,7 +249,7 @@ namespace XJGUI
                                                     : new Vector2Int((int)max, (int)max)
                 };
             }
-            if (type == typeof(Vector3Int))
+            else if (type == typeof(Vector3Int))
             {
                 return new Vector3IntGUI()
                 {
@@ -261,7 +261,7 @@ namespace XJGUI
                                                     : new Vector3Int((int)max, (int)max, (int)max)
                 };
             }
-            if (type == typeof(Color))
+            else if (type == typeof(Color))
             {
                 return new ColorGUI ()
                 {
@@ -273,7 +273,7 @@ namespace XJGUI
                                                     : new Color(max, max, max, max)
                 };
             }
-            if (type == typeof(Matrix4x4))
+            else if (type == typeof(Matrix4x4))
             {
                 return new Matrix4x4GUI
                 {
@@ -291,25 +291,17 @@ namespace XJGUI
                                                                     new Vector4(max, max, max, max)),
                 };
             }
-            if (type == typeof(string))
+            else if (type == typeof(string))
             {
-                if (guiInfo.IPv4)
-                {
-                    return new IPv4GUI()
-                    {
-                        Title = title
-                    };
-                }
-
                 return new StringGUI()
                 {
                     Title      = title,
                     FieldWidth = float.IsNaN(width) ? XJGUILayout.DefaultFieldWidthString : width,
                 };
             }
-            if (typeInfo.type.IsEnum)
+            else if (typeInfo.type.IsEnum)
             {
-                object enumGUI = Activator.CreateInstance(typeof(EnumGUI<>).MakeGenericType(fieldInfo.FieldType), title);
+                object enumGUI = Activator.CreateInstance(typeof(EnumGUI<>).MakeGenericType(typeInfo.type), title);
                 float buttonWidth = float.IsNaN(width) ? XJGUILayout.DefaultButtonWidth : width;
 
                 Type enumGUIType = enumGUI.GetType();
@@ -319,9 +311,7 @@ namespace XJGUI
                 return enumGUI;
             }
 
-            return Activator.CreateInstance(typeof(FieldGUI<>).MakeGenericType(fieldInfo.FieldType), title);
-
-            //return new UnSupportedGUI() { Title = title };
+            return Activator.CreateInstance(typeof(FieldGUI<>).MakeGenericType(typeInfo.type), title);
         }
 
         public override T Show(T value)
@@ -380,11 +370,7 @@ namespace XJGUI
             { typeof(Vector3Int), (v, i) => { return ((Vector3IntGUI) i.gui).Show((Vector3Int) i.fieldInfo.GetValue(v)); } },
             { typeof(Color),      (v, i) => { return ((ColorGUI)      i.gui).Show((Color)      i.fieldInfo.GetValue(v)); } },
             { typeof(Matrix4x4),  (v, i) => { return ((Matrix4x4GUI)  i.gui).Show((Matrix4x4)  i.fieldInfo.GetValue(v)); } },
-            { typeof(string),     (v, i) =>
-            {
-                if(i.guiInfo.IPv4) return ((IPv4GUI)   i.gui).Show((string) i.fieldInfo.GetValue(v));
-                else               return ((StringGUI) i.gui).Show((string) i.fieldInfo.GetValue(v));
-            }},
+            { typeof(string),     (v, i) => { return ((StringGUI)     i.gui).Show((string)     i.fieldInfo.GetValue(v)); } },
         };
 
         #endregion Method
