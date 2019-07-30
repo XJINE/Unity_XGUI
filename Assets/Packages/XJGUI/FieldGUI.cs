@@ -169,6 +169,9 @@ namespace XJGUI
             float  width = guiInfo.Width;
 
             if (typeInfo == null) { return new UnSupportedGUI() { Title = title }; }
+
+            NEED TO IMPLEMENT
+
             if (typeInfo.isIList) { return new UnSupportedGUI() { Title = title }; }
 
             if (type == typeof(bool))
