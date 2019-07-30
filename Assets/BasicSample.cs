@@ -107,15 +107,15 @@ public class BasicSample : MonoBehaviour
 
         this.window.Show(() =>
         {
-            this.tabPanel.Show(
-            new TabPanel.Func("Basic", () =>
+            this.tabPanel.Show
+            (("Basic", () =>
             {
                 this.boolValue = this.boolGUI.Show(this.boolValue);
                 this.stringValue = this.stringGUI.Show(this.stringValue);
                 this.intValue = this.intGUI.Show(this.intValue);
                 this.floatValue = this.floatGUI.Show(this.floatValue);
             }),
-            new TabPanel.Func("Vector & Matrix", () =>
+            ("Vector & Matrix", () =>
             {
                 this.foldoutPanel.Show(() =>
                 {
@@ -129,7 +129,7 @@ public class BasicSample : MonoBehaviour
 
                 this.matrixValue = this.matrixGUI.Show(this.matrixValue);
             }),
-            new TabPanel.Func("Others", () =>
+            ("Others", () =>
             {
                 this.colorValue = this.colorGUI.Show(this.colorValue);
                 this.enumValue = this.enumGUI.Show(this.enumValue);
@@ -145,14 +145,13 @@ public class BasicSample : MonoBehaviour
                                      | XJGUILayout.LabelOption.Bold);
                 });
             }),
-            new TabPanel.Func("Array", () =>
+            ("Array", () =>
             {
                 this.intArrayGUI.Show(this.intArrayValue);
                 this.structListGUI.Show(this.structListValue);
                 this.structListListGUI.Show(this.structListListValue);
                 this.enumListArrayGUI.Show(this.enumListArrayValue);
-            })
-            );
+            }));
         });
 
         #pragma warning restore 0219

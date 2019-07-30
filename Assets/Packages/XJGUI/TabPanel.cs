@@ -35,25 +35,13 @@ namespace XJGUI
 
         #region Method
 
-        public class Func
+        public virtual int Show(params (string label, Action show)[] tabs)
         {
-            public string label;
-            public Action show;
-
-            public Func(string label, Action show)
-            {
-                this.label = label;
-                this.show  = show;
-            }
-        }
-
-        public virtual int Show(params Func[] show)
-        {
-            var labels = new string[show.Length];
+            var labels = new string[tabs.Length];
 
             for (int i = 0; i < labels.Length; i++)
             {
-                labels[i] = show[i].label;
+                labels[i] = tabs[i].label;
             }
 
             XJGUILayout.VerticalLayout(() =>
@@ -62,13 +50,13 @@ namespace XJGUI
 
                 this.value = GUILayout.Toolbar(this.value, labels, TabStyle);
 
-                show[this.value].show();
+                tabs[this.value].show();
 
             }, GUI.skin.box);
 
             return this.value;
         }
-        
+
         #endregion Method
     }
 }
