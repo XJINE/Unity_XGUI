@@ -23,6 +23,9 @@ namespace XJGUI
             }
             else if (typeInfo.type.IsGenericType)
             {
+                // NOTE:
+                // typeof(IList<>) will not be equaled.
+
                 if (typeInfo.type.GetGenericTypeDefinition() == typeof(List<>))
                 {
                     Type[] types = typeInfo.type.GetGenericArguments();
