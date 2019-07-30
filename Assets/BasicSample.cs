@@ -19,9 +19,20 @@ public class BasicSample : MonoBehaviour
     public Matrix4x4  matrixValue;
     public string     ipv4Value;
     public CameraType enumValue;
-    public int[]      intValues;
-    public List<UserStruct> structValues;
-    public List<List<UserStruct>> structsValues = new List<List<UserStruct>>() { new List<UserStruct>() { new UserStruct() } };
+
+    public int[]      intArrayValue;
+    public List<UserStruct> structListValue;
+    public List<List<UserStruct>> structListListValue
+    = new List<List<UserStruct>>() 
+    {
+        new List<UserStruct>() { new UserStruct() },
+        new List<UserStruct>() { }
+    };
+    public List<CameraType>[] enumListArrayValue
+    = new List<CameraType>[]
+    {
+        new List<CameraType>() { CameraType.Game, CameraType.Reflection }
+    };
 
     private FlexWindow   window;
     private TabPanel     tabPanel;
@@ -44,7 +55,8 @@ public class BasicSample : MonoBehaviour
 
     private IListGUI<int[]> intArrayGUI;
     private IListGUI<List<UserStruct>> structListGUI;
-    private IListGUI<List<List<UserStruct>>> structListsGUI;
+    private IListGUI<List<List<UserStruct>>> structListListGUI;
+    private IListGUI<List<CameraType>[]> enumListArrayGUI;
 
     #endregion Field
 
@@ -72,9 +84,11 @@ public class BasicSample : MonoBehaviour
         this.matrixGUI     = new Matrix4x4GUI ("Matrix4x4"   );
         this.ipv4GUI       = new IPv4GUI      ("IPv4"        );
         this.enumGUI       = new EnumGUI<CameraType> ("Enum" );
-        //this.intArrayGUI   = new IListGUI<int[]>("Int[]");
-        //this.structListGUI = new IListGUI<List<UserStruct>>("List<UserStruct>");
-        this.structListsGUI = new IListGUI<List<List<UserStruct>>>("List<List<UserStruct>>");
+
+        this.intArrayGUI = new IListGUI<int[]>("Int[]");
+        this.structListGUI = new IListGUI<List<UserStruct>>("List<UserStruct>");
+        this.structListListGUI = new IListGUI<List<List<UserStruct>>>("List<List<UserStruct>>");
+        this.enumListArrayGUI = new IListGUI<List<CameraType>[]>("List<CameraType>[]");
     }
 
     void Update()
@@ -134,9 +148,10 @@ public class BasicSample : MonoBehaviour
             }),
             new TabPanel.Func("Array", () =>
             {
-                //this.intArrayGUI.Show(this.intValues);
-                //this.structListGUI.Show(this.structValues);
-                this.structListsGUI.Show(this.structsValues);
+                this.intArrayGUI.Show(this.intArrayValue);
+                this.structListGUI.Show(this.structListValue);
+                this.structListListGUI.Show(this.structListListValue);
+                this.enumListArrayGUI.Show(this.enumListArrayValue);
             })
             );
         });

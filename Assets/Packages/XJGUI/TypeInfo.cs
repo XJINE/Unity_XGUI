@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 namespace XJGUI
 {
-    class Test : List<int> { }
-
     public class TypeInfo
     {
         public bool isIList;

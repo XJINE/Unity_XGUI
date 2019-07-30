@@ -15,3 +15,6 @@ namespace XJGUI
         #endregion Property
     }
 }
+
+Remote IPv4
+Refactor Make Reflection GUI.

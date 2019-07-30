@@ -178,8 +178,8 @@ MonoBehaviour:
     e33: 0
   ipv4Value: 127.0.0.1
   enumValue: 4
-  intValues: 030000000300000005000000
-  structValues:
+  intArrayValue: 000000000000000000000000
+  structListValue:
   - vector3Value: {x: 0, y: 0, z: 0}
     intValue: 0
   - vector3Value: {x: 0, y: 0, z: 0}
