@@ -20,16 +20,16 @@ public class BasicSample : MonoBehaviour
     public string     ipv4Value;
     public CameraType enumValue;
 
-    public int[]      intArrayValue;
+    public int[] intArrayValue;
     public List<UserStruct> structListValue;
-    public List<List<UserStruct>> structListListValue
-    = new List<List<UserStruct>>() 
+
+    public List<List<UserStruct>> structListListValue = new List<List<UserStruct>>()
     {
         new List<UserStruct>() { new UserStruct() },
         new List<UserStruct>() { }
     };
-    public List<CameraType>[] enumListArrayValue
-    = new List<CameraType>[]
+
+    public List<CameraType>[] enumListArrayValue = new List<CameraType>[]
     {
         new List<CameraType>() { CameraType.Game, CameraType.Reflection }
     };
@@ -53,10 +53,10 @@ public class BasicSample : MonoBehaviour
     private IPv4GUI       ipv4GUI;
     private EnumGUI<CameraType> enumGUI;
 
-    private IListGUI<int[]> intArrayGUI;
-    private IListGUI<List<UserStruct>> structListGUI;
+    private IListGUI<int[]>                  intArrayGUI;
+    private IListGUI<List<UserStruct>>       structListGUI;
     private IListGUI<List<List<UserStruct>>> structListListGUI;
-    private IListGUI<List<CameraType>[]> enumListArrayGUI;
+    private IListGUI<List<CameraType>[]>     enumListArrayGUI;
 
     #endregion Field
 
@@ -85,10 +85,10 @@ public class BasicSample : MonoBehaviour
         this.ipv4GUI       = new IPv4GUI      ("IPv4"        );
         this.enumGUI       = new EnumGUI<CameraType> ("Enum" );
 
-        this.intArrayGUI = new IListGUI<int[]>("Int[]");
-        this.structListGUI = new IListGUI<List<UserStruct>>("List<UserStruct>");
+        this.intArrayGUI       = new IListGUI<int[]>("Int[]");
+        this.structListGUI     = new IListGUI<List<UserStruct>>("List<UserStruct>");
         this.structListListGUI = new IListGUI<List<List<UserStruct>>>("List<List<UserStruct>>");
-        this.enumListArrayGUI = new IListGUI<List<CameraType>[]>("List<CameraType>[]");
+        this.enumListArrayGUI  = new IListGUI<List<CameraType>[]>("List<CameraType>[]");
     }
 
     void Update()
