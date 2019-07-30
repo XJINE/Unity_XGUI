@@ -6,6 +6,8 @@ namespace XJGUI
 {
     public static class GUIHelper
     {
+        #region Field
+
         private static Type IListGUIType = typeof(IListGUI<>);
         private static Type EnumGUIType  = typeof(EnumGUI<>);
         private static Type FieldGUIType = typeof(FieldGUI<>);
@@ -24,6 +26,8 @@ namespace XJGUI
             { typeof(Color),      typeof(ColorGUI)      },
             { typeof(Matrix4x4),  typeof(Matrix4x4GUI)  },
         };
+
+        #endregion Field
 
         public static object GenerateGUI(TypeInfo typeInfo)
         {
@@ -49,9 +53,17 @@ namespace XJGUI
             return Activator.CreateInstance(guiType);
         }
 
-        public static object GenerateGUI(TypeInfo typeInfo, string title, float min, float max, float width)
+        public static object GenerateGUI(TypeInfo typeInfo,
+                                         string   title = null,
+                                         float    min   = float.NaN,
+                                         float    max   = float.NaN,
+                                         float    width = float.NaN)
         {
-            Type guiType = null;
+            Type   guiType   = null;
+            object minObject = null;
+            object maxObject = null;
+
+            width = float.IsNaN(width) ? width : XJGUILayout.DefaultWidth;
 
             if (typeInfo.isIList)
             {
@@ -61,9 +73,71 @@ namespace XJGUI
             {
                 guiType = EnumGUIType.MakeGenericType(typeInfo.type);;
             }
-            else if (TypeDictionary.ContainsKey(typeInfo.type))
+            else if (typeInfo.type == typeof(bool))
             {
-                guiType = TypeDictionary[typeInfo.type];
+                guiType = typeof(BoolGUI);
+            }
+            else if (typeInfo.type == typeof(int))
+            {
+                guiType   = typeof(IntGUI);
+                minObject = float.IsNaN(min) ? XJGUILayout.DefaultMinValueInt : (int)min;
+                maxObject = float.IsNaN(max) ? XJGUILayout.DefaultMaxValueInt : (int)max;
+            }
+            else if (typeInfo.type == typeof(float))
+            {
+                guiType   = typeof(FloatGUI);
+                minObject = float.IsNaN(min) ? XJGUILayout.DefaultMinValueFloat : min;
+                maxObject = float.IsNaN(max) ? XJGUILayout.DefaultMaxValueFloat : max;
+            }
+            else if (typeInfo.type == typeof(Vector2))
+            {
+                guiType   = typeof(Vector2GUI);
+                minObject = float.IsNaN(min) ? XJGUILayout.DefaultMinValueVector2 : new Vector2(min, min);
+                maxObject = float.IsNaN(max) ? XJGUILayout.DefaultMaxValueVector2 : new Vector2(max, max);
+            }
+            else if (typeInfo.type == typeof(Vector3))
+            {
+                guiType   = typeof(Vector3GUI);
+                minObject = float.IsNaN(min) ? XJGUILayout.DefaultMinValueVector3 : new Vector3(min, min, min);
+                maxObject = float.IsNaN(max) ? XJGUILayout.DefaultMaxValueVector3 : new Vector3(max, max, max);
+            }
+            else if (typeInfo.type == typeof(Vector4))
+            {
+                guiType   = typeof(Vector4GUI);
+                minObject = float.IsNaN(min) ? XJGUILayout.DefaultMinValueVector4 : new Vector4(min, min, min, min);
+                maxObject = float.IsNaN(max) ? XJGUILayout.DefaultMaxValueVector4 : new Vector4(max, max, max, max);
+            }
+            else if (typeInfo.type == typeof(Vector2Int))
+            {
+                guiType   = typeof(Vector2IntGUI);
+                minObject = float.IsNaN(min) ? XJGUILayout.DefaultMinValueVector2Int : new Vector2Int((int)min, (int)min);
+                maxObject = float.IsNaN(max) ? XJGUILayout.DefaultMaxValueVector2Int : new Vector2Int((int)max, (int)max);
+            }
+            else if (typeInfo.type == typeof(Vector3Int))
+            {
+                guiType   = typeof(Vector3IntGUI);
+                minObject = float.IsNaN(min) ? XJGUILayout.DefaultMinValueVector3Int : new Vector3Int((int)min, (int)min, (int)min);
+                maxObject = float.IsNaN(max) ? XJGUILayout.DefaultMaxValueVector3Int : new Vector3Int((int)max, (int)max, (int)max);
+            }
+            else if (typeInfo.type == typeof(Color))
+            {
+                guiType   = typeof(ColorGUI);
+                minObject = float.IsNaN(min) ? XJGUILayout.DefaultMinValueColor : new Color(min, min, min, min);
+                maxObject = float.IsNaN(max) ? XJGUILayout.DefaultMaxValueColor : new Color(max, max, max, max);
+            }
+            else if (typeInfo.type == typeof(Matrix4x4))
+            {
+                guiType   = typeof(Matrix4x4GUI);
+                minObject = float.IsNaN(min) ? XJGUILayout.DefaultMinValueMatrix4x4
+                                             : new Matrix4x4(new Vector4(min, min, min, min),
+                                                             new Vector4(min, min, min, min),
+                                                             new Vector4(min, min, min, min),
+                                                             new Vector4(min, min, min, min));
+                maxObject = float.IsNaN(max) ? XJGUILayout.DefaultMaxValueMatrix4x4
+                                             : new Matrix4x4(new Vector4(max, max, max, max),
+                                                             new Vector4(max, max, max, max),
+                                                             new Vector4(max, max, max, max),
+                                                             new Vector4(max, max, max, max));
             }
             else
             {
@@ -74,43 +148,11 @@ namespace XJGUI
 
             guiType = gui.GetType();
             guiType.GetProperty("Title")?.SetValue(gui, title);
-            guiType.GetProperty("MinValue")?.SetValue(gui, min);
-            guiType.GetProperty("MaxValue")?.SetValue(gui, max);
+            guiType.GetProperty("MinValue")?.SetValue(gui, minObject);
+            guiType.GetProperty("MaxValue")?.SetValue(gui, maxObject);
             guiType.GetProperty("Width")?.SetValue(gui, width);
 
             return gui;
-        }
-
-        public static void AddUserGUI(Type valueType, Type guiType)
-        {
-            TypeDictionary.Add(valueType, guiType);
-        }
-
-        public static void SetMinValue(object gui, float minValue)
-        {
-            object m = minValue;
-            Type type = gui.GetType();
-            bool minIsNaN = float.IsNaN(minValue);
-
-                 if (type == typeof(int))        m = minIsNaN ? XJGUILayout.DefaultMinValueInt        : (int)minValue;
-            else if (type == typeof(float))      m = minIsNaN ? XJGUILayout.DefaultMinValueFloat      : minValue;
-            else if (type == typeof(Vector2))    m = minIsNaN ? XJGUILayout.DefaultMinValueVector2    : new Vector2(minValue, minValue);
-            else if (type == typeof(Vector3))    m = minIsNaN ? XJGUILayout.DefaultMinValueVector3    : new Vector3(minValue, minValue, minValue);
-            else if (type == typeof(Vector4))    m = minIsNaN ? XJGUILayout.DefaultMinValueVector4    : new Vector4(minValue, minValue, minValue, minValue);
-            else if (type == typeof(Vector2Int)) m = minIsNaN ? XJGUILayout.DefaultMinValueVector2Int : new Vector2Int((int)minValue, (int)minValue);
-            else if (type == typeof(Vector3Int)) m = minIsNaN ? XJGUILayout.DefaultMinValueVector3Int : new Vector3Int((int)minValue, (int)minValue, (int)minValue);
-            else if (type == typeof(Color))      m = minIsNaN ? XJGUILayout.DefaultMinValueColor      : new Color(minValue, minValue, minValue, minValue);
-            else if (type == typeof(Matrix4x4))  m = minIsNaN ? XJGUILayout.DefaultMinValueMatrix4x4  : new Matrix4x4(new Vector4(minValue, minValue, minValue, minValue),
-                                                                                                        new Vector4(minValue, minValue, minValue, minValue),
-                                                                                                        new Vector4(minValue, minValue, minValue, minValue),
-                                                                                                        new Vector4(minValue, minValue, minValue, minValue));
-
-
-        }
-
-        public static object Show(object gui, object value)
-        {
-            return gui.GetType().GetMethod("Show").Invoke(gui, new object[] { value });
         }
     }
 }
