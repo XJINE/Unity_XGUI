@@ -42,7 +42,7 @@ namespace XJGUI
         {
             base.Initialize();
 
-            base.FieldWidth = XJGUILayout.DefaultFieldWidthValue;
+            base.Width = XJGUILayout.DefaultWidth;
             this.Slider     = XJGUILayout.DefaultSlider;
         }
 

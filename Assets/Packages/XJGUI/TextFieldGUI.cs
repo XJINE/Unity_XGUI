@@ -6,7 +6,7 @@ namespace XJGUI
     {
         #region Property
 
-        public virtual float FieldWidth { get; set; }
+        public virtual float Width { get; set; }
 
         protected virtual GUIStyle FieldStyle
         {
@@ -17,8 +17,8 @@ namespace XJGUI
         {
             get
             {
-                return FieldWidth <= 0 ? GUILayout.ExpandWidth(true)
-                                       : GUILayout.Width(FieldWidth);
+                return Width <= 0 ? GUILayout.ExpandWidth(true)
+                                  : GUILayout.Width(Width);
             }
         }
 
@@ -36,7 +36,7 @@ namespace XJGUI
 
         protected override void ShowTitle(bool dummyTitle = false)
         {
-            base.ShowTitle(FieldWidth > 0 && base.Title == null);
+            base.ShowTitle(Width > 0 && base.Title == null);
         }
 
         protected virtual string ShowTextField(string text)

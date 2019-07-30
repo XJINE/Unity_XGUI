@@ -187,44 +187,44 @@ namespace XJGUI
             {
                 return new IntGUI()
                 {
-                    Title      = title,
-                    FieldWidth = float.IsNaN(width) ? XJGUILayout.DefaultFieldWidthValue : width,
-                    MinValue   = float.IsNaN(min)   ? XJGUILayout.DefaultMinValueInt : (int)min,
-                    MaxValue   = float.IsNaN(max)   ? XJGUILayout.DefaultMaxValueInt : (int)max
+                    Title    = title,
+                    Width    = float.IsNaN(width) ? XJGUILayout.DefaultWidth : width,
+                    MinValue = float.IsNaN(min)   ? XJGUILayout.DefaultMinValueInt : (int)min,
+                    MaxValue = float.IsNaN(max)   ? XJGUILayout.DefaultMaxValueInt : (int)max
                 };
             }
             else if (type == typeof(float))
             {
                 return new FloatGUI()
                 {
-                    Title      = title,
-                    FieldWidth = float.IsNaN(width) ? XJGUILayout.DefaultFieldWidthValue : width,
-                    MinValue   = float.IsNaN(min)   ? XJGUILayout.DefaultMinValueFloat : min,
-                    MaxValue   = float.IsNaN(max)   ? XJGUILayout.DefaultMaxValueFloat : max
+                    Title    = title,
+                    Width    = float.IsNaN(width) ? XJGUILayout.DefaultWidth : width,
+                    MinValue = float.IsNaN(min)   ? XJGUILayout.DefaultMinValueFloat : min,
+                    MaxValue = float.IsNaN(max)   ? XJGUILayout.DefaultMaxValueFloat : max
                 };
             }
             else if (type == typeof(Vector2))
             {
                 return new Vector2GUI()
                 {
-                    Title      = title,
-                    FieldWidth = float.IsNaN(width) ? XJGUILayout.DefaultFieldWidthValue : width,
-                    MinValue   = float.IsNaN(min)   ? XJGUILayout.DefaultMinValueVector2
-                                                    : new Vector2(min, min),
-                    MaxValue   = float.IsNaN(max)   ? XJGUILayout.DefaultMaxValueVector2
-                                                    : new Vector2(max, max)
+                    Title    = title,
+                    Width    = float.IsNaN(width) ? XJGUILayout.DefaultWidth : width,
+                    MinValue = float.IsNaN(min)   ? XJGUILayout.DefaultMinValueVector2
+                                                  : new Vector2(min, min),
+                    MaxValue = float.IsNaN(max)   ? XJGUILayout.DefaultMaxValueVector2
+                                                  : new Vector2(max, max)
                 };
             }
             else if (type == typeof(Vector3))
             {
                 return new Vector3GUI()
                 {
-                    Title      = title,
-                    FieldWidth = float.IsNaN(width) ? XJGUILayout.DefaultFieldWidthValue : width,
-                    MinValue   = float.IsNaN(min)   ? XJGUILayout.DefaultMinValueVector3
-                                                    : new Vector3(min, min, min),
-                    MaxValue   = float.IsNaN(max)   ? XJGUILayout.DefaultMaxValueVector3
-                                                    : new Vector3(max, max, max)
+                    Title    = title,
+                    Width    = float.IsNaN(width) ? XJGUILayout.DefaultWidth : width,
+                    MinValue = float.IsNaN(min)   ? XJGUILayout.DefaultMinValueVector3
+                                                  : new Vector3(min, min, min),
+                    MaxValue = float.IsNaN(max)   ? XJGUILayout.DefaultMaxValueVector3
+                                                  : new Vector3(max, max, max)
                 };
             }
             else if (type == typeof(Vector4))
@@ -232,7 +232,7 @@ namespace XJGUI
                 return new Vector4GUI()
                 {
                     Title      = title,
-                    FieldWidth = float.IsNaN(width) ? XJGUILayout.DefaultFieldWidthValue : width,
+                    Width      = float.IsNaN(width) ? XJGUILayout.DefaultWidth : width,
                     MinValue   = float.IsNaN(min)   ? XJGUILayout.DefaultMinValueVector4
                                                     : new Vector4(min, min, min, min),
                     MaxValue   = float.IsNaN(max)   ? XJGUILayout.DefaultMaxValueVector4
@@ -243,12 +243,12 @@ namespace XJGUI
             {
                 return new Vector2IntGUI()
                 {
-                    Title      = title,
-                    FieldWidth = float.IsNaN(width) ? XJGUILayout.DefaultFieldWidthValue : width,
-                    MinValue   = float.IsNaN(min)   ? XJGUILayout.DefaultMinValueVector2Int
-                                                    : new Vector2Int((int)min, (int)min),
-                    MaxValue   = float.IsNaN(max)   ? XJGUILayout.DefaultMaxValueVector2Int
-                                                    : new Vector2Int((int)max, (int)max)
+                    Title    = title,
+                    Width    = float.IsNaN(width) ? XJGUILayout.DefaultWidth : width,
+                    MinValue = float.IsNaN(min)   ? XJGUILayout.DefaultMinValueVector2Int
+                                                  : new Vector2Int((int)min, (int)min),
+                    MaxValue = float.IsNaN(max)   ? XJGUILayout.DefaultMaxValueVector2Int
+                                                  : new Vector2Int((int)max, (int)max)
                 };
             }
             else if (type == typeof(Vector3Int))
@@ -256,7 +256,7 @@ namespace XJGUI
                 return new Vector3IntGUI()
                 {
                     Title      = title,
-                    FieldWidth = float.IsNaN(width) ? XJGUILayout.DefaultFieldWidthValue : width,
+                    Width = float.IsNaN(width) ? XJGUILayout.DefaultWidth : width,
                     MinValue   = float.IsNaN(min)   ? XJGUILayout.DefaultMinValueVector3Int
                                                     : new Vector3Int((int)min, (int)min, (int)min),
                     MaxValue   = float.IsNaN(max)   ? XJGUILayout.DefaultMaxValueVector3Int
@@ -268,7 +268,7 @@ namespace XJGUI
                 return new ColorGUI ()
                 {
                     Title      = title,
-                    FieldWidth = float.IsNaN(width) ? XJGUILayout.DefaultFieldWidthValue : width,
+                    Width = float.IsNaN(width) ? XJGUILayout.DefaultWidth : width,
                     MinValue   = float.IsNaN(min)   ? XJGUILayout.DefaultMinValueColor
                                                     : new Color(min, min, min, min),
                     MaxValue   = float.IsNaN(max)   ? XJGUILayout.DefaultMaxValueColor
@@ -279,18 +279,18 @@ namespace XJGUI
             {
                 return new Matrix4x4GUI
                 {
-                    Title      = title,
-                    FieldWidth = float.IsNaN(width) ? XJGUILayout.DefaultFieldWidthValue : width,
-                    MinValue   = float.IsNaN(min)   ? XJGUILayout.DefaultMinValueMatrix4x4 
-                                                    : new Matrix4x4(new Vector4(min, min, min, min),
-                                                                    new Vector4(min, min, min, min),
-                                                                    new Vector4(min, min, min, min),
-                                                                    new Vector4(min, min, min, min)),
-                    MaxValue   = float.IsNaN(max)   ? XJGUILayout.DefaultMaxValueMatrix4x4
-                                                    : new Matrix4x4(new Vector4(max, max, max, max),
-                                                                    new Vector4(max, max, max, max),
-                                                                    new Vector4(max, max, max, max),
-                                                                    new Vector4(max, max, max, max)),
+                    Title    = title,
+                    Width    = float.IsNaN(width) ? XJGUILayout.DefaultWidth : width,
+                    MinValue = float.IsNaN(min)   ? XJGUILayout.DefaultMinValueMatrix4x4 
+                                                  : new Matrix4x4(new Vector4(min, min, min, min),
+                                                                  new Vector4(min, min, min, min),
+                                                                  new Vector4(min, min, min, min),
+                                                                  new Vector4(min, min, min, min)),
+                    MaxValue = float.IsNaN(max)   ? XJGUILayout.DefaultMaxValueMatrix4x4
+                                                  : new Matrix4x4(new Vector4(max, max, max, max),
+                                                                  new Vector4(max, max, max, max),
+                                                                  new Vector4(max, max, max, max),
+                                                                  new Vector4(max, max, max, max)),
                 };
             }
             else if (type == typeof(string))
@@ -298,17 +298,17 @@ namespace XJGUI
                 return new StringGUI()
                 {
                     Title      = title,
-                    FieldWidth = float.IsNaN(width) ? XJGUILayout.DefaultFieldWidthString : width,
+                    Width = float.IsNaN(width) ? XJGUILayout.DefaultWidth : width,
                 };
             }
             else if (typeInfo.type.IsEnum)
             {
                 object enumGUI = Activator.CreateInstance(typeof(EnumGUI<>).MakeGenericType(typeInfo.type), title);
-                float buttonWidth = float.IsNaN(width) ? XJGUILayout.DefaultButtonWidth : width;
+                float buttonWidth = float.IsNaN(width) ? XJGUILayout.DefaultWidth : width;
 
                 Type enumGUIType = enumGUI.GetType();
                 enumGUIType.GetProperty("Title").SetValue(enumGUI, title);
-                enumGUIType.GetProperty("ButtonWidth").SetValue(enumGUI, buttonWidth);
+                enumGUIType.GetProperty("Width").SetValue(enumGUI, buttonWidth);
 
                 return enumGUI;
             }

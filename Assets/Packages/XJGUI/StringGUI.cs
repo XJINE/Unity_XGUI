@@ -15,7 +15,7 @@
         protected override void Initialize()
         {
             base.Initialize();
-            this.FieldWidth = XJGUILayout.DefaultFieldWidthString;
+            this.Width = XJGUILayout.DefaultWidth;
         }
 
         public override string Show(string value)

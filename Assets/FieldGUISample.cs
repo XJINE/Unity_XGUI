@@ -2,7 +2,7 @@
 using UnityEngine;
 using XJGUI;
 
-public class FieldGUISample1 : MonoBehaviour
+public class FieldGUISample : MonoBehaviour
 {
     #region Field
 
@@ -36,7 +36,7 @@ public class FieldGUISample1 : MonoBehaviour
     public List<UserStruct> structListValue;
 
     private FlexWindow window;
-    private FieldGUI<FieldGUISample1> fieldGUI;
+    private FieldGUI<FieldGUISample> fieldGUI;
 
     #endregion Field
 
@@ -45,7 +45,7 @@ public class FieldGUISample1 : MonoBehaviour
     private void Start()
     {
         this.window = new FlexWindow();
-        this.fieldGUI = new FieldGUI<FieldGUISample1>();
+        this.fieldGUI = new FieldGUI<FieldGUISample>();
     }
 
     private void OnGUI()

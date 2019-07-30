@@ -66,17 +66,17 @@ namespace XJGUI
             }
         }
 
-        public override float FieldWidth
+        public override float Width
         {
             get
             {
-                return this.floatGUIX.FieldWidth;
+                return this.floatGUIX.Width;
             }
             set
             {
-                this.floatGUIX.FieldWidth = value;
-                this.floatGUIY.FieldWidth = value;
-                this.floatGUIZ.FieldWidth = value;
+                this.floatGUIX.Width = value;
+                this.floatGUIY.Width = value;
+                this.floatGUIZ.Width = value;
             }
         }
 

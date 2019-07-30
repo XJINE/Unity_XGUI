@@ -19,9 +19,7 @@ public static class XJGUILayout
     #region Default GUI Settings
 
     public static string DefaultTitle             = null;
-    public static int    DefaultFieldWidthString  = 100;
-    public static int    DefaultFieldWidthValue   = 100;
-    public static float  DefaultButtonWidth       = 100;
+    public static float  DefaultWidth             = 100;
     public static int    DefaultDecimals          = 4;
     public static bool   DefaultSlider            = true;
     public static Color  DefaultInvalidValueColor = new Color(1, 0, 0, 1);

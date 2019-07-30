@@ -170,33 +170,33 @@ namespace XJGUI
             }
         }
 
-        public override float FieldWidth
+        public override float Width
         {
             get
             {
-                return this.floatGUIM00.FieldWidth;
+                return this.floatGUIM00.Width;
             }
             set
             {
-                this.floatGUIM00.FieldWidth = value;
-                this.floatGUIM10.FieldWidth = value;
-                this.floatGUIM20.FieldWidth = value;
-                this.floatGUIM30.FieldWidth = value;
+                this.floatGUIM00.Width = value;
+                this.floatGUIM10.Width = value;
+                this.floatGUIM20.Width = value;
+                this.floatGUIM30.Width = value;
 
-                this.floatGUIM01.FieldWidth = value;
-                this.floatGUIM11.FieldWidth = value;
-                this.floatGUIM21.FieldWidth = value;
-                this.floatGUIM31.FieldWidth = value;
+                this.floatGUIM01.Width = value;
+                this.floatGUIM11.Width = value;
+                this.floatGUIM21.Width = value;
+                this.floatGUIM31.Width = value;
 
-                this.floatGUIM02.FieldWidth = value;
-                this.floatGUIM12.FieldWidth = value;
-                this.floatGUIM22.FieldWidth = value;
-                this.floatGUIM32.FieldWidth = value;
+                this.floatGUIM02.Width = value;
+                this.floatGUIM12.Width = value;
+                this.floatGUIM22.Width = value;
+                this.floatGUIM32.Width = value;
 
-                this.floatGUIM03.FieldWidth = value;
-                this.floatGUIM13.FieldWidth = value;
-                this.floatGUIM23.FieldWidth = value;
-                this.floatGUIM33.FieldWidth = value;
+                this.floatGUIM03.Width = value;
+                this.floatGUIM13.Width = value;
+                this.floatGUIM23.Width = value;
+                this.floatGUIM33.Width = value;
             }
         }
 

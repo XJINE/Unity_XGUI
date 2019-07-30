@@ -73,7 +73,7 @@ public class BasicSample : MonoBehaviour
         this.scrollPanel  = new ScrollPanel () { MinHeight = 100 };
 
         this.boolGUI       = new BoolGUI      ("Bool"        );
-        this.stringGUI     = new StringGUI    ("String"      ) { FieldWidth = 250 };
+        this.stringGUI     = new StringGUI    ("String"      ) { Width = 250 };
         this.intGUI        = new IntGUI       ("Int"         );
         this.floatGUI      = new FloatGUI     ("Float", -1, 1);
         this.vector2GUI    = new Vector2GUI   ("Vector2"     ) { Decimals = 1 };

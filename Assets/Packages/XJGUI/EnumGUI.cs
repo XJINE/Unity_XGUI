@@ -27,7 +27,7 @@ namespace XJGUI
 
         #region Property
 
-        public float ButtonWidth { get; set; }
+        public float Width { get; set; }
 
         protected GUIStyle ButtonStyle
         {
@@ -46,7 +46,7 @@ namespace XJGUI
         
         protected GUILayoutOption ButtonLayout
         {
-            get { return this.ButtonWidth <= 0 ? null : GUILayout.Width(this.ButtonWidth); }
+            get { return this.Width <= 0 ? null : GUILayout.Width(this.Width); }
         }
 
         #endregion Property
@@ -64,7 +64,7 @@ namespace XJGUI
         protected override void Initialize()
         {
             base.Initialize();
-            this.ButtonWidth = XJGUILayout.DefaultButtonWidth;
+            this.Width = XJGUILayout.DefaultWidth;
         }
 
         public override T Show(T value)
@@ -77,7 +77,7 @@ namespace XJGUI
             {
                 base.ShowTitle();
 
-                if (this.ButtonWidth > 0)
+                if (this.Width > 0)
                 {
                     GUILayout.FlexibleSpace();
                 }
@@ -97,7 +97,7 @@ namespace XJGUI
 
             XJGUILayout.HorizontalLayout(() =>
             {
-                if(this.ButtonWidth > 0)
+                if(this.Width > 0)
                 {
                     GUILayout.FlexibleSpace();
                 }

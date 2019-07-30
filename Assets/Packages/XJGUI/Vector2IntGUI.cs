@@ -47,16 +47,16 @@ namespace XJGUI
             }
         }
 
-        public override float FieldWidth
+        public override float Width
         {
             get
             {
-                return this.intGUIX.FieldWidth;
+                return this.intGUIX.Width;
             }
             set
             {
-                this.intGUIX.FieldWidth = value;
-                this.intGUIY.FieldWidth = value;
+                this.intGUIX.Width = value;
+                this.intGUIY.Width = value;
             }
         }
 
