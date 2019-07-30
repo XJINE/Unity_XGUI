@@ -99,8 +99,8 @@ namespace XJGUI
         private static GUIAttribute GetGUIInfo(FieldInfo fieldInfo)
         {
             GUIAttribute guiInfo = Attribute.GetCustomAttribute(fieldInfo, typeof(GUIAttribute)) as GUIAttribute;
-                    guiInfo = guiInfo ?? new GUIAttribute();
-                    guiInfo.Title = guiInfo.Title ?? GetTitleCase(fieldInfo.Name);
+            guiInfo = guiInfo ?? new GUIAttribute();
+            guiInfo.Title = guiInfo.Title ?? GetTitleCase(fieldInfo.Name);
 
             return guiInfo;
         }
@@ -326,13 +326,13 @@ namespace XJGUI
             this.guiGroups[0].panel.Title = base.Title ?? typeof(T).ToString();
             this.guiGroups[0].panel.Show(() =>
             {
-                ShowGUIs(boxedValue, guiGroups[0].infos);
+                ShowGUI(boxedValue, guiGroups[0].infos);
 
                 for (int i = 1; i < this.guiGroups.Count; i++)
                 {
                     this.guiGroups[i].panel.Show(() =>
                     {
-                        ShowGUIs(boxedValue, guiGroups[i].infos);
+                        ShowGUI(boxedValue, guiGroups[i].infos);
                     });
                 }
             });
@@ -340,44 +340,16 @@ namespace XJGUI
             return (T)boxedValue;
         }
 
-        private void ShowGUIs(object value, List<FieldGUIInfo> infos)
+        private void ShowGUI(object value, List<FieldGUIInfo> infos)
         {
             foreach (var info in infos)
             {
                 if (info.guiInfo.Hide) { continue; }
 
-                if (info.typeInfo.isIList)
-                {
-                    info.fieldInfo.SetValue(value, info.gui.GetType().GetMethod("Show")
-                    .Invoke(info.gui, new object[] { info.fieldInfo.GetValue(value) }));
-                }
-                else if (ShowGUI.ContainsKey(info.typeInfo.type))
-                {
-                    info.fieldInfo.SetValue(value, ShowGUI[info.typeInfo.type](value, info));
-                }
-                else // if User struct or class
-                {
-                    info.fieldInfo.SetValue(value,info.gui.GetType().GetMethod("Show")
-                    .Invoke(info.gui, new object[] { info.fieldInfo.GetValue(value) }));
-                }
+                info.fieldInfo.SetValue(value, info.gui.GetType().GetMethod("Show")
+                .Invoke(info.gui, new object[] { info.fieldInfo.GetValue(value) }));
             }
         }
-
-        private static readonly Dictionary<Type, Func<object, FieldGUIInfo, object>> ShowGUI
-        = new Dictionary<Type, Func<object, FieldGUIInfo, object>>()
-        {
-            { typeof(bool),       (v, i) => { return ((BoolGUI)       i.gui).Show((bool)       i.fieldInfo.GetValue(v)); } },
-            { typeof(int),        (v, i) => { return ((IntGUI)        i.gui).Show((int)        i.fieldInfo.GetValue(v)); } },
-            { typeof(float),      (v, i) => { return ((FloatGUI)      i.gui).Show((float)      i.fieldInfo.GetValue(v)); } },
-            { typeof(Vector2),    (v, i) => { return ((Vector2GUI)    i.gui).Show((Vector2)    i.fieldInfo.GetValue(v)); } },
-            { typeof(Vector3),    (v, i) => { return ((Vector3GUI)    i.gui).Show((Vector3)    i.fieldInfo.GetValue(v)); } },
-            { typeof(Vector4),    (v, i) => { return ((Vector4GUI)    i.gui).Show((Vector4)    i.fieldInfo.GetValue(v)); } },
-            { typeof(Vector2Int), (v, i) => { return ((Vector2IntGUI) i.gui).Show((Vector2Int) i.fieldInfo.GetValue(v)); } },
-            { typeof(Vector3Int), (v, i) => { return ((Vector3IntGUI) i.gui).Show((Vector3Int) i.fieldInfo.GetValue(v)); } },
-            { typeof(Color),      (v, i) => { return ((ColorGUI)      i.gui).Show((Color)      i.fieldInfo.GetValue(v)); } },
-            { typeof(Matrix4x4),  (v, i) => { return ((Matrix4x4GUI)  i.gui).Show((Matrix4x4)  i.fieldInfo.GetValue(v)); } },
-            { typeof(string),     (v, i) => { return ((StringGUI)     i.gui).Show((string)     i.fieldInfo.GetValue(v)); } },
-        };
 
         #endregion Method
     }
