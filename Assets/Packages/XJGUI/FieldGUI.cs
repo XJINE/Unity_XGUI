@@ -11,19 +11,19 @@ namespace XJGUI
 
         private class FieldGUIInfo
         {
-            public FieldInfo info;
-            public object gui;
+            public FieldInfo filedInfo;
+            public object    gui;
 
             public FieldGUIInfo(FieldInfo info, object gui)
             {
-                this.info = info;
-                this.gui = gui;
+                this.filedInfo = info;
+                this.gui       = gui;
             }
         }
 
         private class GUIGroup
         {
-            public FoldoutPanel panel = new FoldoutPanel();
+            public FoldoutPanel       panel = new FoldoutPanel();
             public List<FieldGUIInfo> infos = new List<FieldGUIInfo>();
 
             public string Title
@@ -39,7 +39,17 @@ namespace XJGUI
 
         private readonly List<GUIGroup> guiGroups = new List<GUIGroup>() { new GUIGroup() };
 
+        private UnSupportedGUI unsupportedGUI;
+
         #endregion Field
+
+        #region Property
+
+        public bool IsUnSupported { get => this.unsupportedGUI != null; }
+
+        public bool HideUnsupportedGUI { get; set; } = XJGUILayout.DefaultHideUnsupportedGUI;
+
+        #endregion Property
 
         #region Constructor
 
@@ -63,6 +73,7 @@ namespace XJGUI
 
             if (fieldInfos.Length == 0)
             {
+                this.unsupportedGUI = new UnSupportedGUI();
                 return;
             }
 
@@ -142,6 +153,13 @@ namespace XJGUI
 
         public override T Show(T value)
         {
+            if (this.IsUnSupported)
+            {
+                this.unsupportedGUI.Title = base.Title ?? typeof(T).ToString();
+                this.unsupportedGUI.Show(0);
+                return value;
+            }
+
             // CAUTION:
             // Because struct couldn't set a value directly, the value needs to be boxed.
 
@@ -168,8 +186,20 @@ namespace XJGUI
         {
             foreach (var info in infos)
             {
-                info.info.SetValue(value, info.gui.GetType().GetMethod("Show")
-                .Invoke(info.gui, new object[] { info.info.GetValue(value) }));
+                Type guiType = info.gui.GetType();
+
+                if (this.HideUnsupportedGUI)
+                {
+                    PropertyInfo property = guiType.GetProperty("IsUnSupported");
+
+                    if (property != null && (bool)(property.GetValue(info.gui)))
+                    {
+                        continue;
+                    }
+                }
+
+                info.filedInfo.SetValue(value, guiType.GetMethod("Show")
+                .Invoke(info.gui, new object[] { info.filedInfo.GetValue(value) }));
             }
         }
 

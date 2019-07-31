@@ -19,8 +19,7 @@ public class FieldGUISample : MonoBehaviour
 
     public Vector2 vector2Value;
     public Vector3 vector3Value;
-    [Range(0, 1)]
-    [GUI(MinValue = 0, MaxValue = 10)]
+    [GUI(MinValue = 0, MaxValue = 10)][Range(0, 1)]
     public Vector4 vector4Value;
     [GUI(Title = "V2I")]
     public Vector2Int vector2IntValue;
@@ -28,9 +27,11 @@ public class FieldGUISample : MonoBehaviour
 
     [Header("Others")]
 
-    public Color     colorValue;
+    public bool hideUnSupportedGUI;
+    public Material materialValue;
+
+    public Color colorValue;
     public Matrix4x4 matrixValue;
-    public Material  materialValue;
     [GUI(Width = 300)]
     public CameraType cameraTypeA;
     public CameraType cameraTypeB;
@@ -54,7 +55,7 @@ public class FieldGUISample : MonoBehaviour
 
     private void Start()
     {
-        this.window = new FlexWindow();
+        this.window = new FlexWindow("FieldGUI Sample");
         this.fieldGUI = new FieldGUI<FieldGUISample>();
     }
 
@@ -64,6 +65,8 @@ public class FieldGUISample : MonoBehaviour
         {
             this.fieldGUI.Show(this);
         });
+
+        this.fieldGUI.HideUnsupportedGUI = this.hideUnSupportedGUI;
     }
 
     #endregion Method

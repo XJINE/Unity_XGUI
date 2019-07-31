@@ -94,7 +94,7 @@ namespace XJGUI
             }
             else
             {
-                guiType = FieldGUIType.MakeGenericType(typeInfo.type); ;
+                guiType = FieldGUIType.MakeGenericType(typeInfo.type);
             }
 
             object gui = Activator.CreateInstance(guiType);
