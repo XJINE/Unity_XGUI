@@ -55,7 +55,11 @@ public class FieldGUISample : MonoBehaviour
 
     private void Start()
     {
-        this.window = new FlexWindow("FieldGUI Sample");
+        this.window = new FlexWindow("FieldGUI Sample")
+        {
+            Position = new Vector2(100, 100)
+        };
+
         this.fieldGUI = new FieldGUI<FieldGUISample>();
     }
 

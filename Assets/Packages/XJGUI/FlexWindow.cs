@@ -19,6 +19,12 @@ namespace XJGUI
 
         #region Property
 
+        public Vector2 Position
+        {
+            get { return new Vector2(this.value.x, this.value.y); }
+            set { this.value.x = value.x; this.value.y = value.y; }
+        }
+
         public int   ID          { get; private set; }
         public float MinWidth    { get; set; }
         public float MinHeight   { get; set; }

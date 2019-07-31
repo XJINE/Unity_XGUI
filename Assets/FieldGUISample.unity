@@ -149,7 +149,45 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78e879717e75bdb429e67af2a5d10e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  intArrayValue: 
+  boolValue: 0
+  intValue: 2
+  stringValue: ABCDEFGHI
+  longStringValue: ABCDEFGHIJKLMNOPQR
+  hideValue: Hide
+  vector2Value: {x: -2.79, y: 0.6}
+  vector3Value: {x: 0.18, y: -0.55, z: 0.84}
+  vector4Value: {x: 0, y: 0, z: 0, w: 0}
+  vector2IntValue: {x: 48, y: 15}
+  vector3IntValue: {x: 27, y: 15, z: 16}
+  hideUnSupportedGUI: 0
+  materialValue: {fileID: 0}
+  colorValue: {r: 0.2264151, g: 0.07155571, b: 0.07155571, a: 0.62352943}
+  matrixValue:
+    e00: 0
+    e01: 5.93
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 6.94
+    e12: 5.23
+    e13: 0
+    e20: 5.25
+    e21: 0.99
+    e22: -7.89
+    e23: 1.02
+    e30: 0
+    e31: -3.45
+    e32: 0
+    e33: 4.17
+  cameraTypeA: 2
+  cameraTypeB: 8
+  userStructValue:
+    vector3Value: {x: 1.53, y: 2.12, z: 1.32}
+    intValue: 113
+  intArrayValue: 7500000056000000
+  structListValue:
+  - vector3Value: {x: 3, y: 2.52, z: 0.96}
+    intValue: -407
 --- !u!4 &810585867
 Transform:
   m_ObjectHideFlags: 0
