@@ -103,36 +103,6 @@ namespace XJGUI
             return value;
         }
 
-        //protected virtual object GenerateGUI(TypeInfo typeInfo)
-        //{
-        //    if (typeInfo.isIList)
-        //    {
-        //        return Activator.CreateInstance(typeof(IListGUI<>).MakeGenericType(typeInfo.type));
-        //    }
-        //    else
-        //    {
-        //             if (typeInfo.type == typeof(bool))       { return new BoolGUI();       }
-        //        else if (typeInfo.type == typeof(int))        { return new IntGUI();        }
-        //        else if (typeInfo.type == typeof(float))      { return new FloatGUI();      }
-        //        else if (typeInfo.type == typeof(Vector2))    { return new Vector2GUI();    }
-        //        else if (typeInfo.type == typeof(Vector3))    { return new Vector3GUI();    }
-        //        else if (typeInfo.type == typeof(Vector4))    { return new Vector4GUI();    }
-        //        else if (typeInfo.type == typeof(Vector2Int)) { return new Vector2IntGUI(); }
-        //        else if (typeInfo.type == typeof(Vector3Int)) { return new Vector3IntGUI(); }
-        //        else if (typeInfo.type == typeof(Color))      { return new ColorGUI();      }
-        //        else if (typeInfo.type == typeof(Matrix4x4))  { return new Matrix4x4GUI();  }
-        //        else if (typeInfo.type == typeof(string))     { return new StringGUI();     }
-        //        else if (typeInfo.type.IsEnum)
-        //        {
-        //            return Activator.CreateInstance(typeof(EnumGUI<>).MakeGenericType(typeInfo.type));
-        //        }
-        //        else
-        //        {
-        //            return Activator.CreateInstance(typeof(FieldGUI<>).MakeGenericType(typeInfo.type));
-        //        }
-        //    }
-        //}
-
         #endregion Method
     }
 }
