@@ -62,6 +62,14 @@ namespace XJGUI
 
         #endregion Field
 
+
+        NEED TO SUPPORT UNSUPPORTED GUI or MATERIAL
+        NEED TO UPDATE TO FIX LIST_TYPE
+
+        //MethodInfo method = typeof(T).GetMethod("Show").MakeGenericMethod(typeof(T));
+        //info.fieldInfo.SetValue(value, method.Invoke(info.gui, new object[] { info.fieldInfo.GetValue(value) }));
+        info.fieldInfo.SetValue(value, ((FieldGUI<object>)info.gui).Show(info.fieldInfo.GetValue(value)));
+
         public static object Generate(TypeInfo typeInfo,
                                       string   title = null,
                                       float    min   = float.NaN,
