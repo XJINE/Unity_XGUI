@@ -12,18 +12,18 @@ namespace XJGUI
         private class FieldGUIInfo
         {
             public FieldInfo info;
-            public object    gui;
+            public object gui;
 
             public FieldGUIInfo(FieldInfo info, object gui)
             {
                 this.info = info;
-                this.gui  = gui;
+                this.gui = gui;
             }
         }
 
         private class GUIGroup
         {
-            public FoldoutPanel       panel = new FoldoutPanel();
+            public FoldoutPanel panel = new FoldoutPanel();
             public List<FieldGUIInfo> infos = new List<FieldGUIInfo>();
 
             public string Title
@@ -70,7 +70,7 @@ namespace XJGUI
             {
                 FieldInfo fieldInfo = fieldInfos[i];
                 TypeInfo  typeInfo  = TypeInfo.GetTypeInfo(fieldInfo.FieldType);
-                          typeInfo.type = typeInfo.isIList ? fieldInfo.FieldType : typeInfo.type;
+                typeInfo.type = typeInfo.isIList ? fieldInfo.FieldType : typeInfo.type;
 
                 GUIAttribute guiAttribute = Attribute.GetCustomAttribute(fieldInfo, typeof(GUIAttribute)) as GUIAttribute;
                 guiAttribute = guiAttribute ?? new GUIAttribute();
