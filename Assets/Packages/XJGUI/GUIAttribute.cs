@@ -7,9 +7,11 @@ namespace XJGUI
     {
         #region Property
 
-        public bool   Hide  { get; set; } = false;
-        public string Title { get; set; } = null;
-        public float  Width { get; set; } = float.NaN;
+        public bool   Hide     { get; set; } = false;
+        public string Title    { get; set; } = null;
+        public float  Width    { get; set; } = float.NaN;
+        public float  MinValue { get; set; } = float.NaN;
+        public float  MaxValue { get; set; } = float.NaN;
 
         #endregion Property
     }

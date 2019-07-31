@@ -12,23 +12,32 @@ namespace XJGUI
         private class FieldGUIInfo
         {
             public FieldInfo info;
-            public object gui;
+            public object    gui;
+
+            public FieldGUIInfo(FieldInfo info, object gui)
+            {
+                this.info = info;
+                this.gui  = gui;
+            }
         }
 
         private class GUIGroup
         {
             public FoldoutPanel       panel = new FoldoutPanel();
             public List<FieldGUIInfo> infos = new List<FieldGUIInfo>();
+
+            public string Title
+            {
+                get => this.panel.Title;
+                set => this.panel.Title = value;
+            }
         }
 
         #endregion Class
 
         #region Field
 
-        private readonly List<GUIGroup> guiGroups = new List<GUIGroup>()
-        {
-            new GUIGroup()
-        };
+        private readonly List<GUIGroup> guiGroups = new List<GUIGroup>() { new GUIGroup() };
 
         #endregion Field
 
@@ -61,46 +70,36 @@ namespace XJGUI
             {
                 FieldInfo fieldInfo = fieldInfos[i];
                 TypeInfo  typeInfo  = TypeInfo.GetTypeInfo(fieldInfo.FieldType);
+                          typeInfo.type = typeInfo.isIList ? fieldInfo.FieldType : typeInfo.type;
 
-                typeInfo.type = typeInfo.isIList ? fieldInfo.FieldType : typeInfo.type;
+                GUIAttribute guiAttribute = Attribute.GetCustomAttribute(fieldInfo, typeof(GUIAttribute)) as GUIAttribute;
+                guiAttribute = guiAttribute ?? new GUIAttribute();
+                guiAttribute.Title = guiAttribute.Title ?? GetTitleCase(fieldInfo.Name);
 
-                GUIAttribute guiInfo    = GetGUIInfo(fieldInfo);
-                Vector2      rangeInfo  = GetRangeInfo(fieldInfo);
-                string       headerInfo = GetHeaderInfo(fieldInfo);
-
-                if (headerInfo != null)
+                if (Attribute.GetCustomAttribute(fieldInfo, typeof(RangeAttribute)) is RangeAttribute rangeAttribute)
                 {
-                    var newGroup = new GUIGroup();
-                    newGroup.panel.Title = headerInfo;
-                    this.guiGroups.Add(newGroup);
+                    guiAttribute.MinValue = float.IsNaN(guiAttribute.MinValue) ? rangeAttribute.min : guiAttribute.MinValue;
+                    guiAttribute.MaxValue = float.IsNaN(guiAttribute.MaxValue) ? rangeAttribute.max : guiAttribute.MaxValue;
                 }
 
-                if (guiInfo.Hide)
+                if (Attribute.GetCustomAttribute(fieldInfo, typeof(HeaderAttribute)) is HeaderAttribute headerAttribute)
+                {
+                    this.guiGroups.Add(new GUIGroup() { Title = headerAttribute.header });
+                }
+
+                if (guiAttribute.Hide)
                 {
                     continue;
                 }
 
                 object gui = ReflectionHelper.Generate(typeInfo,
-                                                       guiInfo.Title,
-                                                       rangeInfo.x,
-                                                       rangeInfo.y,
-                                                       guiInfo.Width);
+                                                       guiAttribute.Title,
+                                                       guiAttribute.MinValue,
+                                                       guiAttribute.MaxValue,
+                                                       guiAttribute.Width);
 
-                this.guiGroups[this.guiGroups.Count - 1].infos.Add(new FieldGUIInfo()
-                                                                  {
-                                                                      info = fieldInfo,
-                                                                      gui = gui
-                                                                  });
+                this.guiGroups[this.guiGroups.Count - 1].infos.Add(new FieldGUIInfo(fieldInfo, gui));
             }
-        }
-
-        private static GUIAttribute GetGUIInfo(FieldInfo fieldInfo)
-        {
-            GUIAttribute guiInfo = Attribute.GetCustomAttribute(fieldInfo, typeof(GUIAttribute)) as GUIAttribute;
-            guiInfo = guiInfo ?? new GUIAttribute();
-            guiInfo.Title = guiInfo.Title ?? GetTitleCase(fieldInfo.Name);
-
-            return guiInfo;
         }
 
         protected static string GetTitleCase(string title)
@@ -139,23 +138,6 @@ namespace XJGUI
             // NOTE:
             // Following case is not good. Only first character becomes uppercase.
             // return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(text);
-        }
-
-        private static string GetHeaderInfo(FieldInfo fieldInfo)
-        {
-            HeaderAttribute headerAttribute = Attribute.GetCustomAttribute
-                (fieldInfo, typeof(HeaderAttribute)) as HeaderAttribute;
-
-            return headerAttribute?.header;
-        }
-
-        private static Vector2 GetRangeInfo(FieldInfo fieldInfo)
-        {
-            RangeAttribute rangeAttribute = Attribute.GetCustomAttribute
-                (fieldInfo, typeof(RangeAttribute)) as RangeAttribute;
-
-            return rangeAttribute == null ? new Vector2(float.NaN, float.NaN)
-                                          : new Vector2(rangeAttribute.min, rangeAttribute.max);
         }
 
         public override T Show(T value)

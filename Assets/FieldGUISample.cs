@@ -7,6 +7,7 @@ public class FieldGUISample : MonoBehaviour
     #region Field
 
     public bool boolValue;
+    [Range(0, 3)]
     public int intValue;
     public string stringValue;
     [GUI(Width = 300)]
@@ -18,6 +19,8 @@ public class FieldGUISample : MonoBehaviour
 
     public Vector2 vector2Value;
     public Vector3 vector3Value;
+    [Range(0, 1)]
+    [GUI(MinValue = 0, MaxValue = 10)]
     public Vector4 vector4Value;
     [GUI(Title = "V2I")]
     public Vector2Int vector2IntValue;
