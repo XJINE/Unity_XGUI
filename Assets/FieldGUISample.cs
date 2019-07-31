@@ -28,8 +28,9 @@ public class FieldGUISample : MonoBehaviour
 
     [Header("Others")]
 
-    public Color colorValue;
+    public Color     colorValue;
     public Matrix4x4 matrixValue;
+    public Material  materialValue;
     [GUI(Width = 300)]
     public CameraType cameraTypeA;
     public CameraType cameraTypeB;
