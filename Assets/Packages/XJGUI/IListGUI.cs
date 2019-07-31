@@ -44,15 +44,11 @@ namespace XJGUI
 
             base.Initialize();
 
-            this.ElementType = TypeInfo.GetTypeInfo(typeof(T));
+            this.ElementType   = TypeInfo.GetTypeInfo(typeof(T));
+            TypeInfo childType = TypeInfo.GetTypeInfo(this.ElementType.type);
 
-            TypeInfo childElementType = TypeInfo.GetTypeInfo(this.ElementType.type);
-
-            this.ElementType.isIList = childElementType.isIList ? true : false;
-
-            this.ElementType.type = childElementType.isIList
-                                  ? this.ElementType.type
-                                  : childElementType.type;
+            this.ElementType.type    = childType.isIList ? this.ElementType.type : childType.type;
+            this.ElementType.isIList = childType.isIList;
         }
 
         public override T Show(T value)

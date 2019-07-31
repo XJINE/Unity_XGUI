@@ -58,17 +58,11 @@ namespace XJGUI
                                                                                                                  new Vector4(max, max, max, max),
                                                                                                                  new Vector4(max, max, max, max),
                                                                                                                  new Vector4(max, max, max, max)); } },
-        }; 
+        };
 
         #endregion Field
 
-
-        NEED TO SUPPORT UNSUPPORTED GUI or MATERIAL
-        NEED TO UPDATE TO FIX LIST_TYPE
-
-        //MethodInfo method = typeof(T).GetMethod("Show").MakeGenericMethod(typeof(T));
-        //info.fieldInfo.SetValue(value, method.Invoke(info.gui, new object[] { info.fieldInfo.GetValue(value) }));
-        info.fieldInfo.SetValue(value, ((FieldGUI<object>)info.gui).Show(info.fieldInfo.GetValue(value)));
+        #region Method
 
         public static object Generate(TypeInfo typeInfo,
                                       string   title = null,
@@ -112,5 +106,7 @@ namespace XJGUI
 
             return gui;
         }
+
+        #endregion Method
     }
 }

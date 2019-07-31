@@ -6,14 +6,13 @@ public class FieldGUISample : MonoBehaviour
 {
     #region Field
 
-    public bool   boolValue;
-    public int    intValue;
+    public bool boolValue;
+    public int intValue;
     public string stringValue;
     [GUI(Width = 300)]
     public string longStringValue;
     [GUI(Hide = true)]
     public string hideValue;
-
 
     [Header("Vector")]
 
@@ -26,7 +25,7 @@ public class FieldGUISample : MonoBehaviour
 
     [Header("Others")]
 
-    public Color     colorValue;
+    public Color colorValue;
     public Matrix4x4 matrixValue;
     [GUI(Width = 300)]
     public CameraType cameraTypeA;
@@ -34,8 +33,13 @@ public class FieldGUISample : MonoBehaviour
     public UserStruct userStructValue;
 
     [Header("Array")]
-    //public int[] intArrayValue;
-    //public List<UserStruct> structListValue;
+    public int[] intArrayValue;
+    public List<UserStruct> structListValue;
+    public List<CameraType>[] enumListArrayValue = new List<CameraType>[]
+    {
+        new List<CameraType>(){ CameraType.Game,       CameraType.Preview   },
+        new List<CameraType>(){ CameraType.Reflection, CameraType.SceneView },
+    };
 
     private FlexWindow window;
     private FieldGUI<FieldGUISample> fieldGUI;

@@ -11,9 +11,8 @@ namespace XJGUI
 
         private class FieldGUIInfo
         {
-            public FieldInfo fieldInfo;
-            public TypeInfo  typeInfo;
-            public object    gui;
+            public FieldInfo info;
+            public object gui;
         }
 
         private class GUIGroup
@@ -46,10 +45,10 @@ namespace XJGUI
         protected override void Initialize()
         {
             base.Initialize();
-            GenerateGUIs(typeof(T));
+            GenerateGUI(typeof(T));
         }
 
-        private void GenerateGUIs(Type type)
+        private void GenerateGUI(Type type)
         {
             FieldInfo[] fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
 
@@ -60,11 +59,14 @@ namespace XJGUI
 
             for (var i = 0; i < fieldInfos.Length; i++)
             {
-                FieldInfo    fieldInfo  = fieldInfos[i];
-                TypeInfo     typeInfo   = TypeInfo.GetTypeInfo(fieldInfo.FieldType);
+                FieldInfo fieldInfo = fieldInfos[i];
+                TypeInfo  typeInfo  = TypeInfo.GetTypeInfo(fieldInfo.FieldType);
+
+                typeInfo.type = typeInfo.isIList ? fieldInfo.FieldType : typeInfo.type;
+
                 GUIAttribute guiInfo    = GetGUIInfo(fieldInfo);
-                string       headerInfo = GetHeaderInfo(fieldInfo);
                 Vector2      rangeInfo  = GetRangeInfo(fieldInfo);
+                string       headerInfo = GetHeaderInfo(fieldInfo);
 
                 if (headerInfo != null)
                 {
@@ -78,15 +80,17 @@ namespace XJGUI
                     continue;
                 }
 
-                var gui = GenerateGUI(fieldInfo, typeInfo, guiInfo, rangeInfo);
+                object gui = ReflectionHelper.Generate(typeInfo,
+                                                       guiInfo.Title,
+                                                       rangeInfo.x,
+                                                       rangeInfo.y,
+                                                       guiInfo.Width);
 
-                this.guiGroups[this.guiGroups.Count - 1].infos.Add
-                (new FieldGUIInfo()
-                {
-                    fieldInfo = fieldInfo,
-                    typeInfo  = typeInfo,
-                    gui       = gui
-                });
+                this.guiGroups[this.guiGroups.Count - 1].infos.Add(new FieldGUIInfo()
+                                                                  {
+                                                                      info = fieldInfo,
+                                                                      gui = gui
+                                                                  });
             }
         }
 
@@ -154,26 +158,6 @@ namespace XJGUI
                                           : new Vector2(rangeAttribute.min, rangeAttribute.max);
         }
 
-        private static object GenerateGUI(FieldInfo fieldInfo, TypeInfo typeInfo, GUIAttribute guiInfo, Vector2 rangeInfo)
-        {
-            Type   type  = typeInfo.type;
-            string title = guiInfo.Title ?? fieldInfo.Name;
-            float  min   = rangeInfo.x;
-            float  max   = rangeInfo.y;
-            float  width = guiInfo.Width;
-
-            return ReflectionHelper.Generate(typeInfo, title, min, max, width);
-
-            //if (typeInfo == null) { return new UnSupportedGUI() { Title = title }; }
-
-            //if (typeInfo.isIList)
-            //{
-            //    // CAUTION:
-            //    // Must use filedInfo.FieldType not TypeInfo.type.
-            //    return Activator.CreateInstance(typeof(IListGUI<>).MakeGenericType(fieldInfo.FieldType), title);
-            //}
-        }
-
         public override T Show(T value)
         {
             // CAUTION:
@@ -202,8 +186,8 @@ namespace XJGUI
         {
             foreach (var info in infos)
             {
-                info.fieldInfo.SetValue(value, info.gui.GetType().GetMethod("Show")
-                .Invoke(info.gui, new object[] { info.fieldInfo.GetValue(value) }));
+                info.info.SetValue(value, info.gui.GetType().GetMethod("Show")
+                .Invoke(info.gui, new object[] { info.info.GetValue(value) }));
             }
         }
 

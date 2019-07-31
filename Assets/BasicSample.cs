@@ -31,7 +31,8 @@ public class BasicSample : MonoBehaviour
 
     public List<CameraType>[] enumListArrayValue = new List<CameraType>[]
     {
-        new List<CameraType>() { CameraType.Game, CameraType.Reflection }
+        new List<CameraType>() { CameraType.Game, CameraType.Reflection },
+        new List<CameraType>() { CameraType.VR,   CameraType.SceneView  }
     };
 
     private FlexWindow   window;

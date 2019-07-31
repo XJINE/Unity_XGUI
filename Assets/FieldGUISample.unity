@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 810585867}
   - component: {fileID: 810585866}
   m_Layer: 0
-  m_Name: FieldGUISample1
+  m_Name: FieldGUISample
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -149,39 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78e879717e75bdb429e67af2a5d10e2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boolValue: 1
-  intValue: 621
-  stringValue: ABCDEF
-  longStringValue: ABCDEFGHIJKLMNOPQ
-  hideValue: Hide
-  vector2Value: {x: -17.6991, y: 34.2921}
-  vector3Value: {x: 20.5479, y: -8.5616, z: 33.0173}
-  vector4Value: {x: 0.8144, y: 2, z: 2, w: 0.9351}
-  vector2IntValue: {x: 31, y: 35}
-  vector3IntValue: {x: 19, y: 23, z: -35}
-  colorValue: {r: 0.425, g: 0.8007, b: 0.4298, a: 0.5036}
-  matrixValue:
-    e00: 0
-    e01: 4.98
-    e02: 4.27
-    e03: 0
-    e10: 0
-    e11: 789.8077
-    e12: -320.1923
-    e13: 6.03
-    e20: 0
-    e21: 597.6923
-    e22: 0
-    e23: 999
-    e30: 0
-    e31: 821.828
-    e32: 0
-    e33: 0
-  cameraTypeA: 2
-  cameraTypeB: 8
-  userStructValue:
-    vector3Value: {x: 5, y: 0, z: 0}
-    intValue: -342
+  intArrayValue: 
 --- !u!4 &810585867
 Transform:
   m_ObjectHideFlags: 0
