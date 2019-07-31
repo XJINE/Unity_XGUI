@@ -72,7 +72,7 @@ namespace XJGUI
             object minObject = null;
             object maxObject = null;
 
-            width = float.IsNaN(width) ? width : DefaultWidth;
+            width = float.IsNaN(width) ? DefaultWidth : width;
 
             if (typeInfo.isIList)
             {
@@ -100,7 +100,7 @@ namespace XJGUI
             guiType.GetProperty("Title")?.SetValue(gui, title);
             guiType.GetProperty("MinValue")?.SetValue(gui, minObject);
             guiType.GetProperty("MaxValue")?.SetValue(gui, maxObject);
-            //guiType.GetProperty("Width")?.SetValue(gui, width);
+            guiType.GetProperty("Width")?.SetValue(gui, width);
 
             return gui;
         }

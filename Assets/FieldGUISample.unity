@@ -151,8 +151,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boolValue: 1
   intValue: 621
-  stringValue: abcde
-  hideValue: 
+  stringValue: ABCDEF
+  longStringValue: ABCDEFGHIJKLMNOPQ
+  hideValue: Hide
   vector2Value: {x: -17.6991, y: 34.2921}
   vector3Value: {x: 20.5479, y: -8.5616, z: 33.0173}
   vector4Value: {x: 0.8144, y: 2, z: 2, w: 0.9351}
@@ -181,14 +182,6 @@ MonoBehaviour:
   userStructValue:
     vector3Value: {x: 5, y: 0, z: 0}
     intValue: -342
-  intArrayValue: 0000000005000000
-  structListValue:
-  - vector3Value: {x: 4.62, y: 2.22, z: -4.74}
-    intValue: 3
-  - vector3Value: {x: 0, y: 2.08, z: -3.09}
-    intValue: 4
-  - vector3Value: {x: 2.76, y: 2.82, z: -6.65}
-    intValue: -1199
 --- !u!4 &810585867
 Transform:
   m_ObjectHideFlags: 0

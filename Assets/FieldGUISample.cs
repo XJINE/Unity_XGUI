@@ -9,8 +9,11 @@ public class FieldGUISample : MonoBehaviour
     public bool   boolValue;
     public int    intValue;
     public string stringValue;
+    [GUI(Width = 300)]
+    public string longStringValue;
     [GUI(Hide = true)]
     public string hideValue;
+
 
     [Header("Vector")]
 

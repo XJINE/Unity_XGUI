@@ -73,7 +73,10 @@ namespace XJGUI
                     this.guiGroups.Add(newGroup);
                 }
 
-                SKIP WHEN HIDE
+                if (guiInfo.Hide)
+                {
+                    continue;
+                }
 
                 var gui = GenerateGUI(fieldInfo, typeInfo, guiInfo, rangeInfo);
 
