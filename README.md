@@ -15,11 +15,13 @@ You can import this asset from UnityPackage.
 
 BasicSample shows simply how to use. XJGUI includes following type GUI.
 
-| int    | Vector2    | Color       |
-| float  | Vector3    | Matrix4x4   |
-| string | Vector4    | User Class  |
-| bool   | Vector2Int | User Struct |
-| Enum   | Vector3Int | IList<T>    |
+<table>
+<tr><td> int    </td><td> Vector2    </td><td> Color       </td></tr>
+<tr><td> float  </td><td> Vector3    </td><td> Matrix4x4   </td></tr>
+<tr><td> string </td><td> Vector4    </td><td> User Class  </td></tr>
+<tr><td> bool   </td><td> Vector2Int </td><td> User Struct </td></tr>
+<tr><td> Enum   </td><td> Vector3Int </td><td> IList<T>    </td></tr>
+</table>
 
 ### FlexWindow, FoldoutPanel & TabPanel
 
