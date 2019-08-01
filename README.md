@@ -1,7 +1,7 @@
 # Unity_XJGUI
 
 Utilities to make a lot of OnGUI. It is easy & fast.
-Especially, ``FieldGUI`` makes GUI from your field automatically.
+Especially, ``FieldGUI`` automatically makes GUI from your class and struct.
 
 ## Import to Your Project
 
@@ -13,20 +13,17 @@ You can import this asset from UnityPackage.
 
 <img src="https://github.com/XJINE/Unity_XJGUI/blob/master/screenshot01.png" width="100%" height="auto" />
 
-BasicSample shows simply how to use.
+BasicSample shows simply how to use. XJGUI includes following type GUI.
 
-XJGUI able to generate following type GUI.
+| int    | Vector2    | Color       |
+| float  | Vector3    | Matrix4x4   |
+| string | Vector4    | User Class  |
+| bool   | Vector2Int | User Struct |
+| Enum   | Vector3Int | IList<T>    |
 
-    int, float, string, bool,
-    Vector2, Vector3, Vector4,
-    Vector2Int, Vector3Int,
-    Matrix4x4, Color, Enum, IPv4,
+### FlexWindow, FoldoutPanel & TabPanel
 
-### FlexibleWindow, FoldoutPanel & TabPanel
-
-``FlexibleWindow`` automatically expand its width/height when needed.
-And it is able to hide and drag without any settings.
-
+``FlexWindow`` automatically scale its width and height when needed.
 ``FoldoutPanel`` & ``TabPanel`` are able to hide or group some GUIs.
 
 ## FieldGUI
@@ -34,8 +31,8 @@ And it is able to hide and drag without any settings.
 <img src="https://github.com/XJINE/Unity_XJGUI/blob/master/screenshot02.png" width="100%" height="auto" />
 
 ``FieldGUI`` is main component in this utility.
-``FieldGUI`` automatically generates GUI from field,
-and these GUI's settings are able to control from the Attribute.
+``FieldGUI`` automatically generates GUI from your class or struct field,
+and these GUI's settings are able to control from the attributes.
 
 It needs only a few steps like this.
 
@@ -50,6 +47,3 @@ void OnGUI()
     this.fieldGUI.Show();
 }
 ```
-## NOTE
-
-Previous version which includes IListGUI & SyncFunction are included in "old" branch now.
