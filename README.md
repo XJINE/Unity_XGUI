@@ -16,11 +16,9 @@ You can import this asset from UnityPackage.
 BasicSample shows simply how to use. XJGUI includes following type GUI.
 
 <table>
-<tr><td> int    </td><td> Vector2    </td><td> Color       </td></tr>
-<tr><td> float  </td><td> Vector3    </td><td> Matrix4x4   </td></tr>
-<tr><td> string </td><td> Vector4    </td><td> User Class  </td></tr>
-<tr><td> bool   </td><td> Vector2Int </td><td> User Struct </td></tr>
-<tr><td> Enum   </td><td> Vector3Int </td><td> IList<T>    </td></tr>
+<tr><td> int     </td><td> float     </td><td> string      </td><td> bool       </td><td> Enum       </td></tr>
+<tr><td> Vector2 </td><td> Vector3   </td><td> Vector4     </td><td> Vector2Int </td><td> Vector3Int </td></tr>
+<tr><td> Color   </td><td> Matrix4x4 </td><td> User Struct </td><td> User Class </td><td> IList<T>   </td></tr>
 </table>
 
 ### FlexWindow, FoldoutPanel & TabPanel
