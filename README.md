@@ -1,4 +1,4 @@
-# Unity_XJGUI
+# Unity_XGUI
 
 Utilities to make a lot of OnGUI. It is easy & fast.
 Especially, ``FieldGUI`` automatically makes GUI from your class and struct.
@@ -7,13 +7,13 @@ Especially, ``FieldGUI`` automatically makes GUI from your class and struct.
 
 You can import this asset from UnityPackage.
 
-- [XJGUI.unitypackage](https://github.com/XJINE/Unity_XJGUI/blob/master/XJGUI.unitypackage)
+- [XGUI.unitypackage](https://github.com/XJINE/Unity_XGUI/blob/master/XGUI.unitypackage)
 
 ## BasicSample
 
-<img src="https://github.com/XJINE/Unity_XJGUI/blob/master/screenshot01.png" width="100%" height="auto" />
+<img src="https://github.com/XJINE/Unity_XGUI/blob/master/screenshot01.png" width="100%" height="auto" />
 
-BasicSample shows simply how to use. XJGUI includes following type GUI.
+BasicSample shows simply how to use. XGUI includes following type GUI.
 
 <table>
 <tr><td> int     </td><td> float     </td><td> string      </td><td> bool       </td><td> Enum       </td></tr>
@@ -28,7 +28,7 @@ BasicSample shows simply how to use. XJGUI includes following type GUI.
 
 ## FieldGUI
 
-<img src="https://github.com/XJINE/Unity_XJGUI/blob/master/screenshot02.png" width="100%" height="auto" />
+<img src="https://github.com/XJINE/Unity_XGUI/blob/master/screenshot02.png" width="100%" height="auto" />
 
 ``FieldGUI`` is main component in this utility.
 ``FieldGUI`` automatically generates GUI from your class or struct field,

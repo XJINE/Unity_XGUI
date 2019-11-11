@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using XJGUI;
+using XGUI;
 
 public class BasicSample : MonoBehaviour
 {
@@ -64,8 +64,8 @@ public class BasicSample : MonoBehaviour
 
     void Awake()
     {
-        XJGUILayout.DefaultMinValueVector2Int = new Vector2Int(-999, -999);
-        XJGUILayout.DefaultMaxValueVector2Int = new Vector2Int(999, 999);
+        XGUILayout.DefaultMinValueVector2Int = new Vector2Int(-999, -999);
+        XGUILayout.DefaultMaxValueVector2Int = new Vector2Int(999, 999);
 
         this.window = new FlexWindow("Basic Sample");
 
@@ -139,11 +139,11 @@ public class BasicSample : MonoBehaviour
                 {
                     GUILayout.Box("BOX", GUILayout.Width(300), GUILayout.Height(300));
 
-                    XJGUILayout.Label("Long Text, Long Text, Long Text, Long Text, Long Text, Long Text"
+                    XGUILayout.Label("Long Text, Long Text, Long Text, Long Text, Long Text, Long Text"
                                     + "Long Text, Long Text, Long Text, Long Text, Long Text, Long Text"
                                     + "Long Text, Long Text, Long Text, Long Text, Long Text, Long Text",
-                                       XJGUILayout.LabelOption.NoWrap
-                                     | XJGUILayout.LabelOption.Bold);
+                                       XGUILayout.LabelOption.NoWrap
+                                     | XGUILayout.LabelOption.Bold);
                 });
             }),
             ("Array", () =>

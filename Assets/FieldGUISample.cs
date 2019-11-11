@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using XJGUI;
+using XGUI;
 
 public class FieldGUISample : MonoBehaviour
 {
@@ -61,6 +61,11 @@ public class FieldGUISample : MonoBehaviour
         };
 
         this.fieldGUI = new FieldGUI<FieldGUISample>();
+
+        // NOTE:
+        // Override some property settings.
+
+        this.fieldGUI.SetMaxValue("vector3Value", new Vector3(1f, 2f, 3f)); 
     }
 
     private void OnGUI()
