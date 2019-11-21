@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace XGUI
 {
-    public abstract class SelectionElement<T> : Component<T> where T : IList<T>
+    public abstract class SelectionElement<T> : Component<T>
     {
         #region Property
 

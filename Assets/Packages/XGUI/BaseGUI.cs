@@ -10,11 +10,7 @@
 
         #region Constructor
 
-        public BaseGUI()
-        {
-            this.Title = XGUILayout.DefaultTitle;
-            Initialize();
-        }
+        public BaseGUI() : this (XGUILayout.DefaultTitle) { }
 
         public BaseGUI(string title)
         {

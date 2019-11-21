@@ -35,6 +35,14 @@ public class BasicSample : MonoBehaviour
         new List<CameraType>() { CameraType.VR,   CameraType.SceneView  }
     };
 
+    public float       floatListSelect;
+    public List<float> floatListValue = new List<float>() { 0, 1.414f, 2.236f, 3.141f };
+    public string      stringArraySelect;
+    public string[]    stringArrayValue = new string[] { "Alpha", "Bravo", "Charlie",
+                                                         "Delta", "Echo",  "Foxtrot",
+                                                         "Golf",  "Hotel", "India",
+                                                         "Juliet" };
+
     private FlexWindow   window;
     private TabPanel     tabPanel;
     private FoldoutPanel foldoutPanel;
@@ -57,6 +65,8 @@ public class BasicSample : MonoBehaviour
     private IListGUI<List<UserStruct>>       structListGUI;
     private IListGUI<List<List<UserStruct>>> structListListGUI;
     private IListGUI<List<CameraType>[]>     enumListArrayGUI;
+    private Toolbar<float>                   floatListToolbar;
+    private SelectionGrid<string>            stringArrayGrid;
 
     #endregion Field
 
@@ -90,6 +100,8 @@ public class BasicSample : MonoBehaviour
         this.structListGUI     = new IListGUI<List<UserStruct>>("List<UserStruct>");
         this.structListListGUI = new IListGUI<List<List<UserStruct>>>("List<List<UserStruct>>");
         this.enumListArrayGUI  = new IListGUI<List<CameraType>[]>("List<CameraType>[]");
+        this.floatListToolbar  = new Toolbar<float>("Toolbar<float>");
+        this.stringArrayGrid   = new SelectionGrid<string>("SelectionGrid<string>", 3);
     }
 
     void Update()
@@ -111,10 +123,10 @@ public class BasicSample : MonoBehaviour
             this.tabPanel.Show
             (("Basic", () =>
             {
-                this.boolValue = this.boolGUI.Show(this.boolValue);
+                this.boolValue   = this.boolGUI.Show(this.boolValue);
                 this.stringValue = this.stringGUI.Show(this.stringValue);
-                this.intValue = this.intGUI.Show(this.intValue);
-                this.floatValue = this.floatGUI.Show(this.floatValue);
+                this.intValue    = this.intGUI.Show(this.intValue);
+                this.floatValue  = this.floatGUI.Show(this.floatValue);
             }),
             ("Vector & Matrix", () =>
             {
@@ -140,10 +152,10 @@ public class BasicSample : MonoBehaviour
                     GUILayout.Box("BOX", GUILayout.Width(300), GUILayout.Height(300));
 
                     XGUILayout.Label("Long Text, Long Text, Long Text, Long Text, Long Text, Long Text"
-                                    + "Long Text, Long Text, Long Text, Long Text, Long Text, Long Text"
-                                    + "Long Text, Long Text, Long Text, Long Text, Long Text, Long Text",
-                                       XGUILayout.LabelOption.NoWrap
-                                     | XGUILayout.LabelOption.Bold);
+                                   + "Long Text, Long Text, Long Text, Long Text, Long Text, Long Text"
+                                   + "Long Text, Long Text, Long Text, Long Text, Long Text, Long Text",
+                                      XGUILayout.LabelOption.NoWrap
+                                    | XGUILayout.LabelOption.Bold);
                 });
             }),
             ("Array", () =>
@@ -152,6 +164,9 @@ public class BasicSample : MonoBehaviour
                 this.structListGUI.Show(this.structListValue);
                 this.structListListGUI.Show(this.structListListValue);
                 this.enumListArrayGUI.Show(this.enumListArrayValue);
+
+                this.floatListSelect   = this.floatListToolbar.Show(this.floatListSelect, this.floatListValue);
+                this.stringArraySelect = this.stringArrayGrid.Show(this.stringArraySelect, this.stringArrayValue);
             }));
         });
 

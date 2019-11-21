@@ -4,8 +4,16 @@ using UnityEngine;
 
 namespace XGUI
 {
-    public class Toolbar<T> : SelectionElement<T> where T : IList<T>
+    public class Toolbar<T> : SelectionElement<T>
     {
+        #region Constructor
+
+        public Toolbar() : base() { }
+
+        public Toolbar(string title) : base(title) { }
+
+        #endregion Constructor
+
         #region Method
 
         public override T Show(T value, IList<T> values)
@@ -28,7 +36,7 @@ namespace XGUI
             }
             else
             {
-                index = GUILayout.Toolbar(index, values.Cast<string>().ToArray());
+                index = GUILayout.Toolbar(index, values.Select(x => x.ToString()).ToArray());
             }
 
             return values[index];
