@@ -35,6 +35,7 @@ public class BasicSample : MonoBehaviour
         new List<CameraType>() { CameraType.VR,   CameraType.SceneView  }
     };
 
+    public CameraType  enumSelect;
     public float       floatListSelect;
     public List<float> floatListValue = new List<float>() { 0, 1.414f, 2.236f, 3.141f };
     public string      stringArraySelect;
@@ -65,8 +66,9 @@ public class BasicSample : MonoBehaviour
     private IListGUI<List<UserStruct>>       structListGUI;
     private IListGUI<List<List<UserStruct>>> structListListGUI;
     private IListGUI<List<CameraType>[]>     enumListArrayGUI;
-    private Toolbar<float>                   floatListToolbar;
-    private SelectionGrid<string>            stringArrayGrid;
+    private Selection<float>                 floatListSelection;
+    private Selection<string>                stringArraySelection;
+    private Selection<CameraType>            enumSelection;
 
     #endregion Field
 
@@ -100,8 +102,10 @@ public class BasicSample : MonoBehaviour
         this.structListGUI     = new IListGUI<List<UserStruct>>("List<UserStruct>");
         this.structListListGUI = new IListGUI<List<List<UserStruct>>>("List<List<UserStruct>>");
         this.enumListArrayGUI  = new IListGUI<List<CameraType>[]>("List<CameraType>[]");
-        this.floatListToolbar  = new Toolbar<float>("Toolbar<float>");
-        this.stringArrayGrid   = new SelectionGrid<string>("SelectionGrid<string>", 3);
+
+        this.enumSelection         = new Selection<CameraType>("Enum");
+        this.floatListSelection    = new Selection<float>("Toolbar<float>");
+        this.stringArraySelection  = new Selection<string>("SelectionGrid<string>");
     }
 
     void Update()
@@ -165,8 +169,9 @@ public class BasicSample : MonoBehaviour
                 this.structListListGUI.Show(this.structListListValue);
                 this.enumListArrayGUI.Show(this.enumListArrayValue);
 
-                this.floatListSelect   = this.floatListToolbar.Show(this.floatListSelect, this.floatListValue);
-                this.stringArraySelect = this.stringArrayGrid.Show(this.stringArraySelect, this.stringArrayValue);
+                this.enumSelect        = this.enumSelection.Show(this.enumSelect);
+                this.floatListSelect   = this.floatListSelection.Show(this.floatListSelect, this.floatListValue);
+                this.stringArraySelect = this.stringArraySelection.Show(this.stringArraySelect, this.stringArrayValue, 3);
             }));
         });
 
