@@ -5,12 +5,6 @@ namespace XGUI
 {
     public class FoldoutPanel : Panel<bool>
     {
-        #region Filed
-
-        protected bool value;
-
-        #endregion Field
-
         #region Constructor
 
         public FoldoutPanel() : base() { }
@@ -31,11 +25,11 @@ namespace XGUI
 
             XGUILayout.VerticalLayout(() =>
             {
-                string buttonContent = (this.value ? "\u25BC " : "\u25BA ") + base.Title;
+                string buttonContent = (base.value ? "\u25BC " : "\u25BA ") + base.Title;
 
-                this.value = !(this.value == GUILayout.Button(buttonContent, TitleStyle));
+                base.value = !(base.value == GUILayout.Button(buttonContent, TitleStyle));
 
-                if (this.value)
+                if (base.value)
                 {
                     XGUILayout.VerticalLayout(()=>
                     {
@@ -45,9 +39,9 @@ namespace XGUI
                         }
                     });
                 }
-            }, this.value ? GUI.skin.box : null);
+            }, base.value ? GUI.skin.box : null);
 
-            return this.value;
+            return base.value;
         }
 
         #endregion Method

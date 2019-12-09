@@ -9,7 +9,7 @@ namespace XGUI
         // NOTE:
         // GUIStyle and GUI.skin are accessible in OnGUI().
 
-        private static GUIStyle titleStyle;
+        private   static GUIStyle titleStyle;
         protected static GUIStyle TitleStyle
         {
             get

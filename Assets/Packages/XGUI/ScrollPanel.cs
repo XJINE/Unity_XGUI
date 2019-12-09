@@ -5,12 +5,6 @@ namespace XGUI
 {
     public class ScrollPanel : Panel<Vector2>
     {
-        #region Field
-
-        protected Vector2 value;
-
-        #endregion Field
-
         #region Property
 
         public float Width     { get; set; }
@@ -43,7 +37,7 @@ namespace XGUI
                                     GUILayout.MinHeight(height),
                                     GUILayout.MaxHeight(height));
 
-            this.value = GUILayout.BeginScrollView(this.value, GUILayout.Width   (width),
+            base.value = GUILayout.BeginScrollView(base.value, GUILayout.Width   (width),
                                                                GUILayout.MinWidth(width),
                                                                GUILayout.MaxWidth(width),
                                                                GUILayout.Height(height));
@@ -56,7 +50,7 @@ namespace XGUI
             GUILayout.EndScrollView();
             GUILayout.EndVertical();
 
-            return this.value;
+            return base.value;
         }
 
         #endregion Method

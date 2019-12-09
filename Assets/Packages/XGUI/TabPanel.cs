@@ -5,12 +5,6 @@ namespace XGUI
 {
     public class TabPanel : Panel<int>
     {
-        #region Field
-
-        protected int value = 0;
-
-        #endregion Field
-
         #region Property
 
         protected virtual GUIStyle TabStyle
@@ -48,13 +42,13 @@ namespace XGUI
             {
                 base.ShowTitle();
 
-                this.value = GUILayout.Toolbar(this.value, labels, TabStyle);
+                base.value = GUILayout.Toolbar(base.value, labels, TabStyle);
 
-                tabs[this.value].show();
+                tabs[base.value].show();
 
             }, GUI.skin.box);
 
-            return this.value;
+            return base.value;
         }
 
         #endregion Method

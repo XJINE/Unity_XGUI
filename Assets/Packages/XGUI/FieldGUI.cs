@@ -151,6 +151,14 @@ namespace XGUI
             // return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(text);
         }
 
+        public void Foldout(bool open, bool all = false)
+        {
+            for (int i = 0; i < (all ? this.guiGroups.Count : 1); i++)
+            {
+                this.guiGroups[0].panel.Value = open;
+            }
+        }
+
         public override T Show(T value)
         {
             if (this.IsUnSupported)
@@ -184,7 +192,7 @@ namespace XGUI
 
         private void ShowGUI(object value, List<FieldGUIInfo> infos)
         {
-            foreach (var info in infos)
+            foreach (FieldGUIInfo info in infos)
             {
                 Type guiType = info.gui.GetType();
 
@@ -198,8 +206,10 @@ namespace XGUI
                     }
                 }
 
-                info.filedInfo.SetValue(value, guiType.GetMethod("Show")
-                .Invoke(info.gui, new object[] { info.filedInfo.GetValue(value) }));
+                MethodInfo showMethod     = guiType.GetMethod("Show");
+                object[]   showMethodArgs = new object[] { info.filedInfo.GetValue(value) };
+
+                info.filedInfo.SetValue(value, showMethod.Invoke(info.gui, showMethodArgs));
             }
         }
 

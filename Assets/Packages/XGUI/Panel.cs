@@ -2,8 +2,12 @@
 {
     public abstract class Panel<T> : Component<T>
     {
-        // NOTE:
-        // There is no common member in each panel now.
+        #region Property
+
+        protected T value;
+        public    T Value { set { this.value = value; } }
+
+        #endregion Property
 
         #region Constructor
 
