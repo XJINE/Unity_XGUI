@@ -80,7 +80,7 @@ public static class XGUILayout
     {
         GUILayout.Label(text, new GUIStyle(GUI.skin.label)
         {
-            wordWrap  = !option.HasFlag(LabelOption.NoWrap),
+            wordWrap = !option.HasFlag(LabelOption.NoWrap),
             fontStyle = option.HasFlag(LabelOption.Bold) ? FontStyle.Bold : FontStyle.Normal
         });
     }

@@ -65,6 +65,7 @@ namespace XGUI
         {
             base.Initialize();
             GenerateGUI(typeof(T));
+            Foldout(true);
         }
 
         private void GenerateGUI(Type type)
