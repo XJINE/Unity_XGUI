@@ -11,13 +11,13 @@ namespace XGUI
 
         private class FieldGUIInfo
         {
-            public FieldInfo filedInfo;
-            public object    gui;
+            public readonly FieldInfo FiledInfo;
+            public readonly object    GUI;
 
             public FieldGUIInfo(FieldInfo info, object gui)
             {
-                this.filedInfo = info;
-                this.gui       = gui;
+                FiledInfo = info;
+                GUI       = gui;
             }
         }
 
@@ -28,8 +28,8 @@ namespace XGUI
 
             public string Title
             {
-                get => this.panel.Title;
-                set => this.panel.Title = value;
+                get => panel.Title;
+                set => panel.Title = value;
             }
         }
 
@@ -37,15 +37,15 @@ namespace XGUI
 
         #region Field
 
-        private readonly List<GUIGroup> guiGroups = new List<GUIGroup>() { new GUIGroup() };
+        private readonly List<GUIGroup> _guiGroups = new List<GUIGroup>() { new GUIGroup() };
 
-        private UnSupportedGUI unsupportedGUI;
+        private UnSupportedGUI _unsupportedGUI;
 
         #endregion Field
 
         #region Property
 
-        public bool IsUnSupported { get => this.unsupportedGUI != null; }
+        public bool IsUnSupported => _unsupportedGUI != null;
 
         public bool HideUnsupportedGUI { get; set; } = XGUILayout.DefaultHideUnsupportedGUI;
 
@@ -70,23 +70,22 @@ namespace XGUI
 
         private void GenerateGUI(Type type)
         {
-            FieldInfo[] fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
+            var fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
 
             if (fieldInfos.Length == 0)
             {
-                this.unsupportedGUI = new UnSupportedGUI();
+                _unsupportedGUI = new UnSupportedGUI();
                 return;
             }
 
-            for (var i = 0; i < fieldInfos.Length; i++)
+            foreach (var fieldInfo in fieldInfos)
             {
-                FieldInfo fieldInfo = fieldInfos[i];
-                TypeInfo  typeInfo  = TypeInfo.GetTypeInfo(fieldInfo.FieldType);
-                typeInfo.type = typeInfo.isIList ? fieldInfo.FieldType : typeInfo.type;
+                var typeInfo  = TypeInfo.GetTypeInfo(fieldInfo.FieldType);
+                typeInfo.Type = typeInfo.IsIList ? fieldInfo.FieldType : typeInfo.Type;
 
-                GUIAttribute guiAttribute = Attribute.GetCustomAttribute(fieldInfo, typeof(GUIAttribute)) as GUIAttribute;
-                guiAttribute = guiAttribute ?? new GUIAttribute();
-                guiAttribute.Title = guiAttribute.Title ?? GetTitleCase(fieldInfo.Name);
+                var guiAttribute = Attribute.GetCustomAttribute(fieldInfo, typeof(GUIAttribute)) as GUIAttribute;
+                guiAttribute ??= new GUIAttribute();
+                guiAttribute.Title ??= GetTitleCase(fieldInfo.Name);
 
                 if (Attribute.GetCustomAttribute(fieldInfo, typeof(RangeAttribute)) is RangeAttribute rangeAttribute)
                 {
@@ -96,7 +95,7 @@ namespace XGUI
 
                 if (Attribute.GetCustomAttribute(fieldInfo, typeof(HeaderAttribute)) is HeaderAttribute headerAttribute)
                 {
-                    this.guiGroups.Add(new GUIGroup() { Title = headerAttribute.header });
+                    _guiGroups.Add(new GUIGroup() { Title = headerAttribute.header });
                 }
 
                 if (guiAttribute.Hide)
@@ -104,39 +103,32 @@ namespace XGUI
                     continue;
                 }
 
-                object gui = ReflectionHelper.Generate(typeInfo,
-                                                       guiAttribute.Title,
-                                                       guiAttribute.MinValue,
-                                                       guiAttribute.MaxValue,
-                                                       guiAttribute.Width);
-
-                this.guiGroups[this.guiGroups.Count - 1].infos.Add(new FieldGUIInfo(fieldInfo, gui));
+                var gui = ReflectionHelper.Generate(typeInfo,
+                    guiAttribute.Title,
+                    guiAttribute.MinValue,
+                    guiAttribute.MaxValue,
+                    guiAttribute.Width);
+                
+                _guiGroups[_guiGroups.Count - 1].infos.Add(new FieldGUIInfo(fieldInfo, gui));
             }
         }
 
         protected static string GetTitleCase(string title)
         {
-            if (title == null)
+            if (string.IsNullOrEmpty(title))
             {
                 return title;
             }
 
-            int textLength = title.Length;
-
-            if (textLength == 0)
+            switch (title.Length)
             {
-                return title;
+                case 0:
+                    return title;
+                case 1:
+                    return new string(new[]{char.ToUpper(title[0])});
             }
 
-            if (textLength == 1)
-            {
-                return new string(new char[]
-                {
-                    char.ToUpper(title[0])
-                });
-            }
-
-            for (int i = 0; i < textLength - 1; i++)
+            for (var i = 0; i < title.Length - 1; i++)
             {
                 if ((char.IsLower(title[i]) && (char.IsUpper(title[i + 1]) || char.IsDigit(title[i + 1])))
                  || (char.IsDigit(title[i]) && char.IsUpper(title[i + 1])))
@@ -154,18 +146,18 @@ namespace XGUI
 
         public void Foldout(bool open, bool all = false)
         {
-            for (int i = 0; i < (all ? this.guiGroups.Count : 1); i++)
+            for (var i = 0; i < (all ? _guiGroups.Count : 1); i++)
             {
-                this.guiGroups[0].panel.Value = open;
+                _guiGroups[0].panel.Value = open;
             }
         }
 
         public override T Show(T value)
         {
-            if (this.IsUnSupported)
+            if (IsUnSupported)
             {
-                this.unsupportedGUI.Title = base.Title ?? typeof(T).ToString();
-                this.unsupportedGUI.Show(0);
+                _unsupportedGUI.Title = base.Title ?? typeof(T).ToString();
+                _unsupportedGUI.Show(0);
                 return value;
             }
 
@@ -174,16 +166,16 @@ namespace XGUI
 
             object boxedValue = value;
 
-            this.guiGroups[0].panel.Title = base.Title ?? typeof(T).ToString();
-            this.guiGroups[0].panel.Show(() =>
+            _guiGroups[0].panel.Title = base.Title ?? typeof(T).ToString();
+            _guiGroups[0].panel.Show(() =>
             {
-                ShowGUI(boxedValue, guiGroups[0].infos);
+                ShowGUI(boxedValue, _guiGroups[0].infos);
 
-                for (int i = 1; i < this.guiGroups.Count; i++)
+                for (var i = 1; i < _guiGroups.Count; i++)
                 {
-                    this.guiGroups[i].panel.Show(() =>
+                    _guiGroups[i].panel.Show(() =>
                     {
-                        ShowGUI(boxedValue, guiGroups[i].infos);
+                        ShowGUI(boxedValue, _guiGroups[i].infos);
                     });
                 }
             });
@@ -193,24 +185,24 @@ namespace XGUI
 
         private void ShowGUI(object value, List<FieldGUIInfo> infos)
         {
-            foreach (FieldGUIInfo info in infos)
+            foreach (var info in infos)
             {
-                Type guiType = info.gui.GetType();
+                var guiType = info.GUI.GetType();
 
-                if (this.HideUnsupportedGUI)
+                if (HideUnsupportedGUI)
                 {
-                    PropertyInfo property = guiType.GetProperty("IsUnSupported");
+                    var property = guiType.GetProperty("IsUnSupported");
 
-                    if (property != null && (bool)(property.GetValue(info.gui)))
+                    if (property != null && (bool)(property.GetValue(info.GUI)))
                     {
                         continue;
                     }
                 }
 
-                MethodInfo showMethod     = guiType.GetMethod("Show");
-                object[]   showMethodArgs = new object[] { info.filedInfo.GetValue(value) };
+                var showMethod     = guiType.GetMethod("Show");
+                var showMethodArgs = new object[] { info.FiledInfo.GetValue(value) };
 
-                info.filedInfo.SetValue(value, showMethod.Invoke(info.gui, showMethodArgs));
+                info.FiledInfo.SetValue(value, showMethod.Invoke(info.GUI, showMethodArgs));
             }
         }
 
@@ -241,27 +233,29 @@ namespace XGUI
 
         protected void SetProperty(string fieldName, string propertyName, object value)
         {
-            foreach (var guiGroup in this.guiGroups)
+            foreach (var guiGroup in this._guiGroups)
             {
                 foreach (var info in guiGroup.infos)
                 {
-                    if (info.filedInfo.Name != fieldName)
+                    if (info.FiledInfo.Name != fieldName)
                     {
                         continue;
                     }
 
-                    var property = info.gui.GetType().GetProperty(propertyName);
+                    var property = info.GUI.GetType().GetProperty(propertyName);
 
-                    if (property != null)
+                    if (property == null)
                     {
-                        try
-                        {
-                            property.SetValue(info.gui, value);
-                        }
-                        catch(Exception e)
-                        {
-                            Debug.Log(e);
-                        }
+                        continue;
+                    }
+
+                    try
+                    {
+                        property.SetValue(info.GUI, value);
+                    }
+                    catch(Exception e)
+                    {
+                        Debug.Log(e);
                     }
                 }
             }

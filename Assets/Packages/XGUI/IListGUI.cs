@@ -21,8 +21,8 @@ namespace XGUI
 
         public override string Title
         {
-            get => this.panel.Title;
-            set => this.panel.Title = value;
+            get => panel.Title;
+            set => panel.Title = value;
         }
 
         #endregion Property
@@ -44,21 +44,21 @@ namespace XGUI
 
             base.Initialize();
 
-            this.ElementType   = TypeInfo.GetTypeInfo(typeof(T));
-            TypeInfo childType = TypeInfo.GetTypeInfo(this.ElementType.type);
+            ElementType   = TypeInfo.GetTypeInfo(typeof(T));
+            var childType = TypeInfo.GetTypeInfo(ElementType.Type);
 
-            this.ElementType.type    = childType.isIList ? this.ElementType.type : childType.type;
-            this.ElementType.isIList = childType.isIList;
+            ElementType.Type    = childType.IsIList ? ElementType.Type : childType.Type;
+            ElementType.IsIList = childType.IsIList;
         }
 
         public override T Show(T value)
         {
-            this.panel.Show(() =>
+            panel.Show(() =>
             {
-                IList values = value != null ? (IList)value : null;
-                int valuesCount = values != null ? values.Count : 0;
-                int guisCount = this.guis.Count;
-                int countDiff = guisCount - valuesCount;
+                var values      = value  != null ? (IList)value : null;
+                var valuesCount = values != null ? values.Count : 0;
+                var guisCount   = guis.Count;
+                var countDiff   = guisCount - valuesCount;
 
                 if (valuesCount == 0)
                 {
@@ -68,13 +68,13 @@ namespace XGUI
 
                 if (0 < countDiff)
                 {
-                    this.guis.RemoveRange(guisCount - 1 - countDiff, countDiff);
+                    guis.RemoveRange(guisCount - 1 - countDiff, countDiff);
                 }
                 else
                 {
-                    for (int i = 0; i < -countDiff; i++)
+                    for (var i = 0; i < -countDiff; i++)
                     {
-                        this.guis.Add(ReflectionHelper.Generate(this.ElementType));
+                        guis.Add(ReflectionHelper.Generate(this.ElementType));
                     }
                 }
 
@@ -84,15 +84,15 @@ namespace XGUI
 
                 if (0 < valuesCount)
                 {
-                    type          = this.guis[0].GetType();
+                    type          = guis[0].GetType();
                     titleProperty = type.GetProperty("Title");
                     showMethod    = type.GetMethod("Show");
                 }
 
-                for (int i = 0; i < valuesCount; i++)
+                for (var i = 0; i < valuesCount; i++)
                 {
-                    titleProperty.SetValue(this.guis[i], "Element " + i);
-                    values[i] = showMethod.Invoke(this.guis[i], new object[] { values[i] });
+                    titleProperty.SetValue(guis[i], "Element " + i);
+                    values[i] = showMethod.Invoke(guis[i], new object[] { values[i] });
                 }
             });
 

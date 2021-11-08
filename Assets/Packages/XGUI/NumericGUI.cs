@@ -22,9 +22,9 @@ namespace XGUI
         {
             get
             {
-                GUIStyle style = base.FieldStyle;
-                Color textColor = TextIsCorrect ? GUI.skin.textField.normal.textColor
-                                                : XGUILayout.DefaultInvalidValueColor;
+                var style     = base.FieldStyle;
+                var textColor = TextIsCorrect ? GUI.skin.textField.normal.textColor
+                                              : XGUILayout.DefaultInvalidValueColor;
                 style.normal.textColor  = textColor;
                 style.active.textColor  = textColor;
                 style.focused.textColor = textColor;
@@ -51,11 +51,10 @@ namespace XGUI
 
         public override T Show(T value)
         {
-            T valueT = value;
+            var valueT = value;
 
-            this.text = this.text ?? valueT.ToString();
-            this.text = this.previousValue.Equals(valueT) ?
-                        this.text : valueT.ToString();
+            text ??= valueT.ToString();
+            text = previousValue.Equals(valueT) ? text : valueT.ToString();
 
             XGUILayout.VerticalLayout(() =>
             {
@@ -63,13 +62,13 @@ namespace XGUI
                 {
                     base.ShowTitle();
 
-                    this.text = base.ShowTextField(this.text);
+                    text = base.ShowTextField(text);
 
                     // NOTE:
                     // float.TryParse("0.") return true.
                     // But need to keep user input text, because the user may input "0.x~".
 
-                    if (float.TryParse(this.text, out float textValue))
+                    if (float.TryParse(text, out float textValue))
                     {
                         valueT = (T)Convert.ChangeType(textValue, typeof(T));
                     }
@@ -83,27 +82,27 @@ namespace XGUI
                 // NOTE:
                 // Need to update text when the value is updated with Slider.
 
-                float floatValue = (float)Convert.ChangeType(valueT,        typeof(float));
-                float minValue   = (float)Convert.ChangeType(base.MinValue, typeof(float));
-                float maxValue   = (float)Convert.ChangeType(base.MaxValue, typeof(float));
+                var floatValue = (float)Convert.ChangeType(valueT,        typeof(float));
+                var minValue   = (float)Convert.ChangeType(base.MinValue, typeof(float));
+                var maxValue   = (float)Convert.ChangeType(base.MaxValue, typeof(float));
 
-                float sliderValue = GUILayout.HorizontalSlider(floatValue, minValue, maxValue);
+                var sliderValue = GUILayout.HorizontalSlider(floatValue, minValue, maxValue);
 
-                T sliderValueT = CorrectValue((T)Convert.ChangeType(sliderValue, typeof(T)));
+                T sliderValueT = ValidateValue((T)Convert.ChangeType(sliderValue, typeof(T)));
 
                 if (!sliderValueT.Equals(valueT))
                 {
                     valueT = sliderValueT;
-                    this.text = valueT.ToString();
+                    text   = valueT.ToString();
                 }
             });
 
-            this.previousValue = valueT;
+            previousValue = valueT;
 
             return valueT;
         }
 
-        protected virtual T CorrectValue(T value)
+        protected virtual T ValidateValue(T value)
         {
             if (0 < value.CompareTo(base.MaxValue))
             {

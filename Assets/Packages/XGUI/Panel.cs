@@ -5,15 +5,15 @@
         #region Property
 
         protected T value;
-        public    T Value { set { this.value = value; } }
+        public    T Value { set => this.value = value; }
 
         #endregion Property
 
         #region Constructor
 
-        public Panel() : base() { }
+        protected Panel() : base() { }
 
-        public Panel(string title) : base(title) { }
+        protected Panel(string title) : base(title) { }
 
         #endregion Constructor
     }

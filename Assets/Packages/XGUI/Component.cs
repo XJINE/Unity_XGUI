@@ -9,13 +9,13 @@ namespace XGUI
         // NOTE:
         // GUIStyle and GUI.skin are accessible in OnGUI().
 
-        private   static GUIStyle titleStyle;
+        private   static GUIStyle _titleStyle;
         protected static GUIStyle TitleStyle
         {
             get
             {
-                titleStyle = titleStyle ?? new GUIStyle(GUI.skin.label);
-                return titleStyle;
+                _titleStyle ??= new GUIStyle(GUI.skin.label);
+                return _titleStyle;
             }
         }
 
@@ -23,9 +23,9 @@ namespace XGUI
 
         #region Constructor
 
-        public Component() : base() { }
+        protected Component() : base() { }
 
-        public Component(string title) : base(title) { }
+        protected Component(string title) : base(title) { }
 
         #endregion Constructor
 

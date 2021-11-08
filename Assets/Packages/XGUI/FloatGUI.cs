@@ -12,7 +12,7 @@
             {
                 float value;
 
-                if (!float.TryParse(this.text, out value))
+                if (!float.TryParse(text, out value))
                 {
                     return false;
                 }
@@ -22,14 +22,14 @@
                     return false;
                 }
 
-                string[] splits = this.text.Split('.');
+                string[] splits = text.Split('.');
 
                 if (splits.Length == 1)
                 {
                     return true;
                 }
 
-                if (splits[1].Length <= this.Decimals)
+                if (splits[1].Length <= Decimals)
                 {
                     return true;
                 }
@@ -56,14 +56,14 @@
         {
             base.Initialize();
 
-            this.Decimals = XGUILayout.DefaultDecimals;
+                 Decimals = XGUILayout.DefaultDecimals;
             base.MinValue = XGUILayout.DefaultMinValueFloat;
             base.MaxValue = XGUILayout.DefaultMaxValueFloat;
         }
 
-        protected override float CorrectValue(float value)
+        protected override float ValidateValue(float value)
         {
-            return (float)System.Math.Round(base.CorrectValue(value), this.Decimals);
+            return (float)System.Math.Round(base.ValidateValue(value), Decimals);
         }
 
         #endregion Method

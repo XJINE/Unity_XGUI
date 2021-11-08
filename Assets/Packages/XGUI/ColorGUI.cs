@@ -6,10 +6,10 @@ namespace XGUI
     {
         #region Field
 
-        private readonly FloatGUI floatGUIR = new FloatGUI() { Title = "R" };
-        private readonly FloatGUI floatGUIG = new FloatGUI() { Title = "G" };
-        private readonly FloatGUI floatGUIB = new FloatGUI() { Title = "B" };
-        private readonly FloatGUI floatGUIA = new FloatGUI() { Title = "A" };
+        private readonly FloatGUI floatGUIR = new () { Title = "R" };
+        private readonly FloatGUI floatGUIG = new () { Title = "G" };
+        private readonly FloatGUI floatGUIB = new () { Title = "B" };
+        private readonly FloatGUI floatGUIA = new () { Title = "A" };
 
         #endregion Field
 
@@ -17,89 +17,75 @@ namespace XGUI
 
         public override Color MinValue
         {
-            get
+            get => new ()
             {
-                return new Color()
-                {
-                    r = this.floatGUIR.MinValue,
-                    g = this.floatGUIG.MinValue,
-                    b = this.floatGUIB.MinValue,
-                    a = this.floatGUIA.MinValue
-                };
-            }
+                r = floatGUIR.MinValue,
+                g = floatGUIG.MinValue,
+                b = floatGUIB.MinValue,
+                a = floatGUIA.MinValue
+            };
+
             set
             {
-                this.floatGUIR.MinValue = value.r;
-                this.floatGUIG.MinValue = value.g;
-                this.floatGUIB.MinValue = value.b;
-                this.floatGUIA.MinValue = value.a;
+                floatGUIR.MinValue = value.r;
+                floatGUIG.MinValue = value.g;
+                floatGUIB.MinValue = value.b;
+                floatGUIA.MinValue = value.a;
             }
         }
 
         public override Color MaxValue
         {
-            get
+            get => new()
             {
-                return new Color()
-                {
-                    r = this.floatGUIR.MaxValue,
-                    g = this.floatGUIG.MaxValue,
-                    b = this.floatGUIB.MaxValue,
-                    a = this.floatGUIA.MaxValue
-                };
-            }
+                r = floatGUIR.MaxValue,
+                g = floatGUIG.MaxValue,
+                b = floatGUIB.MaxValue,
+                a = floatGUIA.MaxValue
+            };
+
             set
             {
-                this.floatGUIR.MaxValue = value.r;
-                this.floatGUIG.MaxValue = value.g;
-                this.floatGUIB.MaxValue = value.b;
-                this.floatGUIA.MaxValue = value.a;
+                floatGUIR.MaxValue = value.r;
+                floatGUIG.MaxValue = value.g;
+                floatGUIB.MaxValue = value.b;
+                floatGUIA.MaxValue = value.a;
             }
         }
 
         public override int Decimals
         {
-            get
-            {
-                return this.floatGUIR.Decimals;
-            }
+            get => floatGUIR.Decimals;
             set
             {
-                this.floatGUIR.Decimals = value;
-                this.floatGUIG.Decimals = value;
-                this.floatGUIB.Decimals = value;
-                this.floatGUIA.Decimals = value;
+                floatGUIR.Decimals = value;
+                floatGUIG.Decimals = value;
+                floatGUIB.Decimals = value;
+                floatGUIA.Decimals = value;
             }
         }
 
         public override float Width
         {
-            get
-            {
-                return this.floatGUIR.Width;
-            }
+            get => floatGUIR.Width;
             set
             {
-                this.floatGUIR.Width = value;
-                this.floatGUIG.Width = value;
-                this.floatGUIB.Width = value;
-                this.floatGUIA.Width = value;
+                floatGUIR.Width = value;
+                floatGUIG.Width = value;
+                floatGUIB.Width = value;
+                floatGUIA.Width = value;
             }
         }
 
         public override bool Slider
         {
-            get
-            {
-                return this.floatGUIR.Slider;
-            }
-
+            get => floatGUIR.Slider;
             set
             {
-                this.floatGUIR.Slider = value;
-                this.floatGUIG.Slider = value;
-                this.floatGUIB.Slider = value;
-                this.floatGUIA.Slider = value;
+                floatGUIR.Slider = value;
+                floatGUIG.Slider = value;
+                floatGUIB.Slider = value;
+                floatGUIA.Slider = value;
             }
         }
 
@@ -121,18 +107,18 @@ namespace XGUI
         {
             base.Initialize();
 
-            this.MinValue = XGUILayout.DefaultMinValueColor;
-            this.MaxValue = XGUILayout.DefaultMaxValueColor;
+            MinValue = XGUILayout.DefaultMinValueColor;
+            MaxValue = XGUILayout.DefaultMaxValueColor;
         }
 
         protected override Color ShowComponents(Color value)
         {
             return new Color()
             {
-                r = this.floatGUIR.Show(value.r),
-                g = this.floatGUIG.Show(value.g),
-                b = this.floatGUIB.Show(value.b),
-                a = this.floatGUIA.Show(value.a)
+                r = floatGUIR.Show(value.r),
+                g = floatGUIG.Show(value.g),
+                b = floatGUIB.Show(value.b),
+                a = floatGUIA.Show(value.a)
             };
         }
 

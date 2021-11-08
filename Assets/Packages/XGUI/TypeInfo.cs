@@ -5,40 +5,41 @@ namespace XGUI
 {
     public class TypeInfo
     {
-        public bool isIList;
-        public Type type;
+        public bool IsIList;
+        public Type Type;
+
+        private TypeInfo(bool isIList, Type type)
+        {
+            IsIList = isIList;
+            Type    = type;
+        }
 
         internal static TypeInfo GetTypeInfo(Type type)
         {
-            TypeInfo typeInfo = new TypeInfo()
+            if (type.IsArray)
             {
-                type = type,
-                isIList = false
-            };
-
-            if (typeInfo.type.IsArray)
-            {
-                typeInfo.type = typeInfo.type.GetElementType();
-                typeInfo.isIList = true;
+                return new TypeInfo(true, type.GetElementType());
             }
-            else if (typeInfo.type.IsGenericType)
+            
+            if (type.IsGenericType)
             {
                 // NOTE:
                 // typeof(IList<>) will not be equaled.
 
-                if (typeInfo.type.GetGenericTypeDefinition() == typeof(List<>))
+                if (type.GetGenericTypeDefinition() != typeof(List<>))
                 {
-                    Type[] types = typeInfo.type.GetGenericArguments();
+                    return new TypeInfo(false, type);
+                }
 
-                    if (types.Length == 1)
-                    {
-                        typeInfo.type = types[0];
-                        typeInfo.isIList = true;
-                    }
+                var types = type.GetGenericArguments();
+
+                if (types.Length == 1)
+                {
+                    return new TypeInfo(true, types[0]);
                 }
             }
 
-            return typeInfo;
+            return new TypeInfo(false, type);
         }
     }
 }

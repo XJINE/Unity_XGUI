@@ -10,11 +10,11 @@
 
         #region Constructor
 
-        public VectorFloatGUI() : base() { }
+        protected VectorFloatGUI() : base() { }
 
-        public VectorFloatGUI(string title) : base(title) { }
+        protected VectorFloatGUI(string title) : base(title) { }
 
-        public VectorFloatGUI(string title, T min, T max) : base(title, min, max) { }
+        protected VectorFloatGUI(string title, T min, T max) : base(title, min, max) { }
 
         #endregion Constructor
     }

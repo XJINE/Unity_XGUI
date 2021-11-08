@@ -10,17 +10,12 @@
             {
                 int value;
 
-                if (!int.TryParse(this.text, out value))
+                if (!int.TryParse(text, out value))
                 {
                     return false;
                 }
 
-                if (value < base.MinValue || base.MaxValue < value)
-                {
-                    return false;
-                }
-
-                return true;
+                return base.MinValue <= value && value <= base.MaxValue;
             }
         }
 

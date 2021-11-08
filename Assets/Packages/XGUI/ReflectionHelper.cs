@@ -9,9 +9,9 @@ namespace XGUI
     {
         #region Field
 
-        private static Type IListGUIType = typeof(IListGUI<>);
-        private static Type EnumGUIType  = typeof(EnumGUI<>);
-        private static Type FieldGUIType = typeof(FieldGUI<>);
+        private static readonly Type IListGUIType = typeof(IListGUI<>);
+        private static readonly Type EnumGUIType  = typeof(EnumGUI<>);
+        private static readonly Type FieldGUIType = typeof(FieldGUI<>);
 
         private static readonly Dictionary<Type, Type> GUIType = new Dictionary<Type, Type>()
         {
@@ -28,36 +28,36 @@ namespace XGUI
             { typeof(Matrix4x4),  typeof(Matrix4x4GUI)  },
         };
 
-        private static readonly Dictionary<Type, Func<float, object>> MinValue = new Dictionary<Type, Func<float, object>>()
+        private static readonly Dictionary<Type, Func<float, object>> MinValue = new ()
         {
-            { typeof(int),        (min) => { return float.IsNaN(min) ? DefaultMinValueInt        : (int)min;                                     } },
-            { typeof(float),      (min) => { return float.IsNaN(min) ? DefaultMinValueFloat      : min;                                          } },
-            { typeof(Vector2),    (min) => { return float.IsNaN(min) ? DefaultMinValueVector2    : new Vector2(min, min);                        } },
-            { typeof(Vector3),    (min) => { return float.IsNaN(min) ? DefaultMinValueVector3    : new Vector3(min, min, min);                   } },
-            { typeof(Vector4),    (min) => { return float.IsNaN(min) ? DefaultMinValueVector4    : new Vector4(min, min, min, min);              } },
-            { typeof(Vector2Int), (min) => { return float.IsNaN(min) ? DefaultMinValueVector2Int : new Vector2Int((int)min, (int)min);           } },
-            { typeof(Vector3Int), (min) => { return float.IsNaN(min) ? DefaultMinValueVector3Int : new Vector3Int((int)min, (int)min, (int)min); } },
-            { typeof(Color),      (min) => { return float.IsNaN(min) ? DefaultMinValueColor      : new Color(min, min, min, min);                } },
-            { typeof(Matrix4x4),  (min) => { return float.IsNaN(min) ? DefaultMinValueMatrix4x4  : new Matrix4x4(new Vector4(min, min, min, min),
-                                                                                                                 new Vector4(min, min, min, min),
-                                                                                                                 new Vector4(min, min, min, min),
-                                                                                                                 new Vector4(min, min, min, min)); } },
+            { typeof(int),        (min) => float.IsNaN(min) ? DefaultMinValueInt        : (int)min},
+            { typeof(float),      (min) => float.IsNaN(min) ? DefaultMinValueFloat      : min},
+            { typeof(Vector2),    (min) => float.IsNaN(min) ? DefaultMinValueVector2    : new Vector2(min, min)},
+            { typeof(Vector3),    (min) => float.IsNaN(min) ? DefaultMinValueVector3    : new Vector3(min, min, min)},
+            { typeof(Vector4),    (min) => float.IsNaN(min) ? DefaultMinValueVector4    : new Vector4(min, min, min, min)},
+            { typeof(Vector2Int), (min) => float.IsNaN(min) ? DefaultMinValueVector2Int : new Vector2Int((int)min, (int)min)},
+            { typeof(Vector3Int), (min) => float.IsNaN(min) ? DefaultMinValueVector3Int : new Vector3Int((int)min, (int)min, (int)min)},
+            { typeof(Color),      (min) => float.IsNaN(min) ? DefaultMinValueColor      : new Color(min, min, min, min)},
+            { typeof(Matrix4x4),  (min) => float.IsNaN(min) ? DefaultMinValueMatrix4x4  : new Matrix4x4(new Vector4(min, min, min, min),
+                                                                                                        new Vector4(min, min, min, min),
+                                                                                                        new Vector4(min, min, min, min),
+                                                                                                        new Vector4(min, min, min, min))}
         };
 
-        private static readonly Dictionary<Type, Func<float, object>> MaxValue = new Dictionary<Type, Func<float, object>>()
+        private static readonly Dictionary<Type, Func<float, object>> MaxValue = new ()
         {
-            { typeof(int),        (max) => { return float.IsNaN(max) ? DefaultMaxValueInt        : (int)max;                                     } },
-            { typeof(float),      (max) => { return float.IsNaN(max) ? DefaultMaxValueFloat      : max;                                          } },
-            { typeof(Vector2),    (max) => { return float.IsNaN(max) ? DefaultMaxValueVector2    : new Vector2(max, max);                        } },
-            { typeof(Vector3),    (max) => { return float.IsNaN(max) ? DefaultMaxValueVector3    : new Vector3(max, max, max);                   } },
-            { typeof(Vector4),    (max) => { return float.IsNaN(max) ? DefaultMaxValueVector4    : new Vector4(max, max, max, max);              } },
-            { typeof(Vector2Int), (max) => { return float.IsNaN(max) ? DefaultMaxValueVector2Int : new Vector2Int((int)max, (int)max);           } },
-            { typeof(Vector3Int), (max) => { return float.IsNaN(max) ? DefaultMaxValueVector3Int : new Vector3Int((int)max, (int)max, (int)max); } },
-            { typeof(Color),      (max) => { return float.IsNaN(max) ? DefaultMaxValueColor      : new Color(max, max, max, max);                } },
-            { typeof(Matrix4x4),  (max) => { return float.IsNaN(max) ? DefaultMaxValueMatrix4x4  : new Matrix4x4(new Vector4(max, max, max, max),
-                                                                                                                 new Vector4(max, max, max, max),
-                                                                                                                 new Vector4(max, max, max, max),
-                                                                                                                 new Vector4(max, max, max, max)); } },
+            { typeof(int),        (max) => float.IsNaN(max) ? DefaultMaxValueInt        : (int)max},
+            { typeof(float),      (max) => float.IsNaN(max) ? DefaultMaxValueFloat      : max},
+            { typeof(Vector2),    (max) => float.IsNaN(max) ? DefaultMaxValueVector2    : new Vector2(max, max)},
+            { typeof(Vector3),    (max) => float.IsNaN(max) ? DefaultMaxValueVector3    : new Vector3(max, max, max)},
+            { typeof(Vector4),    (max) => float.IsNaN(max) ? DefaultMaxValueVector4    : new Vector4(max, max, max, max)},
+            { typeof(Vector2Int), (max) => float.IsNaN(max) ? DefaultMaxValueVector2Int : new Vector2Int((int)max, (int)max)},
+            { typeof(Vector3Int), (max) => float.IsNaN(max) ? DefaultMaxValueVector3Int : new Vector3Int((int)max, (int)max, (int)max)},
+            { typeof(Color),      (max) => float.IsNaN(max) ? DefaultMaxValueColor      : new Color(max, max, max, max)},
+            { typeof(Matrix4x4),  (max) => float.IsNaN(max) ? DefaultMaxValueMatrix4x4  : new Matrix4x4(new Vector4(max, max, max, max),
+                                                                                          new Vector4(max, max, max, max),
+                                                                                          new Vector4(max, max, max, max),
+                                                                                          new Vector4(max, max, max, max))},
         };
 
         #endregion Field
@@ -76,28 +76,28 @@ namespace XGUI
 
             width = float.IsNaN(width) ? DefaultWidth : width;
 
-            if (typeInfo.isIList)
+            if (typeInfo.IsIList)
             {
-                guiType = IListGUIType.MakeGenericType(typeInfo.type);
+                guiType = IListGUIType.MakeGenericType(typeInfo.Type);
             }
-            else if (typeInfo.type.IsEnum)
+            else if (typeInfo.Type.IsEnum)
             {
-                guiType = EnumGUIType.MakeGenericType(typeInfo.type); ;
+                guiType = EnumGUIType.MakeGenericType(typeInfo.Type); ;
             }
-            else if (GUIType.ContainsKey(typeInfo.type))
+            else if (GUIType.ContainsKey(typeInfo.Type))
             {
-                guiType   = GUIType[typeInfo.type];
-                minObject = MinValue.ContainsKey(typeInfo.type) ?
-                            MinValue[typeInfo.type].Invoke(min) : minObject;
-                maxObject = MaxValue.ContainsKey(typeInfo.type) ?
-                            MaxValue[typeInfo.type].Invoke(max) : maxObject;
+                guiType   = GUIType[typeInfo.Type];
+                minObject = MinValue.ContainsKey(typeInfo.Type) ?
+                            MinValue[typeInfo.Type].Invoke(min) : minObject;
+                maxObject = MaxValue.ContainsKey(typeInfo.Type) ?
+                            MaxValue[typeInfo.Type].Invoke(max) : maxObject;
             }
             else
             {
-                guiType = FieldGUIType.MakeGenericType(typeInfo.type);
+                guiType = FieldGUIType.MakeGenericType(typeInfo.Type);
             }
 
-            object gui = Activator.CreateInstance(guiType);
+            var gui = Activator.CreateInstance(guiType);
 
             guiType.GetProperty("Title")?.SetValue(gui, title);
             guiType.GetProperty("MinValue")?.SetValue(gui, minObject);
