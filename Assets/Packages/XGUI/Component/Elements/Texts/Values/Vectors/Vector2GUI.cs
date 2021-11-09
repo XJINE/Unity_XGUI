@@ -51,12 +51,12 @@ namespace XGUI
         {
             get
             {
-                return this.floatGUIX.Decimals;
+                return this.floatGUIX.Digits;
             }
             set
             {
-                this.floatGUIX.Decimals = value;
-                this.floatGUIY.Decimals = value;
+                this.floatGUIX.Digits = value;
+                this.floatGUIY.Digits = value;
             }
         }
 

@@ -61,14 +61,14 @@ namespace XGUI
         {
             get
             {
-                return this.floatGUIX.Decimals;
+                return this.floatGUIX.Digits;
             }
             set
             {
-                this.floatGUIX.Decimals = value;
-                this.floatGUIY.Decimals = value;
-                this.floatGUIZ.Decimals = value;
-                this.floatGUIW.Decimals = value;
+                this.floatGUIX.Digits = value;
+                this.floatGUIY.Digits = value;
+                this.floatGUIZ.Digits = value;
+                this.floatGUIW.Digits = value;
             }
         }
 

@@ -55,13 +55,13 @@ namespace XGUI
 
         public override int Decimals
         {
-            get => floatGUIR.Decimals;
+            get => floatGUIR.Digits;
             set
             {
-                floatGUIR.Decimals = value;
-                floatGUIG.Decimals = value;
-                floatGUIB.Decimals = value;
-                floatGUIA.Decimals = value;
+                floatGUIR.Digits = value;
+                floatGUIG.Digits = value;
+                floatGUIB.Digits = value;
+                floatGUIA.Digits = value;
             }
         }
 

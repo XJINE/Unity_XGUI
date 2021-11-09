@@ -10,9 +10,9 @@ namespace XGUI
     {
         #region Field
 
-        protected T previousValue;
+        protected T PreviousValue;
 
-        protected string text;
+        protected string Text;
 
         #endregion Field
 
@@ -39,7 +39,7 @@ namespace XGUI
 
         #region Constructor
 
-        protected NumericGUI() : base() { }
+        protected NumericGUI() { }
 
         protected NumericGUI(string title) : base(title) { }
 
@@ -51,10 +51,11 @@ namespace XGUI
 
         public override T Show(T value)
         {
+            valueだけでよさそう
             var valueT = value;
 
-            text ??= valueT.ToString();
-            text = previousValue.Equals(valueT) ? text : valueT.ToString();
+            Text ??= valueT.ToString();
+            Text = PreviousValue.Equals(valueT) ? Text : valueT.ToString();
 
             XGUILayout.VerticalLayout(() =>
             {
@@ -62,19 +63,19 @@ namespace XGUI
                 {
                     base.ShowTitle();
 
-                    text = base.ShowTextField(text);
+                    Text = ShowTextField(Text);
 
                     // NOTE:
                     // float.TryParse("0.") return true.
                     // But need to keep user input text, because the user may input "0.x~".
 
-                    if (float.TryParse(text, out float textValue))
+                    if (float.TryParse(Text, out float textValue))
                     {
                         valueT = (T)Convert.ChangeType(textValue, typeof(T));
                     }
                 });
 
-                if (!base.Slider)
+                if (!Slider)
                 {
                     return;
                 }
@@ -82,9 +83,9 @@ namespace XGUI
                 // NOTE:
                 // Need to update text when the value is updated with Slider.
 
-                var floatValue = (float)Convert.ChangeType(valueT,        typeof(float));
-                var minValue   = (float)Convert.ChangeType(base.MinValue, typeof(float));
-                var maxValue   = (float)Convert.ChangeType(base.MaxValue, typeof(float));
+                var floatValue = (float)Convert.ChangeType(valueT,   typeof(float));
+                var minValue   = (float)Convert.ChangeType(MinValue, typeof(float));
+                var maxValue   = (float)Convert.ChangeType(MaxValue, typeof(float));
 
                 var sliderValue  = GUILayout.HorizontalSlider(floatValue, minValue, maxValue);
                 var sliderValueT = ValidateValue((T)Convert.ChangeType(sliderValue, typeof(T)));
@@ -92,25 +93,25 @@ namespace XGUI
                 if (!sliderValueT.Equals(valueT))
                 {
                     valueT = sliderValueT;
-                    text   = valueT.ToString();
+                    Text   = valueT.ToString();
                 }
             });
 
-            previousValue = valueT;
+            PreviousValue = valueT;
 
             return valueT;
         }
 
         protected virtual T ValidateValue(T value)
         {
-            if (0 < value.CompareTo(base.MaxValue))
+            if (0 < value.CompareTo(MaxValue))
             {
-                value = base.MaxValue;
+                value = MaxValue;
             }
 
-            if (value.CompareTo(base.MinValue) < 0)
+            if (value.CompareTo(MinValue) < 0)
             {
-                value = base.MinValue;
+                value = MinValue;
             }
 
             return value;

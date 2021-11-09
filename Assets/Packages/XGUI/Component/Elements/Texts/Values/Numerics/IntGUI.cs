@@ -10,7 +10,7 @@
             {
                 int value;
 
-                if (!int.TryParse(text, out value))
+                if (!int.TryParse(Text, out value))
                 {
                     return false;
                 }
@@ -23,7 +23,7 @@
 
         #region Constructor
 
-        public IntGUI() : base() { }
+        public IntGUI() { }
 
         public IntGUI(string title) : base(title) { }
  
@@ -36,8 +36,9 @@
         protected override void Initialize()
         {
             base.Initialize();
-            base.MinValue = XGUILayout.DefaultMinValueInt;
-            base.MaxValue = XGUILayout.DefaultMaxValueInt;
+
+            MinValue = XGUILayout.DefaultMinValueInt;
+            MaxValue = XGUILayout.DefaultMaxValueInt;
         }
 
         #endregion Method

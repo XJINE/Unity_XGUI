@@ -6,27 +6,27 @@ namespace XGUI
     {
         #region Field
 
-        private readonly FoldoutPanel foldoutPanel = new FoldoutPanel();
+        private readonly FoldoutPanel _foldoutPanel = new ();
 
-        private readonly FloatGUI floatGUIM00 = new FloatGUI() { Title = "M00" };
-        private readonly FloatGUI floatGUIM10 = new FloatGUI() { Title = "M10" };
-        private readonly FloatGUI floatGUIM20 = new FloatGUI() { Title = "M20" };
-        private readonly FloatGUI floatGUIM30 = new FloatGUI() { Title = "M30" };
+        private readonly FloatGUI _guiM00 = new () { Title = "M00" };
+        private readonly FloatGUI _guiM10 = new () { Title = "M10" };
+        private readonly FloatGUI _guiM20 = new () { Title = "M20" };
+        private readonly FloatGUI _guiM30 = new () { Title = "M30" };
 
-        private readonly FloatGUI floatGUIM01 = new FloatGUI() { Title = "M01" };
-        private readonly FloatGUI floatGUIM11 = new FloatGUI() { Title = "M11" };
-        private readonly FloatGUI floatGUIM21 = new FloatGUI() { Title = "M21" };
-        private readonly FloatGUI floatGUIM31 = new FloatGUI() { Title = "M31" };
+        private readonly FloatGUI _guiM01 = new () { Title = "M01" };
+        private readonly FloatGUI _guiM11 = new () { Title = "M11" };
+        private readonly FloatGUI _guiM21 = new () { Title = "M21" };
+        private readonly FloatGUI _guiM31 = new () { Title = "M31" };
 
-        private readonly FloatGUI floatGUIM02 = new FloatGUI() { Title = "M02" };
-        private readonly FloatGUI floatGUIM12 = new FloatGUI() { Title = "M12" };
-        private readonly FloatGUI floatGUIM22 = new FloatGUI() { Title = "M22" };
-        private readonly FloatGUI floatGUIM32 = new FloatGUI() { Title = "M32" };
+        private readonly FloatGUI _guiM02 = new () { Title = "M02" };
+        private readonly FloatGUI _guiM12 = new () { Title = "M12" };
+        private readonly FloatGUI _guiM22 = new () { Title = "M22" };
+        private readonly FloatGUI _guiM32 = new () { Title = "M32" };
 
-        private readonly FloatGUI floatGUIM03 = new FloatGUI() { Title = "M03" };
-        private readonly FloatGUI floatGUIM13 = new FloatGUI() { Title = "M13" };
-        private readonly FloatGUI floatGUIM23 = new FloatGUI() { Title = "M23" };
-        private readonly FloatGUI floatGUIM33 = new FloatGUI() { Title = "M33" };
+        private readonly FloatGUI _guiM03 = new () { Title = "M03" };
+        private readonly FloatGUI _guiM13 = new () { Title = "M13" };
+        private readonly FloatGUI _guiM23 = new () { Title = "M23" };
+        private readonly FloatGUI _guiM33 = new () { Title = "M33" };
 
         #endregion Field
 
@@ -34,199 +34,184 @@ namespace XGUI
 
         public override string Title
         {
-            get { return this.foldoutPanel.Title;  }
-            set { this.foldoutPanel.Title = value; }
+            get => _foldoutPanel.Title;
+            set => _foldoutPanel.Title = value;
         }
 
         public override Matrix4x4 MinValue
         {
-            get
+            get => new () 
             {
-                return new Matrix4x4()
-                {
-                    m00 = this.floatGUIM00.MinValue,
-                    m10 = this.floatGUIM10.MinValue,
-                    m20 = this.floatGUIM20.MinValue,
-                    m30 = this.floatGUIM30.MinValue,
+                m00 = _guiM00.MinValue, 
+                m10 = _guiM10.MinValue,
+                m20 = _guiM20.MinValue,
+                m30 = _guiM30.MinValue,
 
-                    m01 = this.floatGUIM01.MinValue,
-                    m11 = this.floatGUIM11.MinValue,
-                    m21 = this.floatGUIM21.MinValue,
-                    m31 = this.floatGUIM31.MinValue,
+                m01 = _guiM01.MinValue,
+                m11 = _guiM11.MinValue,
+                m21 = _guiM21.MinValue,
+                m31 = _guiM31.MinValue,
 
-                    m02 = this.floatGUIM02.MinValue,
-                    m12 = this.floatGUIM12.MinValue,
-                    m22 = this.floatGUIM22.MinValue,
-                    m32 = this.floatGUIM32.MinValue,
+                m02 = _guiM02.MinValue,
+                m12 = _guiM12.MinValue,
+                m22 = _guiM22.MinValue,
+                m32 = _guiM32.MinValue,
 
-                    m03 = this.floatGUIM03.MinValue,
-                    m13 = this.floatGUIM13.MinValue,
-                    m23 = this.floatGUIM23.MinValue,
-                    m33 = this.floatGUIM33.MinValue,
-                };
-            }
+                m03 = _guiM03.MinValue,
+                m13 = _guiM13.MinValue,
+                m23 = _guiM23.MinValue,
+                m33 = _guiM33.MinValue,
+            };
             set
             {
-                this.floatGUIM00.MinValue = value.m00;
-                this.floatGUIM10.MinValue = value.m10;
-                this.floatGUIM20.MinValue = value.m20;
-                this.floatGUIM30.MinValue = value.m30;
+                _guiM00.MinValue = value.m00;
+                _guiM10.MinValue = value.m10;
+                _guiM20.MinValue = value.m20;
+                _guiM30.MinValue = value.m30;
 
-                this.floatGUIM01.MinValue = value.m01;
-                this.floatGUIM11.MinValue = value.m11;
-                this.floatGUIM21.MinValue = value.m21;
-                this.floatGUIM31.MinValue = value.m31;
+                _guiM01.MinValue = value.m01;
+                _guiM11.MinValue = value.m11;
+                _guiM21.MinValue = value.m21;
+                _guiM31.MinValue = value.m31;
 
-                this.floatGUIM02.MinValue = value.m02;
-                this.floatGUIM12.MinValue = value.m12;
-                this.floatGUIM22.MinValue = value.m22;
-                this.floatGUIM32.MinValue = value.m32;
+                _guiM02.MinValue = value.m02;
+                _guiM12.MinValue = value.m12;
+                _guiM22.MinValue = value.m22;
+                _guiM32.MinValue = value.m32;
 
-                this.floatGUIM03.MinValue = value.m03;
-                this.floatGUIM13.MinValue = value.m13;
-                this.floatGUIM23.MinValue = value.m23;
-                this.floatGUIM33.MinValue = value.m33;
+                _guiM03.MinValue = value.m03;
+                _guiM13.MinValue = value.m13;
+                _guiM23.MinValue = value.m23;
+                _guiM33.MinValue = value.m33;
             }
         }
 
         public override Matrix4x4 MaxValue
         {
-            get
+            get => new () 
             {
-                return new Matrix4x4()
-                {
-                    m00 = this.floatGUIM00.MaxValue,
-                    m10 = this.floatGUIM10.MaxValue,
-                    m20 = this.floatGUIM20.MaxValue,
-                    m30 = this.floatGUIM30.MaxValue,
+                m00 = _guiM00.MaxValue,
+                m10 = _guiM10.MaxValue,
+                m20 = _guiM20.MaxValue,
+                m30 = _guiM30.MaxValue,
 
-                    m01 = this.floatGUIM01.MaxValue,
-                    m11 = this.floatGUIM11.MaxValue,
-                    m21 = this.floatGUIM21.MaxValue,
-                    m31 = this.floatGUIM31.MaxValue,
+                m01 = _guiM01.MaxValue,
+                m11 = _guiM11.MaxValue,
+                m21 = _guiM21.MaxValue,
+                m31 = _guiM31.MaxValue,
 
-                    m02 = this.floatGUIM02.MaxValue,
-                    m12 = this.floatGUIM12.MaxValue,
-                    m22 = this.floatGUIM22.MaxValue,
-                    m32 = this.floatGUIM32.MaxValue,
+                m02 = _guiM02.MaxValue,
+                m12 = _guiM12.MaxValue,
+                m22 = _guiM22.MaxValue,
+                m32 = _guiM32.MaxValue,
 
-                    m03 = this.floatGUIM03.MaxValue,
-                    m13 = this.floatGUIM13.MaxValue,
-                    m23 = this.floatGUIM23.MaxValue,
-                    m33 = this.floatGUIM33.MaxValue,
-                };
-            }
+                m03 = _guiM03.MaxValue,
+                m13 = _guiM13.MaxValue,
+                m23 = _guiM23.MaxValue,
+                m33 = _guiM33.MaxValue,
+            };
             set
             {
-                this.floatGUIM00.MaxValue = value.m00;
-                this.floatGUIM10.MaxValue = value.m10;
-                this.floatGUIM20.MaxValue = value.m20;
-                this.floatGUIM30.MaxValue = value.m30;
+                _guiM00.MaxValue = value.m00;
+                _guiM10.MaxValue = value.m10;
+                _guiM20.MaxValue = value.m20;
+                _guiM30.MaxValue = value.m30;
 
-                this.floatGUIM01.MaxValue = value.m01;
-                this.floatGUIM11.MaxValue = value.m11;
-                this.floatGUIM21.MaxValue = value.m21;
-                this.floatGUIM31.MaxValue = value.m31;
+                _guiM01.MaxValue = value.m01;
+                _guiM11.MaxValue = value.m11;
+                _guiM21.MaxValue = value.m21;
+                _guiM31.MaxValue = value.m31;
 
-                this.floatGUIM02.MaxValue = value.m02;
-                this.floatGUIM12.MaxValue = value.m12;
-                this.floatGUIM22.MaxValue = value.m22;
-                this.floatGUIM32.MaxValue = value.m32;
+                _guiM02.MaxValue = value.m02;
+                _guiM12.MaxValue = value.m12;
+                _guiM22.MaxValue = value.m22;
+                _guiM32.MaxValue = value.m32;
 
-                this.floatGUIM03.MaxValue = value.m03;
-                this.floatGUIM13.MaxValue = value.m13;
-                this.floatGUIM23.MaxValue = value.m23;
-                this.floatGUIM33.MaxValue = value.m33;
+                _guiM03.MaxValue = value.m03;
+                _guiM13.MaxValue = value.m13;
+                _guiM23.MaxValue = value.m23;
+                _guiM33.MaxValue = value.m33;
             }
         }
 
         public virtual int Decimals
         {
-            get
-            {
-                return this.floatGUIM00.Decimals;
-            }
+            get => _guiM00.Digits;
             set
             {
-                this.floatGUIM00.Decimals = value;
-                this.floatGUIM10.Decimals = value;
-                this.floatGUIM20.Decimals = value;
-                this.floatGUIM30.Decimals = value;
+                _guiM00.Digits = value;
+                _guiM10.Digits = value;
+                _guiM20.Digits = value;
+                _guiM30.Digits = value;
 
-                this.floatGUIM01.Decimals = value;
-                this.floatGUIM11.Decimals = value;
-                this.floatGUIM21.Decimals = value;
-                this.floatGUIM31.Decimals = value;
+                _guiM01.Digits = value;
+                _guiM11.Digits = value;
+                _guiM21.Digits = value;
+                _guiM31.Digits = value;
 
-                this.floatGUIM02.Decimals = value;
-                this.floatGUIM12.Decimals = value;
-                this.floatGUIM22.Decimals = value;
-                this.floatGUIM32.Decimals = value;
+                _guiM02.Digits = value;
+                _guiM12.Digits = value;
+                _guiM22.Digits = value;
+                _guiM32.Digits = value;
 
-                this.floatGUIM03.Decimals = value;
-                this.floatGUIM13.Decimals = value;
-                this.floatGUIM23.Decimals = value;
-                this.floatGUIM33.Decimals = value;
+                _guiM03.Digits = value;
+                _guiM13.Digits = value;
+                _guiM23.Digits = value;
+                _guiM33.Digits = value;
             }
         }
 
         public override float Width
         {
-            get
-            {
-                return this.floatGUIM00.Width;
-            }
+            get => _guiM00.Width;
             set
             {
-                this.floatGUIM00.Width = value;
-                this.floatGUIM10.Width = value;
-                this.floatGUIM20.Width = value;
-                this.floatGUIM30.Width = value;
+                _guiM00.Width = value;
+                _guiM10.Width = value;
+                _guiM20.Width = value;
+                _guiM30.Width = value;
 
-                this.floatGUIM01.Width = value;
-                this.floatGUIM11.Width = value;
-                this.floatGUIM21.Width = value;
-                this.floatGUIM31.Width = value;
+                _guiM01.Width = value;
+                _guiM11.Width = value;
+                _guiM21.Width = value;
+                _guiM31.Width = value;
 
-                this.floatGUIM02.Width = value;
-                this.floatGUIM12.Width = value;
-                this.floatGUIM22.Width = value;
-                this.floatGUIM32.Width = value;
+                _guiM02.Width = value;
+                _guiM12.Width = value;
+                _guiM22.Width = value;
+                _guiM32.Width = value;
 
-                this.floatGUIM03.Width = value;
-                this.floatGUIM13.Width = value;
-                this.floatGUIM23.Width = value;
-                this.floatGUIM33.Width = value;
+                _guiM03.Width = value;
+                _guiM13.Width = value;
+                _guiM23.Width = value;
+                _guiM33.Width = value;
             }
         }
 
         public override bool Slider
         {
-            get
-            {
-                return this.floatGUIM00.Slider;
-            }
+            get => _guiM00.Slider;
             set
             {
-                this.floatGUIM00.Slider = value;
-                this.floatGUIM10.Slider = value;
-                this.floatGUIM20.Slider = value;
-                this.floatGUIM30.Slider = value;
+                _guiM00.Slider = value;
+                _guiM10.Slider = value;
+                _guiM20.Slider = value;
+                _guiM30.Slider = value;
 
-                this.floatGUIM01.Slider = value;
-                this.floatGUIM11.Slider = value;
-                this.floatGUIM21.Slider = value;
-                this.floatGUIM31.Slider = value;
+                _guiM01.Slider = value;
+                _guiM11.Slider = value;
+                _guiM21.Slider = value;
+                _guiM31.Slider = value;
 
-                this.floatGUIM02.Slider = value;
-                this.floatGUIM12.Slider = value;
-                this.floatGUIM22.Slider = value;
-                this.floatGUIM32.Slider = value;
+                _guiM02.Slider = value;
+                _guiM12.Slider = value;
+                _guiM22.Slider = value;
+                _guiM32.Slider = value;
 
-                this.floatGUIM03.Slider = value;
-                this.floatGUIM13.Slider = value;
-                this.floatGUIM23.Slider = value;
-                this.floatGUIM33.Slider = value;
+                _guiM03.Slider = value;
+                _guiM13.Slider = value;
+                _guiM23.Slider = value;
+                _guiM33.Slider = value;
             }
         }
 
@@ -234,7 +219,7 @@ namespace XGUI
 
         #region Constructor
 
-        public Matrix4x4GUI() : base() { }
+        public Matrix4x4GUI() { }
 
         public Matrix4x4GUI(string title) : base(title) { }
 
@@ -248,44 +233,44 @@ namespace XGUI
         {
             base.Initialize();
 
-            this.MinValue = XGUILayout.DefaultMinValueMatrix4x4;
-            this.MaxValue = XGUILayout.DefaultMaxValueMatrix4x4;
+            MinValue = XGUILayout.DefaultMinValueMatrix4x4;
+            MaxValue = XGUILayout.DefaultMaxValueMatrix4x4;
         }
 
         public override Matrix4x4 Show(Matrix4x4 value)
         {
-            this.foldoutPanel.Show(() =>
+            _foldoutPanel.Show(() =>
             {
                 XGUILayout.HorizontalLayout(() =>
                 {
-                    value.m00 = this.floatGUIM00.Show(value.m00);
-                    value.m10 = this.floatGUIM10.Show(value.m10);
-                    value.m20 = this.floatGUIM20.Show(value.m20);
-                    value.m30 = this.floatGUIM30.Show(value.m30);
+                    value.m00 = _guiM00.Show(value.m00);
+                    value.m10 = _guiM10.Show(value.m10);
+                    value.m20 = _guiM20.Show(value.m20);
+                    value.m30 = _guiM30.Show(value.m30);
                 });
 
                 XGUILayout.HorizontalLayout(() =>
                 {
-                    value.m01 = this.floatGUIM01.Show(value.m01);
-                    value.m11 = this.floatGUIM11.Show(value.m11);
-                    value.m21 = this.floatGUIM21.Show(value.m21);
-                    value.m31 = this.floatGUIM31.Show(value.m31);
+                    value.m01 = _guiM01.Show(value.m01);
+                    value.m11 = _guiM11.Show(value.m11);
+                    value.m21 = _guiM21.Show(value.m21);
+                    value.m31 = _guiM31.Show(value.m31);
                 });
 
                 XGUILayout.HorizontalLayout(() =>
                 {
-                    value.m02 = this.floatGUIM02.Show(value.m02);
-                    value.m12 = this.floatGUIM12.Show(value.m12);
-                    value.m22 = this.floatGUIM22.Show(value.m22);
-                    value.m32 = this.floatGUIM32.Show(value.m32);
+                    value.m02 = _guiM02.Show(value.m02);
+                    value.m12 = _guiM12.Show(value.m12);
+                    value.m22 = _guiM22.Show(value.m22);
+                    value.m32 = _guiM32.Show(value.m32);
                 });
 
                 XGUILayout.HorizontalLayout(() =>
                 {
-                    value.m03 = this.floatGUIM03.Show(value.m03);
-                    value.m13 = this.floatGUIM13.Show(value.m13);
-                    value.m23 = this.floatGUIM23.Show(value.m23);
-                    value.m33 = this.floatGUIM33.Show(value.m33);
+                    value.m03 = _guiM03.Show(value.m03);
+                    value.m13 = _guiM13.Show(value.m13);
+                    value.m23 = _guiM23.Show(value.m23);
+                    value.m33 = _guiM33.Show(value.m33);
                 });
             });
             

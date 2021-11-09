@@ -8,7 +8,15 @@ namespace XGUI
 
         public virtual float Width { get; set; }
 
-        protected virtual GUIStyle FieldStyle => new GUIStyle(GUI.skin.textField);
+        private static GUIStyle _FieldStyle;
+        protected virtual GUIStyle FieldStyle
+        {
+            get
+            {
+                _FieldStyle ??= new GUIStyle(GUI.skin.textField);
+                return _FieldStyle;
+            }
+        }
 
         protected GUILayoutOption FieldLayout =>
             Width <= 0 ? GUILayout.ExpandWidth(true)

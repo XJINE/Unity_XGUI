@@ -4,7 +4,7 @@
     {
         #region Property
 
-        public virtual int Decimals { get; set; }
+        public virtual int Digits { get; set; }
 
         protected override bool TextIsCorrect
         {
@@ -12,29 +12,24 @@
             {
                 float value;
 
-                if (!float.TryParse(text, out value))
+                if (!float.TryParse(Text, out value))
                 {
                     return false;
                 }
 
-                if (value < base.MinValue || base.MaxValue < value)
+                if (value < MinValue || MaxValue < value)
                 {
                     return false;
                 }
 
-                string[] splits = text.Split('.');
+                var splits = Text.Split('.');
 
                 if (splits.Length == 1)
                 {
                     return true;
                 }
 
-                if (splits[1].Length <= Decimals)
-                {
-                    return true;
-                }
-
-                return false;
+                return splits[1].Length <= Digits;
             }
         }
 
@@ -42,7 +37,7 @@
 
         #region Constructor
 
-        public FloatGUI() : base() { }
+        public FloatGUI() { }
 
         public FloatGUI(string title) : base(title) { }
 
@@ -56,14 +51,14 @@
         {
             base.Initialize();
 
-                 Decimals = XGUILayout.DefaultDecimals;
-            base.MinValue = XGUILayout.DefaultMinValueFloat;
-            base.MaxValue = XGUILayout.DefaultMaxValueFloat;
+            Digits = XGUILayout.DefaultDecimals;
+            MinValue = XGUILayout.DefaultMinValueFloat;
+            MaxValue = XGUILayout.DefaultMaxValueFloat;
         }
 
         protected override float ValidateValue(float value)
         {
-            return (float)System.Math.Round(base.ValidateValue(value), Decimals);
+            return (float)System.Math.Round(base.ValidateValue(value), Digits);
         }
 
         #endregion Method

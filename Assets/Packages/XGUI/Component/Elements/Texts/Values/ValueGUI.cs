@@ -14,7 +14,7 @@ namespace XGUI
         {
             get
             {
-                GUIStyle style = base.FieldStyle;
+                var style = base.FieldStyle;
                 style.alignment = TextAnchor.MiddleRight;
                 return style;
             }
@@ -24,7 +24,7 @@ namespace XGUI
 
         #region Constructor
 
-        protected ValueGUI() : base() { }
+        protected ValueGUI() { }
 
         protected ValueGUI(string title) : base(title) { }
 
@@ -42,8 +42,8 @@ namespace XGUI
         {
             base.Initialize();
 
-            base.Width = XGUILayout.DefaultWidth;
-            Slider     = XGUILayout.DefaultSlider;
+            Width  = XGUILayout.DefaultWidth;
+            Slider = XGUILayout.DefaultSlider;
         }
 
         #endregion Method
