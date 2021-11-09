@@ -6,7 +6,7 @@ namespace XGUI
     {
         #region Constructor
 
-        public BoolGUI() : base() { }
+        public BoolGUI() { }
 
         public BoolGUI(string title) : base(title) { }
 

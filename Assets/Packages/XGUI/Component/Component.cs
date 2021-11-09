@@ -2,7 +2,7 @@
 
 namespace XGUI
 {
-    public abstract class Component<T> : BaseGUI<T>
+    public abstract class Component : BaseGUI
     {
         #region Property
 
@@ -23,7 +23,7 @@ namespace XGUI
 
         #region Constructor
 
-        protected Component() : base() { }
+        protected Component() { }
 
         protected Component(string title) : base(title) { }
 
@@ -34,19 +34,16 @@ namespace XGUI
         protected virtual void ShowTitle(bool blank = false)
         {
             // NOTE:
-            // Sometimes need to set dummy title to align another component to right.
+            // Sometimes need to set empty(dummy) title to align another component to right.
 
-            if (blank)
-            {
-                base.Title = "";
-            }
+            const string emptyTitle = "";
 
-            if (base.Title == null)
+            if (!blank && string.IsNullOrEmpty(base.Title))
             {
                 return;
             }
 
-            GUILayout.Label(base.Title, TitleStyle);
+            GUILayout.Label(blank ? emptyTitle : base.Title, TitleStyle);
         }
 
         #endregion Method

@@ -18,7 +18,7 @@ namespace XGUI
 
         #region Constructor
 
-        public ScrollPanel() : base() { }
+        public ScrollPanel() { }
 
         public ScrollPanel(string title) : base(title) { }
 
@@ -26,31 +26,31 @@ namespace XGUI
 
         #region Method
 
-        public virtual Vector2 Show(params Action[] show)
+        public Vector2 Show(params Action[] actions)
         {
             base.ShowTitle();
 
-            float height = Mathf.Min(this.MaxHeight, Mathf.Max(this.MinHeight, this.Height));
-            float width  = Mathf.Min(this.MaxWidth,  Mathf.Max(this.MinWidth,  this.Width));
+            var height = Mathf.Min(MaxHeight, Mathf.Max(MinHeight, Height));
+            var width  = Mathf.Min(MaxWidth,  Mathf.Max(MinWidth,  Width));
 
             GUILayout.BeginVertical(GUILayout.Height   (height),
                                     GUILayout.MinHeight(height),
                                     GUILayout.MaxHeight(height));
 
-            base.value = GUILayout.BeginScrollView(base.value, GUILayout.Width   (width),
-                                                               GUILayout.MinWidth(width),
-                                                               GUILayout.MaxWidth(width),
-                                                               GUILayout.Height(height));
+            Value = GUILayout.BeginScrollView(Value, GUILayout.Width   (width),
+                                                     GUILayout.MinWidth(width),
+                                                     GUILayout.MaxWidth(width),
+                                                     GUILayout.Height(height));
 
-            for (int i = 0; i < show.Length; i++)
+            foreach (var action in actions)
             {
-                show[i]();
+                action();
             }
 
             GUILayout.EndScrollView();
             GUILayout.EndVertical();
 
-            return base.value;
+            return Value;
         }
 
         #endregion Method

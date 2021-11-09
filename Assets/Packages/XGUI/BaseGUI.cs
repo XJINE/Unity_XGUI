@@ -1,6 +1,6 @@
 ﻿namespace XGUI
 {
-    public abstract class BaseGUI<T>
+    public abstract class BaseGUI
     {
         #region Property
 

@@ -22,7 +22,7 @@ public static class XGUILayout
     public static float  DefaultWidth             = 100;
     public static int    DefaultDecimals          = 4;
     public static bool   DefaultSlider            = true;
-    public static Color  DefaultInvalidValueColor = new Color(1, 0, 0, 1);
+    public static Color  DefaultInvalidValueColor = new (1, 0, 0, 1);
 
     #endregion Default GUI Settings
 
@@ -34,32 +34,32 @@ public static class XGUILayout
     public static float DefaultMinValueFloat = -9999999;
     public static float DefaultMaxValueFloat =  9999999;
 
-    public static Vector2 DefaultMinValueVector2 = new Vector2(-9999999, -9999999);
-    public static Vector2 DefaultMaxValueVector2 = new Vector2( 9999999,  9999999);
+    public static Vector2 DefaultMinValueVector2 = new (-9999999, -9999999);
+    public static Vector2 DefaultMaxValueVector2 = new ( 9999999,  9999999);
 
-    public static Vector3 DefaultMinValueVector3 = new Vector3(-9999999, -9999999, -9999999);
-    public static Vector3 DefaultMaxValueVector3 = new Vector3( 9999999,  9999999,  9999999);
+    public static Vector3 DefaultMinValueVector3 = new (-9999999, -9999999, -9999999);
+    public static Vector3 DefaultMaxValueVector3 = new ( 9999999,  9999999,  9999999);
 
-    public static Vector4 DefaultMinValueVector4 = new Vector4(-9999999, -9999999, -9999999, -9999999);
-    public static Vector4 DefaultMaxValueVector4 = new Vector4( 9999999,  9999999,  9999999,  9999999);
+    public static Vector4 DefaultMinValueVector4 = new (-9999999, -9999999, -9999999, -9999999);
+    public static Vector4 DefaultMaxValueVector4 = new ( 9999999,  9999999,  9999999,  9999999);
 
-    public static Vector2Int DefaultMinValueVector2Int = new Vector2Int(-9999999, -9999999);
-    public static Vector2Int DefaultMaxValueVector2Int = new Vector2Int( 9999999,  9999999);
+    public static Vector2Int DefaultMinValueVector2Int = new (-9999999, -9999999);
+    public static Vector2Int DefaultMaxValueVector2Int = new ( 9999999,  9999999);
 
-    public static Vector3Int DefaultMinValueVector3Int = new Vector3Int(-50, -50, -50);
-    public static Vector3Int DefaultMaxValueVector3Int = new Vector3Int(50, 50, 50);
+    public static Vector3Int DefaultMinValueVector3Int = new (-50, -50, -50);
+    public static Vector3Int DefaultMaxValueVector3Int = new (50, 50, 50);
 
-    public static Color DefaultMinValueColor = new Color(0, 0, 0, 0);
-    public static Color DefaultMaxValueColor = new Color(1, 1, 1, 1);
+    public static Color DefaultMinValueColor = new (0, 0, 0, 0);
+    public static Color DefaultMaxValueColor = new (1, 1, 1, 1);
 
-    public static Matrix4x4 DefaultMinValueMatrix4x4 = new Matrix4x4(new Vector4(-9999999, -9999999, -9999999, -9999999),
-                                                                     new Vector4(-9999999, -9999999, -9999999, -9999999),
-                                                                     new Vector4(-9999999, -9999999, -9999999, -9999999),
-                                                                     new Vector4(-9999999, -9999999, -9999999, -9999999));
-    public static Matrix4x4 DefaultMaxValueMatrix4x4 = new Matrix4x4(new Vector4( 9999999,  9999999,  9999999,  9999999),
-                                                                     new Vector4( 9999999,  9999999,  9999999,  9999999),
-                                                                     new Vector4( 9999999,  9999999,  9999999,  9999999),
-                                                                     new Vector4( 9999999,  9999999,  9999999,  9999999));
+    public static Matrix4x4 DefaultMinValueMatrix4x4 = new (new Vector4(-9999999, -9999999, -9999999, -9999999),
+                                                            new Vector4(-9999999, -9999999, -9999999, -9999999),
+                                                            new Vector4(-9999999, -9999999, -9999999, -9999999),
+                                                            new Vector4(-9999999, -9999999, -9999999, -9999999));
+    public static Matrix4x4 DefaultMaxValueMatrix4x4 = new (new Vector4( 9999999,  9999999,  9999999,  9999999),
+                                                            new Vector4( 9999999,  9999999,  9999999,  9999999),
+                                                            new Vector4( 9999999,  9999999,  9999999,  9999999),
+                                                            new Vector4( 9999999,  9999999,  9999999,  9999999));
     public static bool DefaultHideUnsupportedGUI = true;
 
     #endregion Value Settings

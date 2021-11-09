@@ -10,8 +10,8 @@ namespace XGUI
     {
         #region Field
 
-        protected List<object> guis = new List<object>();
-        protected FoldoutPanel panel = new FoldoutPanel();
+        protected List<object> guis  = new ();
+        protected FoldoutPanel panel = new ();
 
         #endregion Field
 

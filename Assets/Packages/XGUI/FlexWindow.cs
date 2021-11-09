@@ -4,16 +4,15 @@ using UnityEngine;
 namespace XGUI
 {
     // NOTE:
-    // FlexibleWindow is not an inheritance of Component class
+    // FlexWindow is not an inheritance of Component class
     // because it doesn't need ShowTitle().
 
-    public class FlexWindow : BaseGUI<Rect>
+    public class FlexWindow : BaseGUI
     {
         #region Field
 
-        protected Rect value;
-
-        private float previousShowTime;
+        private Rect  _value;
+        private float _previousShowTime;
 
         #endregion Field
 
@@ -21,8 +20,8 @@ namespace XGUI
 
         public Vector2 Position
         {
-            get { return new Vector2(this.value.x, this.value.y); }
-            set { this.value.x = value.x; this.value.y = value.y; }
+            get => new (_value.x, _value.y);
+            set { _value.x = value.x; _value.y = value.y; }
         }
 
         public int   ID          { get; private set; }
@@ -37,7 +36,7 @@ namespace XGUI
 
         #region Constructor
 
-        public FlexWindow() : base() { }
+        public FlexWindow() { }
 
         public FlexWindow(string title) : base(title) { }
 
@@ -54,34 +53,34 @@ namespace XGUI
             // It is enough to use it as WindowID.
             // https://blogs.msdn.microsoft.com/ericlippert/2010/03/22/socks-birthdays-and-hash-collisions/
 
-            this.ID          = Guid.NewGuid().GetHashCode();
-            this.MinWidth    = XGUILayout.DefaultWindowMinWidth;
-            this.MinHeight   = XGUILayout.DefaultWindowMinHeight;
-            this.MaxWidth    = XGUILayout.DefaultWindowMaxWidth;
-            this.MaxHeight   = XGUILayout.DefaultWindowMaxHeight;
-            this.IsDraggable = XGUILayout.DefaultWindowIsDraggable;
-            this.IsVisible   = XGUILayout.DefaultWindowIsVisible;
+            ID          = Guid.NewGuid().GetHashCode();
+            MinWidth    = XGUILayout.DefaultWindowMinWidth;
+            MinHeight   = XGUILayout.DefaultWindowMinHeight;
+            MaxWidth    = XGUILayout.DefaultWindowMaxWidth;
+            MaxHeight   = XGUILayout.DefaultWindowMaxHeight;
+            IsDraggable = XGUILayout.DefaultWindowIsDraggable;
+            IsVisible   = XGUILayout.DefaultWindowIsVisible;
         }
 
         public Rect Show(params Action[] guiAction)
         {
-            if (!this.IsVisible)
+            if (!IsVisible)
             {
-                return new Rect(this.value.position.x, this.value.position.y, 0, 0);
+                return new Rect(_value.position.x, _value.position.y, 0, 0);
             }
 
-            GUI.WindowFunction windowFunction = (int windowID) =>
+            void WindowFunction(int windowID)
             {
-                for (int i = 0; i < guiAction.Length; i++)
+                foreach (var action in guiAction)
                 {
-                    guiAction[i]();
+                    action();
                 }
 
-                if (this.IsDraggable)
+                if (IsDraggable)
                 {
                     GUI.DragWindow();
                 }
-            };
+            }
 
             // NOTE:
             // GUILayout.Window will render stretched window when width or height = 0.
@@ -93,22 +92,22 @@ namespace XGUI
             // To resolve this problem, this method render the window with 0 width (or height) in 1st call.
             // And in 2nd call, render the window with 1st call result size.
 
-            if (this.previousShowTime != Time.timeSinceLevelLoad)
+            if (_previousShowTime != Time.timeSinceLevelLoad)
             {
-                this.value = new Rect(this.value.x, this.value.y, 0, 0);
-                this.previousShowTime = Time.timeSinceLevelLoad;
+                _value            = new Rect(_value.x, _value.y, 0, 0);
+                _previousShowTime = Time.timeSinceLevelLoad;
             }
 
-            this.value = GUILayout.Window(this.ID,
-                                          this.value,
-                                          windowFunction,
-                                          base.Title,
-                                          GUILayout.MinWidth (this.MinWidth),
-                                          GUILayout.MinHeight(this.MinHeight),
-                                          GUILayout.MaxWidth (this.MaxWidth),
-                                          GUILayout.MaxHeight(this.MaxHeight));
+            _value = GUILayout.Window(ID,
+                                     _value,
+                                     WindowFunction,
+                                     base.Title,
+                                     GUILayout.MinWidth (MinWidth),
+                                     GUILayout.MinHeight(MinHeight),
+                                     GUILayout.MaxWidth (MaxWidth),
+                                     GUILayout.MaxHeight(MaxHeight));
 
-            return this.value;
+            return _value;
         }
 
         #endregion Method

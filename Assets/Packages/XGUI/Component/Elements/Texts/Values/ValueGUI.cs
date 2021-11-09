@@ -24,14 +24,14 @@ namespace XGUI
 
         #region Constructor
 
-        public ValueGUI() : base() { }
+        protected ValueGUI() : base() { }
 
-        public ValueGUI(string title) : base(title) { }
+        protected ValueGUI(string title) : base(title) { }
 
-        public ValueGUI(string title, T min, T max) : base(title)
+        protected ValueGUI(string title, T min, T max) : base(title)
         {
-            this.MinValue = min;
-            this.MaxValue = max;
+            MinValue = min;
+            MaxValue = max;
         }
 
         #endregion Constructor
@@ -43,7 +43,7 @@ namespace XGUI
             base.Initialize();
 
             base.Width = XGUILayout.DefaultWidth;
-            this.Slider     = XGUILayout.DefaultSlider;
+            Slider     = XGUILayout.DefaultSlider;
         }
 
         #endregion Method

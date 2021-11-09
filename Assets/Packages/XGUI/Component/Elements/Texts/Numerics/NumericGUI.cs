@@ -39,11 +39,11 @@ namespace XGUI
 
         #region Constructor
 
-        public NumericGUI() : base() { }
+        protected NumericGUI() : base() { }
 
-        public NumericGUI(string title) : base(title) { }
+        protected NumericGUI(string title) : base(title) { }
 
-        public NumericGUI(string title, T min, T max) : base(title, min, max) { }
+        protected NumericGUI(string title, T min, T max) : base(title, min, max) { }
 
         #endregion Constructor
 
@@ -86,9 +86,8 @@ namespace XGUI
                 var minValue   = (float)Convert.ChangeType(base.MinValue, typeof(float));
                 var maxValue   = (float)Convert.ChangeType(base.MaxValue, typeof(float));
 
-                var sliderValue = GUILayout.HorizontalSlider(floatValue, minValue, maxValue);
-
-                T sliderValueT = ValidateValue((T)Convert.ChangeType(sliderValue, typeof(T)));
+                var sliderValue  = GUILayout.HorizontalSlider(floatValue, minValue, maxValue);
+                var sliderValueT = ValidateValue((T)Convert.ChangeType(sliderValue, typeof(T)));
 
                 if (!sliderValueT.Equals(valueT))
                 {
