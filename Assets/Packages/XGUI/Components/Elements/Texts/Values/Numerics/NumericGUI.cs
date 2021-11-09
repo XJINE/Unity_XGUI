@@ -51,11 +51,8 @@ namespace XGUI
 
         public override T Show(T value)
         {
-            valueだけでよさそう
-            var valueT = value;
-
-            Text ??= valueT.ToString();
-            Text = PreviousValue.Equals(valueT) ? Text : valueT.ToString();
+            Text ??= value.ToString();
+            Text = PreviousValue.Equals(value) ? Text : value.ToString();
 
             XGUILayout.VerticalLayout(() =>
             {
@@ -71,7 +68,7 @@ namespace XGUI
 
                     if (float.TryParse(Text, out float textValue))
                     {
-                        valueT = (T)Convert.ChangeType(textValue, typeof(T));
+                        value = (T)Convert.ChangeType(textValue, typeof(T));
                     }
                 });
 
@@ -83,23 +80,23 @@ namespace XGUI
                 // NOTE:
                 // Need to update text when the value is updated with Slider.
 
-                var floatValue = (float)Convert.ChangeType(valueT,   typeof(float));
+                var floatValue = (float)Convert.ChangeType(value,   typeof(float));
                 var minValue   = (float)Convert.ChangeType(MinValue, typeof(float));
                 var maxValue   = (float)Convert.ChangeType(MaxValue, typeof(float));
 
                 var sliderValue  = GUILayout.HorizontalSlider(floatValue, minValue, maxValue);
                 var sliderValueT = ValidateValue((T)Convert.ChangeType(sliderValue, typeof(T)));
 
-                if (!sliderValueT.Equals(valueT))
+                if (!sliderValueT.Equals(value))
                 {
-                    valueT = sliderValueT;
-                    Text   = valueT.ToString();
+                    value = sliderValueT;
+                    Text   = value.ToString();
                 }
             });
 
-            PreviousValue = valueT;
+            PreviousValue = value;
 
-            return valueT;
+            return value;
         }
 
         protected virtual T ValidateValue(T value)
