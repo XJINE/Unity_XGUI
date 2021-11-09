@@ -4,7 +4,7 @@
     {
         #region Constructor
 
-        public UnSupportedGUI() : base() { }
+        public UnSupportedGUI() { }
 
         public UnSupportedGUI(string title) : base(title) { }
 

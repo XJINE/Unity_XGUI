@@ -24,8 +24,6 @@ public class InheritTest : MonoBehaviour
     
     void Start()
     {
-        FlexWindow temp = new FlexWindow();
-
         new Child();
     }
 }

@@ -5,7 +5,7 @@ public static class XGUILayout
 {
     #region Field
 
-    #region FlexibleWindow Settings
+    #region FlexWindow Settings
 
     public static float DefaultWindowMinWidth    = 500;
     public static float DefaultWindowMinHeight   = 300;
@@ -14,7 +14,7 @@ public static class XGUILayout
     public static bool  DefaultWindowIsDraggable = true;
     public static bool  DefaultWindowIsVisible   = true;
 
-    #endregion FlexibleWindow Settings
+    #endregion FlexWindow Settings
 
     #region Default GUI Settings
 
@@ -62,7 +62,17 @@ public static class XGUILayout
                                                             new Vector4( 9999999,  9999999,  9999999,  9999999));
     public static bool DefaultHideUnsupportedGUI = true;
 
-    #endregion Value Settings
+    #endregion Default Settings
+
+    private static GUIStyle _labelStyle;
+    private static GUIStyle LabelStyle
+    {
+        get
+        {
+            _labelStyle ??= new GUIStyle(GUI.skin.label);
+            return _labelStyle;
+        }
+    }
 
     #endregion Field
 
@@ -78,11 +88,10 @@ public static class XGUILayout
 
     public static void Label(string text, LabelOption option = LabelOption.Default)
     {
-        GUILayout.Label(text, new GUIStyle(GUI.skin.label)
-        {
-            wordWrap = !option.HasFlag(LabelOption.NoWrap),
-            fontStyle = option.HasFlag(LabelOption.Bold) ? FontStyle.Bold : FontStyle.Normal
-        });
+        LabelStyle.wordWrap = !option.HasFlag(LabelOption.NoWrap);
+        LabelStyle.fontStyle = option.HasFlag(LabelOption.Bold) ? FontStyle.Bold : FontStyle.Normal;
+
+        GUILayout.Label(text, LabelStyle);
     }
 
     public static void HorizontalLayout(Action guiAction, GUIStyle style = null)

@@ -15,7 +15,7 @@ namespace XGUI
 
         #region Constructor
 
-        public Selection() : base() { }
+        public Selection() { }
 
         public Selection(string title) : base(title) { }
 
@@ -26,40 +26,38 @@ namespace XGUI
         protected override void Initialize()
         {
             base.Initialize();
-            this.Type = typeof(T);
+            Type = typeof(T);
         }
 
         public override T Show(T value)
         {
             base.ShowTitle();
 
-            if (this.Type.IsEnum)
+            if (Type.IsEnum)
             {
-                return Show(value, Enum.GetValues(this.Type).Cast<T>().ToArray());
+                return Show(value, Enum.GetValues(Type).Cast<T>().ToArray());
             }
-            else
-            {
-                return value;
-            }
+
+            return value;
         }
 
         public virtual T Show(T value, IList<T> values, int xCount = 0)
         {
             base.ShowTitle();
 
-            int index = Mathf.Max(0, values.IndexOf(value));
+            var index = Mathf.Max(0, values.IndexOf(value));
 
             xCount = xCount > 0 ? xCount : values.Count;
 
-            if (this.Type == typeof(string))
+            if (Type == typeof(string))
             {
                 index = GUILayout.SelectionGrid(index, values.Cast<string>().ToArray(), xCount);
             }
-            else if (this.Type == typeof(GUIContent))
+            else if (Type == typeof(GUIContent))
             {
                 index = GUILayout.SelectionGrid(index, values.Cast<GUIContent>().ToArray(), xCount);
             }
-            else if (this.Type == typeof(Texture))
+            else if (Type == typeof(Texture))
             {
                 index = GUILayout.SelectionGrid(index, values.Cast<Texture>().ToArray(), xCount);
             }

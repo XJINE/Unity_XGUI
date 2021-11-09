@@ -21,7 +21,7 @@ namespace XGUI
     {
         #region Field
 
-        protected bool isEditing;
+        private bool _isEditing;
 
         #endregion Field
 
@@ -29,31 +29,28 @@ namespace XGUI
 
         public float Width { get; set; }
 
-        protected GUIStyle ButtonStyle
+        private static GUIStyle _buttonStyle;
+        private GUIStyle ButtonStyle
         {
             get
             {
-                GUIStyle style = new GUIStyle(GUI.skin.button);
-
-                if (this.isEditing)
-                {
-                    style.normal = GUI.skin.button.active;
-                }
-
-                return style;
+                _buttonStyle ??= new GUIStyle(GUI.skin.button);
+                _buttonStyle.normal = _isEditing ? GUI.skin.button.active
+                                                 : GUI.skin.button.normal;
+                return _buttonStyle;
             }
         }
         
-        protected GUILayoutOption ButtonLayout
+        private GUILayoutOption ButtonLayout
         {
-            get { return this.Width <= 0 ? null : GUILayout.Width(this.Width); }
+            get => Width <= 0 ? null : GUILayout.Width(Width);
         }
 
         #endregion Property
 
         #region Constructor
 
-        public EnumGUI() : base() { }
+        public EnumGUI() { }
 
         public EnumGUI(string title) : base(title) { }
 
@@ -64,47 +61,45 @@ namespace XGUI
         protected override void Initialize()
         {
             base.Initialize();
-            this.Width = XGUILayout.DefaultWidth;
+            Width = XGUILayout.DefaultWidth;
         }
 
         public override T Show(T value)
         {
-            Type     enumType  = value.GetType();
-            string[] enumNames = Enum.GetNames(enumType);
-            int selectedIndex  = GetSelectedIndex(value, enumNames);
+            var enumType      = value.GetType();
+            var enumNames     = Enum.GetNames(enumType);
+            var selectedIndex = GetSelectedIndex(value, enumNames);
 
             XGUILayout.HorizontalLayout(() =>
             {
                 base.ShowTitle();
 
-                if (this.Width > 0)
+                if (Width > 0)
                 {
                     GUILayout.FlexibleSpace();
                 }
 
-                if (GUILayout.Button(enumNames[selectedIndex],
-                                     this.ButtonStyle,
-                                     this.ButtonLayout))
+                if (GUILayout.Button(enumNames[selectedIndex], ButtonStyle, ButtonLayout))
                 {
-                    this.isEditing = !this.isEditing;
+                    _isEditing = !_isEditing;
                 }
             });
 
-            if (!this.isEditing)
+            if (!_isEditing)
             {
                 return value;
             }
 
             XGUILayout.HorizontalLayout(() =>
             {
-                if(this.Width > 0)
+                if(Width > 0)
                 {
                     GUILayout.FlexibleSpace();
                 }
 
                 XGUILayout.VerticalLayout(() =>
                 {
-                    for (int i = 0; i < enumNames.Length; i++)
+                    for (var i = 0; i < enumNames.Length; i++)
                     {
                         if (i == selectedIndex)
                         {
@@ -113,7 +108,7 @@ namespace XGUI
 
                         if (GUILayout.Button(enumNames[i], ButtonLayout))
                         {
-                            this.isEditing = false;
+                            _isEditing = false;
                             value = (T)Enum.Parse(enumType, enumNames[i]);
                         }
                     }
@@ -124,11 +119,11 @@ namespace XGUI
             return value;
         }
 
-        protected int GetSelectedIndex(Enum value, string[] enumNames)
+        private static int GetSelectedIndex(Enum value, string[] enumNames)
         {
-            string enumName = value.ToString();
+            var enumName = value.ToString();
 
-            for (int i = 0; i < enumNames.Length; i++)
+            for (var i = 0; i < enumNames.Length; i++)
             {
                 if (enumNames[i] == enumName)
                 {
