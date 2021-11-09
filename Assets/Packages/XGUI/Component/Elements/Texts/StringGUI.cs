@@ -15,7 +15,7 @@
         protected override void Initialize()
         {
             base.Initialize();
-            this.Width = XGUILayout.DefaultWidth;
+            Width = XGUILayout.DefaultWidth;
         }
 
         public override string Show(string value)
@@ -23,7 +23,7 @@
             XGUILayout.HorizontalLayout(() =>
             {
                 base.ShowTitle();
-                value = base.ShowTextField(value);
+                value = ShowTextField(value);
             });
 
             return value;

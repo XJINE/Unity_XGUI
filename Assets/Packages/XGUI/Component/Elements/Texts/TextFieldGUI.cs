@@ -26,9 +26,9 @@ namespace XGUI
 
         #region Method
 
-        protected override void ShowTitle(bool dummyTitle = false)
+        protected override void ShowTitle(bool blank = false)
         {
-            base.ShowTitle(Width > 0 && base.Title == null);
+            base.ShowTitle(blank || (0 < Width && base.Title == null));
         }
 
         protected string ShowTextField(string text)
