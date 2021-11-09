@@ -6,9 +6,9 @@ namespace XGUI
     {
         #region Field
 
-        private readonly IntGUI intGUIX = new IntGUI() { Title = "X" };
-        private readonly IntGUI intGUIY = new IntGUI() { Title = "Y" };
-        private readonly IntGUI intGUIZ = new IntGUI() { Title = "Z" };
+        private readonly IntGUI _guiX = new () { Title = "X" };
+        private readonly IntGUI _guiY = new () { Title = "Y" };
+        private readonly IntGUI _guiZ = new () { Title = "Z" };
 
         #endregion Field
 
@@ -16,67 +16,55 @@ namespace XGUI
 
         public override Vector3Int MinValue
         {
-            get
+            get => new ()
             {
-                return new Vector3Int()
-                {
-                    x = this.intGUIX.MinValue,
-                    y = this.intGUIY.MinValue,
-                    z = this.intGUIZ.MinValue
-                };
-            }
+                x = _guiX.MinValue,
+                y = _guiY.MinValue,
+                z = _guiZ.MinValue
+            };
             set
             {
-                this.intGUIX.MinValue = value.x;
-                this.intGUIY.MinValue = value.y;
-                this.intGUIZ.MinValue = value.z;
+                _guiX.MinValue = value.x;
+                _guiY.MinValue = value.y;
+                _guiZ.MinValue = value.z;
             }
         }
 
         public override Vector3Int MaxValue
         {
-            get
+            get => new ()
             {
-                return new Vector3Int()
-                {
-                    x = this.intGUIX.MaxValue,
-                    y = this.intGUIY.MaxValue,
-                    z = this.intGUIZ.MaxValue
-                };
-            }
+                x = _guiX.MaxValue,
+                y = _guiY.MaxValue,
+                z = _guiZ.MaxValue
+            };
             set
             {
-                this.intGUIX.MaxValue = value.x;
-                this.intGUIY.MaxValue = value.y;
-                this.intGUIZ.MaxValue = value.z;
+                _guiX.MaxValue = value.x;
+                _guiY.MaxValue = value.y;
+                _guiZ.MaxValue = value.z;
             }
         }
 
         public override float Width
         {
-            get
-            {
-                return this.intGUIX.Width;
-            }
+            get => _guiX.Width;
             set
             {
-                this.intGUIX.Width = value;
-                this.intGUIY.Width = value;
-                this.intGUIZ.Width = value;
+                _guiX.Width = value;
+                _guiY.Width = value;
+                _guiZ.Width = value;
             }
         }
 
         public override bool Slider
         {
-            get
-            {
-                return this.intGUIX.Slider;
-            }
+            get => _guiX.Slider;
             set
             {
-                this.intGUIX.Slider = value;
-                this.intGUIY.Slider = value;
-                this.intGUIZ.Slider = value;
+                _guiX.Slider = value;
+                _guiY.Slider = value;
+                _guiZ.Slider = value;
             }
         }
 
@@ -84,7 +72,7 @@ namespace XGUI
 
         #region Constructor
 
-        public Vector3IntGUI() : base() { }
+        public Vector3IntGUI() { }
 
         public Vector3IntGUI(string title) : base(title) { }
 
@@ -98,17 +86,17 @@ namespace XGUI
         {
             base.Initialize();
 
-            this.MinValue = XGUILayout.DefaultMinValueVector3Int;
-            this.MaxValue = XGUILayout.DefaultMaxValueVector3Int;
+            MinValue = XGUILayout.DefaultMinValueVector3Int;
+            MaxValue = XGUILayout.DefaultMaxValueVector3Int;
         }
 
         protected override Vector3Int ShowComponents(Vector3Int value)
         {
             return new Vector3Int()
             {
-                x = this.intGUIX.Show(value.x),
-                y = this.intGUIY.Show(value.y),
-                z = this.intGUIZ.Show(value.z)
+                x = _guiX.Show(value.x),
+                y = _guiY.Show(value.y),
+                z = _guiZ.Show(value.z)
             };
         }
 

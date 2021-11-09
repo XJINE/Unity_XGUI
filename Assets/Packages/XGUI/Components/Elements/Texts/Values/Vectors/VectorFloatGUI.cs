@@ -4,13 +4,13 @@
     {
         #region Property
 
-        public virtual int Decimals { get; set; }
+        public virtual int Digits { get; set; }
 
         #endregion Property
 
         #region Constructor
 
-        protected VectorFloatGUI() : base() { }
+        protected VectorFloatGUI() { }
 
         protected VectorFloatGUI(string title) : base(title) { }
 

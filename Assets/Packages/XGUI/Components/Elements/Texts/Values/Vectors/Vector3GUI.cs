@@ -6,9 +6,9 @@ namespace XGUI
     {
         #region Field
 
-        private readonly FloatGUI floatGUIX = new FloatGUI() { Title = "X" };
-        private readonly FloatGUI floatGUIY = new FloatGUI() { Title = "Y" };
-        private readonly FloatGUI floatGUIZ = new FloatGUI() { Title = "Z" };
+        private readonly FloatGUI _guiX = new () { Title = "X" };
+        private readonly FloatGUI _guiY = new () { Title = "Y" };
+        private readonly FloatGUI _guiZ = new () { Title = "Z" };
 
         #endregion Field
 
@@ -16,81 +16,66 @@ namespace XGUI
 
         public override Vector3 MinValue
         {
-            get
+            get => new ()
             {
-                return new Vector3()
-                {
-                    x = this.floatGUIX.MinValue,
-                    y = this.floatGUIY.MinValue,
-                    z = this.floatGUIZ.MinValue
-                };
-            }
+                x = _guiX.MinValue,
+                y = _guiY.MinValue,
+                z = _guiZ.MinValue
+            };
             set
             {
-                this.floatGUIX.MinValue = value.x;
-                this.floatGUIY.MinValue = value.y;
-                this.floatGUIZ.MinValue = value.z;
+                _guiX.MinValue = value.x;
+                _guiY.MinValue = value.y;
+                _guiZ.MinValue = value.z;
             }
         }
 
         public override Vector3 MaxValue
         {
-            get
+            get => new ()
             {
-                return new Vector3()
-                {
-                    x = this.floatGUIX.MaxValue,
-                    y = this.floatGUIY.MaxValue,
-                    z = this.floatGUIZ.MaxValue
-                };
-            }
+                x = _guiX.MaxValue,
+                y = _guiY.MaxValue,
+                z = _guiZ.MaxValue
+            };
             set
             {
-                this.floatGUIX.MaxValue = value.x;
-                this.floatGUIY.MaxValue = value.y;
-                this.floatGUIZ.MaxValue = value.z;
+                _guiX.MaxValue = value.x;
+                _guiY.MaxValue = value.y;
+                _guiZ.MaxValue = value.z;
             }
         }
 
-        public override int Decimals
+        public override int Digits
         {
-            get
-            {
-                return this.floatGUIX.Digits;
-            }
+            get => _guiX.Digits;
             set
             {
-                this.floatGUIX.Digits = value;
-                this.floatGUIY.Digits = value;
-                this.floatGUIZ.Digits = value;
+                _guiX.Digits = value;
+                _guiY.Digits = value;
+                _guiZ.Digits = value;
             }
         }
 
         public override float Width
         {
-            get
-            {
-                return this.floatGUIX.Width;
-            }
+            get => _guiX.Width;
             set
             {
-                this.floatGUIX.Width = value;
-                this.floatGUIY.Width = value;
-                this.floatGUIZ.Width = value;
+                _guiX.Width = value;
+                _guiY.Width = value;
+                _guiZ.Width = value;
             }
         }
 
         public override bool Slider
         {
-            get
-            {
-                return this.floatGUIX.Slider;
-            }
+            get => _guiX.Slider;
             set
             {
-                this.floatGUIX.Slider = value;
-                this.floatGUIY.Slider = value;
-                this.floatGUIZ.Slider = value;
+                _guiX.Slider = value;
+                _guiY.Slider = value;
+                _guiZ.Slider = value;
             }
         }
 
@@ -98,7 +83,7 @@ namespace XGUI
 
         #region Constructor
 
-        public Vector3GUI() : base() { }
+        public Vector3GUI() { }
 
         public Vector3GUI(string title) : base(title) { }
 
@@ -112,17 +97,17 @@ namespace XGUI
         {
             base.Initialize();
 
-            this.MinValue = XGUILayout.DefaultMinValueVector3;
-            this.MaxValue = XGUILayout.DefaultMaxValueVector3;
+            MinValue = XGUILayout.DefaultMinValueVector3;
+            MaxValue = XGUILayout.DefaultMaxValueVector3;
         }
 
         protected override Vector3 ShowComponents(Vector3 value)
         {
             return new Vector3()
             {
-                x = this.floatGUIX.Show(value.x),
-                y = this.floatGUIY.Show(value.y),
-                z = this.floatGUIZ.Show(value.z)
+                x = _guiX.Show(value.x),
+                y = _guiY.Show(value.y),
+                z = _guiZ.Show(value.z)
             };
         }
 

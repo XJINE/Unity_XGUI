@@ -89,7 +89,7 @@ public class BasicSample : MonoBehaviour
         this.stringGUI     = new StringGUI    ("String"      ) { Width = 250 };
         this.intGUI        = new IntGUI       ("Int"         );
         this.floatGUI      = new FloatGUI     ("Float", -1, 1);
-        this.vector2GUI    = new Vector2GUI   ("Vector2"     ) { Decimals = 1 };
+        this.vector2GUI    = new Vector2GUI   ("Vector2"     ) { Digits = 1 };
         this.vector3GUI    = new Vector3GUI   ("Vector3"     ) { MinValue = Vector3.zero };
         this.vector4GUI    = new Vector4GUI   ("Vector4"     ) { Slider = false };
         this.vector2IntGUI = new Vector2IntGUI("Vector2Int"  );

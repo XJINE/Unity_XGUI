@@ -4,11 +4,11 @@
     {
         #region Constructor
 
-        public VectorGUI() : base() { }
+        protected VectorGUI() { }
 
-        public VectorGUI(string title) : base(title) { }
+        protected VectorGUI(string title) : base(title) { }
 
-        public VectorGUI(string title, T min, T max) : base(title, min, max) { }
+        protected VectorGUI(string title, T min, T max) : base(title, min, max) { }
 
         #endregion Constructor
 

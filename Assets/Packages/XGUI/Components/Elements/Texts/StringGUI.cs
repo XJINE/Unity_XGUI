@@ -4,7 +4,7 @@
     {
         #region Constructor
 
-        public StringGUI() : base() { }
+        public StringGUI() { }
 
         public StringGUI(string title) : base(title) { }
 

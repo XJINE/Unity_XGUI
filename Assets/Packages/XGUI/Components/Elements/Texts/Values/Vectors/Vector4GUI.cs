@@ -6,10 +6,10 @@ namespace XGUI
     {
         #region Field
 
-        private readonly FloatGUI floatGUIX = new FloatGUI() { Title = "X" };
-        private readonly FloatGUI floatGUIY = new FloatGUI() { Title = "Y" };
-        private readonly FloatGUI floatGUIZ = new FloatGUI() { Title = "Z" };
-        private readonly FloatGUI floatGUIW = new FloatGUI() { Title = "W" };
+        private readonly FloatGUI _guiX = new () { Title = "X" };
+        private readonly FloatGUI _guiY = new () { Title = "Y" };
+        private readonly FloatGUI _guiZ = new () { Title = "Z" };
+        private readonly FloatGUI _guiW = new () { Title = "W" };
 
         #endregion Field
 
@@ -17,88 +17,73 @@ namespace XGUI
 
         public override Vector4 MinValue
         {
-            get
+            get => new ()
             {
-                return new Vector4()
-                {
-                    x = this.floatGUIX.MinValue,
-                    y = this.floatGUIY.MinValue,
-                    z = this.floatGUIZ.MinValue,
-                    w = this.floatGUIW.MinValue
-                };
-            }
+                x = _guiX.MinValue,
+                y = _guiY.MinValue,
+                z = _guiZ.MinValue,
+                w = _guiW.MinValue
+            };
             set
             {
-                this.floatGUIX.MinValue = value.x;
-                this.floatGUIY.MinValue = value.y;
-                this.floatGUIZ.MinValue = value.z;
-                this.floatGUIW.MinValue = value.w;
+                _guiX.MinValue = value.x;
+                _guiY.MinValue = value.y;
+                _guiZ.MinValue = value.z;
+                _guiW.MinValue = value.w;
             }
         }
 
         public override Vector4 MaxValue
         {
-            get
+            get => new ()
             {
-                return new Vector4()
-                {
-                    x = this.floatGUIX.MaxValue,
-                    y = this.floatGUIY.MaxValue,
-                    z = this.floatGUIZ.MaxValue,
-                    w = this.floatGUIW.MaxValue
-                };
-            }
+                x = _guiX.MaxValue,
+                y = _guiY.MaxValue,
+                z = _guiZ.MaxValue,
+                w = _guiW.MaxValue
+            };
             set
             {
-                this.floatGUIX.MaxValue = value.x;
-                this.floatGUIY.MaxValue = value.y;
-                this.floatGUIZ.MaxValue = value.z;
-                this.floatGUIW.MaxValue = value.w;
+                _guiX.MaxValue = value.x;
+                _guiY.MaxValue = value.y;
+                _guiZ.MaxValue = value.z;
+                _guiW.MaxValue = value.w;
             }
         }
 
-        public override int Decimals
+        public override int Digits
         {
-            get
-            {
-                return this.floatGUIX.Digits;
-            }
+            get => _guiX.Digits;
             set
             {
-                this.floatGUIX.Digits = value;
-                this.floatGUIY.Digits = value;
-                this.floatGUIZ.Digits = value;
-                this.floatGUIW.Digits = value;
+                _guiX.Digits = value;
+                _guiY.Digits = value;
+                _guiZ.Digits = value;
+                _guiW.Digits = value;
             }
         }
 
         public override float Width
         {
-            get
-            {
-                return this.floatGUIX.Width;
-            }
+            get => _guiX.Width;
             set
             {
-                this.floatGUIX.Width = value;
-                this.floatGUIY.Width = value;
-                this.floatGUIZ.Width = value;
-                this.floatGUIW.Width = value;
+                _guiX.Width = value;
+                _guiY.Width = value;
+                _guiZ.Width = value;
+                _guiW.Width = value;
             }
         }
 
         public override bool Slider
         {
-            get
-            {
-                return this.floatGUIX.Slider;
-            }
+            get => _guiX.Slider;
             set
             {
-                this.floatGUIX.Slider = value;
-                this.floatGUIY.Slider = value;
-                this.floatGUIZ.Slider = value;
-                this.floatGUIW.Slider = value;
+                _guiX.Slider = value;
+                _guiY.Slider = value;
+                _guiZ.Slider = value;
+                _guiW.Slider = value;
             }
         }
 
@@ -106,7 +91,7 @@ namespace XGUI
 
         #region Constructor
 
-        public Vector4GUI() : base() { }
+        public Vector4GUI() { }
 
         public Vector4GUI(string title) : base(title) { }
 
@@ -120,18 +105,18 @@ namespace XGUI
         {
             base.Initialize();
 
-            this.MinValue = XGUILayout.DefaultMinValueVector4;
-            this.MaxValue = XGUILayout.DefaultMaxValueVector4;
+            MinValue = XGUILayout.DefaultMinValueVector4;
+            MaxValue = XGUILayout.DefaultMaxValueVector4;
         }
 
         protected override Vector4 ShowComponents(Vector4 value)
         {
             return new Vector4()
             {
-                x = this.floatGUIX.Show(value.x),
-                y = this.floatGUIY.Show(value.y),
-                z = this.floatGUIZ.Show(value.z),
-                w = this.floatGUIW.Show(value.w)
+                x = _guiX.Show(value.x),
+                y = _guiY.Show(value.y),
+                z = _guiZ.Show(value.z),
+                w = _guiW.Show(value.w)
             };
         }
 

@@ -6,8 +6,8 @@ namespace XGUI
     {
         #region Field
 
-        private readonly IntGUI intGUIX = new IntGUI() { Title = "X" };
-        private readonly IntGUI intGUIY = new IntGUI() { Title = "Y" };
+        private readonly IntGUI _guiX = new () { Title = "X" };
+        private readonly IntGUI _guiY = new () { Title = "Y" };
 
         #endregion Field
 
@@ -15,61 +15,49 @@ namespace XGUI
 
         public override Vector2Int MinValue
         {
-            get
+            get => new ()
             {
-                return new Vector2Int()
-                {
-                    x = this.intGUIX.MinValue,
-                    y = this.intGUIY.MinValue
-                };
-            }
+                x = _guiX.MinValue,
+                y = _guiY.MinValue
+            };
             set
             {
-                this.intGUIX.MinValue = value.x;
-                this.intGUIY.MinValue = value.y;
+                _guiX.MinValue = value.x;
+                _guiY.MinValue = value.y;
             }
         }
 
         public override Vector2Int MaxValue
         {
-            get
+            get => new ()
             {
-                return new Vector2Int()
-                {
-                    x = this.intGUIX.MaxValue,
-                    y = this.intGUIY.MaxValue
-                };
-            }
+                x = _guiX.MaxValue,
+                y = _guiY.MaxValue
+            };
             set
             {
-                this.intGUIX.MaxValue = value.x;
-                this.intGUIY.MaxValue = value.y;
+                _guiX.MaxValue = value.x;
+                _guiY.MaxValue = value.y;
             }
         }
 
         public override float Width
         {
-            get
-            {
-                return this.intGUIX.Width;
-            }
+            get => _guiX.Width;
             set
             {
-                this.intGUIX.Width = value;
-                this.intGUIY.Width = value;
+                _guiX.Width = value;
+                _guiY.Width = value;
             }
         }
 
         public override bool Slider
         {
-            get
-            {
-                return this.intGUIX.Slider;
-            }
+            get => _guiX.Slider;
             set
             {
-                this.intGUIX.Slider = value;
-                this.intGUIY.Slider = value;
+                _guiX.Slider = value;
+                _guiY.Slider = value;
             }
         }
 
@@ -77,7 +65,7 @@ namespace XGUI
 
         #region Constructor
 
-        public Vector2IntGUI() : base() { }
+        public Vector2IntGUI(){ }
 
         public Vector2IntGUI(string title) : base(title) { }
 
@@ -91,16 +79,16 @@ namespace XGUI
         {
             base.Initialize();
 
-            this.MinValue = XGUILayout.DefaultMinValueVector2Int;
-            this.MaxValue = XGUILayout.DefaultMaxValueVector2Int;
+            MinValue = XGUILayout.DefaultMinValueVector2Int;
+            MaxValue = XGUILayout.DefaultMaxValueVector2Int;
         }
 
         protected override Vector2Int ShowComponents(Vector2Int value)
         {
             return new Vector2Int()
             {
-                x = this.intGUIX.Show(value.x),
-                y = this.intGUIY.Show(value.y)
+                x = _guiX.Show(value.x),
+                y = _guiY.Show(value.y)
             };
         }
 

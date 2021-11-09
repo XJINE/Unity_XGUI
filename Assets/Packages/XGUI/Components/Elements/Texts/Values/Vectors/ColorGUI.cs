@@ -6,10 +6,10 @@ namespace XGUI
     {
         #region Field
 
-        private readonly FloatGUI floatGUIR = new () { Title = "R" };
-        private readonly FloatGUI floatGUIG = new () { Title = "G" };
-        private readonly FloatGUI floatGUIB = new () { Title = "B" };
-        private readonly FloatGUI floatGUIA = new () { Title = "A" };
+        private readonly FloatGUI _guiR = new () { Title = "R" };
+        private readonly FloatGUI _guiG = new () { Title = "G" };
+        private readonly FloatGUI _guiB = new () { Title = "B" };
+        private readonly FloatGUI _guiA = new () { Title = "A" };
 
         #endregion Field
 
@@ -19,73 +19,73 @@ namespace XGUI
         {
             get => new ()
             {
-                r = floatGUIR.MinValue,
-                g = floatGUIG.MinValue,
-                b = floatGUIB.MinValue,
-                a = floatGUIA.MinValue
+                r = _guiR.MinValue,
+                g = _guiG.MinValue,
+                b = _guiB.MinValue,
+                a = _guiA.MinValue
             };
 
             set
             {
-                floatGUIR.MinValue = value.r;
-                floatGUIG.MinValue = value.g;
-                floatGUIB.MinValue = value.b;
-                floatGUIA.MinValue = value.a;
+                _guiR.MinValue = value.r;
+                _guiG.MinValue = value.g;
+                _guiB.MinValue = value.b;
+                _guiA.MinValue = value.a;
             }
         }
 
         public override Color MaxValue
         {
-            get => new()
+            get => new ()
             {
-                r = floatGUIR.MaxValue,
-                g = floatGUIG.MaxValue,
-                b = floatGUIB.MaxValue,
-                a = floatGUIA.MaxValue
+                r = _guiR.MaxValue,
+                g = _guiG.MaxValue,
+                b = _guiB.MaxValue,
+                a = _guiA.MaxValue
             };
 
             set
             {
-                floatGUIR.MaxValue = value.r;
-                floatGUIG.MaxValue = value.g;
-                floatGUIB.MaxValue = value.b;
-                floatGUIA.MaxValue = value.a;
+                _guiR.MaxValue = value.r;
+                _guiG.MaxValue = value.g;
+                _guiB.MaxValue = value.b;
+                _guiA.MaxValue = value.a;
             }
         }
 
-        public override int Decimals
+        public override int Digits
         {
-            get => floatGUIR.Digits;
+            get => _guiR.Digits;
             set
             {
-                floatGUIR.Digits = value;
-                floatGUIG.Digits = value;
-                floatGUIB.Digits = value;
-                floatGUIA.Digits = value;
+                _guiR.Digits = value;
+                _guiG.Digits = value;
+                _guiB.Digits = value;
+                _guiA.Digits = value;
             }
         }
 
         public override float Width
         {
-            get => floatGUIR.Width;
+            get => _guiR.Width;
             set
             {
-                floatGUIR.Width = value;
-                floatGUIG.Width = value;
-                floatGUIB.Width = value;
-                floatGUIA.Width = value;
+                _guiR.Width = value;
+                _guiG.Width = value;
+                _guiB.Width = value;
+                _guiA.Width = value;
             }
         }
 
         public override bool Slider
         {
-            get => floatGUIR.Slider;
+            get => _guiR.Slider;
             set
             {
-                floatGUIR.Slider = value;
-                floatGUIG.Slider = value;
-                floatGUIB.Slider = value;
-                floatGUIA.Slider = value;
+                _guiR.Slider = value;
+                _guiG.Slider = value;
+                _guiB.Slider = value;
+                _guiA.Slider = value;
             }
         }
 
@@ -93,7 +93,7 @@ namespace XGUI
 
         #region Constructor
 
-        public ColorGUI() : base() { }
+        public ColorGUI() { }
 
         public ColorGUI(string title) : base(title) { }
 
@@ -115,10 +115,10 @@ namespace XGUI
         {
             return new Color()
             {
-                r = floatGUIR.Show(value.r),
-                g = floatGUIG.Show(value.g),
-                b = floatGUIB.Show(value.b),
-                a = floatGUIA.Show(value.a)
+                r = _guiR.Show(value.r),
+                g = _guiG.Show(value.g),
+                b = _guiB.Show(value.b),
+                a = _guiA.Show(value.a)
             };
         }
 

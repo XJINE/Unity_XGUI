@@ -8,13 +8,13 @@ namespace XGUI
 
         public virtual float Width { get; set; }
 
-        private static GUIStyle _FieldStyle;
+        private static GUIStyle _fieldStyle;
         protected virtual GUIStyle FieldStyle
         {
             get
             {
-                _FieldStyle ??= new GUIStyle(GUI.skin.textField);
-                return _FieldStyle;
+                _fieldStyle ??= new GUIStyle(GUI.skin.textField);
+                return _fieldStyle;
             }
         }
 
