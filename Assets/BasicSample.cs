@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using XGUI;
+using XGUIs;
 
 public class BasicSample : MonoBehaviour
 {
@@ -118,8 +118,6 @@ public class BasicSample : MonoBehaviour
 
     void OnGUI()
     {
-        #pragma warning disable 0219
-
         GUILayout.Label("Press [Return] to show/hide window.");
 
         this.window.Show(() =>

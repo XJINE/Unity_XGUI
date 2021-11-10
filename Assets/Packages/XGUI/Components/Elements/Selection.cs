@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace XGUI
+namespace XGUIs
 {
-    public class Selection<T> : Element<T>
+    public class Selection<T> : ElementGUI<T>
     {
         #region Property
 

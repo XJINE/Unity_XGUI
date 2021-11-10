@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace XGUI
+namespace XGUIs
 {
     public abstract class ValueGUI<T> : TextFieldGUI<T> where T : struct
     {

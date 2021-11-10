@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace XGUI
+namespace XGUIs
 {
     // NOTE:
     // T must be 'int' or 'float'.

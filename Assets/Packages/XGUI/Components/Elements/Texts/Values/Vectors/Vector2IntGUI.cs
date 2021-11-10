@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace XGUI
+namespace XGUIs
 {
     public class Vector2IntGUI : VectorGUI<Vector2Int>
     {

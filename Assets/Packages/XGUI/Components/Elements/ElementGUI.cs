@@ -1,12 +1,12 @@
-﻿namespace XGUI
+﻿namespace XGUIs
 {
-    public abstract class Element<T> : Component
+    public abstract class ElementGUI<T> : ComponentGUI
     {
         #region Constructor
 
-        protected Element() { }
+        protected ElementGUI() { }
 
-        protected Element(string title) : base(title) { }
+        protected ElementGUI(string title) : base(title) { }
 
         #endregion Constructor
 

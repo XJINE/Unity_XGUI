@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using static XGUILayout;
 
-namespace XGUI
+namespace XGUIs
 {
-    public static class ReflectionHelper
+    internal static class ReflectionHelper
     {
         #region Field
 
@@ -13,7 +13,7 @@ namespace XGUI
         private static readonly Type EnumGUIType  = typeof(EnumGUI<>);
         private static readonly Type FieldGUIType = typeof(FieldGUI<>);
 
-        private static readonly Dictionary<Type, Type> GUIType = new ()
+        internal static readonly Dictionary<Type, Type> GUIType = new ()
         {
             { typeof(bool),       typeof(BoolGUI)       },
             { typeof(string),     typeof(StringGUI)     },
@@ -28,7 +28,7 @@ namespace XGUI
             { typeof(Matrix4x4),  typeof(Matrix4x4GUI)  },
         };
 
-        private static readonly Dictionary<Type, Func<float, object>> MinValue = new ()
+        internal static readonly Dictionary<Type, Func<float, object>> MinValue = new ()
         {
             { typeof(int),        (min) => float.IsNaN(min) ? DefaultMinValueInt        : (int)min},
             { typeof(float),      (min) => float.IsNaN(min) ? DefaultMinValueFloat      : min},
@@ -44,7 +44,7 @@ namespace XGUI
                                                                                                         new Vector4(min, min, min, min))}
         };
 
-        private static readonly Dictionary<Type, Func<float, object>> MaxValue = new ()
+        internal static readonly Dictionary<Type, Func<float, object>> MaxValue = new ()
         {
             { typeof(int),        (max) => float.IsNaN(max) ? DefaultMaxValueInt        : (int)max},
             { typeof(float),      (max) => float.IsNaN(max) ? DefaultMaxValueFloat      : max},
@@ -64,11 +64,11 @@ namespace XGUI
 
         #region Method
 
-        public static object Generate(TypeInfo typeInfo,
-                                      string   title = null,
-                                      float    min   = float.NaN,
-                                      float    max   = float.NaN,
-                                      float    width = float.NaN)
+        public static object GenerateGUI(TypeInfo typeInfo,
+                                         string   title = null,
+                                         float    min   = float.NaN,
+                                         float    max   = float.NaN,
+                                         float    width = float.NaN)
         {
             Type   guiType   = null;
             object minObject = null;

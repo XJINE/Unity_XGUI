@@ -1,6 +1,6 @@
-﻿namespace XGUI
+﻿namespace XGUIs
 {
-    public class UnSupportedGUI : Element<int>
+    public class UnSupportedGUI : ElementGUI<int>
     {
         #region Constructor
 

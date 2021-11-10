@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace XGUI
+namespace XGUIs
 {
     public class Matrix4x4GUI : ValueGUI<Matrix4x4>
     {

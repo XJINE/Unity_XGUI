@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace XGUI
+namespace XGUIs
 {
-    public class BoolGUI : Element<bool>
+    public class BoolGUI : ElementGUI<bool>
     {
         #region Constructor
 

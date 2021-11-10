@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace XGUI
+namespace XGUIs
 {
     public class ScrollPanel : Panel<Vector2>
     {

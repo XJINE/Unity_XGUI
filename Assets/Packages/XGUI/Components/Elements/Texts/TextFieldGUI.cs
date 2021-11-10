@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace XGUI
+namespace XGUIs
 {
-    public abstract class TextFieldGUI<T> : Element<T>
+    public abstract class TextFieldGUI<T> : ElementGUI<T>
     {
         #region Property
 

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace XGUI
+namespace XGUIs
 {
     public class ColorGUI : VectorFloatGUI<Color>
     {

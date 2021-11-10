@@ -1,4 +1,4 @@
-﻿namespace XGUI
+﻿namespace XGUIs
 {
     public class IntGUI : NumericGUI<int>
     {

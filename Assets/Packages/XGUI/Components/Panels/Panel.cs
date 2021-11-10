@@ -1,6 +1,6 @@
-﻿namespace XGUI
+﻿namespace XGUIs
 {
-    public abstract class Panel<T> : Component
+    public abstract class Panel<T> : ComponentGUI
     {
         #region Field
 

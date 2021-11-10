@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace XGUI
+namespace XGUIs
 {
     // NOTE:
     // FlexWindow is not an inheritance of Component class

@@ -1,4 +1,4 @@
-﻿namespace XGUI
+﻿namespace XGUIs
 {
     public abstract class VectorFloatGUI<T> : VectorGUI<T> where T : struct
     {

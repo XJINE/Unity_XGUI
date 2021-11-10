@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace XGUI
+namespace XGUIs
 {
-    public class IListGUI<T> : Element<T> where T : IList
+    public class IListGUI<T> : ElementGUI<T> where T : IList
     {
         #region Field
 
@@ -74,7 +74,7 @@ namespace XGUI
                 {
                     for (var i = 0; i < -countDiff; i++)
                     {
-                        guis.Add(ReflectionHelper.Generate(this.ElementType));
+                        guis.Add(ReflectionHelper.GenerateGUI(ElementType));
                     }
                 }
 

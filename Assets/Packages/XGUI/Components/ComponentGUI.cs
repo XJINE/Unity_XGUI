@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
-namespace XGUI
+namespace XGUIs
 {
-    public abstract class Component : BaseGUI
+    public abstract class ComponentGUI : BaseGUI
     {
         #region Property
 
@@ -23,9 +23,9 @@ namespace XGUI
 
         #region Constructor
 
-        protected Component() { }
+        protected ComponentGUI() { }
 
-        protected Component(string title) : base(title) { }
+        protected ComponentGUI(string title) : base(title) { }
 
         #endregion Constructor
 

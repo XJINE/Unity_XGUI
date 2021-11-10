@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace XGUI
+namespace XGUIs
 {
     // NOTE:
     // Introduce custom GUI attribute is not good.
@@ -11,7 +11,7 @@ namespace XGUI
     // - Such class cant reuse in another projects.
     //     - The dependencies becomes strong.
 
-    public class FieldGUI<T> : Element<T>
+    public partial class FieldGUI<T> : ElementGUI<T>
     {
         #region Class
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace XGUI
+namespace XGUIs
 {
     // NOTE:
     // T must be "enum" type.
@@ -17,7 +17,7 @@ namespace XGUI
     // Even if the string value shows "EnumA", Enum.Parse returns EnumB.
     // I try to use Reflection, but the result was not good.
 
-    public class EnumGUI<T> : Element<T> where T : Enum
+    public class EnumGUI<T> : ElementGUI<T> where T : Enum
     {
         #region Field
 
