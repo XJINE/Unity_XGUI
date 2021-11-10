@@ -11,7 +11,7 @@ namespace XGUIs
     // - Such class cant reuse in another projects.
     //     - The dependencies becomes strong.
 
-    public partial class FieldGUI<T> : ElementGUI<T>
+    public class FieldGUI<T> : ElementGUI<T>
     {
         #region Class
 
@@ -86,36 +86,12 @@ namespace XGUIs
 
             foreach (var fieldInfo in fieldInfos)
             {
-                var typeInfo  = TypeInfo.GetTypeInfo(fieldInfo.FieldType);
-                typeInfo.Type = typeInfo.IsIList ? fieldInfo.FieldType : typeInfo.Type;
+                var typeInfo = TypeInfo.GetTypeInfo(fieldInfo.FieldType);
+                    typeInfo.Type = typeInfo.IsIList ? fieldInfo.FieldType : typeInfo.Type;
 
-                // var guiAttribute = Attribute.GetCustomAttribute(fieldInfo, typeof(GUIAttribute)) as GUIAttribute;
-                // guiAttribute ??= new GUIAttribute();
-                // guiAttribute.Title ??= GetTitleCase(fieldInfo.Name);
-                //
-                // if (Attribute.GetCustomAttribute(fieldInfo, typeof(RangeAttribute)) is RangeAttribute rangeAttribute)
-                // {
-                //     guiAttribute.MinValue = float.IsNaN(guiAttribute.MinValue) ? rangeAttribute.min : guiAttribute.MinValue;
-                //     guiAttribute.MaxValue = float.IsNaN(guiAttribute.MaxValue) ? rangeAttribute.max : guiAttribute.MaxValue;
-                // }
-                //
-                // if (Attribute.GetCustomAttribute(fieldInfo, typeof(HeaderAttribute)) is HeaderAttribute headerAttribute)
-                // {
-                //     _guiGroups.Add(new GUIGroup() { Title = headerAttribute.header });
-                // }
-                //
-                // if (guiAttribute.Hide)
-                // {
-                //     continue;
-                // }
-                //
-                // var gui = ReflectionHelper.Generate(typeInfo,
-                //     guiAttribute.Title,
-                //     guiAttribute.MinValue,
-                //     guiAttribute.MaxValue,
-                //     guiAttribute.Width);
-                //
-                // _guiGroups[_guiGroups.Count - 1].Infos.Add(new FieldGUIInfo(fieldInfo, gui));
+                var gui = ReflectionHelper.GenerateGUI(typeInfo, GetTitleCase(fieldInfo.Name));
+
+                _guiGroups[_guiGroups.Count - 1].Infos.Add(new FieldGUIInfo(fieldInfo, gui));
             }
         }
 
@@ -206,7 +182,7 @@ namespace XGUIs
                 }
 
                 var showMethod     = guiType.GetMethod("Show");
-                var showMethodArgs = new object[] { info.FiledInfo.GetValue(value) };
+                var showMethodArgs = new [] { info.FiledInfo.GetValue(value) };
 
                 info.FiledInfo.SetValue(value, showMethod.Invoke(info.GUI, showMethodArgs));
             }

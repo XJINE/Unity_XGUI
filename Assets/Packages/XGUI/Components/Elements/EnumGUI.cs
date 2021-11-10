@@ -3,9 +3,6 @@ using UnityEngine;
 
 namespace XGUIs
 {
-    // NOTE:
-    // T must be "enum" type.
-
     // CAUTION:
     // Enum.GetValues return wrong pattern in sometimes.
     // If some of the Enum components has a same value, the values has same Enum components.

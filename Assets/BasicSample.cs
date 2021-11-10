@@ -66,9 +66,6 @@ public class BasicSample : MonoBehaviour
     private IListGUI<List<UserStruct>>       structListGUI;
     private IListGUI<List<List<UserStruct>>> structListListGUI;
     private IListGUI<List<CameraType>[]>     enumListArrayGUI;
-    private Selection<float>                 floatListSelection;
-    private Selection<string>                stringArraySelection;
-    private Selection<CameraType>            enumSelection;
 
     #endregion Field
 
@@ -102,10 +99,6 @@ public class BasicSample : MonoBehaviour
         this.structListGUI     = new IListGUI<List<UserStruct>>("List<UserStruct>");
         this.structListListGUI = new IListGUI<List<List<UserStruct>>>("List<List<UserStruct>>");
         this.enumListArrayGUI  = new IListGUI<List<CameraType>[]>("List<CameraType>[]");
-
-        this.enumSelection         = new Selection<CameraType>("Enum");
-        this.floatListSelection    = new Selection<float>("Toolbar<float>");
-        this.stringArraySelection  = new Selection<string>("SelectionGrid<string>");
     }
 
     void Update()
@@ -167,9 +160,9 @@ public class BasicSample : MonoBehaviour
                 this.structListListGUI.Show(this.structListListValue);
                 this.enumListArrayGUI.Show(this.enumListArrayValue);
 
-                this.enumSelect        = this.enumSelection.Show(this.enumSelect);
-                this.floatListSelect   = this.floatListSelection.Show(this.floatListSelect, this.floatListValue);
-                this.stringArraySelect = this.stringArraySelection.Show(this.stringArraySelect, this.stringArrayValue, 3);
+                // this.enumSelect        = this.enumSelection.Show(this.enumSelect);
+                // this.floatListSelect   = this.floatListSelection.Show(this.floatListSelect, this.floatListValue);
+                // this.stringArraySelect = this.stringArraySelection.Show(this.stringArraySelect, this.stringArrayValue, 3);
             }));
         });
 

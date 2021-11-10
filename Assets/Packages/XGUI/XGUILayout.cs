@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public static class XGUILayout
@@ -64,6 +66,8 @@ public static class XGUILayout
 
     #endregion Default Settings
 
+    #region Label
+
     private static GUIStyle _labelStyle;
     private static GUIStyle LabelStyle
     {
@@ -74,10 +78,6 @@ public static class XGUILayout
         }
     }
 
-    #endregion Field
-
-    #region Method
-
     [Flags]
     public enum LabelOption
     {
@@ -85,6 +85,12 @@ public static class XGUILayout
         Bold    = 0x1,
         NoWrap  = 0x2,
     }
+
+    #endregion Label
+
+    #endregion Field
+
+    #region Method
 
     public static void Label(string text, LabelOption option = LabelOption.Default)
     {
@@ -124,6 +130,45 @@ public static class XGUILayout
         guiAction();
 
         GUILayout.EndVertical();
+    }
+
+    public static T SelectionGrid<T>(T value) where T : Enum
+    {
+        var type = typeof(T);
+
+        if (type.IsEnum)
+        {
+            return SelectionGrid(value, Enum.GetValues(type).Cast<T>().ToArray());
+        }
+
+        return value;
+    }
+
+    public static T SelectionGrid<T>(T value, IList<T> values, int xCount = 0)
+    {
+        var index = Mathf.Max(0, values.IndexOf(value));
+        var type  = typeof(T);
+
+        xCount = 0 < xCount ? xCount : values.Count;
+
+        if (type == typeof(string))
+        {
+            index = GUILayout.SelectionGrid(index, values.Cast<string>().ToArray(), xCount);
+        }
+        else if (type == typeof(GUIContent))
+        {
+            index = GUILayout.SelectionGrid(index, values.Cast<GUIContent>().ToArray(), xCount);
+        }
+        else if (type == typeof(Texture))
+        {
+            index = GUILayout.SelectionGrid(index, values.Cast<Texture>().ToArray(), xCount);
+        }
+        else
+        {
+            index = GUILayout.SelectionGrid(index, values.Select(x => x.ToString()).ToArray(), xCount);
+        }
+
+        return values[index];
     }
 
     #endregion Method
