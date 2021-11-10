@@ -13,7 +13,7 @@ namespace XGUI
         private static readonly Type EnumGUIType  = typeof(EnumGUI<>);
         private static readonly Type FieldGUIType = typeof(FieldGUI<>);
 
-        private static readonly Dictionary<Type, Type> GUIType = new Dictionary<Type, Type>()
+        private static readonly Dictionary<Type, Type> GUIType = new ()
         {
             { typeof(bool),       typeof(BoolGUI)       },
             { typeof(string),     typeof(StringGUI)     },
@@ -87,10 +87,8 @@ namespace XGUI
             else if (GUIType.ContainsKey(typeInfo.Type))
             {
                 guiType   = GUIType[typeInfo.Type];
-                minObject = MinValue.ContainsKey(typeInfo.Type) ?
-                            MinValue[typeInfo.Type].Invoke(min) : minObject;
-                maxObject = MaxValue.ContainsKey(typeInfo.Type) ?
-                            MaxValue[typeInfo.Type].Invoke(max) : maxObject;
+                minObject = MinValue[typeInfo.Type].Invoke(min);
+                maxObject = MaxValue[typeInfo.Type].Invoke(max);
             }
             else
             {
@@ -99,10 +97,10 @@ namespace XGUI
 
             var gui = Activator.CreateInstance(guiType);
 
-            guiType.GetProperty("Title")?.SetValue(gui, title);
+            guiType.GetProperty("Title")?   .SetValue(gui, title);
             guiType.GetProperty("MinValue")?.SetValue(gui, minObject);
             guiType.GetProperty("MaxValue")?.SetValue(gui, maxObject);
-            guiType.GetProperty("Width")?.SetValue(gui, width);
+            guiType.GetProperty("Width")?   .SetValue(gui, width);
 
             return gui;
         }

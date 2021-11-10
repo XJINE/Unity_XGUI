@@ -5,6 +5,12 @@ using UnityEngine;
 
 namespace XGUI
 {
+    // NOTE:
+    // Introduce custom GUI attribute is not good.
+    // - Its difficult to add attribute into parent class field.
+    // - Such class cant reuse in another projects.
+    //     - The dependencies becomes strong.
+
     public class FieldGUI<T> : Element<T>
     {
         #region Class
@@ -23,13 +29,13 @@ namespace XGUI
 
         private class GUIGroup
         {
-            public FoldoutPanel       panel = new FoldoutPanel();
-            public List<FieldGUIInfo> infos = new List<FieldGUIInfo>();
+            public readonly FoldoutPanel       Panel = new ();
+            public readonly List<FieldGUIInfo> Infos = new ();
 
             public string Title
             {
-                get => panel.Title;
-                set => panel.Title = value;
+                get => Panel.Title;
+                set => Panel.Title = value;
             }
         }
 
@@ -37,7 +43,7 @@ namespace XGUI
 
         #region Field
 
-        private readonly List<GUIGroup> _guiGroups = new List<GUIGroup>() { new GUIGroup() };
+        private readonly List<GUIGroup> _guiGroups = new () { new GUIGroup() };
 
         private UnSupportedGUI _unsupportedGUI;
 
@@ -53,7 +59,7 @@ namespace XGUI
 
         #region Constructor
 
-        public FieldGUI() : base() { }
+        public FieldGUI() { }
 
         public FieldGUI(string title) : base(title) { }
 
@@ -83,33 +89,33 @@ namespace XGUI
                 var typeInfo  = TypeInfo.GetTypeInfo(fieldInfo.FieldType);
                 typeInfo.Type = typeInfo.IsIList ? fieldInfo.FieldType : typeInfo.Type;
 
-                var guiAttribute = Attribute.GetCustomAttribute(fieldInfo, typeof(GUIAttribute)) as GUIAttribute;
-                guiAttribute ??= new GUIAttribute();
-                guiAttribute.Title ??= GetTitleCase(fieldInfo.Name);
-
-                if (Attribute.GetCustomAttribute(fieldInfo, typeof(RangeAttribute)) is RangeAttribute rangeAttribute)
-                {
-                    guiAttribute.MinValue = float.IsNaN(guiAttribute.MinValue) ? rangeAttribute.min : guiAttribute.MinValue;
-                    guiAttribute.MaxValue = float.IsNaN(guiAttribute.MaxValue) ? rangeAttribute.max : guiAttribute.MaxValue;
-                }
-
-                if (Attribute.GetCustomAttribute(fieldInfo, typeof(HeaderAttribute)) is HeaderAttribute headerAttribute)
-                {
-                    _guiGroups.Add(new GUIGroup() { Title = headerAttribute.header });
-                }
-
-                if (guiAttribute.Hide)
-                {
-                    continue;
-                }
-
-                var gui = ReflectionHelper.Generate(typeInfo,
-                    guiAttribute.Title,
-                    guiAttribute.MinValue,
-                    guiAttribute.MaxValue,
-                    guiAttribute.Width);
-                
-                _guiGroups[_guiGroups.Count - 1].infos.Add(new FieldGUIInfo(fieldInfo, gui));
+                // var guiAttribute = Attribute.GetCustomAttribute(fieldInfo, typeof(GUIAttribute)) as GUIAttribute;
+                // guiAttribute ??= new GUIAttribute();
+                // guiAttribute.Title ??= GetTitleCase(fieldInfo.Name);
+                //
+                // if (Attribute.GetCustomAttribute(fieldInfo, typeof(RangeAttribute)) is RangeAttribute rangeAttribute)
+                // {
+                //     guiAttribute.MinValue = float.IsNaN(guiAttribute.MinValue) ? rangeAttribute.min : guiAttribute.MinValue;
+                //     guiAttribute.MaxValue = float.IsNaN(guiAttribute.MaxValue) ? rangeAttribute.max : guiAttribute.MaxValue;
+                // }
+                //
+                // if (Attribute.GetCustomAttribute(fieldInfo, typeof(HeaderAttribute)) is HeaderAttribute headerAttribute)
+                // {
+                //     _guiGroups.Add(new GUIGroup() { Title = headerAttribute.header });
+                // }
+                //
+                // if (guiAttribute.Hide)
+                // {
+                //     continue;
+                // }
+                //
+                // var gui = ReflectionHelper.Generate(typeInfo,
+                //     guiAttribute.Title,
+                //     guiAttribute.MinValue,
+                //     guiAttribute.MaxValue,
+                //     guiAttribute.Width);
+                //
+                // _guiGroups[_guiGroups.Count - 1].Infos.Add(new FieldGUIInfo(fieldInfo, gui));
             }
         }
 
@@ -148,7 +154,7 @@ namespace XGUI
         {
             for (var i = 0; i < (all ? _guiGroups.Count : 1); i++)
             {
-                _guiGroups[0].panel.Value = open;
+                _guiGroups[0].Panel.Value = open;
             }
         }
 
@@ -166,16 +172,16 @@ namespace XGUI
 
             object boxedValue = value;
 
-            _guiGroups[0].panel.Title = base.Title ?? typeof(T).ToString();
-            _guiGroups[0].panel.Show(() =>
+            _guiGroups[0].Panel.Title = base.Title ?? typeof(T).ToString();
+            _guiGroups[0].Panel.Show(() =>
             {
-                ShowGUI(boxedValue, _guiGroups[0].infos);
+                ShowGUI(boxedValue, _guiGroups[0].Infos);
 
                 for (var i = 1; i < _guiGroups.Count; i++)
                 {
-                    _guiGroups[i].panel.Show(() =>
+                    _guiGroups[i].Panel.Show(() =>
                     {
-                        ShowGUI(boxedValue, _guiGroups[i].infos);
+                        ShowGUI(boxedValue, _guiGroups[i].Infos);
                     });
                 }
             });
@@ -216,9 +222,9 @@ namespace XGUI
             SetProperty(fieldName, "MaxValue", value);
         }
 
-        public void SetDecimals(string fieldName, int value)
+        public void SetDigits(string fieldName, int value)
         {
-            SetProperty(fieldName, "Decimals", value);
+            SetProperty(fieldName, "Digits", value);
         }
 
         public void SetWidth(string fieldName, float value)
@@ -231,11 +237,11 @@ namespace XGUI
             SetProperty(fieldName, "Slider", value);
         }
 
-        protected void SetProperty(string fieldName, string propertyName, object value)
+        private void SetProperty(string fieldName, string propertyName, object value)
         {
-            foreach (var guiGroup in this._guiGroups)
+            foreach (var guiGroup in _guiGroups)
             {
-                foreach (var info in guiGroup.infos)
+                foreach (var info in guiGroup.Infos)
                 {
                     if (info.FiledInfo.Name != fieldName)
                     {

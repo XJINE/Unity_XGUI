@@ -6,6 +6,11 @@ using XGUI;
 
 public class InheritTest : MonoBehaviour
 {
+    [Range(0, 1)]
+    public Vector3 temp;
+
+    public Vector3 temp2;
+
     public class Parent
     {
         public Parent()
