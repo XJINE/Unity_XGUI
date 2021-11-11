@@ -11,7 +11,6 @@ namespace XGUI
 
         private static readonly Type IListGUIType = typeof(IListGUI<,>);
         private static readonly Type EnumGUIType  = typeof(EnumGUI<>);
-        private static readonly Type FieldGUIType = typeof(FieldGUI<>);
 
         internal static readonly Dictionary<Type, Type> GUIType = new ()
         {
@@ -93,17 +92,50 @@ namespace XGUI
             return guiType;
         }
 
-        internal static object GenerateGUI(Type type, bool includeFieldGUI = false)
+        internal static object GenerateGUI(Type type)
         {
             var guiType = GetGUIType(type);
 
-            if (guiType == null && includeFieldGUI)
-            {
-                guiType = FieldGUIType.MakeGenericType(type);
-            }
-
             return guiType == null ? new UnSupportedGUI()
                                    : Activator.CreateInstance(guiType);
+        }
+        
+        internal static void SetProperty(object gui, string propertyName, object value)
+        {
+            var property = gui.GetType().GetProperty(propertyName);
+
+            if (property == null)
+            {
+                return;
+            }
+
+            try
+            {
+                property.SetValue(gui, value);
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
+        internal static object GetProperty(object gui, string propertyName)
+        {
+            var property = gui.GetType().GetProperty(propertyName);
+
+            if (property == null)
+            {
+                return null;
+            }
+
+            try
+            {
+                return property.GetValue(gui);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         #endregion Method

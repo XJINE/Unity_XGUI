@@ -24,16 +24,62 @@ namespace XGUI
             set => _foldoutPanel.Title = value;
         }
 
+        // CAUTION:
+        // TItem gets IList or unsupported value in sometimes.
+        // So it cant define MinValue/MaxValue type.
+
+        public object MinValue
+        {
+            get => _guis.Count == 0 ? null : ReflectionHelper.GetProperty(_guis[0], "MinValue");
+            set { foreach (var gui in _guis) { ReflectionHelper.SetProperty(gui, "MinValue", value); } }
+        }
+
+        public object MaxValue
+        {
+            get => _guis.Count == 0 ? null : ReflectionHelper.GetProperty(_guis[0], "MaxValue");
+            set { foreach (var gui in _guis) { ReflectionHelper.SetProperty(gui, "MaxValue", value); } }
+        }
+        
+        public int Digits
+        {
+            get => _guis.Count == 0 ? 0 : (int)ReflectionHelper.GetProperty(_guis[0], "Digits");
+            set { foreach (var gui in _guis) { ReflectionHelper.SetProperty(gui, "Digits", value); } }
+        }
+        
+        public bool Slider
+        {
+            get => _guis.Count == 0 ? false : (bool)ReflectionHelper.GetProperty(_guis[0], "Slider");
+            set { foreach (var gui in _guis) { ReflectionHelper.SetProperty(gui, "Slider", value); } }
+        }
+
+        public float Width
+        {
+            get => _scrollPanel.Width;
+            set => _scrollPanel.Width = value;
+        }
+        
         public float Height
         {
             get => _scrollPanel.Height;
             set => _scrollPanel.Height = value;
         }
 
+        public float MinWidth
+        {
+            get => _scrollPanel.MinWidth;
+            set => _scrollPanel.MinWidth = value;
+        }
+
         public float MinHeight
         {
             get => _scrollPanel.MinHeight;
             set => _scrollPanel.MinHeight = value;
+        }
+
+        public float MaxWidth
+        {
+            get => _scrollPanel.MaxWidth;
+            set => _scrollPanel.MaxWidth = value;
         }
 
         public float MaxHeight
@@ -57,7 +103,6 @@ namespace XGUI
         protected override void Initialize()
         {
             base.Initialize();
-
             _guiType = ReflectionHelper.GetGUIType(typeof(TItem));
         }
 

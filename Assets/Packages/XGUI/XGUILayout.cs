@@ -171,5 +171,36 @@ public static class XGUILayout
         return values[index];
     }
 
+    public static string GetTitleCase(string title)
+    {
+        // NOTE:
+        // Following case is not good. Only the first character becomes uppercase.
+        // return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(text);
+
+        if (string.IsNullOrEmpty(title))
+        {
+            return title;
+        }
+
+        switch (title.Length)
+        {
+            case 0:
+                return title;
+            case 1:
+                return new string(new[]{char.ToUpper(title[0])});
+        }
+
+        for (var i = 0; i < title.Length - 1; i++)
+        {
+            if ((char.IsLower(title[i]) && (char.IsUpper(title[i + 1]) || char.IsDigit(title[i + 1])))
+             || (char.IsDigit(title[i]) && char.IsUpper(title[i + 1])))
+            {
+                title = title.Insert(i + 1, " ");
+            }
+        }
+
+        return char.ToUpper(title[0]) + title.Substring(1);
+    }
+
     #endregion Method
 }

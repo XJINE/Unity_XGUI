@@ -14,8 +14,11 @@
 
         protected BaseGUI(string title)
         {
-            Title = title;
+            // CAUTION:
+            // Initialize first, because some inheritance initialize the GUI in Initialize.
+
             Initialize();
+            Title = title;
         }
 
         #endregion Constructor

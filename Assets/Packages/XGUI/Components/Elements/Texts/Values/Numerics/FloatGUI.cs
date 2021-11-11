@@ -51,7 +51,7 @@
         {
             base.Initialize();
 
-            Digits = XGUILayout.DefaultDecimals;
+            Digits   = XGUILayout.DefaultDecimals;
             MinValue = XGUILayout.DefaultMinValueFloat;
             MaxValue = XGUILayout.DefaultMaxValueFloat;
         }
