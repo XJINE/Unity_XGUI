@@ -6,11 +6,19 @@ using UnityEngine;
 namespace XGUI
 {
     // NOTE:
+    // FieldGUI has some bad points.
+    // - It takes high cost to set the Min/Max or any other properties.
+    //    - Using string key is bad. It occurs some human error and it needs to know the field name.
+    // - Its difficult to remove some fields.
+    //    - Even if it has some unexpected fields in parent class.
+
+    // NOTE:
     // Introduce custom GUI attribute is not good.
     // - Its difficult to add attribute into parent class field.
     // - Such class cant reuse in another projects.
     //     - The dependencies becomes strong.
-
+    
+    [ObsoleteAttribute]
     public class FieldGUI<T> : ElementGUI<T>
     {
         #region Class
@@ -27,24 +35,11 @@ namespace XGUI
             }
         }
 
-        private class GUIGroup
-        {
-            public readonly FoldoutPanel       Panel = new ();
-            public readonly List<FieldGUIInfo> Infos = new ();
-
-            public string Title
-            {
-                get => Panel.Title;
-                set => Panel.Title = value;
-            }
-        }
-
         #endregion Class
 
         #region Field
 
-        private readonly List<GUIGroup> _guiGroups = new () { new GUIGroup() };
-
+        private readonly List<FieldGUIInfo> _guiInfos = new ();
         private UnSupportedGUI _unsupportedGUI;
 
         #endregion Field
@@ -70,29 +65,31 @@ namespace XGUI
         protected override void Initialize()
         {
             base.Initialize();
-            GenerateGUI(typeof(T));
-            Foldout(true);
+            GenerateGUI();
         }
 
-        private void GenerateGUI(Type type)
+        private void GenerateGUI()
         {
-            var fieldInfos = type.GetFields(BindingFlags.Public | BindingFlags.Instance);
-
+            var fieldInfos = typeof(T).GetFields(BindingFlags.Public | BindingFlags.Instance);
             if (fieldInfos.Length == 0)
             {
-                _unsupportedGUI = new UnSupportedGUI();
+                _unsupportedGUI = new UnSupportedGUI
+                {
+                    Title = base.Title ?? typeof(T).ToString()
+                };
+
                 return;
             }
 
             foreach (var fieldInfo in fieldInfos)
             {
-                var typeInfo = TypeInfo.GetTypeInfo(fieldInfo.FieldType);
-                    typeInfo.Type = typeInfo.IsIList ? fieldInfo.FieldType : typeInfo.Type;
+                // var guiType = typeof(ElementGUI<>).MakeGenericType(fieldInfo.FieldType);
+                var gui = ReflectionHelper.GenerateGUI(fieldInfo.FieldType, true);
 
-                var gui = ReflectionHelper.GenerateGUI(typeInfo, GetTitleCase(fieldInfo.Name));
-
-                _guiGroups[_guiGroups.Count - 1].Infos.Add(new FieldGUIInfo(fieldInfo, gui));
+                _guiInfos.Add(new FieldGUIInfo(fieldInfo, gui));
             }
+            
+            Debug.Log("HERE : " + fieldInfos.Length);
         }
 
         protected static string GetTitleCase(string title)
@@ -126,19 +123,10 @@ namespace XGUI
             // return System.Globalization.CultureInfo.CurrentCulture.TextInfo.ToTitleCase(text);
         }
 
-        public void Foldout(bool open, bool all = false)
-        {
-            for (var i = 0; i < (all ? _guiGroups.Count : 1); i++)
-            {
-                _guiGroups[i].Panel.Value = open;
-            }
-        }
-
         public override T Show(T value)
         {
             if (IsUnSupported)
             {
-                _unsupportedGUI.Title = base.Title ?? typeof(T).ToString();
                 _unsupportedGUI.Show(0);
                 return value;
             }
@@ -148,45 +136,31 @@ namespace XGUI
 
             object boxedValue = value;
 
-            _guiGroups[0].Panel.Title = base.Title ?? typeof(T).ToString();
-            _guiGroups[0].Panel.Show(() =>
+            foreach (var info in _guiInfos)
             {
-                ShowGUI(boxedValue, _guiGroups[0].Infos);
+                var guiType = info.GUI.GetType();
 
-                for (var i = 1; i < _guiGroups.Count; i++)
-                {
-                    _guiGroups[i].Panel.Show(() =>
-                    {
-                        ShowGUI(boxedValue, _guiGroups[i].Infos);
-                    });
-                }
-            });
+                // if (HideUnsupportedGUI)
+                // {
+                //     var property = guiType.GetProperty("IsUnSupported");
+                //
+                //     if (property != null && (bool)(property.GetValue(info.GUI)))
+                //     {
+                //         continue;
+                //     }
+                // }
+
+                var showMethod     = guiType.GetMethod("Show");
+                var showMethodArgs = new [] { info.FiledInfo.GetValue(boxedValue) };
+                var returnValue    = showMethod.Invoke(info.GUI, showMethodArgs);
+
+                info.FiledInfo.SetValue(boxedValue, returnValue);
+            }
 
             return (T)boxedValue;
         }
 
-        private void ShowGUI(object value, List<FieldGUIInfo> infos)
-        {
-            foreach (var info in infos)
-            {
-                var guiType = info.GUI.GetType();
-
-                if (HideUnsupportedGUI)
-                {
-                    var property = guiType.GetProperty("IsUnSupported");
-
-                    if (property != null && (bool)(property.GetValue(info.GUI)))
-                    {
-                        continue;
-                    }
-                }
-
-                var showMethod     = guiType.GetMethod("Show");
-                var showMethodArgs = new [] { info.FiledInfo.GetValue(value) };
-
-                info.FiledInfo.SetValue(value, showMethod.Invoke(info.GUI, showMethodArgs));
-            }
-        }
+        #region SetProperty
 
         public void SetMinValue(string fieldName, object value)
         {
@@ -215,33 +189,32 @@ namespace XGUI
 
         private void SetProperty(string fieldName, string propertyName, object value)
         {
-            foreach (var guiGroup in _guiGroups)
+            foreach (var info in _guiInfos)
             {
-                foreach (var info in guiGroup.Infos)
+                if (info.FiledInfo.Name != fieldName)
                 {
-                    if (info.FiledInfo.Name != fieldName)
-                    {
-                        continue;
-                    }
+                    continue;
+                }
 
-                    var property = info.GUI.GetType().GetProperty(propertyName);
+                var property = info.GUI.GetType().GetProperty(propertyName);
 
-                    if (property == null)
-                    {
-                        continue;
-                    }
+                if (property == null)
+                {
+                    continue;
+                }
 
-                    try
-                    {
-                        property.SetValue(info.GUI, value);
-                    }
-                    catch(Exception e)
-                    {
-                        Debug.Log(e);
-                    }
+                try
+                {
+                    property.SetValue(info.GUI, value);
+                }
+                catch(Exception e)
+                {
+                    Debug.Log(e);
                 }
             }
         }
+
+        #endregion SetProperty
 
         #endregion Method
     }

@@ -93,53 +93,17 @@ namespace XGUI
             return guiType;
         }
 
-        public static object GenerateGUI(Type type)
+        internal static object GenerateGUI(Type type, bool includeFieldGUI = false)
         {
             var guiType = GetGUIType(type);
 
+            if (guiType == null && includeFieldGUI)
+            {
+                guiType = FieldGUIType.MakeGenericType(type);
+            }
+
             return guiType == null ? new UnSupportedGUI()
                                    : Activator.CreateInstance(guiType);
-        }
-
-        public static object GenerateGUI(TypeInfo typeInfo,
-                                         string   title = null,
-                                         float    min   = float.NaN,
-                                         float    max   = float.NaN,
-                                         float    width = float.NaN)
-        {
-            Type   guiType   = null;
-            object minObject = null;
-            object maxObject = null;
-
-            width = float.IsNaN(width) ? DefaultWidth : width;
-
-            if (typeInfo.IsIList)
-            {
-                guiType = IListGUIType.MakeGenericType(typeInfo.Type);
-            }
-            else if (typeInfo.Type.IsEnum)
-            {
-                guiType = EnumGUIType.MakeGenericType(typeInfo.Type); ;
-            }
-            else if (GUIType.ContainsKey(typeInfo.Type))
-            {
-                guiType   = GUIType[typeInfo.Type];
-                minObject = MinValue[typeInfo.Type].Invoke(min);
-                maxObject = MaxValue[typeInfo.Type].Invoke(max);
-            }
-            else
-            {
-                guiType = FieldGUIType.MakeGenericType(typeInfo.Type);
-            }
-
-            var gui = Activator.CreateInstance(guiType);
-
-            guiType.GetProperty("Title")?   .SetValue(gui, title);
-            guiType.GetProperty("MinValue")?.SetValue(gui, minObject);
-            guiType.GetProperty("MaxValue")?.SetValue(gui, maxObject);
-            guiType.GetProperty("Width")?   .SetValue(gui, width);
-
-            return gui;
         }
 
         #endregion Method
