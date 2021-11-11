@@ -220,10 +220,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afbbcd31fa981a94a9aa8c27020d8f8f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatValue: 0
-  intValue: 0
-  vectorValue: {x: 0, y: 0}
   intValues: 000000000000000000000000
+  intList: 00000000
 --- !u!1 &2137777158
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace XGUI
@@ -11,11 +12,11 @@ namespace XGUI
         private readonly FoldoutPanel _foldoutPanel = new ();
         private readonly ScrollPanel  _scrollPanel  = new ();
 
+        private Type _guiType;
+
         #endregion Field
 
         #region Property
-
-        protected TypeInfo ElementType { get; private set; }
 
         public override string Title
         {
@@ -57,11 +58,7 @@ namespace XGUI
         {
             base.Initialize();
 
-            ElementType   = TypeInfo.GetTypeInfo(typeof(TList));
-            var childType = TypeInfo.GetTypeInfo(ElementType.Type);
-
-            ElementType.Type    = childType.IsIList ? ElementType.Type : childType.Type;
-            ElementType.IsIList = childType.IsIList;
+            _guiType = ReflectionHelper.GetGUIType(typeof(TItem));
         }
 
         public override TList Show(TList values)
@@ -88,8 +85,10 @@ namespace XGUI
                     {
                         for (var i = 0; i < -countDiff; i++)
                         {
-                            var gui = (ElementGUI<TItem>) ReflectionHelper.GenerateGUI(ElementType);
+                            var gui = (ElementGUI<TItem>)(_guiType == null ? new UnSupportedGUI()
+                                                                           : Activator.CreateInstance(_guiType));
                             gui.Title = "Element " + (guisCount + i);
+
                             _guis.Add(gui);
                         }
                     }

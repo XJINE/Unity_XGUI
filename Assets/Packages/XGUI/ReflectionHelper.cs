@@ -63,8 +63,8 @@ namespace XGUI
         #endregion Field
 
         #region Method
-        
-        public static object GenerateGUI(Type type)
+
+        internal static Type GetGUIType(Type type)
         {
             Type guiType = null;
 
@@ -89,6 +89,13 @@ namespace XGUI
             {
                 guiType = GUIType[type];
             }
+
+            return guiType;
+        }
+
+        public static object GenerateGUI(Type type)
+        {
+            var guiType = GetGUIType(type);
 
             return guiType == null ? new UnSupportedGUI()
                                    : Activator.CreateInstance(guiType);

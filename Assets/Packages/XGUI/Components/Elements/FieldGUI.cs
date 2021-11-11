@@ -130,7 +130,7 @@ namespace XGUI
         {
             for (var i = 0; i < (all ? _guiGroups.Count : 1); i++)
             {
-                _guiGroups[0].Panel.Value = open;
+                _guiGroups[i].Panel.Value = open;
             }
         }
 
