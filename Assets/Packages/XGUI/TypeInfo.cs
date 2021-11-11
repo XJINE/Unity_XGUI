@@ -20,7 +20,6 @@ namespace XGUIs
             {
                 return new TypeInfo(true, type.GetElementType());
             }
-
             if (type.IsGenericType)
             {
                 // NOTE:

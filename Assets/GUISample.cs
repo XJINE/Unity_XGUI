@@ -1,21 +1,38 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using XGUIs;
 
 public class GUISample : MonoBehaviour
 {
-    private XGUI<float>   floatGUI  = new ("FLOAT", 0, 999f, 4);
-    private XGUI<int>     intGUI    = new ("INT", -3, 3);
-    private XGUI<Vector2> vectorGUI = new ("Vector", new Vector2(-3f, -3f), new Vector2(3f, 3f), 2);
+    // private FlexGUI<int[]> intArrayGUI = new();
+    public int[] intValues;
 
-    public float floatValue = 0;
-    public int intValue = 0;
-    public Vector2 vectorValue = new Vector2();
+    private IListGUI<int, int[]>      temp  = new IListGUI<int, int[]>();
+    private IListGUI<int, IList<int>> temp2 = new IListGUI<int, IList<int>>();
+    private ElementGUI<int[]>         temp3;
+
+    private void Start()
+    {
+        // この変換に問題あり
+        temp3 = temp2;
+
+        // この変換は問題なし
+        temp3 = temp;
+
+        // この変換は問題なし
+        // int[] array = new[] { 1,2 };
+        // IList<int> ilist = array;
+
+        // この変換で問題あり
+        // int[] array = new[] {1, 2};
+        // IList<int> list = array;
+        // array = list;
+    }
 
     private void OnGUI()
     {
-        floatValue  = floatGUI.Show(floatValue);
-        intValue    = intGUI.Show(intValue);
-        vectorValue = vectorGUI.Show(vectorValue);
-        vectorGUI.Slider = false;
+        // intValues = temp2.Show(intValues);
+        // intValues = intArrayGUI.Show(intValues);
     }
 }

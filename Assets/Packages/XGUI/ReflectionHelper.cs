@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection.Emit;
+using UnityEditor;
 using UnityEngine;
 using static XGUILayout;
 
@@ -9,7 +11,7 @@ namespace XGUIs
     {
         #region Field
 
-        private static readonly Type IListGUIType = typeof(IListGUI<>);
+        private static readonly Type IListGUIType = typeof(IListGUI<,>);
         private static readonly Type EnumGUIType  = typeof(EnumGUI<>);
         private static readonly Type FieldGUIType = typeof(FieldGUI<>);
 
@@ -63,6 +65,28 @@ namespace XGUIs
         #endregion Field
 
         #region Method
+
+        public static object GenerateGUI(TypeInfo typeInfo)
+        {
+            Type guiType = null;
+
+            if (typeInfo.IsIList)
+            {
+                var genericIListType = typeof(IList<>).MakeGenericType(typeInfo.Type);
+                guiType = IListGUIType.MakeGenericType(typeInfo.Type, genericIListType);
+            }
+            else if (typeInfo.Type.IsEnum)
+            {
+                guiType = EnumGUIType.MakeGenericType(typeInfo.Type); ;
+            }
+            else if (GUIType.ContainsKey(typeInfo.Type))
+            {
+                guiType = GUIType[typeInfo.Type];
+            }
+
+            return guiType == null ? new UnSupportedGUI()
+                                   : Activator.CreateInstance(guiType);
+        }
 
         public static object GenerateGUI(TypeInfo typeInfo,
                                          string   title = null,

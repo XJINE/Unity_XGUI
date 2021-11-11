@@ -1,6 +1,8 @@
+using UnityEngine;
+
 namespace XGUIs
 {
-    public class XGUI<T> : ElementGUI<T>
+    public class FlexGUI<T> : ElementGUI<T>
     {
         #region Field
 
@@ -44,17 +46,17 @@ namespace XGUIs
 
         #region Constructor
 
-        public XGUI() { }
+        public FlexGUI() { }
 
-        public XGUI(string title) : base(title) { }
+        public FlexGUI(string title) : base(title) { }
 
-        public XGUI(string title, T minValue, T maxValue) : base(title)
+        public FlexGUI(string title, T minValue, T maxValue) : base(title)
         {
             MinValue = minValue;
             MaxValue = maxValue;
         }
 
-        public XGUI(string title, T minValue, T maxValue, int digits) : this (title, minValue, maxValue)
+        public FlexGUI(string title, T minValue, T maxValue, int digits) : this (title, minValue, maxValue)
         {
             Digits = digits;
         }
@@ -66,7 +68,17 @@ namespace XGUIs
         protected override void Initialize()
         {
             base.Initialize();
-            _gui = (ElementGUI<T>)ReflectionHelper.GenerateGUI(TypeInfo.GetTypeInfo(typeof(T)), Title);
+            
+            var temp = ReflectionHelper.GenerateGUI(TypeInfo.GetTypeInfo(typeof(T)));
+            var temp2 = new IListGUI<int, int[]>();
+
+            Debug.Log("HERE0 : " + temp.GetType());
+            Debug.Log("HERE1 : " + temp2.GetType());
+            Debug.Log("HERE2 : " + typeof(ElementGUI<T>));
+            Debug.Log("HERE3 : " + typeof(ElementGUI<int[]>));
+
+            _gui = (ElementGUI<T>)ReflectionHelper.GenerateGUI(TypeInfo.GetTypeInfo(typeof(T)));
+            _gui.Title = Title;
         }
 
         public override T Show(T value)

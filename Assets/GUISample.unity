@@ -223,6 +223,7 @@ MonoBehaviour:
   floatValue: 0
   intValue: 0
   vectorValue: {x: 0, y: 0}
+  intValues: 000000000000000000000000
 --- !u!1 &2137777158
 GameObject:
   m_ObjectHideFlags: 0

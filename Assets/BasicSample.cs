@@ -62,10 +62,10 @@ public class BasicSample : MonoBehaviour
     private Matrix4x4GUI  matrixGUI;
     private EnumGUI<CameraType> enumGUI;
 
-    private IListGUI<int[]>                  intArrayGUI;
-    private IListGUI<List<UserStruct>>       structListGUI;
-    private IListGUI<List<List<UserStruct>>> structListListGUI;
-    private IListGUI<List<CameraType>[]>     enumListArrayGUI;
+    private IListGUI<int, int[]>             intArrayGUI;
+    // private IListGUI<List<UserStruct>>       structListGUI;
+    // private IListGUI<List<List<UserStruct>>> structListListGUI;
+    // private IListGUI<List<CameraType>[]>     enumListArrayGUI;
 
     #endregion Field
 
@@ -95,10 +95,11 @@ public class BasicSample : MonoBehaviour
         this.matrixGUI     = new Matrix4x4GUI ("Matrix4x4"   );
         this.enumGUI       = new EnumGUI<CameraType> ("Enum" );
 
-        this.intArrayGUI       = new IListGUI<int[]>("Int[]");
-        this.structListGUI     = new IListGUI<List<UserStruct>>("List<UserStruct>");
-        this.structListListGUI = new IListGUI<List<List<UserStruct>>>("List<List<UserStruct>>");
-        this.enumListArrayGUI  = new IListGUI<List<CameraType>[]>("List<CameraType>[]");
+        this.intArrayGUI       = new IListGUI<int, int[]>("Int[]");
+        intArrayGUI.MaxHeight = 500;
+        // this.structListGUI     = new IListGUI<List<UserStruct>>("List<UserStruct>");
+        // this.structListListGUI = new IListGUI<List<List<UserStruct>>>("List<List<UserStruct>>");
+        // this.enumListArrayGUI  = new IListGUI<List<CameraType>[]>("List<CameraType>[]");
     }
 
     void Update()
@@ -156,9 +157,9 @@ public class BasicSample : MonoBehaviour
             ("Array", () =>
             {
                 this.intArrayGUI.Show(this.intArrayValue);
-                this.structListGUI.Show(this.structListValue);
-                this.structListListGUI.Show(this.structListListValue);
-                this.enumListArrayGUI.Show(this.enumListArrayValue);
+                // this.structListGUI.Show(this.structListValue);
+                // this.structListListGUI.Show(this.structListListValue);
+                // this.enumListArrayGUI.Show(this.enumListArrayValue);
 
                 // this.enumSelect        = this.enumSelection.Show(this.enumSelect);
                 // this.floatListSelect   = this.floatListSelection.Show(this.floatListSelect, this.floatListValue);
