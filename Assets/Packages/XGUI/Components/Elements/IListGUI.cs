@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace XGUIs
+namespace XGUI
 {
     public class IListGUI<TItem, TList> : ElementGUI<TList> where TList : IList<TItem>
     {

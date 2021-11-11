@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace XGUIs
+namespace XGUI
 {
     public abstract class TextFieldGUI<T> : ElementGUI<T>
     {

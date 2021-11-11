@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace XGUIs
+namespace XGUI
 {
     // CAUTION:
     // Enum.GetValues return wrong pattern in sometimes.

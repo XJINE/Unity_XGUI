@@ -1,4 +1,4 @@
-﻿namespace XGUIs
+﻿namespace XGUI
 {
     public abstract class VectorGUI<T> : ValueGUI<T> where T : struct
     {

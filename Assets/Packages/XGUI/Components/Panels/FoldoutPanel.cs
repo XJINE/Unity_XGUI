@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace XGUIs
+namespace XGUI
 {
     public class FoldoutPanel : Panel<bool>
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using UnityEngine;
 
-namespace XGUIs
+namespace XGUI
 {
     // NOTE:
     // Introduce custom GUI attribute is not good.

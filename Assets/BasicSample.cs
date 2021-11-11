@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using XGUIs;
+using XGUI;
 
 public class BasicSample : MonoBehaviour
 {

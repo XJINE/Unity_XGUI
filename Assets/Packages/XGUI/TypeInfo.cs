@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace XGUIs
+namespace XGUI
 {
     public class TypeInfo
     {

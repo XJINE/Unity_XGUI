@@ -1,6 +1,4 @@
-using UnityEngine;
-
-namespace XGUIs
+namespace XGUI
 {
     public class FlexGUI<T> : ElementGUI<T>
     {
@@ -68,16 +66,7 @@ namespace XGUIs
         protected override void Initialize()
         {
             base.Initialize();
-            
-            var temp = ReflectionHelper.GenerateGUI(TypeInfo.GetTypeInfo(typeof(T)));
-            var temp2 = new IListGUI<int, int[]>();
-
-            Debug.Log("HERE0 : " + temp.GetType());
-            Debug.Log("HERE1 : " + temp2.GetType());
-            Debug.Log("HERE2 : " + typeof(ElementGUI<T>));
-            Debug.Log("HERE3 : " + typeof(ElementGUI<int[]>));
-
-            _gui = (ElementGUI<T>)ReflectionHelper.GenerateGUI(TypeInfo.GetTypeInfo(typeof(T)));
+            _gui = (ElementGUI<T>)ReflectionHelper.GenerateGUI(typeof(T));
             _gui.Title = Title;
         }
 

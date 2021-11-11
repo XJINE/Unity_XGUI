@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace XGUIs
+namespace XGUI
 {
     public class Vector3GUI : VectorFloatGUI<Vector3>
     {

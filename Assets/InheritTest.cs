@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditorInternal;
 using UnityEngine;
-using XGUIs;
+using XGUI;
 
 public class InheritTest : MonoBehaviour
 {

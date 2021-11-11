@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection.Emit;
-using UnityEditor;
 using UnityEngine;
 using static XGUILayout;
 
-namespace XGUIs
+namespace XGUI
 {
     internal static class ReflectionHelper
     {
@@ -65,23 +63,31 @@ namespace XGUIs
         #endregion Field
 
         #region Method
-
-        public static object GenerateGUI(TypeInfo typeInfo)
+        
+        public static object GenerateGUI(Type type)
         {
             Type guiType = null;
 
-            if (typeInfo.IsIList)
+            if (type.IsArray)
             {
-                var genericIListType = typeof(IList<>).MakeGenericType(typeInfo.Type);
-                guiType = IListGUIType.MakeGenericType(typeInfo.Type, genericIListType);
+                var elementType = type.GetElementType();
+                guiType = IListGUIType.MakeGenericType(elementType, elementType.MakeArrayType());
             }
-            else if (typeInfo.Type.IsEnum)
+            else if (type.IsGenericType)
             {
-                guiType = EnumGUIType.MakeGenericType(typeInfo.Type); ;
+                if (type.GetGenericTypeDefinition() == typeof(List<>))
+                {
+                    var elementType = type.GetGenericArguments()[0];
+                    guiType = IListGUIType.MakeGenericType(elementType, type);
+                }
             }
-            else if (GUIType.ContainsKey(typeInfo.Type))
+            else if (type.IsEnum)
             {
-                guiType = GUIType[typeInfo.Type];
+                guiType = EnumGUIType.MakeGenericType(type); ;
+            }
+            else if (GUIType.ContainsKey(type))
+            {
+                guiType = GUIType[type];
             }
 
             return guiType == null ? new UnSupportedGUI()

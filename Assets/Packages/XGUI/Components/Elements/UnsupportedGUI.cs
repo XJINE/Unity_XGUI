@@ -1,4 +1,4 @@
-﻿namespace XGUIs
+﻿namespace XGUI
 {
     public class UnSupportedGUI : ElementGUI<int>
     {
