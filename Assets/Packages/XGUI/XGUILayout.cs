@@ -22,7 +22,7 @@ public static class XGUILayout
 
     public static string DefaultTitle             = null;
     public static float  DefaultWidth             = 100;
-    public static int    DefaultDecimals          = 4;
+    public static int    DefaultDigits            = 4;
     public static bool   DefaultSlider            = true;
     public static Color  DefaultInvalidValueColor = new (1, 0, 0, 1);
 
@@ -62,7 +62,6 @@ public static class XGUILayout
                                                             new Vector4( 9999999,  9999999,  9999999,  9999999),
                                                             new Vector4( 9999999,  9999999,  9999999,  9999999),
                                                             new Vector4( 9999999,  9999999,  9999999,  9999999));
-    public static bool DefaultHideUnsupportedGUI = true;
 
     #endregion Default Settings
 

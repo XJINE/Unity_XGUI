@@ -28,28 +28,48 @@ namespace XGUI
         // TItem gets IList or unsupported value in sometimes.
         // So it cant define MinValue/MaxValue type.
 
+        private object _minValue;
         public object MinValue
         {
-            get => _guis.Count == 0 ? null : ReflectionHelper.GetProperty(_guis[0], "MinValue");
-            set { foreach (var gui in _guis) { ReflectionHelper.SetProperty(gui, "MinValue", value); } }
+            get => _minValue;
+            set
+            {
+                _minValue = value;
+                foreach (var gui in _guis) { ReflectionHelper.SetProperty(gui, "MinValue", value); }
+            }
         }
 
+        private object _maxValue;
         public object MaxValue
         {
-            get => _guis.Count == 0 ? null : ReflectionHelper.GetProperty(_guis[0], "MaxValue");
-            set { foreach (var gui in _guis) { ReflectionHelper.SetProperty(gui, "MaxValue", value); } }
+            get => _maxValue;
+            set
+            {
+                _maxValue = value;
+                foreach (var gui in _guis) { ReflectionHelper.SetProperty(gui, "MaxValue", value); }
+            }
         }
-        
+
+        private int _digits = XGUILayout.DefaultDigits;
         public int Digits
         {
-            get => _guis.Count == 0 ? 0 : (int)ReflectionHelper.GetProperty(_guis[0], "Digits");
-            set { foreach (var gui in _guis) { ReflectionHelper.SetProperty(gui, "Digits", value); } }
+            get => _digits;
+            set
+            {
+                _digits = value;
+                foreach (var gui in _guis) { ReflectionHelper.SetProperty(gui, "Digits", value); }
+            }
         }
-        
+
+        private bool _slider = XGUILayout.DefaultSlider;
         public bool Slider
         {
-            get => _guis.Count == 0 ? false : (bool)ReflectionHelper.GetProperty(_guis[0], "Slider");
-            set { foreach (var gui in _guis) { ReflectionHelper.SetProperty(gui, "Slider", value); } }
+            get => _slider;
+            set
+            {
+                _slider = value;
+                foreach (var gui in _guis) { ReflectionHelper.SetProperty(gui, "Slider", value); }
+            }
         }
 
         public float Width
@@ -130,10 +150,20 @@ namespace XGUI
                     {
                         for (var i = 0; i < -countDiff; i++)
                         {
+                            // CAUTION:
+                            // _minValue and _maxValue are defined as object.
+                            // If do not check null, they will get 0.
+                            // And if do not so, they get default GUI values.
+
                             var gui = (ElementGUI<TItem>)(_guiType == null ? new UnSupportedGUI()
                                                                            : Activator.CreateInstance(_guiType));
                             gui.Title = "Element " + (guisCount + i);
 
+                            if (_minValue != null) { ReflectionHelper.SetProperty(gui, "MinValue", _minValue); }
+                            if (_maxValue != null) { ReflectionHelper.SetProperty(gui, "MaxValue", _maxValue); }
+                                                     ReflectionHelper.SetProperty(gui, "Digits",   _digits);
+                                                     ReflectionHelper.SetProperty(gui, "Slider",   _slider);
+                            
                             _guis.Add(gui);
                         }
                     }
