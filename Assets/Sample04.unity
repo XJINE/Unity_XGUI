@@ -134,7 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1390282239}
   - component: {fileID: 1390282238}
-  - component: {fileID: 1390282240}
+  - component: {fileID: 1390282241}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -200,7 +200,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1390282240
+--- !u!114 &1390282241
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1390282236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63eb82ceba8ae3c499dd2bdd04c66c6c, type: 3}
+  m_Script: {fileID: 11500000, guid: aa8ed5852d331fd439d6fd12644f890a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   boolValue: 1
@@ -221,7 +221,6 @@ MonoBehaviour:
   vector4Value: {x: 1, y: 2, z: 3, w: 4}
   vector2IntValue: {x: 143, y: 229}
   vector3IntValue: {x: 1, y: 1, z: 1}
-  colorValue: {r: 0.5438, g: 0.4729, b: 0.6769, a: 1}
   matrixValue:
     e00: 4400364
     e01: 0
@@ -239,4 +238,10 @@ MonoBehaviour:
     e31: 4848737
     e32: 3746745
     e33: 0
+  colorValue: {r: 0.54509807, g: 0.4745098, b: 0.6784314, a: 1}
   enumValue: 8
+  intArrayValue: 000000000100000002000000
+  vectorListValue:
+  - {x: 0, y: 1}
+  - {x: 2, y: 3}
+  - {x: -1, y: 1}

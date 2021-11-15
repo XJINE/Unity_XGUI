@@ -17,7 +17,7 @@ namespace XGUI
         }
 
         // CAUTION:
-        // TItem gets IList or unsupported value in sometimes.
+        // T gets IList or unsupported value in sometimes.
         // So it cant define MinValue/MaxValue type.
 
         public object MinValue
@@ -88,17 +88,32 @@ namespace XGUI
 
         public FlexGUI(string title) : base(title) { }
 
-        public FlexGUI(string title, T minValue, T maxValue) : base(title)
+        public FlexGUI(string title, object minValue, object maxValue) : base(title)
         {
             MinValue = minValue;
             MaxValue = maxValue;
         }
 
-        public FlexGUI(string title, T minValue, T maxValue, int digits) : this (title, minValue, maxValue)
+        public FlexGUI(string title, object minValue, object maxValue, int digits) : this(title, minValue, maxValue)
         {
             Digits = digits;
         }
 
+        public FlexGUI(string title, float minValue, float maxValue) : base(title)
+        {
+            // NOTE:
+            // Setup Min/Max with float value is only available in Constructor.
+
+            var type = typeof(T);
+            MinValue = ReflectionHelper.GetMinValue(type, minValue);
+            MaxValue = ReflectionHelper.GetMaxValue(type, maxValue);
+        }
+
+        public FlexGUI(string title, float minValue, float maxValue, int digits) : this(title, minValue, maxValue)
+        {
+            Digits = digits;
+        }
+        
         #endregion Constructor
 
         #region Method

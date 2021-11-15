@@ -47,7 +47,7 @@ public class Sample04 : MonoBehaviour
     };
     private readonly FlexGUI<List<Vector2>> _vectorListGUI = new ("VectorList")
     {
-        MinValue = Vector2.zero, Digits = 1
+        MinValue = 0, Digits = 1
     };
     private readonly FlexGUI<List<float[]>> _floatArrayListGUI = new("FloatArrayList")
     {
@@ -91,10 +91,10 @@ public class Sample04 : MonoBehaviour
                 vector2Value = _vector2GUI.Show(vector2Value);
                 vector3Value = _vector3GUI.Show(vector3Value);
                 vector4Value = _vector4GUI.Show(vector4Value);
-
+        
                 vector2IntValue = _vector2IntGUI.Show(vector2IntValue);
                 vector3IntValue = _vector3IntGUI.Show(vector3IntValue);
-
+        
                 matrixValue = _matrixGUI.Show(matrixValue);
             }),
             ("Others", () =>

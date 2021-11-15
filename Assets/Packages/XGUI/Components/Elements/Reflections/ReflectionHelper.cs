@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 using static XGUILayout;
 
@@ -136,6 +137,58 @@ namespace XGUI
             {
                 return null;
             }
+        }
+
+        internal static Type GetRootElementType(Type type)
+        {
+            if (type == null)
+            {
+                return null;
+            }
+
+            var tempType = type;
+
+            while (true)
+            {
+                if (tempType.IsArray)
+                {
+                    tempType = tempType.GetElementType();
+                }
+                else if (tempType.IsGenericType)
+                {
+                    if (tempType.GetGenericTypeDefinition() == typeof(List<>))
+                    {
+                        var genericTypes = tempType.GetGenericArguments();
+
+                        if (genericTypes.Length == 0)
+                        {
+                            return null;
+                        }
+
+                        tempType = tempType.GetGenericArguments()[0];
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return tempType;
+        }
+
+        [return : MaybeNull]
+        internal static object GetMinValue(Type type, float minValue)
+        {
+            var rootType = GetRootElementType(type);
+            return MinValue.ContainsKey(rootType) ? MinValue[rootType].Invoke(minValue) : null;
+        }
+
+        [return : MaybeNull]
+        internal static object GetMaxValue(Type type, float maxValue)
+        {
+            var rootType = GetRootElementType(type);
+            return MaxValue.ContainsKey(rootType) ? MaxValue[rootType].Invoke(maxValue) : null;
         }
 
         #endregion Method

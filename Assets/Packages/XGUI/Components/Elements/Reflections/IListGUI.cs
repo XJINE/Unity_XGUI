@@ -116,6 +116,32 @@ namespace XGUI
 
         public IListGUI(string title) : base(title) { }
 
+        public IListGUI(string title, object minValue, object maxValue) : base(title)
+        {
+            MinValue = minValue;
+            MaxValue = maxValue;
+        }
+
+        public IListGUI(string title, object minValue, object maxValue, int digits) : this(title, minValue, maxValue)
+        {
+            Digits = digits;
+        }
+
+        public IListGUI(string title, float minValue, float maxValue) : base(title)
+        {
+            // NOTE:
+            // Setup Min/Max with float value is only available in Constructor.
+
+            var type = typeof(TItem);
+            MinValue = ReflectionHelper.GetMinValue(type, minValue);
+            MaxValue = ReflectionHelper.GetMaxValue(type, maxValue);
+        }
+
+        public IListGUI(string title, float minValue, float maxValue, int digits) : this(title, minValue, maxValue)
+        {
+            Digits = digits;
+        }
+        
         #endregion Constructor
 
         #region Method
