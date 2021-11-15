@@ -1,49 +1,48 @@
 # Unity_XGUI
 
 Utilities to make a lot of OnGUI. It is easy & fast.
-Especially, ``FieldGUI`` automatically makes GUI from your class and struct.
 
 ## Import to Your Project
 
 You can import this asset from UnityPackage.
 
-- [XGUI.unitypackage](https://github.com/XJINE/Unity_XGUI/blob/master/XGUI.unitypackage)
+## Various GUI
 
-## BasicSample
+<img src="https://github.com/XJINE/Unity_XGUI/blob/main/screenshot01.png" width="100%" height="auto" />
 
-<img src="https://github.com/XJINE/Unity_XGUI/blob/master/screenshot01.png" width="100%" height="auto" />
-
-BasicSample shows simply how to use. XGUI includes following type GUI.
+XGUI includes following type GUI.
 
 <table>
 <tr><td> int     </td><td> float     </td><td> string      </td><td> bool       </td><td> Enum       </td></tr>
 <tr><td> Vector2 </td><td> Vector3   </td><td> Vector4     </td><td> Vector2Int </td><td> Vector3Int </td></tr>
-<tr><td> Color   </td><td> Matrix4x4 </td><td> User Struct </td><td> User Class </td><td> IList<T>   </td></tr>
+<tr><td> Color   </td><td> Matrix4x4 </td><td> IList&lt;T&gt; (List&lt;T&gt;, T[]) </td></tr>
 </table>
 
-### FlexWindow, FoldoutPanel & TabPanel
+### Various Panel
 
 ``FlexWindow`` automatically scale its width and height when needed.
-``FoldoutPanel`` & ``TabPanel`` are able to hide or group some GUIs.
 
-## FieldGUI
+``ScrollPanel`` shows scroll handle when needed.
 
-<img src="https://github.com/XJINE/Unity_XGUI/blob/master/screenshot02.png" width="100%" height="auto" />
+``FoldoutPanel`` & ``TabPanel`` hide or group some GUIs.
 
-``FieldGUI`` is main component in this utility.
-``FieldGUI`` automatically generates GUI from your class or struct field,
-and these GUI's settings are able to control from the attributes.
 
-It needs only a few steps like this.
+## FiexGUI
+
+FlexGUI provides common feels to make GUI.
+
+Usually, it is needed to define corresponding GUI.
 
 ```csharp
-public SampleClass sampleClass = new SampleClass();
-private FieldGUI fieldGUI;
+BoolGUI   _boolGUI   = new ("Bool"  );
+StringGUI _stringGUI = new ("String") { Width = 250 };
+IntGUI    _intGUI    = new ("Int"   ) { MinValue = 0, MaxValue = 100 };
+```
 
-fieldGUI = new FieldGUI(this.sampleClass);
+FlexGUI needs only a Type of the value.
 
-void OnGUI()
-{
-    this.fieldGUI.Show();
-}
+```csharp
+FlexGUI<bool>   _boolGUI   = new ("Bool"  );
+FlexGUI<string> _stringGUI = new ("String") { Width = 250 };
+FlexGUI<int>    _intGUI    = new ("Int"   ) { MinValue = 0, MaxValue = 100 };
 ```
