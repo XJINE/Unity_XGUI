@@ -23,7 +23,7 @@ public class Sample01 : MonoBehaviour
 
     private readonly BoolGUI             _boolGUI       = new ("Bool"        );
     private readonly StringGUI           _stringGUI     = new ("String"      ) { Width = 250 };
-    private readonly IntGUI              _intGUI        = new ("Int"         ) {MinValue = 0, MaxValue = 100};
+    private readonly IntGUI              _intGUI        = new ("Int"         ) { MinValue = 0, MaxValue = 100 };
     private readonly FloatGUI            _floatGUI      = new ("Float", -1, 1);
     private readonly Vector2GUI          _vector2GUI    = new ("Vector2", Vector2.one, Vector2.one *3) { Digits = 1 };
     private readonly Vector3GUI          _vector3GUI    = new ("Vector3"     ) { MinValue = Vector3.zero };
