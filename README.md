@@ -18,7 +18,7 @@ XGUI includes following type GUI.
 <tr><td> Color   </td><td> Matrix4x4 </td><td> IList&lt;T&gt; (List&lt;T&gt;, T[]) </td></tr>
 </table>
 
-### Various Panel
+## Various Panel
 
 ``FlexWindow`` automatically scale its width and height when needed.
 
@@ -27,7 +27,7 @@ XGUI includes following type GUI.
 ``FoldoutPanel`` & ``TabPanel`` hide or group some GUIs.
 
 
-## FiexGUI
+## FlexGUI
 
 FlexGUI provides common feels to make GUI.
 
