@@ -51,6 +51,8 @@ namespace XGUI
 
         public override T Show(T value)
         {
+            var previousValue = value;
+
             Text ??= value.ToString();
             Text = PreviousValue.Equals(value) ? Text : value.ToString();
 
@@ -74,6 +76,7 @@ namespace XGUI
 
                 if (!Slider)
                 {
+                    Updated = !previousValue.Equals(value);
                     return;
                 }
 
@@ -95,6 +98,7 @@ namespace XGUI
             });
 
             PreviousValue = value;
+            Updated = !previousValue.Equals(value);
 
             return value;
         }
