@@ -2,9 +2,11 @@
 
 Utilities to make a lot of OnGUI. It is easy & fast.
 
-## Import to Your Project
+## Dependencies
 
-You can import this asset from UnityPackage.
+You have to import following assets to use this asset.
+
+- [Unity_ExpressionParser](https://github.com/XJINE/Unity_ExpressionParser)
 
 ## Various GUI
 
