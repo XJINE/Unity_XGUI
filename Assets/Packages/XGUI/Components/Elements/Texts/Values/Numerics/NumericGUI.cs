@@ -83,7 +83,7 @@ namespace XGUI
                 // NOTE:
                 // Need to update text when the value is updated with Slider.
 
-                var floatValue = (float)Convert.ChangeType(value,   typeof(float));
+                var floatValue = (float)Convert.ChangeType(value,    typeof(float));
                 var minValue   = (float)Convert.ChangeType(MinValue, typeof(float));
                 var maxValue   = (float)Convert.ChangeType(MaxValue, typeof(float));
 
@@ -116,6 +116,27 @@ namespace XGUI
             }
 
             return value;
+        }
+
+        protected override string ShowTextField(string text)
+        {
+            var name = GetHashCode().ToString();
+            GUI.SetNextControlName(name);
+
+            var newText = base.ShowTextField(text);
+            var focused = GUI.GetNameOfFocusedControl() == name;
+
+            if ((Event.current.isKey && Event.current.keyCode == KeyCode.Return) || !focused)
+            {
+                var (success, value) = ExpressionParser.Parse(newText);
+        
+                if (success)
+                {
+                    newText = value.ToString();
+                }
+            }
+
+            return newText;
         }
 
         #endregion Method

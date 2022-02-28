@@ -39,7 +39,7 @@ namespace XGUI
             base.ShowTitle(blank || (0 < Width && base.Title == null));
         }
 
-        protected string ShowTextField(string text)
+        protected virtual string ShowTextField(string text)
         {
             return GUILayout.TextField(text, FieldStyle, FieldLayout);
         }
