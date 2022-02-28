@@ -61,3 +61,12 @@ Update Mode: updateDependencies
 
 The following packages were removed:
   com.unity.package-manager-ui@2.2.0
+
+=== Mon Feb 28 17:37:32 2022
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.ide.rider from version 3.0.7 to 3.0.9
+  com.unity.ide.visualstudio from version 2.0.11 to 2.0.12
