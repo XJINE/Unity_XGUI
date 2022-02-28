@@ -16,6 +16,8 @@
 
         public override T Show(T value)
         {
+            var previousValue = value;
+
             XGUILayout.VerticalLayout(() =>
             {
                 base.ShowTitle();
@@ -25,6 +27,8 @@
                     value = ShowComponents(value);
                 });
             });
+
+            Updated = !previousValue.Equals(value);
 
             return value;
         }

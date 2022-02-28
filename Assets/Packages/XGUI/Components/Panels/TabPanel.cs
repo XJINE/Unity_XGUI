@@ -38,6 +38,8 @@ namespace XGUI
 
         public int Show(params (string label, Action show)[] tabActions)
         {
+            var previousValue = Value;
+
             var labels = new string[tabActions.Length];
 
             for (var i = 0; i < labels.Length; i++)
@@ -52,6 +54,8 @@ namespace XGUI
                 tabActions[Value].show();
 
             }, GUI.skin.box);
+
+            Updated = previousValue != Value;
 
             return Value;
         }

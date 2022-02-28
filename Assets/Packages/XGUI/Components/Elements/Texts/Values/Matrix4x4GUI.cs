@@ -239,6 +239,8 @@ namespace XGUI
 
         public override Matrix4x4 Show(Matrix4x4 value)
         {
+            var previousValue = value;
+
             _foldoutPanel.Show(() =>
             {
                 XGUILayout.HorizontalLayout(() =>
@@ -273,7 +275,9 @@ namespace XGUI
                     value.m33 = _guiM33.Show(value.m33);
                 });
             });
-            
+
+            Updated = previousValue != value;
+
             return value;
         }
 

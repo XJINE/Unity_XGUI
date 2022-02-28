@@ -197,6 +197,7 @@ namespace XGUI
                     for (var i = 0; i < valuesCount; i++)
                     {
                         values[i] = _guis[i].Show(values[i]);
+                        Updated = Updated || _guis[i].Updated;
                     }
                 });
 

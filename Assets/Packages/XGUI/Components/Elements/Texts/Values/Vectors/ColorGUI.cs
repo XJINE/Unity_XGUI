@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace XGUI
 {
@@ -113,13 +114,19 @@ namespace XGUI
 
         protected override Color ShowComponents(Color value)
         {
-            return new Color()
+            var previousValue = value;
+
+            value = new Color()
             {
                 r = _guiR.Show(value.r),
                 g = _guiG.Show(value.g),
                 b = _guiB.Show(value.b),
                 a = _guiA.Show(value.a)
             };
+
+            Updated = previousValue != value;
+
+            return value;
         }
 
         #endregion Method

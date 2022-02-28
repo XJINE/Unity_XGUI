@@ -28,6 +28,8 @@ namespace XGUI
 
         public Vector2 Show(params Action[] actions)
         {
+            var previousValue = Value;
+
             base.ShowTitle();
 
             var height = Mathf.Min(MaxHeight, Mathf.Max(MinHeight, Height));
@@ -49,6 +51,8 @@ namespace XGUI
 
             GUILayout.EndScrollView();
             GUILayout.EndVertical();
+
+            Updated = previousValue != Value;
 
             return Value;
         }

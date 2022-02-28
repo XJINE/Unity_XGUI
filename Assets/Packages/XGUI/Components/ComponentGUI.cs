@@ -19,6 +19,8 @@ namespace XGUI
             }
         }
 
+        public virtual bool Updated { get; protected set; }
+
         #endregion Property
 
         #region Constructor

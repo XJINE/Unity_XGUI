@@ -20,11 +20,15 @@
 
         public override string Show(string value)
         {
+            var previousValue = value;
+
             XGUILayout.HorizontalLayout(() =>
             {
                 base.ShowTitle();
                 value = ShowTextField(value);
             });
+
+            Updated = previousValue != value;
 
             return value;
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace XGUI
 {
@@ -84,8 +85,11 @@ namespace XGUI
 
             if (!_isEditing)
             {
+                Updated = false;
                 return value;
             }
+
+            var previousValue = value;
 
             XGUILayout.HorizontalLayout(() =>
             {
@@ -112,6 +116,8 @@ namespace XGUI
 
                 }, GUI.skin.box);
             });
+
+            Updated = !previousValue.Equals(value);
 
             return value;
         }

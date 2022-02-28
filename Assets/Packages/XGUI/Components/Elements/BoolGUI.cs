@@ -16,6 +16,8 @@ namespace XGUI
 
         public override bool Show(bool value)
         {
+            var previousValue = value;
+
             const string emptyText = "";
 
             XGUILayout.HorizontalLayout(()=>
@@ -26,6 +28,8 @@ namespace XGUI
 
                 value = GUILayout.Toggle(value, emptyText);
             });
+
+            Updated = previousValue != value;
 
             return value;
         }

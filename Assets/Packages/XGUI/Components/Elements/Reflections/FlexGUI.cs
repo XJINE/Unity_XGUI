@@ -16,6 +16,8 @@ namespace XGUI
             set => _gui.Title = value;
         }
 
+        public override bool Updated => _gui.Updated;
+
         // CAUTION:
         // T gets IList or unsupported value in sometimes.
         // So it cant define MinValue/MaxValue type.

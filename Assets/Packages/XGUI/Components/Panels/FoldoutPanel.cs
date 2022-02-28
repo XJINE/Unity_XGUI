@@ -17,6 +17,8 @@ namespace XGUI
 
         public bool Show(params Action[] actions)
         {
+            var previousValue = Value;
+
             XGUILayout.VerticalLayout(() =>
             {
                 var buttonContent = (Value ? "\u25BC " : "\u25BA ") + Title;
@@ -34,6 +36,8 @@ namespace XGUI
                     });
                 }
             }, Value ? GUI.skin.box : null);
+
+            Updated = previousValue != Value;
 
             return Value;
         }
