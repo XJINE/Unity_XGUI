@@ -5,15 +5,15 @@ using UnityEngine;
 
 namespace XGUI
 {
-    public class ListGUI<TList, TElement, TGUI>  : ElementGUI<TList>
-                                  where TList    : IList<TElement>
+    public class ListGUI<TElement, TList, TGUI>  : ElementGUI<TList>
                                   where TElement : new()
+                                  where TList    : IList<TElement>
                                   where TGUI     : ElementGUI<TElement>, new()
     {
         #region Field
 
         private readonly ScrollPanel _scrollPanel = new ();
-        private readonly List<TGUI>  _guiList     = new ();
+        private readonly List<(TGUI, FoldoutPanel)> _guiList = new ();
 
         public bool Reorderable = true;
         public bool Resizable   = true;
@@ -84,7 +84,7 @@ namespace XGUI
             while (valueCount > guisCount)
             {
                 guisCount += 1;
-                _guiList.Add(new TGUI());
+                _guiList.Add((new TGUI(), new FoldoutPanel()));
             }
 
             var addList    = new List<int>();
@@ -92,37 +92,49 @@ namespace XGUI
 
             _scrollPanel.Show(() =>
             {
+                if (valueCount == 0)
+                {
+                    GUILayout.Label("No Element");
+                }
+                else
                 for (var i = 0; i < valueCount; i++)
                 {
-                    XGUILayout.HorizontalLayout(() =>
-                    {
-                        GUILayout.FlexibleSpace(); // To Align Right
-
-                        GUI.enabled = i > 0 && Reorderable;
-                        if (GUILayout.Button("∧", GUILayout.Width(30)))
-                        {
-                            (value[i], value[i - 1]) = (value[i - 1], value[i]);
-                        }
-
-                        GUI.enabled = i < valueCount - 1 && Reorderable;
-                        if (GUILayout.Button("∨", GUILayout.Width(30)))
-                        {
-                            (value[i], value[i + 1]) = (value[i + 1], value[i]);
-                        }
-
-                        GUI.enabled = Resizable;
-
-                        if (GUILayout.Button("+", GUILayout.Width(30))) { addList   .Add(i); }
-                        if (GUILayout.Button("-", GUILayout.Width(30))) { removeList.Add(i); }
-
-                        GUI.enabled = true;
-                    });
+                    var (gui, foldoutPanel) = _guiList[i];
 
                     // NOTE:
                     // Just pass an index. Leave how to deal it to end GUI.
-                    _guiList[i].Title = i + " :";
 
-                    value[i] = _guiList[i].Show(value[i]);
+                    foldoutPanel.Title = string.IsNullOrWhiteSpace(gui.Title) ? "Element" : gui.Title;;
+                    foldoutPanel.ButtonFieldAction = () =>
+                    {
+                        XGUILayout.HorizontalLayout(() =>
+                        {
+                            GUILayout.FlexibleSpace(); // To Align Right
+
+                            GUI.enabled = i > 0 && Reorderable;
+                            if (GUILayout.Button("∧", GUILayout.Width(30)))
+                            {
+                                (value[i], value[i - 1]) = (value[i - 1], value[i]);
+                            }
+
+                            GUI.enabled = i < valueCount - 1 && Reorderable;
+                            if (GUILayout.Button("∨", GUILayout.Width(30)))
+                            {
+                                (value[i], value[i + 1]) = (value[i + 1], value[i]);
+                            }
+
+                            GUI.enabled = Resizable;
+
+                            if (GUILayout.Button("+", GUILayout.Width(30))) { addList   .Add(i); }
+                            if (GUILayout.Button("-", GUILayout.Width(30))) { removeList.Add(i); }
+
+                            GUI.enabled = true;
+                        });
+                    };
+                    foldoutPanel.Show(() =>
+                    {
+                        value[i] = gui.Show(value[i]);
+                    });
                 }
             });
 
@@ -135,6 +147,7 @@ namespace XGUI
                     memoryStream.Seek(0, SeekOrigin.Begin);
                     value.Insert(i, (TElement)binaryFormatter.Deserialize(memoryStream));
                 }
+
                 // value.Add(new TElement());
             }
 
