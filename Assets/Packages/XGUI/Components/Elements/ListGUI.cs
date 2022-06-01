@@ -1,6 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 namespace XGUI
@@ -12,13 +11,15 @@ namespace XGUI
     {
         #region Field
 
-        private readonly ScrollPanel _scrollPanel = new ();
+        private readonly FoldoutPanel _foldoutPanel = new ();
+        private readonly ScrollPanel  _scrollPanel  = new ();
         private readonly List<(TGUI, FoldoutPanel)> _guiList = new ();
 
+        public bool FoldoutList = true;
         public bool Reorderable = true;
         public bool Resizable   = true;
 
-            #endregion Field
+        #endregion Field
 
         #region Property
 
@@ -90,71 +91,93 @@ namespace XGUI
             var addList    = new List<int>();
             var removeList = new List<int>();
 
-            _scrollPanel.Show(() =>
+            var panelAction = new Action(() =>
             {
                 if (valueCount == 0)
                 {
                     GUILayout.Label("No Element");
                 }
                 else
-                for (var i = 0; i < valueCount; i++)
                 {
-                    var (gui, foldoutPanel) = _guiList[i];
-
-                    // NOTE:
-                    // Just pass an index. Leave how to deal it to end GUI.
-
-                    foldoutPanel.Title = string.IsNullOrWhiteSpace(gui.Title) ? "Element" : gui.Title;;
-                    foldoutPanel.ButtonFieldAction = () =>
+                    for (var i = 0; i < valueCount; i++)
                     {
-                        XGUILayout.HorizontalLayout(() =>
+                        var (gui, foldoutPanel) = _guiList[i];
+
+                        // NOTE:
+                        // Just pass an index. Leave how to deal it to end GUI.
+
+                        foldoutPanel.Title = i + " : " + (string.IsNullOrWhiteSpace(gui.Title) ? "Element" : gui.Title);
+                        foldoutPanel.ButtonFieldAction = () =>
                         {
-                            GUILayout.FlexibleSpace(); // To Align Right
-
-                            GUI.enabled = i > 0 && Reorderable;
-                            if (GUILayout.Button("∧", GUILayout.Width(30)))
+                            XGUILayout.HorizontalLayout(() =>
                             {
-                                (value[i], value[i - 1]) = (value[i - 1], value[i]);
-                            }
+                                GUILayout.FlexibleSpace(); // To Align Right
 
-                            GUI.enabled = i < valueCount - 1 && Reorderable;
-                            if (GUILayout.Button("∨", GUILayout.Width(30)))
-                            {
-                                (value[i], value[i + 1]) = (value[i + 1], value[i]);
-                            }
+                                GUI.enabled = i > 0 && Reorderable;
+                                if (GUILayout.Button("∧", GUILayout.Width(30)))
+                                {
+                                    (value[i], value[i - 1]) = (value[i - 1], value[i]);
+                                }
 
-                            GUI.enabled = Resizable;
+                                GUI.enabled = i < valueCount - 1 && Reorderable;
+                                if (GUILayout.Button("∨", GUILayout.Width(30)))
+                                {
+                                    (value[i], value[i + 1]) = (value[i + 1], value[i]);
+                                }
 
-                            if (GUILayout.Button("+", GUILayout.Width(30))) { addList   .Add(i); }
-                            if (GUILayout.Button("-", GUILayout.Width(30))) { removeList.Add(i); }
+                                if (!typeof(TList).IsArray)
+                                {
+                                    GUI.enabled = Resizable;
+                                    if (GUILayout.Button("+", GUILayout.Width(30))) { addList   .Add(i); }
+                                    if (GUILayout.Button("-", GUILayout.Width(30))) { removeList.Add(i); }
+                                }
 
-                            GUI.enabled = true;
+                                GUI.enabled = true;
+                            });
+                        };
+                        foldoutPanel.Show(() =>
+                        {
+                            value[i] = gui.Show(value[i]);
+                            Updated = Updated || gui.Updated;
                         });
-                    };
-                    foldoutPanel.Show(() =>
-                    {
-                        value[i] = gui.Show(value[i]);
-                    });
+                    }
                 }
             });
 
+            if (FoldoutList)
+            {
+                _foldoutPanel.Title = Title;
+                _scrollPanel .Title = null;
+
+                _foldoutPanel.Show(() =>
+                {
+                    _scrollPanel.Show(panelAction);
+                });
+            }
+            else
+            {
+                _scrollPanel.Title = Title;
+                _scrollPanel.Show(panelAction);
+            }
+
             foreach (var i in addList)
             {
-                using (var memoryStream = new MemoryStream()) // Deep copy.
-                {
-                    var binaryFormatter = new BinaryFormatter();
-                    binaryFormatter.Serialize(memoryStream, value[i]);
-                    memoryStream.Seek(0, SeekOrigin.Begin);
-                    value.Insert(i, (TElement)binaryFormatter.Deserialize(memoryStream));
-                }
+                // NOTE:
+                // It is hard to implement to copy instance.
+                // 1) Using BinaryFormatter and De/serialize is now deprecated.
+                // And it requires serializable(System.Serializable) to the instance.
+                // That's nonsense.
+                // 2) It can't guarantee that generating the deep-copy instance is safe.
 
-                // value.Add(new TElement());
+                value.Insert(i, new TElement());
             }
 
             foreach (var i in removeList)
             {
                 value.RemoveAt(i);
             }
+
+            Updated = Updated || addList.Count != 0 || removeList.Count != 0;
 
             return value;
         }

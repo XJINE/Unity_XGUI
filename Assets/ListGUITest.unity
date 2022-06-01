@@ -215,5 +215,6 @@ MonoBehaviour:
   vector2Value: {x: 0, y: 0}
   vector2Array:
   - {x: 0, y: 0}
+  - {x: 1, y: 0}
   vector2List:
   - {x: 0, y: 0}

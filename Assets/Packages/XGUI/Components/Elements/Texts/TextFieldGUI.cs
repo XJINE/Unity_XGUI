@@ -36,7 +36,7 @@ namespace XGUI
 
         protected override void ShowTitle(bool blank = false)
         {
-            base.ShowTitle(blank || (0 < Width && base.Title == null));
+            base.ShowTitle(blank || (0 < Width && string.IsNullOrEmpty(base.Title)));
         }
 
         protected virtual string ShowTextField(string text)
