@@ -47,13 +47,13 @@ namespace XGUI
                 labels[i] = tabActions[i].label;
             }
 
+            ShowTitle();
             XGUILayout.VerticalLayout(() =>
             {
-                ShowTitle();
                 Value = GUILayout.Toolbar(Value, labels, TabStyle);
                 tabActions[Value].show();
 
-            }, GUI.skin.box);
+            }, BoxSkin ? GUI.skin.box : null);
 
             Updated = previousValue != Value;
 

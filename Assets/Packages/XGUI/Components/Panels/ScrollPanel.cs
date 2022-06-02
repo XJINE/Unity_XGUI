@@ -35,22 +35,22 @@ namespace XGUI
             var height = Mathf.Min(MaxHeight, Mathf.Max(MinHeight, Height));
             var width  = Mathf.Min(MaxWidth,  Mathf.Max(MinWidth,  Width));
 
-            GUILayout.BeginVertical(GUILayout.Height   (height),
-                                    GUILayout.MinHeight(height),
-                                    GUILayout.MaxHeight(height));
-
-            Value = GUILayout.BeginScrollView(Value, GUILayout.Width   (width),
-                                                     GUILayout.MinWidth(width),
-                                                     GUILayout.MaxWidth(width),
-                                                     GUILayout.Height(height));
-
-            foreach (var action in actions)
+            XGUILayout.VerticalLayout(() =>
             {
-                action();
-            }
+                Value = GUILayout.BeginScrollView(Value, GUILayout.Width   (width),
+                                                         GUILayout.MinWidth(width),
+                                                         GUILayout.MaxWidth(width),
+                                                         GUILayout.Height  (height));
+                foreach (var action in actions)
+                {
+                    action();
+                }
 
-            GUILayout.EndScrollView();
-            GUILayout.EndVertical();
+                GUILayout.EndScrollView();
+            },
+            BoxSkin? GUI.skin.box : null, GUILayout.Height   (height),
+                                          GUILayout.MinHeight(height),
+                                          GUILayout.MaxHeight(height));
 
             Updated = previousValue != Value;
 

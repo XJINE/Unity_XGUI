@@ -4,7 +4,8 @@
     {
         #region Field
 
-        public T Value;
+        public T    Value;
+        public bool BoxSkin = true;
 
         #endregion Field
 

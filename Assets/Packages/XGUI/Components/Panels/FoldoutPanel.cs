@@ -39,7 +39,7 @@ namespace XGUI
 
                 return _foldoutBoxStyle;
             }
-        }        
+        }
 
         #endregion Field
 
@@ -78,7 +78,7 @@ namespace XGUI
                         }
                     }, FoldoutBoxStyle);
                 }
-            }, Value ? GUI.skin.box : null);
+            }, Value && BoxSkin ? GUI.skin.box : null);
 
             Updated = previousValue != Value;
 
