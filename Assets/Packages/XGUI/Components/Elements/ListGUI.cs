@@ -11,13 +11,16 @@ namespace XGUI
     {
         #region Field
 
+        private const float ButtonWidth = 30;
+
         private readonly FoldoutPanel _foldoutPanel = new ();
         private readonly ScrollPanel  _scrollPanel  = new ();
-        private readonly List<(TGUI, FoldoutPanel)> _guiList = new ();
+        private readonly List<(TGUI gui, FoldoutPanel foldoutPanel)> _guiList = new ();
 
         public bool FoldoutList = true;
         public bool Reorderable = true;
         public bool Resizable   = true;
+        public bool BoxSkin     = true;
 
         #endregion Field
 
@@ -95,7 +98,29 @@ namespace XGUI
             {
                 if (valueCount == 0)
                 {
-                    GUILayout.Label("No Element");
+                    // NOTE:
+                    // Show dummy buttons to keep UI layout.
+
+                    XGUILayout.HorizontalLayout(() =>
+                    {
+                        GUILayout.Label("No Element");
+                        GUILayout.FlexibleSpace(); // To Align Right
+
+                        GUI.enabled = false;
+                        GUILayout.Button("∧", GUILayout.Width(ButtonWidth));
+                        GUILayout.Button("∨", GUILayout.Width(ButtonWidth));
+                        if (!typeof(TList).IsArray)
+                        {
+                            GUI.enabled = Resizable;
+                            if (GUILayout.Button("+", GUILayout.Width(ButtonWidth)))
+                            {
+                                addList.Add(0);
+                            }
+                            GUI.enabled = false;
+                            GUILayout.Button("-", GUILayout.Width(ButtonWidth));
+                        }
+                        GUI.enabled = true;
+                    });
                 }
                 else
                 {
@@ -114,13 +139,13 @@ namespace XGUI
                                 GUILayout.FlexibleSpace(); // To Align Right
 
                                 GUI.enabled = i > 0 && Reorderable;
-                                if (GUILayout.Button("∧", GUILayout.Width(30)))
+                                if (GUILayout.Button("∧", GUILayout.Width(ButtonWidth)))
                                 {
                                     (value[i], value[i - 1]) = (value[i - 1], value[i]);
                                 }
 
                                 GUI.enabled = i < valueCount - 1 && Reorderable;
-                                if (GUILayout.Button("∨", GUILayout.Width(30)))
+                                if (GUILayout.Button("∨", GUILayout.Width(ButtonWidth)))
                                 {
                                     (value[i], value[i + 1]) = (value[i + 1], value[i]);
                                 }
@@ -128,8 +153,8 @@ namespace XGUI
                                 if (!typeof(TList).IsArray)
                                 {
                                     GUI.enabled = Resizable;
-                                    if (GUILayout.Button("+", GUILayout.Width(30))) { addList   .Add(i); }
-                                    if (GUILayout.Button("-", GUILayout.Width(30))) { removeList.Add(i); }
+                                    if (GUILayout.Button("+", GUILayout.Width(ButtonWidth))) { addList   .Add(i); }
+                                    if (GUILayout.Button("-", GUILayout.Width(ButtonWidth))) { removeList.Add(i); }
                                 }
 
                                 GUI.enabled = true;
@@ -149,6 +174,9 @@ namespace XGUI
                 _foldoutPanel.Title = Title;
                 _scrollPanel .Title = null;
 
+                _foldoutPanel.BoxSkin = BoxSkin;
+                _scrollPanel.BoxSkin  = false;
+
                 _foldoutPanel.Show(() =>
                 {
                     _scrollPanel.Show(panelAction);
@@ -156,7 +184,9 @@ namespace XGUI
             }
             else
             {
-                _scrollPanel.Title = Title;
+                _scrollPanel.BoxSkin = BoxSkin;
+                _scrollPanel.Title   = Title;
+
                 _scrollPanel.Show(panelAction);
             }
 
@@ -169,7 +199,7 @@ namespace XGUI
                 // That's nonsense.
                 // 2) It can't guarantee that generating the deep-copy instance is safe.
 
-                value.Insert(i, new TElement());
+                value.Insert(i == 0 ? i : i + 1, new TElement());
             }
 
             foreach (var i in removeList)

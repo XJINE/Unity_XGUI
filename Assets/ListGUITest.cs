@@ -14,8 +14,8 @@ public class ListGUITest : MonoBehaviour
         MaxHeight = 800,
     };
 
-    private ListGUI<Vector2, Vector2[],     FlexGUI<Vector2>> vector2ArrayGUI = new ("Vector2Array"){ MinHeight = 400, FoldoutList = false };
-    private ListGUI<Vector2, List<Vector2>, FlexGUI<Vector2>> vector2ListGUI  = new ("Vector2List") { MinHeight = 400 };
+    private ListGUI<Vector2, Vector2[],     FlexGUI<Vector2>> _vector2ArrayGUI = new ("Vector2Array"){ MinHeight = 200, FoldoutList = false };
+    private ListGUI<Vector2, List<Vector2>, FlexGUI<Vector2>> _vector2ListGUI  = new ("Vector2List") { MinHeight = 200 };
 
     private Vector2GUI _vector2GUI = new()
     {
@@ -27,9 +27,9 @@ public class ListGUITest : MonoBehaviour
     {
         window.Show(() =>
         {
-            // vector2Value = _vector2GUI    .Show(vector2Value);
-            vector2Array = vector2ArrayGUI.Show(vector2Array);
-            vector2List  = vector2ListGUI .Show(vector2List);
+            vector2Value = _vector2GUI     .Show(vector2Value);
+            vector2Array = _vector2ArrayGUI.Show(vector2Array);
+            vector2List  = _vector2ListGUI .Show(vector2List);
         });
     }
 }
