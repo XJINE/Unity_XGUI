@@ -10,8 +10,8 @@ namespace XGUI
     {
         #region Field
 
-        private static readonly Type IListGUIType = typeof(FlexListGUI<,>);
-        private static readonly Type EnumGUIType  = typeof(EnumGUI<>);
+        private static readonly Type FlexListGUIType = typeof(FlexListGUI<,>);
+        private static readonly Type EnumGUIType     = typeof(EnumGUI<>);
 
         internal static readonly Dictionary<Type, Type> GUIType = new ()
         {
@@ -71,14 +71,14 @@ namespace XGUI
             if (type.IsArray)
             {
                 var elementType = type.GetElementType();
-                guiType = IListGUIType.MakeGenericType(elementType, elementType.MakeArrayType());
+                guiType = FlexListGUIType.MakeGenericType(elementType, elementType.MakeArrayType());
             }
             else if (type.IsGenericType)
             {
                 if (type.GetGenericTypeDefinition() == typeof(List<>))
                 {
                     var elementType = type.GetGenericArguments()[0];
-                    guiType = IListGUIType.MakeGenericType(elementType, type);
+                    guiType = FlexListGUIType.MakeGenericType(elementType, type);
                 }
             }
             else if (type.IsEnum)

@@ -15,7 +15,7 @@ public class Sample02 : MonoBehaviour
 
     private readonly FlexListGUI<int, int[]> _intArrayGUI = new ("IntArrayGUI")
     {
-        MinHeight = 200,
+        MinHeight = 300,
     };
 
     private readonly FlexListGUI<Vector2, Vector2[]> _vectorArrayGUI = new ("VectorArrayGUI")
@@ -23,12 +23,12 @@ public class Sample02 : MonoBehaviour
         MinValue = Vector2.zero,
         MaxValue = Vector2.one * 10,
         Digits   = 1,
-        Height   = 200
+        Height   = 300
     };
 
     private readonly FlexListGUI<CameraType, List<CameraType>> _enumListGUI = new ("EnumListGUI")
     {
-        MinHeight = 80
+        MinHeight = 200
     };
 
     private readonly FlexListGUI<int[], List<int[]>> _intArrayListGUI = new ("IntArrayListGUI")

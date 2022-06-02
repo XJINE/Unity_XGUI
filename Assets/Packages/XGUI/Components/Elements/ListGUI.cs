@@ -4,10 +4,12 @@ using UnityEngine;
 
 namespace XGUI
 {
-    public class ListGUI<TElement, TList, TGUI>  : ElementGUI<TList>
-                                  where TElement : new()
-                                  where TList    : IList<TElement>
-                                  where TGUI     : ElementGUI<TElement>, new()
+    // NOTE:
+    // Custom TGUI should be override Updated and Title property.
+
+    public class ListGUI<TElement, TList, TGUI> : ElementGUI<TList>
+                                    where TList : IList<TElement>
+                                    where TGUI  : ElementGUI<TElement>, new()
     {
         #region Field
 
@@ -25,7 +27,7 @@ namespace XGUI
         #endregion Field
 
         #region Property
-
+ 
         public float Width
         {
             get => _scrollPanel.Width;
@@ -76,18 +78,18 @@ namespace XGUI
 
         public override TList Show(TList value)
         {
-            var valueCount = value.Count;
-            var guisCount  = _guiList.Count;
+            var valueCount = value == null ? 0 : value.Count;
+            var guiCount   = _guiList.Count;
 
-            while (valueCount < guisCount)
+            while (valueCount < guiCount)
             {
-                guisCount -= 1;
-                _guiList.RemoveAt(guisCount);
+                guiCount -= 1;
+                _guiList.RemoveAt(guiCount);
             }
 
-            while (valueCount > guisCount)
+            while (valueCount > guiCount)
             {
-                guisCount += 1;
+                guiCount += 1;
                 _guiList.Add((new TGUI(), new FoldoutPanel()));
             }
 
@@ -128,10 +130,8 @@ namespace XGUI
                     {
                         var (gui, foldoutPanel) = _guiList[i];
 
-                        // NOTE:
-                        // Just pass an index. Leave how to deal it to end GUI.
-
                         foldoutPanel.Title = i + " : " + (string.IsNullOrWhiteSpace(gui.Title) ? "Element" : gui.Title);
+
                         foldoutPanel.ButtonFieldAction = () =>
                         {
                             XGUILayout.HorizontalLayout(() =>
@@ -160,6 +160,7 @@ namespace XGUI
                                 GUI.enabled = true;
                             });
                         };
+
                         foldoutPanel.Show(() =>
                         {
                             value[i] = gui.Show(value[i]);
@@ -190,6 +191,12 @@ namespace XGUI
                 _scrollPanel.Show(panelAction);
             }
 
+            // NOTE:
+            // Array type can't add or remove value now.
+            // Because it makes code more complicated.
+            // The reference of the instance will be changed.
+            // If the length of the value must be changed, it should be defined as list.
+
             foreach (var i in addList)
             {
                 // NOTE:
@@ -199,7 +206,15 @@ namespace XGUI
                 // That's nonsense.
                 // 2) It can't guarantee that generating the deep-copy instance is safe.
 
-                value.Insert(i == 0 ? i : i + 1, new TElement());
+                // NOTE:
+                // Remove limitation of TElement now. Because Array-type might be set.
+                // ex. where TElement : new()
+
+                var elementType = typeof(TElement);
+                var newInstance = (TElement)(elementType.IsArray ? Array.CreateInstance(elementType.GetElementType(), 0)
+                                                                 : Activator.CreateInstance(elementType));
+
+                value.Insert(i == 0 ? i : i + 1, newInstance);
             }
 
             foreach (var i in removeList)
