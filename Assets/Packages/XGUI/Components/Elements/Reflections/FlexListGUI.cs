@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace XGUI
 {
-    public class FlexListGUI<TElement, TList> : ElementGUI<TList> where TList : IList<TElement>
+    public class FlexListGUI<TItem, TList> : ElementGUI<TList> where TList : IList<TItem>
     {
         #region Field
 
-        private readonly List<ElementGUI<TElement>> _guis  = new ();
+        private readonly List<ElementGUI<TItem>> _guis  = new ();
         private readonly FoldoutPanel _foldoutPanel = new ();
         private readonly ScrollPanel  _scrollPanel  = new ();
 
@@ -132,7 +132,7 @@ namespace XGUI
             // NOTE:
             // Setup Min/Max with float value is only available in Constructor.
 
-            var type = typeof(TElement);
+            var type = typeof(TItem);
             MinValue = ReflectionHelper.GetMinValue(type, minValue);
             MaxValue = ReflectionHelper.GetMaxValue(type, maxValue);
         }
@@ -149,7 +149,7 @@ namespace XGUI
         protected override void Initialize()
         {
             base.Initialize();
-            _guiType = ReflectionHelper.GetGUIType(typeof(TElement));
+            _guiType = ReflectionHelper.GetGUIType(typeof(TItem));
         }
 
         public override TList Show(TList values)
@@ -181,6 +181,31 @@ namespace XGUI
                             // If do not check null, they will get 0.
                             // And if do not so, they get default GUI values.
 
-                            var gui = (ElementGUI<TElement
+                            var gui = (ElementGUI<TItem>)(_guiType == null ? new UnSupportedGUI()
+                                                                           : Activator.CreateInstance(_guiType));
+                            gui.Title = "Element " + (guisCount + i);
+
+                            if (_minValue != null) { ReflectionHelper.SetProperty(gui, "MinValue", _minValue); }
+                            if (_maxValue != null) { ReflectionHelper.SetProperty(gui, "MaxValue", _maxValue); }
+                                                     ReflectionHelper.SetProperty(gui, "Digits",   _digits);
+                                                     ReflectionHelper.SetProperty(gui, "Slider",   _slider);
+                            
+                            _guis.Add(gui);
+                        }
+                    }
+
+                    for (var i = 0; i < valuesCount; i++)
+                    {
+                        values[i] = _guis[i].Show(values[i]);
+                        Updated = Updated || _guis[i].Updated;
+                    }
+                });
+
+            });
+
+            return values;
+        }
+
+        #endregion Method
     }
 }
