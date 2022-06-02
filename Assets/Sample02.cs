@@ -13,12 +13,12 @@ public class Sample02 : MonoBehaviour
 
     private readonly FlexWindow _window = new ("Sample02");
 
-    private readonly IListGUI<int, int[]> _intArrayGUI = new ("IntArrayGUI")
+    private readonly FlexListGUI<int, int[]> _intArrayGUI = new ("IntArrayGUI")
     {
         MinHeight = 200,
     };
 
-    private readonly IListGUI<Vector2, Vector2[]> _vectorArrayGUI = new ("VectorArrayGUI")
+    private readonly FlexListGUI<Vector2, Vector2[]> _vectorArrayGUI = new ("VectorArrayGUI")
     {
         MinValue = Vector2.zero,
         MaxValue = Vector2.one * 10,
@@ -26,12 +26,12 @@ public class Sample02 : MonoBehaviour
         Height   = 200
     };
 
-    private readonly IListGUI<CameraType, List<CameraType>> _enumListGUI = new ("EnumListGUI")
+    private readonly FlexListGUI<CameraType, List<CameraType>> _enumFlexListGUI = new ("EnumListGUI")
     {
         MinHeight = 80
     };
 
-    private readonly IListGUI<int[], List<int[]>> _intArrayListGUI = new ("IntArrayListGUI")
+    private readonly FlexListGUI<int[], List<int[]>> _intArrayFlexListGUI = new ("IntArrayListGUI")
     {
         MinValue  = -1,
         MaxValue  = 999,
@@ -60,8 +60,8 @@ public class Sample02 : MonoBehaviour
         {
             _intArrayGUI    .Show(intArrayValue);
             _vectorArrayGUI .Show(vectorArrayValue);
-            _enumListGUI    .Show(enumListValue);
-            _intArrayListGUI.Show(intArrayListValue);
+            _enumFlexListGUI    .Show(enumListValue);
+            _intArrayFlexListGUI.Show(intArrayListValue);
 
             _foldoutIntArrayListGUI.Show(() =>
             {

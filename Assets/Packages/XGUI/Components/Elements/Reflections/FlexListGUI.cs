@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace XGUI
 {
-    public class IListGUI<TItem, TList> : ElementGUI<TList> where TList : IList<TItem>
+    public class FlexListGUI<TElement, TList> : ElementGUI<TList> where TList : IList<TElement>
     {
         #region Field
 
-        private readonly List<ElementGUI<TItem>> _guis  = new ();
+        private readonly List<ElementGUI<TElement>> _guis  = new ();
         private readonly FoldoutPanel _foldoutPanel = new ();
         private readonly ScrollPanel  _scrollPanel  = new ();
 
@@ -112,32 +112,32 @@ namespace XGUI
 
         #region Constructor
 
-        public IListGUI() { }
+        public FlexListGUI() { }
 
-        public IListGUI(string title) : base(title) { }
+        public FlexListGUI(string title) : base(title) { }
 
-        public IListGUI(string title, object minValue, object maxValue) : base(title)
+        public FlexListGUI(string title, object minValue, object maxValue) : base(title)
         {
             MinValue = minValue;
             MaxValue = maxValue;
         }
 
-        public IListGUI(string title, object minValue, object maxValue, int digits) : this(title, minValue, maxValue)
+        public FlexListGUI(string title, object minValue, object maxValue, int digits) : this(title, minValue, maxValue)
         {
             Digits = digits;
         }
 
-        public IListGUI(string title, float minValue, float maxValue) : base(title)
+        public FlexListGUI(string title, float minValue, float maxValue) : base(title)
         {
             // NOTE:
             // Setup Min/Max with float value is only available in Constructor.
 
-            var type = typeof(TItem);
+            var type = typeof(TElement);
             MinValue = ReflectionHelper.GetMinValue(type, minValue);
             MaxValue = ReflectionHelper.GetMaxValue(type, maxValue);
         }
 
-        public IListGUI(string title, float minValue, float maxValue, int digits) : this(title, minValue, maxValue)
+        public FlexListGUI(string title, float minValue, float maxValue, int digits) : this(title, minValue, maxValue)
         {
             Digits = digits;
         }
@@ -149,7 +149,7 @@ namespace XGUI
         protected override void Initialize()
         {
             base.Initialize();
-            _guiType = ReflectionHelper.GetGUIType(typeof(TItem));
+            _guiType = ReflectionHelper.GetGUIType(typeof(TElement));
         }
 
         public override TList Show(TList values)
@@ -181,31 +181,6 @@ namespace XGUI
                             // If do not check null, they will get 0.
                             // And if do not so, they get default GUI values.
 
-                            var gui = (ElementGUI<TItem>)(_guiType == null ? new UnSupportedGUI()
-                                                                           : Activator.CreateInstance(_guiType));
-                            gui.Title = "Element " + (guisCount + i);
-
-                            if (_minValue != null) { ReflectionHelper.SetProperty(gui, "MinValue", _minValue); }
-                            if (_maxValue != null) { ReflectionHelper.SetProperty(gui, "MaxValue", _maxValue); }
-                                                     ReflectionHelper.SetProperty(gui, "Digits",   _digits);
-                                                     ReflectionHelper.SetProperty(gui, "Slider",   _slider);
-                            
-                            _guis.Add(gui);
-                        }
-                    }
-
-                    for (var i = 0; i < valuesCount; i++)
-                    {
-                        values[i] = _guis[i].Show(values[i]);
-                        Updated = Updated || _guis[i].Updated;
-                    }
-                });
-
-            });
-
-            return values;
-        }
-
-        #endregion Method
+                            var gui = (ElementGUI<TElement
     }
 }

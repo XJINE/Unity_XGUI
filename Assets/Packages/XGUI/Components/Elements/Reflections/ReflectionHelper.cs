@@ -10,7 +10,7 @@ namespace XGUI
     {
         #region Field
 
-        private static readonly Type IListGUIType = typeof(IListGUI<,>);
+        private static readonly Type IListGUIType = typeof(FlexListGUI<,>);
         private static readonly Type EnumGUIType  = typeof(EnumGUI<>);
 
         internal static readonly Dictionary<Type, Type> GUIType = new ()
