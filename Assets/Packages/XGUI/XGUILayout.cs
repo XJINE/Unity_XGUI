@@ -99,15 +99,15 @@ public static class XGUILayout
         GUILayout.Label(text, LabelStyle);
     }
 
-    public static void HorizontalLayout(Action guiAction, GUIStyle style = null)
+    public static void HorizontalLayout(Action guiAction, GUIStyle style = null, params  GUILayoutOption[] options)
     {
         if (style == null)
         {
-            GUILayout.BeginHorizontal();
+            GUILayout.BeginHorizontal(options);
         }
         else
         {
-            GUILayout.BeginHorizontal(style);
+            GUILayout.BeginHorizontal(style, options);
         }
 
         guiAction();
@@ -115,15 +115,15 @@ public static class XGUILayout
         GUILayout.EndHorizontal();
     }
 
-    public static void VerticalLayout(Action guiAction, GUIStyle style = null)
+    public static void VerticalLayout(Action guiAction, GUIStyle style = null, params GUILayoutOption[] options)
     {
         if (style == null)
         {
-            GUILayout.BeginVertical();
+            GUILayout.BeginVertical(options);
         }
         else
         {
-            GUILayout.BeginVertical(style);
+            GUILayout.BeginVertical(style, options);
         }
 
         guiAction();
