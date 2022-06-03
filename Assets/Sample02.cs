@@ -22,7 +22,7 @@ public class Sample02 : MonoBehaviour
     {
         MinValue = Vector2.zero,
         MaxValue = Vector2.one * 10,
-        Digits   = 1,
+        Digits   = 3,
         Height   = 300
     };
 

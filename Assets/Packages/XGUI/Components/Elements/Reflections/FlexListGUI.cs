@@ -4,33 +4,16 @@ using UnityEngine;
 
 namespace XGUI
 {
-    public class FlexListGUI<TElement, TList> : ElementGUI<TList>
+    public class FlexListGUI<TElement, TList> : ListBaseGUI<TElement, TList>
                                where TList    : IList<TElement>
     {
         #region Field
 
-        private const float ButtonWidth = 30;
-
-        private readonly FoldoutPanel _foldoutPanel = new ();
-        private readonly ScrollPanel  _scrollPanel  = new ();
-        private readonly List<(ElementGUI<TElement> gui, FoldoutPanel foldOutPanel)> _guiList = new ();
-
         private Type _guiType;
-
-        public bool FoldoutList = true;
-        public bool Reorderable = true;
-        public bool Resizable   = true;
-        public bool BoxSkin     = true;
 
         #endregion Field
 
         #region Property
-
-        public override string Title
-        {
-            get => _foldoutPanel.Title;
-            set => _foldoutPanel.Title = value;
-        }
 
         // CAUTION:
         // TElement gets IList or unsupported value in sometimes.
@@ -80,42 +63,6 @@ namespace XGUI
             }
         }
 
-        public float Width
-        {
-            get => _scrollPanel.Width;
-            set => _scrollPanel.Width = value;
-        }
-        
-        public float Height
-        {
-            get => _scrollPanel.Height;
-            set => _scrollPanel.Height = value;
-        }
-
-        public float MinWidth
-        {
-            get => _scrollPanel.MinWidth;
-            set => _scrollPanel.MinWidth = value;
-        }
-
-        public float MinHeight
-        {
-            get => _scrollPanel.MinHeight;
-            set => _scrollPanel.MinHeight = value;
-        }
-
-        public float MaxWidth
-        {
-            get => _scrollPanel.MaxWidth;
-            set => _scrollPanel.MaxWidth = value;
-        }
-
-        public float MaxHeight
-        {
-            get => _scrollPanel.MaxHeight;
-            set => _scrollPanel.MaxHeight = value;
-        }
-
         #endregion Property
 
         #region Constructor
@@ -160,173 +107,49 @@ namespace XGUI
             _guiType = ReflectionHelper.GetGUIType(typeof(TElement));
         }
 
-        public override TList Show(TList value)
+        protected override ElementGUI<TElement> GenerateGUI()
         {
-            var valueCount = value == null ? 0 : value.Count;
-            var guiCount   = _guiList.Count;
+            // CAUTION:
+            // _minValue and _maxValue are defined as object.
+            // If do not check null, they will get 0.
+            // And if do not so, they get default GUI values.
 
-            while (valueCount < guiCount)
-            {
-                guiCount -= 1;
-                _guiList.RemoveAt(guiCount);
-            }
+            var gui = (ElementGUI<TElement>)(_guiType == null ? new UnSupportedGUI()
+                                                              : Activator.CreateInstance(_guiType));
 
-            while (valueCount > guiCount)
-            {
-                guiCount += 1;
-
-                // CAUTION:
-                // _minValue and _maxValue are defined as object.
-                // If do not check null, they will get 0.
-                // And if do not so, they get default GUI values.
-
-                var gui = (ElementGUI<TElement>)(_guiType == null ? new UnSupportedGUI()
-                                                                  : Activator.CreateInstance(_guiType));
-
-                if (_minValue != null) { ReflectionHelper.SetProperty(gui, "MinValue", _minValue); }
-                if (_maxValue != null) { ReflectionHelper.SetProperty(gui, "MaxValue", _maxValue); }
-                                         ReflectionHelper.SetProperty(gui, "Digits",   _digits);
-                                         ReflectionHelper.SetProperty(gui, "Slider",   _slider);
-
-                _guiList.Add((gui, new FoldoutPanel()));
-            }
-
-            var addList    = new List<int>();
-            var removeList = new List<int>();
-
-            var panelAction = new Action(() =>
-            {
-                if (valueCount == 0)
-                {
-                    // NOTE:
-                    // Show dummy buttons to keep UI layout.
-
-                    XGUILayout.HorizontalLayout(() =>
-                    {
-                        GUILayout.Label("No Element");
-                        GUILayout.FlexibleSpace(); // To Align Right
-
-                        GUI.enabled = false;
-                        GUILayout.Button("∧", GUILayout.Width(ButtonWidth));
-                        GUILayout.Button("∨", GUILayout.Width(ButtonWidth));
-                        if (!typeof(TList).IsArray)
-                        {
-                            GUI.enabled = Resizable;
-                            if (GUILayout.Button("+", GUILayout.Width(ButtonWidth)))
-                            {
-                                addList.Add(0);
-                            }
-                            GUI.enabled = false;
-                            GUILayout.Button("-", GUILayout.Width(ButtonWidth));
-                        }
-                        GUI.enabled = true;
-                    });
-                }
-                else
-                {
-                    for (var i = 0; i < valueCount; i++)
-                    {
-                        var (gui, foldoutPanel) = _guiList[i];
-
-                        foldoutPanel.Title = i + " : " + GetTypeFromValue(value[i]);
-
-                        foldoutPanel.ButtonFieldAction = () =>
-                        {
-                            XGUILayout.HorizontalLayout(() =>
-                            {
-                                GUILayout.FlexibleSpace(); // To Align Right
-                        
-                                GUI.enabled = i > 0 && Reorderable;
-                                if (GUILayout.Button("∧", GUILayout.Width(ButtonWidth)))
-                                {
-                                    (value[i], value[i - 1]) = (value[i - 1], value[i]);
-                                }
-                        
-                                GUI.enabled = i < valueCount - 1 && Reorderable;
-                                if (GUILayout.Button("∨", GUILayout.Width(ButtonWidth)))
-                                {
-                                    (value[i], value[i + 1]) = (value[i + 1], value[i]);
-                                }
-                        
-                                if (!typeof(TList).IsArray)
-                                {
-                                    GUI.enabled = Resizable;
-                                    if (GUILayout.Button("+", GUILayout.Width(ButtonWidth))) { addList   .Add(i); }
-                                    if (GUILayout.Button("-", GUILayout.Width(ButtonWidth))) { removeList.Add(i); }
-                                }
-                        
-                                GUI.enabled = true;
-                            });
-                        };
-
-                        foldoutPanel.Show(() =>
-                        {
-                            value[i] = gui.Show(value[i]);
-                            Updated = Updated || gui.Updated;
-                        });
-                    }
-                }
-            });
-
-            if (FoldoutList && !string.IsNullOrEmpty(Title))
-            {
-                _foldoutPanel.Title = Title;
-                _scrollPanel .Title = null;
-
-                _foldoutPanel.BoxSkin = BoxSkin;
-                _scrollPanel.BoxSkin  = false;
-
-                _foldoutPanel.Show(() =>
-                {
-                    _scrollPanel.Show(panelAction);
-                });
-            }
-            else
-            {
-                _scrollPanel.BoxSkin = BoxSkin;
-                _scrollPanel.Title   = Title;
-
-                _scrollPanel.Show(panelAction);
-            }
-
-            foreach (var i in addList)
-            {
-                var elementType = typeof(TElement);
-                var newInstance = (TElement)(elementType.IsArray ? Array.CreateInstance(elementType.GetElementType(), 0)
-                                                                 : Activator.CreateInstance(elementType));
-
-                value.Insert(i == 0 ? i : i + 1, newInstance);
-            }
-
-            foreach (var i in removeList)
-            {
-                value.RemoveAt(i);
-            }
-
-            Updated = Updated || addList.Count != 0 || removeList.Count != 0;
-
-            return value;
+            if (_minValue != null) { ReflectionHelper.SetProperty(gui, "MinValue", _minValue); }
+            if (_maxValue != null) { ReflectionHelper.SetProperty(gui, "MaxValue", _maxValue); }
+                                     ReflectionHelper.SetProperty(gui, "Digits",   _digits);
+                                     ReflectionHelper.SetProperty(gui, "Slider",   _slider);
+            return gui;
         }
 
-        private static string GetTypeFromValue(TElement value)
+        protected override string GetElementTitle(TElement value, ElementGUI<TElement> gui)
         {
             if (value.GetType().IsEnum)
             {
                 return value.ToString();
             }
 
+            var digitsObject = ReflectionHelper.GetProperty(gui, "Digits");
+            var digitsFormat = "F" + (digitsObject == null ? 4 : (int)digitsObject);
+
             return value switch
             {
                 string     v => v,
                 int        v => v.ToString(),
-                float      v => v.ToString("F4"),
-                Vector2    v => v.ToString("F4"),
-                Vector3    v => v.ToString("F4"),
-                Vector4    v => v.ToString("F4"),
-                Color      v => v.ToString("F4"),
+                float      v => v.ToString(digitsFormat),
+                Vector2    v => v.ToString(digitsFormat),
+                Vector3    v => v.ToString(digitsFormat),
+                Vector4    v => v.ToString(digitsFormat),
+                Color      v => v.ToString(digitsFormat),
                 Vector2Int v => v.ToString(),
                 Vector3Int v => v.ToString(),
-                Matrix4x4  v => "(" + v.m00 + "," + v.m10 + "," + v.m20 + "," + v.m30 + ")",
+                Matrix4x4  v => "(" + v.m00.ToString(digitsFormat)
+                              + "," + v.m10.ToString(digitsFormat)
+                              + "," + v.m20.ToString(digitsFormat)
+                              + "," + v.m30.ToString(digitsFormat)
+                              + ")…",
                            _ => "Element"
             };
         }
