@@ -170,7 +170,10 @@ namespace XGUI
                 }
             });
 
-            if (FoldoutList)
+            // CAUTION:
+            // string.IsNullOrEmpty needs to consider nested list/array.
+
+            if (FoldoutList && !string.IsNullOrEmpty(Title))
             {
                 _foldoutPanel.Title = Title;
                 _scrollPanel .Title = null;

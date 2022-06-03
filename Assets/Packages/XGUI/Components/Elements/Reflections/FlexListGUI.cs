@@ -228,7 +228,6 @@ namespace XGUI
                     {
                         var (gui, foldoutPanel) = _guiList[i];
 
-                        // foldoutPanel.Title = i + " : Element";
                         foldoutPanel.Title = i + " : " + GetTypeFromValue(value[i]);
 
                         foldoutPanel.ButtonFieldAction = () =>
@@ -269,7 +268,7 @@ namespace XGUI
                 }
             });
 
-            if (FoldoutList)
+            if (FoldoutList && !string.IsNullOrEmpty(Title))
             {
                 _foldoutPanel.Title = Title;
                 _scrollPanel .Title = null;
@@ -318,13 +317,13 @@ namespace XGUI
 
             return value switch
             {
-                string     v => v.ToString(),
+                string     v => v,
                 int        v => v.ToString(),
-                float      v => v.ToString("F6"),
-                Vector2    v => v.ToString("F2"),
-                Vector3    v => v.ToString("F2"),
-                Vector4    v => v.ToString("F1"),
-                Color      v => v.ToString("F1"),
+                float      v => v.ToString("F4"),
+                Vector2    v => v.ToString("F4"),
+                Vector3    v => v.ToString("F4"),
+                Vector4    v => v.ToString("F4"),
+                Color      v => v.ToString("F4"),
                 Vector2Int v => v.ToString(),
                 Vector3Int v => v.ToString(),
                 Matrix4x4  v => "(" + v.m00 + "," + v.m10 + "," + v.m20 + "," + v.m30 + ")",
