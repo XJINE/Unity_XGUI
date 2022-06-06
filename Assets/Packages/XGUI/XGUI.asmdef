@@ -1,0 +1,16 @@
+{
+    "name": "XGUI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:db2963f7e9f762d4b9e27e490c2b66f4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

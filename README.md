@@ -1,12 +1,22 @@
 # Unity_XGUI
 
-Utilities to make a lot of OnGUI. It is easy & fast.
+Utilities to make a lot of IMGUI(OnGUI). It is easy & fast.
 
-## Dependencies
+## Importing
 
-You have to import following assets to use this asset.
+You can use Package Manager or import it directly.
 
-- [Unity_ExpressionParser](https://github.com/XJINE/Unity_ExpressionParser)
+```
+https://github.com/XJINE/Unity_XGUI.git?path=Assets/Packages/XGUI
+```
+
+NOTE: Because of the limitation of UnityPackageManager, it needs to install dependencies first.
+
+### Dependencies
+
+This project use following resources.
+
+- https://github.com/XJINE/Unity_ExpressionParser
 
 ## Various GUI
 

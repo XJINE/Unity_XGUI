@@ -1,0 +1,19 @@
+{
+    "name"       : "com.xjine.xgui",
+    "displayName": "XGUI", 
+    "version"    : "2.3.0",
+    "unity"      : "2021.3",
+    "description": "Utilities to make a lot of IMGUI(OnGUI). It is easy & fast.",
+    "author"     :
+    {
+        "name": "XJINE",
+        "url" : "https://github.com/XJINE"
+    },
+    "keywords":
+    [
+        "GUI"
+    ],
+    "dependencies":
+    {
+    }
+}
