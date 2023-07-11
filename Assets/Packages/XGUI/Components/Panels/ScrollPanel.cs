@@ -14,6 +14,9 @@ namespace XGUI
         public float MaxWidth  { get; set; } = float.MaxValue;
         public float MaxHeight { get; set; } = float.MaxValue;
 
+        public bool AlwaysShowHorizontal { get; set; }
+        public bool AlwaysShowVertical   { get; set; }
+
         #endregion Property
 
         #region Constructor
@@ -29,28 +32,31 @@ namespace XGUI
         public Vector2 Show(params Action[] actions)
         {
             var previousValue = Value;
-
-            base.ShowTitle();
-
             var height = Mathf.Min(MaxHeight, Mathf.Max(MinHeight, Height));
             var width  = Mathf.Min(MaxWidth,  Mathf.Max(MinWidth,  Width));
 
             XGUILayout.VerticalLayout(() =>
             {
-                Value = GUILayout.BeginScrollView(Value, GUILayout.Width   (width),
-                                                         GUILayout.MinWidth(width),
-                                                         GUILayout.MaxWidth(width),
-                                                         GUILayout.Height  (height));
-                foreach (var action in actions)
-                {
-                    action();
-                }
+                base.ShowTitle();
+                XGUILayout.VerticalLayout(() =>
+                    {
+                        Value = GUILayout.BeginScrollView(Value, AlwaysShowHorizontal,
+                                                                 AlwaysShowVertical,
+                                                                 GUILayout.Width   (width),
+                                                                 GUILayout.MinWidth(width),
+                                                                 GUILayout.MaxWidth(width),
+                                                                 GUILayout.Height  (height));
+                        foreach (var action in actions)
+                        {
+                            action();
+                        }
 
-                GUILayout.EndScrollView();
-            },
-            BoxSkin? GUI.skin.box : null, GUILayout.Height   (height),
-                                          GUILayout.MinHeight(height),
-                                          GUILayout.MaxHeight(height));
+                        GUILayout.EndScrollView();
+                    },
+                    BoxSkin? GUI.skin.box : null, GUILayout.Height   (height),
+                                                  GUILayout.MinHeight(height),
+                                                  GUILayout.MaxHeight(height));
+            });
 
             Updated = previousValue != Value;
 
