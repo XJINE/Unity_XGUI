@@ -2,7 +2,7 @@
     "name"       : "com.xjine.xgui",
     "displayName": "XGUI", 
     "version"    : "2.3.1",
-    "unity"      : "2022.2.19",
+    "unity"      : "2022.2",
     "description": "Utilities to make a lot of IMGUI(OnGUI). It is easy & fast.",
     "author"     :
     {
