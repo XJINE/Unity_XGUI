@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace XGUI
 {
@@ -79,6 +80,11 @@ namespace XGUI
                 if (IsDraggable)
                 {
                     GUI.DragWindow();
+                }
+
+                if (Event.current.button == 1)
+                {
+                    IsVisible = false;
                 }
             }
 
