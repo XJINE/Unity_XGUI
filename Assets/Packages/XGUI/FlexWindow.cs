@@ -26,12 +26,12 @@ namespace XGUI
         }
 
         public int   ID          { get; private set; }
-        public float MinWidth    { get; set; }
-        public float MinHeight   { get; set; }
-        public float MaxWidth    { get; set; }
-        public float MaxHeight   { get; set; }
-        public bool  IsDraggable { get; set; }
-        public bool  IsVisible   { get; set; }
+        public float MinWidth    { get;         set; }
+        public float MinHeight   { get;         set; }
+        public float MaxWidth    { get;         set; }
+        public float MaxHeight   { get;         set; }
+        public bool  IsDraggable { get;         set; }
+        public bool  IsVisible   { get;         set; }
 
         #endregion Property
 
@@ -70,24 +70,6 @@ namespace XGUI
                 return new Rect(_value.position.x, _value.position.y, 0, 0);
             }
 
-            void WindowFunction(int windowID)
-            {
-                foreach (var action in guiAction)
-                {
-                    action();
-                }
-
-                if (IsDraggable)
-                {
-                    GUI.DragWindow();
-                }
-
-                if (Event.current.button == 1)
-                {
-                    IsVisible = false;
-                }
-            }
-
             // NOTE:
             // GUILayout.Window will render stretched window when width or height = 0.
             // However, there is a problem to render window with 0 width (or height).
@@ -114,6 +96,19 @@ namespace XGUI
                                      GUILayout.MaxHeight(MaxHeight));
 
             return _value;
+
+            void WindowFunction(int windowID)
+            {
+                foreach (var action in guiAction)
+                {
+                    action();
+                }
+
+                if (IsDraggable)
+                {
+                    GUI.DragWindow();
+                }
+            }
         }
 
         #endregion Method

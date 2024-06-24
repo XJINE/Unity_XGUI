@@ -34,7 +34,7 @@ public class Sample01 : MonoBehaviour
     private readonly Matrix4x4GUI        _matrixGUI     = new ("Matrix4x4"   );
     private readonly EnumGUI<CameraType> _enumGUI       = new ("Enum"        );
 
-    private readonly FlexWindow   _window       = new ("Sample01");
+    private readonly FlexWindow   _window       = new("Sample01");
     private readonly TabPanel     _tabPanel     = new ();
     private readonly FoldoutPanel _foldoutPanel = new ("Click to Open/Close");
     private readonly ScrollPanel  _scrollPanel  = new ();

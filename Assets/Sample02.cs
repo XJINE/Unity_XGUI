@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using XGUI;
 
 public class Sample02 : MonoBehaviour
@@ -11,7 +12,7 @@ public class Sample02 : MonoBehaviour
     public List<CameraType> enumListValue;
     public List<int[]>      intArrayListValue = new () {new []{ 1, 2, 3 }, new []{ 4, 5, 6 }};
 
-    private readonly FlexWindow _window = new ("Sample02");
+    private readonly FlexWindow _window = new("Sample02");
 
     private readonly FlexListGUI<int, int[]> _intArrayGUI = new ("IntArrayGUI")
     {
